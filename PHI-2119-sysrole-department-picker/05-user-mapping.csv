@@ -1,0 +1,102 @@
+retina_id,position,department,app_role,current_sysroles,target_sysroles,login_result,regulator,group,note
+MK.RIDHA.DANJANNY,GENERAL MANAGER,,SuperAdmin,SuperAdmin,Super Admin,Super Admin picker,Gains,A,Normalize spelling to one value
+R3TEST.SUPERADMIN,STAFF,,SuperAdmin,SuperAdmin,Super Admin,Super Admin picker,Gains,A,Normalize spelling to one value
+MK.JOHANARIFIANTO,Manager,Production Operations,regulator of production operations,SuperAdmin ; Team Member General,Super Admin,Super Admin picker,Keeps,A,Normalize spelling to one value
+MK.SUPER_ADMIN,Manager,Project,Project,SuperAdmin ; Team Member General,Super Admin,Super Admin picker,Gains,A,Normalize spelling to one value
+PHI.SUPERADMIN,STAFF,Project,regulator of project,SuperAdmin,Super Admin,Super Admin picker,Keeps,A,Normalize spelling to one value
+MK.SENIORMANAGER,SENIOR MANAGER,Projects,regulator of project,Operation & Surface Facilities ; Production Operations ; Project ; SUper Admin ; Subsurface Development Area 1 ; Subsurface Development Area 2,Super Admin,Super Admin picker,Keeps,A,Normalize spelling to one value
+PHI.SENIORMANAGERSSDP,SENIOR MANAGER,,Subsurface Development Area 1,Subsurface Development Area 1 ; Subsurface Development Area 2,Subsurface Development Area 1 - Modify - Leader ; Subsurface Development Area 2 - Modify - Leader,GM/SM picker,Gains,B,"Leader confirmed (D23). Becomes a regulator, which GM/SM are not today"
+R3TEST.GM,GENERAL MANAGER,Operation & Surface Facilities,Team Member General,Operation & Surface Facilities ; Production Operations ; Project ; Subsurface Development Area 1 ; Subsurface Development Area 2 ; Team Member General,Operations & Surface Facilities - Modify - Leader ; Production Operations - Modify - Leader ; Projects - Modify - Leader ; Subsurface Development Area 1 - Modify - Leader ; Subsurface Development Area 2 - Modify - Leader,GM/SM picker,Gains,B,"Leader confirmed (D23). Becomes a regulator, which GM/SM are not today"
+PHI.GENERALMANAGER,GENERAL MANAGER,Project,regulator of project,Operation & Surface Facilities ; Production Operations ; Project ; Subsurface Development Area 1 ; Subsurface Development Area 2,Operations & Surface Facilities - Modify - Leader ; Production Operations - Modify - Leader ; Projects - Modify - Leader ; Subsurface Development Area 1 - Modify - Leader ; Subsurface Development Area 2 - Modify - Leader,GM/SM picker,Keeps,B,"Leader confirmed (D23). Becomes a regulator, which GM/SM are not today"
+PHI.SENIORMANAGERPNP,SENIOR MANAGER,Project,regulator of project,Operation & Surface Facilities ; Production Operations ; Project,Operations & Surface Facilities - Modify - Leader ; Production Operations - Modify - Leader ; Projects - Modify - Leader,GM/SM picker,Keeps,B,"Leader confirmed (D23). Becomes a regulator, which GM/SM are not today"
+R3TEST.INDANA,SENIOR MANAGER,Project,Team Member General,Subsurface Development Area 1 ; Subsurface Development Area 2 ; Team Member General,Subsurface Development Area 1 - Modify - Leader ; Subsurface Development Area 2 - Modify - Leader,GM/SM picker,Gains,B,"Leader confirmed (D23). Becomes a regulator, which GM/SM are not today"
+RETEST.FARUQI,SENIOR MANAGER,Subsurface Development Area 1,Team Member General,Operation & Surface Facilities ; Production Operations ; Project ; Subsurface Development Area 1 ; Subsurface Development Area 2 ; Team Member General,Operations & Surface Facilities - Modify - Leader ; Production Operations - Modify - Leader ; Projects - Modify - Leader ; Subsurface Development Area 1 - Modify - Leader ; Subsurface Development Area 2 - Modify - Leader,GM/SM picker,Gains,B,"Leader confirmed (D23). Becomes a regulator, which GM/SM are not today"
+R3TEST.SM.PNP,SENIOR MANAGER,Subsurface Development Area 2,Project,OSF ; Operation & Surface Facilities ; PO ; Production Operations ; Project ; Subsurface Development Area 1 ; Subsurface Development Area 2,Operations & Surface Facilities - Modify - Leader ; Production Operations - Modify - Leader ; Projects - Modify - Leader ; Subsurface Development Area 1 - Modify - Leader ; Subsurface Development Area 2 - Modify - Leader,GM/SM picker,Gains,B,"Leader confirmed (D23). Becomes a regulator, which GM/SM are not today"
+PHI.OSF,STAFF,Operation & Surface Facilities,Operation & Surface Facilities,Operation & Surface Facilities,Operations & Surface Facilities - Modify - Member,Automatic,-,D,
+PHI.PO,STAFF,Production Operations,Production Operations,Production Operations,Production Operations - Modify - Member,Automatic,-,D,
+R3TEST.AMIN,TEAM MEMBER,Production Operations,Production Operations,Production Operations ; Team Member General,Production Operations - Modify - Member,Automatic,-,D,
+R3TEST.DRILLING,STAFF,Production Operations,Production Operations,Production Operations,Production Operations - Modify - Member,Automatic,-,D,
+R3TEST.PO,PROJECT OFFICER,Production Operations,Production Operations,PO,Production Operations - Modify - Member,Automatic,-,D,
+PHI.PROJECTS,STAFF,Project,Project,Project,Projects - Modify - Member,Automatic,-,D,
+MK.AGUNG.EKAWAHYU,STAFF,Subsurface Development Area 1,Subsurface Development Area 1,Subsurface Development Area 1,Subsurface Development Area 1 - Modify - Member,Automatic,-,D,
+PHI.APPROVER,STAFF,Subsurface Development Area 1,Subsurface Development Area 1,Subsurface Development Area 1,Subsurface Development Area 1 - Modify - Member,Automatic,-,D,
+PHI.SDA1,STAFF,Subsurface Development Area 1,Subsurface Development Area 1,Subsurface Development Area 1,Subsurface Development Area 1 - Modify - Member,Automatic,-,D,
+R3TEST.SDA1,STAFF,Subsurface Development Area 1,Subsurface Development Area 1,Subsurface Development Area 1,Subsurface Development Area 1 - Modify - Member,Automatic,-,D,
+R3TEST.YOSEVYN,STAFF,Subsurface Development Area 1,Subsurface Development Area 1,Subsurface Development Area 1,Subsurface Development Area 1 - Modify - Member,Automatic,-,D,
+MK.AGUNG.SEDAYU,STAFF,Subsurface Development Area 2,Subsurface Development Area 2,Subsurface Development Area 2,Subsurface Development Area 2 - Modify - Member,Automatic,-,D,
+PHI.SDA2,STAFF,Subsurface Development Area 2,Subsurface Development Area 2,Subsurface Development Area 2,Subsurface Development Area 2 - Modify - Member,Automatic,-,D,
+R3TEST.SDA2,STAFF,Subsurface Development Area 2,Subsurface Development Area 2,Subsurface Development Area 2,Subsurface Development Area 2 - Modify - Member,Automatic,-,D,
+RETEST.EKA,STAFF,Subsurface Development Area 2,Subsurface Development Area 2,Subsurface Development Area 2,Subsurface Development Area 2 - Modify - Member,Automatic,-,D,
+R3TEST.OSF,,OSF,Read Only,Read Only,Operations & Surface Facilities - Read - Guest,Automatic,-,F,From Read Only + users.department
+R3TEST.AGUNGEKA,TEAM MEMBER,Operation & Surface Facilities,Operation & Surface Facilities,Team Member General,Operations & Surface Facilities - Modify - Member,Automatic,-,F,From Team Member General + users.department
+R3TEST.VICEP,PROJECT OFFICER,Operation & Surface Facilities,Operation & Surface Facilities,Team Member General,Operations & Surface Facilities - Modify - Member,Automatic,-,F,From Team Member General + users.department
+R3TEST.ALIF,TEAM MEMBER,Production Operations,Production Operations,Team Member General,Production Operations - Modify - Member,Automatic,-,F,From Team Member General + users.department
+R3TEST.ARYA,TEAM MEMBER,Production Operations,Production Operations,Team Member General,Production Operations - Modify - Member,Automatic,-,F,From Team Member General + users.department
+R3TEST.FADILA,TEAM MEMBER,Production Operations,Production Operations,Team Member General,Production Operations - Modify - Member,Automatic,-,F,From Team Member General + users.department
+R3TEST.SM.SSDP,SENIOR MANAGER,Production Operations,regulator of production operations,Team Member General,Production Operations - Modify - Leader,Automatic,Keeps,F,Currently regulator with an old-style SYSROLE
+R3TEST.TIAR,TEAM MEMBER,Production Operations,Production Operations,Team Member General,Production Operations - Modify - Member,Automatic,-,F,From Team Member General + users.department
+R3TEST.AGIL,TEAM MEMBER,Project,Project,Team Member General,Projects - Modify - Member,Automatic,-,F,From Team Member General + users.department
+R3TEST.ALIEF,TEAM MEMBER,Project,Project,Team Member General,Projects - Modify - Member,Automatic,-,F,From Team Member General + users.department
+R3TEST.FADHILA,TEAM MEMBER,Project,Project,Team Member General,Projects - Modify - Member,Automatic,-,F,From Team Member General + users.department
+R3TEST.FADIL,TEAM MEMBER,Project,Project,Team Member General,Projects - Modify - Member,Automatic,-,F,From Team Member General + users.department
+R3TEST.FADILARDHI,TEAM MEMBER,Project,Project,Team Member General,Projects - Modify - Member,Automatic,-,F,From Team Member General + users.department
+R3TEST.JORDI,TEAM MEMBER,Project,Project,Team Member General,Projects - Modify - Member,Automatic,-,F,From Team Member General + users.department
+R3TEST.PROJECT,PROJECT MANAGER,Project,Project,Project Manager,Projects - Modify - Leader,Automatic,Gains,F,Project Manager assumed to be Leader
+R3TEST.RINALDY,TEAM MEMBER,Project,Project,Team Member General,Projects - Modify - Member,Automatic,-,F,From Team Member General + users.department
+R3TEST.FIELDINSPECTOR,STAFF,Field Inspector,Field Inspector,Field Inspector,,SUBFUNGSI + merge,-,G,"Stays old-style and gets merged permissions, or assign a department"
+,,,Field Inspector,,,SUBFUNGSI + merge,-,E,Check in Retina
+,,,Field Inspector,,,SUBFUNGSI + merge,-,E,Check in Retina
+,,,Field Inspector,,,SUBFUNGSI + merge,-,E,Check in Retina
+,,,AEContract,,,SUBFUNGSI + merge,-,E,Check in Retina
+,,,Vendor,,,SUBFUNGSI + merge,-,E,"Vendor account, no Retina role expected"
+,,,Vendor,,,SUBFUNGSI + merge,-,E,"Vendor account, no Retina role expected"
+,,,Vendor,,,SUBFUNGSI + merge,-,E,"Vendor account, no Retina role expected"
+,,,Vendor,,,SUBFUNGSI + merge,-,E,"Vendor account, no Retina role expected"
+,,,Vendor,,,SUBFUNGSI + merge,-,E,"Vendor account, no Retina role expected"
+,,,Vendor,,,SUBFUNGSI + merge,-,E,"Vendor account, no Retina role expected"
+,,,Vendor,,,SUBFUNGSI + merge,-,E,"Vendor account, no Retina role expected"
+,,,Vendor,,,SUBFUNGSI + merge,-,E,"Vendor account, no Retina role expected"
+,,,Vendor,,,SUBFUNGSI + merge,-,E,"Vendor account, no Retina role expected"
+,,,Vendor,,,SUBFUNGSI + merge,-,E,"Vendor account, no Retina role expected"
+,,,Vendor,,,SUBFUNGSI + merge,-,E,"Vendor account, no Retina role expected"
+,,,Vendor,,,SUBFUNGSI + merge,-,E,"Vendor account, no Retina role expected"
+,,,Vendor,,,SUBFUNGSI + merge,-,E,"Vendor account, no Retina role expected"
+,,,Vendor,,,SUBFUNGSI + merge,-,E,"Vendor account, no Retina role expected"
+,,,Vendor,,,SUBFUNGSI + merge,-,E,"Vendor account, no Retina role expected"
+,,,Vendor,,,SUBFUNGSI + merge,-,E,"Vendor account, no Retina role expected"
+,,,Vendor,,,SUBFUNGSI + merge,-,E,"Vendor account, no Retina role expected"
+,,,Vendor,,,SUBFUNGSI + merge,-,E,"Vendor account, no Retina role expected"
+,,,Vendor,,,SUBFUNGSI + merge,-,E,"Vendor account, no Retina role expected"
+,,,Vendor,,,SUBFUNGSI + merge,-,E,"Vendor account, no Retina role expected"
+,,,Vendor,,,SUBFUNGSI + merge,-,E,"Vendor account, no Retina role expected"
+,,,Vendor,,,SUBFUNGSI + merge,-,E,"Vendor account, no Retina role expected"
+,,,Vendor,,,SUBFUNGSI + merge,-,E,"Vendor account, no Retina role expected"
+,,,Vendor,,,SUBFUNGSI + merge,-,E,"Vendor account, no Retina role expected"
+,,,Vendor,,,SUBFUNGSI + merge,-,E,"Vendor account, no Retina role expected"
+,,,Vendor,,,SUBFUNGSI + merge,-,E,"Vendor account, no Retina role expected"
+,,,Vendor,,,SUBFUNGSI + merge,-,E,"Vendor account, no Retina role expected"
+,,,Vendor,,,SUBFUNGSI + merge,-,E,"Vendor account, no Retina role expected"
+,,,Vendor,,,SUBFUNGSI + merge,-,E,"Vendor account, no Retina role expected"
+,,,Vendor,,,SUBFUNGSI + merge,-,E,"Vendor account, no Retina role expected"
+,,,Vendor,,,SUBFUNGSI + merge,-,E,"Vendor account, no Retina role expected"
+,,,Vendor,,,SUBFUNGSI + merge,-,E,"Vendor account, no Retina role expected"
+,,,Vendor,,,SUBFUNGSI + merge,-,E,"Vendor account, no Retina role expected"
+,,,Vendor,,,SUBFUNGSI + merge,-,E,"Vendor account, no Retina role expected"
+,,,Vendor,,,SUBFUNGSI + merge,-,E,"Vendor account, no Retina role expected"
+,,,Super Admin,,,SUBFUNGSI + merge,-,E,Check in Retina
+,,,Super Admin,,,SUBFUNGSI + merge,-,E,Check in Retina
+,,,Super Admin,,,SUBFUNGSI + merge,-,E,Check in Retina
+,,,Super Admin,,,SUBFUNGSI + merge,-,E,Check in Retina
+,,,Super Admin,,,SUBFUNGSI + merge,-,E,Check in Retina
+,,,Super Admin,,,SUBFUNGSI + merge,-,E,Check in Retina
+,,,Super Admin,,,SUBFUNGSI + merge,-,E,Check in Retina
+,,,Super Admin,,,SUBFUNGSI + merge,-,E,Check in Retina
+,,,Super Admin,,,SUBFUNGSI + merge,-,E,Check in Retina
+,,,Super Admin,,,SUBFUNGSI + merge,-,E,Check in Retina
+,,,Super Admin,,,SUBFUNGSI + merge,-,E,Check in Retina
+,,,Super Admin,,,SUBFUNGSI + merge,-,E,Check in Retina
+,,,Super Admin,,,SUBFUNGSI + merge,-,E,Check in Retina
+,,,Coordinator,,,SUBFUNGSI + merge,-,E,Check in Retina
+,,,Coordinator,,,SUBFUNGSI + merge,-,E,Check in Retina
+R3TEST.SENIORMANAGER,SENIOR MANAGER,,Production Operations,,,SUBFUNGSI + merge,-,E,Check in Retina
+REGULATOR.OCEAN,TEAM MEMBER,Project,Project,,,SUBFUNGSI + merge,-,E,Check in Retina

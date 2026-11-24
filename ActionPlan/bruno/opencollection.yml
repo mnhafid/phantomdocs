@@ -1,0 +1,9 @@
+opencollection: 1.0.0
+
+info:
+  name: Action Plan SRP ESP (PHI-2494)
+
+request:
+  variables:
+    - name: base_url
+      value: http://0.0.0.0:5071

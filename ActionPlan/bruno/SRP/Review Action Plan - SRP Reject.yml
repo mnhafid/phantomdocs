@@ -1,0 +1,66 @@
+info:
+  name: Review Action Plan - SRP Reject
+  type: http
+  seq: 7
+
+http:
+  method: POST
+  url: "{{base_url}}/api/v1/well-surveilence/action-plans/:source/:id/review"
+  params:
+    - name: source
+      value: "pep"
+      type: path
+    - name: id
+      value: "{{plan_id}}"
+      type: path
+  body:
+    type: json
+    data: |-
+      {
+        "decision": "reject",
+        "remarks": "Unit pompa tidak tersedia",
+        "approvers": [
+          {
+            "level": 1,
+            "user_id": [
+              "{{mgr_id}}"
+            ]
+          }
+        ]
+      }
+  auth:
+    type: bearer
+    token: "{{po_token}}"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: Reject
+    request:
+      url: "{{base_url}}/api/v1/well-surveilence/action-plans/:source/:id/review"
+      method: POST
+    response:
+      status: 200
+      statusText: OK
+      body:
+        type: text
+        data: |-
+          {
+            "data": {
+              "action_plan_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+              "source": "pep",
+              "work_order_number": "0005/WO/SDA1/2026",
+              "approval_status": "reject_in_approval",
+              "cycle_no": 1,
+              "path": "reject",
+              "current_level": 1,
+              "total_levels": 1
+            },
+            "status": "success",
+            "code": "00",
+            "message": "Review action plan succeed"
+          }

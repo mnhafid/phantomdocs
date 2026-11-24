@@ -1,0 +1,12 @@
+decision,check,result,detail
+"D7","One-department user goes to the dashboard, no picker, no Switch Workspace","PASS","picker=false menu=false"
+"D22","Known department keeps its logo","PASS","/ipms/assets/logo_projects.2fc4cb17.svg"
+"D8","Multi-department STAFF user is forced to Choose Tenant","PASS","http://localhost:9119/ipms/choose-tenant?redir=%252Fdashboard"
+"D8","Other pages redirect to Choose Tenant until picked","PASS","http://localhost:9119/ipms/choose-tenant?redir=%252Fcontracts%252Foverview"
+"D19","Only the user's departments show, group step skipped for one group","PASS","logo OSF,logo Projects"
+"D19","Clicking a card picks and full-page loads into the app","PASS","reloaded=true department=Project"
+"D18","Switch Workspace appears after picking and lists only own departments","PASS","menu=true"
+"D8","Switching from the profile menu changes department","PASS","Operation & Surface Facilities"
+"D20","Unknown department appears under Other with the Phantom logo","PASS","logo Other,logo PnP /ipms/assets/logo_phantom.8c85e233.svg"
+"D22","Unrecognised department shows the general Phantom logo","PASS","/ipms/assets/logo_phantom.8c85e233.svg"
+"D9","GM gets both groups and every department","PASS","logo PnP,logo SSDP pnp=3"

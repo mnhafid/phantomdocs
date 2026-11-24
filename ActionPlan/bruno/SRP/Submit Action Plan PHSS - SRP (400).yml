@@ -1,0 +1,66 @@
+info:
+  name: Submit Action Plan PHSS - SRP (400)
+  type: http
+  seq: 10
+
+http:
+  method: POST
+  url: "{{base_url}}/api/v1/well-surveilence/action-plans/phss/submit"
+  body:
+    type: json
+    data: |-
+      {
+        "action_plan_type": "artificial_lift",
+        "draft_id": null,
+        "well_id": "{{well_id}}",
+        "wo_number": "{{wo_number}}",
+        "start_date": "2026-12-14",
+        "end_date": "2026-12-16",
+        "pic_ids": [
+          "{{pic_id}}"
+        ],
+        "notes": "SRP di PHSS",
+        "ownership": "Pertamina EP",
+        "artificial_lift": {
+          "activity_type": "installation",
+          "action_mode": "installation_schedule",
+          "method": "sucker_rod_pump",
+          "assigned_department": "Production Operations",
+          "pump_type": "Insert Pump",
+          "pump_brand": "Weatherford",
+          "stroke_length": 86,
+          "spmfreq": 8.5,
+          "prime_mover_name": "Gas Engine G3306",
+          "power": 40,
+          "owned_by": "rental",
+          "contract_number": "CTR-PO/2026/021",
+          "production": 120,
+          "pressure": 150
+        }
+      }
+  auth:
+    type: bearer
+    token: "{{ssdp_phss_token}}"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: PHSS ditolak
+    request:
+      url: "{{base_url}}/api/v1/well-surveilence/action-plans/phss/submit"
+      method: POST
+    response:
+      status: 400
+      statusText: Bad Request
+      body:
+        type: text
+        data: |-
+          {
+            "status": "failed",
+            "code": "01",
+            "message": "artificial_lift.method sucker_rod_pump is only available for PEP"
+          }

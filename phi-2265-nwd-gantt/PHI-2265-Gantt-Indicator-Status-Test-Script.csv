@@ -1,0 +1,355 @@
+﻿No Ticket,*Module,*Test Id,*Feature / Item,*Test Type,*Test Scenario,*Test Step,*Expected Result,Gherkin User Story,*Test Data,*Result Testing,automation Candidate ,*PIC,*PIC Reviewer,*Prioritas,Keterangan,*Evidence
+PHI-2265,Project Monitoring - Gantt NWD (Tanggal & Indikator),TC_PHI2265_IND_001,Tanggal kartu dari task,Positif,Verifikasi posisi awal dan akhir kartu diambil dari task paling awal dan paling akhir,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Upload .mpp untuk Proyek X (task paling awal mulai 10-02-2026, task paling akhir selesai 25-05-2026)
+4. Buka menu Project Monitoring > New Well Development (/projects/<working_area>/<zone>?category=newwelldevelopment), Sub Category DLC
+5. Hover kartu Proyek X",Ujung kiri kartu tepat di 10 Feb 2026 dan ujung kanan di 25 Mei 2026. Tooltip menampilkan Start: 10-02-2026 dan End: 25-05-2026.,"Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario: Derive card dates from the project tasks
+  Given project ""X"" has its earliest task starting ""10-02-2026"" and its latest task ending ""25-05-2026""
+  When the user hovers the card of project ""X""
+  Then the card spans from ""10-02-2026"" to ""25-05-2026""
+  And the tooltip shows ""Start: 10-02-2026"" and ""End: 25-05-2026""",,,Tentative,,,Yes,,
+,Project Monitoring - Gantt NWD (Tanggal & Indikator),TC_PHI2265_IND_002,Tanggal kartu setelah task berubah,Positif,Verifikasi tanggal kartu mengikuti perubahan task (hapus task terakhir / rebaseline),"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Buka /projects/:id/task project uji
+4. Hapus atau rebaseline task yang tanggal selesainya paling akhir
+5. Buka menu Project Monitoring > New Well Development (/projects/<working_area>/<zone>?category=newwelldevelopment), Sub Category DLC
+6. Refresh Gantt dan hover kartu",End Date kartu berubah ke tanggal selesai task paling akhir yang masih aktif. Task yang sudah dihapus tidak dihitung.,"Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario: Recompute card dates after tasks change
+  Given the latest task of project ""X"" ends ""25-05-2026""
+  When that task is removed and the next latest task ends ""30-04-2026""
+  Then the card ends at ""30-04-2026""",,,Tentative,,,Yes,,
+,Project Monitoring - Gantt NWD (Tanggal & Indikator),TC_PHI2265_IND_003,Project tanpa task,Positif,Verifikasi kartu project tanpa task memakai tanggal project,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Siapkan project NWD draft tanpa task (belum upload .mpp) dengan Start Date 01-03-2026 dan End Date 30-06-2026
+4. Buka menu Project Monitoring > New Well Development (/projects/<working_area>/<zone>?category=newwelldevelopment), Sub Category DLC
+5. Klik tab Project Draft
+6. Hover kartu project",Kartu tampil dari 01-03-2026 sampai 30-06-2026. Ketiga indikator berwarna kuning.,"Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario: Fall back to project dates when there are no tasks
+  Given a draft NWD project without tasks with start ""01-03-2026"" and end ""30-06-2026""
+  When the user opens the ""Project Draft"" tab
+  Then the card spans from ""01-03-2026"" to ""30-06-2026""
+  And all three indicators are yellow",,,Tentative,,,Yes,Keputusan BE (PRD 3.1 hanya menyebut task),
+,Project Monitoring - Gantt NWD (Tanggal & Indikator),TC_PHI2265_IND_004,Project tanpa task dan tanggal,Negatif,Verifikasi project tanpa task dan tanpa tanggal project tidak tampil,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Siapkan project NWD draft tanpa task dan tanpa Start/End Date
+4. Buka menu Project Monitoring > New Well Development (/projects/<working_area>/<zone>?category=newwelldevelopment), Sub Category DLC
+5. Klik tab Project Draft",Project tidak tampil di Gantt (tidak ada kartu kosong atau error).,"Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario: Skip a project without any dates
+  Given a draft NWD project without tasks and without start or end date
+  When the user opens the ""Project Draft"" tab
+  Then the project is not shown on the Gantt",,,Tentative,,,Yes,Keputusan BE,
+,Project Monitoring - Gantt NWD (Tanggal & Indikator),TC_PHI2265_IND_005,Format tanggal API,Positif,Verifikasi format tanggal pada response GET /v1/projects/nwd,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Ambil bearer token sesi login untuk memanggil API (Postman/Bruno)
+4. Kirim GET /v1/projects/nwd?working_area=PEP&zone=ABI%2FBD&sub_category=DLC&year=2026","start_date dan end_date setiap task kartu berformat DD-MM-YYYY, end_date >= start_date, dan berisi tanggal asli walau di luar tahun filter.","Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario: Return card dates as DD-MM-YYYY
+  When the client sends ""GET /v1/projects/nwd"" for year ""2026""
+  Then every start_date and end_date matches ""DD-MM-YYYY""
+  And end_date is not earlier than start_date
+  And dates outside 2026 are returned unclipped",,,Tentative,,,Yes,,
+,Project Monitoring - Gantt NWD (Tanggal & Indikator),TC_PHI2265_IND_006,Urutan simbol indikator,Positif,Verifikasi tiga simbol indikator tampil berurutan pada kartu,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Buka menu Project Monitoring > New Well Development (/projects/<working_area>/<zone>?category=newwelldevelopment), Sub Category DLC
+4. Zoom kartu project","Dari kiri ke kanan: lingkaran (●) Perizinan, kotak (■) Land Acquisition, segitiga (▲) Site Preparation.","Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario: Show the three indicators in order
+  When the user views a project card
+  Then the indicators are shown left to right as ""●"" Perizinan, ""■"" Land Acquisition and ""▲"" Site Preparation",,,Tentative,,,Yes,,
+,Project Monitoring - Gantt NWD (Tanggal & Indikator),TC_PHI2265_IND_007,Warna indikator,Positif,Verifikasi warna indikator <indicator> untuk status <task_status> dengan ETC <etc> Plan Date,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Buka /projects/:id/task project uji
+4. Ubah status task <indicator> dan ETC sesuai Examples
+5. Buka menu Project Monitoring > New Well Development (/projects/<working_area>/<zone>?category=newwelldevelopment), Sub Category DLC
+6. Refresh Gantt dan lihat simbol indikator","Simbol berwarna sesuai Examples. Plan Date = tanggal selesai (end date) task, ETC = ETC task.","Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario Outline: Color ""<indicator>"" for ""<task_status>"" with ETC ""<etc>"" the plan date
+  Given task ""<indicator>"" has status ""<task_status>"", plan end ""<plan>"" and ETC ""<etc_date>""
+  When the user refreshes the Gantt
+  Then the ""<symbol>"" indicator is ""<color>""
+
+Examples:
+  | indicator | symbol | task_status | etc | plan | etc_date | color |
+  | #Perizinan | ● | Finished | any | 15-03-2026 | 28-03-2026 | Blue #0284C7 |
+  | #Perizinan | ● | Finished with Note | any | 15-03-2026 | 10-03-2026 | Blue #0284C7 |
+  | #Land Acquisition | ■ | In Progress | < | 20-03-2026 | 18-03-2026 | Green #16A34A |
+  | #Site Preparation | ▲ | Not Started | < | 20-03-2026 | 18-03-2026 | Yellow #D97706 |
+  | #Land Acquisition | ■ | In Progress | > | 15-03-2026 | 28-03-2026 | Red #DC2626 |
+  | #Site Preparation | ▲ | Not Started | > | 15-03-2026 | 28-03-2026 | Red #DC2626 |",,,Tentative,,,Yes,,
+,Project Monitoring - Gantt NWD (Tanggal & Indikator),TC_PHI2265_IND_008,Batas ETC sama dengan Plan Date,Positif,Verifikasi ETC sama dengan Plan Date dianggap tepat waktu,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Buka /projects/:id/task project uji
+4. Set ETC task <indicator> sama persis dengan plan end date dan status <task_status>
+5. Buka menu Project Monitoring > New Well Development (/projects/<working_area>/<zone>?category=newwelldevelopment), Sub Category DLC
+6. Refresh Gantt",Indikator tidak merah (aturan ETC <= Plan Date).,"Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario Outline: Treat ETC equal to the plan date as on time
+  Given task ""<indicator>"" has status ""<task_status>"" and ETC equal to its plan end date
+  When the user refreshes the Gantt
+  Then the indicator is ""<color>""
+
+Examples:
+  | indicator | task_status | color |
+  | #Land Acquisition | In Progress | Green |
+  | #Site Preparation | Not Started | Yellow |",,,Tentative,,,Yes,,
+,Project Monitoring - Gantt NWD (Tanggal & Indikator),TC_PHI2265_IND_009,ETC kosong,Positif,Verifikasi indikator saat ETC task belum terisi,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Buka /projects/:id/task project uji
+4. Pastikan task <indicator> belum punya ETC (belum pernah recalc) dengan status <task_status>
+5. Buka menu Project Monitoring > New Well Development (/projects/<working_area>/<zone>?category=newwelldevelopment), Sub Category DLC
+6. Refresh Gantt",Indikator tidak merah; dianggap on track (ETC = Plan Date).,"Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario Outline: Treat an empty ETC as on track
+  Given task ""<indicator>"" has status ""<task_status>"" and no ETC
+  When the user refreshes the Gantt
+  Then the indicator is ""<color>""
+
+Examples:
+  | indicator | task_status | color |
+  | #Perizinan | In Progress | Green |
+  | #Site Preparation | Not Started | Yellow |",,,Tentative,,,Yes,Keputusan BE (di luar PRD 3.2),
+,Project Monitoring - Gantt NWD (Tanggal & Indikator),TC_PHI2265_IND_010,Status task On Hold,Positif,Verifikasi task wajib berstatus On Hold dievaluasi seperti Not Started,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Buka /projects/:id/task project uji
+4. Set status task #Perizinan menjadi On Hold dengan ETC sesuai Examples
+5. Buka menu Project Monitoring > New Well Development (/projects/<working_area>/<zone>?category=newwelldevelopment), Sub Category DLC
+6. Refresh Gantt",Warna sesuai Examples.,"Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario Outline: Evaluate an On Hold task like Not Started
+  Given task ""#Perizinan"" is ""On Hold"" with ETC ""<etc>"" its plan end date
+  When the user refreshes the Gantt
+  Then the ""●"" indicator is ""<color>""
+
+Examples:
+  | etc | color |
+  | <= | Yellow |
+  | > | Red |",,,Tentative,,,Yes,Keputusan BE (di luar PRD 3.2),
+,Project Monitoring - Gantt NWD (Tanggal & Indikator),TC_PHI2265_IND_011,Status task Canceled,Positif,Verifikasi task wajib berstatus Canceled dianggap selesai,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Buka /projects/:id/task project uji
+4. Set status task #Land Acquisition menjadi Canceled (ETC > Plan Date)
+5. Buka menu Project Monitoring > New Well Development (/projects/<working_area>/<zone>?category=newwelldevelopment), Sub Category DLC
+6. Refresh Gantt","Indikator ■ berwarna biru (completed), tidak merah walau ETC > Plan Date.","Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario: Treat a canceled mandatory task as completed
+  Given task ""#Land Acquisition"" is ""Canceled"" with ETC later than its plan end date
+  When the user refreshes the Gantt
+  Then the ""■"" indicator is ""Blue""",,,Tentative,,,Yes,Keputusan BE (di luar PRD 3.2); perlu konfirmasi PO,
+,Project Monitoring - Gantt NWD (Tanggal & Indikator),TC_PHI2265_IND_012,Task wajib tidak ada,Positif,Verifikasi indikator saat task wajib <indicator> tidak ada di project,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Siapkan project NWD lama (sebelum validasi milestone .mpp) yang tidak punya task <indicator>
+4. Buka menu Project Monitoring > New Well Development (/projects/<working_area>/<zone>?category=newwelldevelopment), Sub Category DLC
+5. Refresh Gantt",Indikator <symbol> berwarna kuning (on_hold). Komponen tidak error.,"Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario Outline: Show a missing mandatory task as yellow
+  Given the project has no task named ""<indicator>""
+  When the user refreshes the Gantt
+  Then the ""<symbol>"" indicator is ""Yellow""
+
+Examples:
+  | indicator | symbol |
+  | #Perizinan | ● |
+  | #Land Acquisition | ■ |
+  | #Site Preparation | ▲ |",,,Tentative,,,Yes,Upload .mpp baru sudah wajib memuat ketiga task (validasi milestone),
+,Project Monitoring - Gantt NWD (Tanggal & Indikator),TC_PHI2265_IND_013,Task wajib duplikat,Positif,Verifikasi indikator memakai kondisi terburuk jika task wajib muncul lebih dari sekali,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Siapkan project dengan dua task #Perizinan sesuai Examples
+4. Buka menu Project Monitoring > New Well Development (/projects/<working_area>/<zone>?category=newwelldevelopment), Sub Category DLC
+5. Refresh Gantt",Indikator ● memakai kondisi terburuk: merah > kuning > hijau > biru.,"Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario Outline: Use the worst state for duplicate mandatory tasks
+  Given the project has two ""#Perizinan"" tasks in states ""<first>"" and ""<second>""
+  When the user refreshes the Gantt
+  Then the ""●"" indicator is ""<color>""
+
+Examples:
+  | first | second | color |
+  | Finished | In Progress, ETC > Plan | Red |
+  | Finished | Not Started, ETC <= Plan | Yellow |
+  | In Progress, ETC <= Plan | Finished | Green |
+  | Finished | Finished with Note | Blue |",,,Tentative,,,Yes,Keputusan BE,
+,Project Monitoring - Gantt NWD (Tanggal & Indikator),TC_PHI2265_IND_014,Pencocokan nama task wajib,Positif,Verifikasi pencocokan nama task wajib mengabaikan huruf besar/kecil dan spasi tepi,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Siapkan task dengan nama sesuai Examples (status Finished)
+4. Buka menu Project Monitoring > New Well Development (/projects/<working_area>/<zone>?category=newwelldevelopment), Sub Category DLC
+5. Refresh Gantt","Hasil sesuai Examples. Pencocokan sama dengan validasi milestone .mpp: trim + tidak membedakan huruf besar/kecil, tanda # dan spasi di tengah harus sama.","Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario Outline: Match mandatory task names like the milestone validation
+  Given a finished task named ""<task_name>""
+  When the user refreshes the Gantt
+  Then it ""<result>""
+
+Examples:
+  | task_name | result |
+  | #Perizinan | counts as Perizinan (Blue) |
+  |   #perizinan   | counts as Perizinan (Blue) |
+  | #LAND ACQUISITION | counts as Land Acquisition (Blue) |
+  | Perizinan | does not count; Perizinan stays Yellow |
+  | #Site  Preparation | does not count; Site Preparation stays Yellow |",,,Tentative,,,Yes,,
+,Project Monitoring - Gantt NWD (Tanggal & Indikator),TC_PHI2265_IND_015,Nilai indikator di API,Positif,Verifikasi nilai indikator pada response API hanya 4 enum,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Ambil bearer token sesi login untuk memanggil API (Postman/Bruno)
+4. Kirim GET /v1/projects/nwd untuk tab Overview, Draft (status=draft|canceled), dan Approval (need_approval=true)","Field perizinan, land_acquisition, site_preparation dan status di setiap kartu hanya bernilai completed, on_time, on_hold, atau late_start (tidak pernah null atau nilai lain).","Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario Outline: Return only the four known statuses on ""<tab>""
+  When the client sends ""GET /v1/projects/nwd"" with ""<params>""
+  Then every perizinan, land_acquisition, site_preparation and status value is one of ""completed"", ""on_time"", ""on_hold"", ""late_start""
+
+Examples:
+  | tab | params |
+  | Overview | status=in progress|finished |
+  | Draft | status=draft|canceled |
+  | Approval | need_approval=true |",,,Tentative,,,Yes,FE error jika menerima nilai di luar 4 enum,
+,Project Monitoring - Gantt NWD (Status Kartu),TC_PHI2265_IND_016,Status kartu,Positif,Verifikasi status kartu <status> berdasarkan indikator dan progres fisik project,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Siapkan project dengan kondisi sesuai Examples
+4. Buka menu Project Monitoring > New Well Development (/projects/<working_area>/<zone>?category=newwelldevelopment), Sub Category DLC
+5. Cari kartu project","Label, warna latar, dan border kartu sesuai Examples.","Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario Outline: Card status ""<status>""
+  Given a project with ""<condition>""
+  When the user views its card
+  Then the card label is ""<status>"" with background ""<bg>"" and border ""<border>""
+
+Examples:
+  | condition | status | bg | border |
+  | satu indikator merah | Late Start | tw-bg-appNegative-bg | #DC2626 |
+  | tidak ada merah, progres fisik 100% | Completed | tw-bg-appPrimary-bg | #0284C7 |
+  | tidak ada merah, progres fisik 0% | On Hold | tw-bg-appWarning-bg | #D97706 |
+  | tidak ada merah, progres 0% < x < 100% | On Time | tw-bg-appPositive-bg | #16A34A |",,,Tentative,,,Yes,"Status dari Project Level: progres fisik project, merah dari indikator",
+,Project Monitoring - Gantt NWD (Status Kartu),TC_PHI2265_IND_017,Prioritas Late Start,Positif,Verifikasi Late Start mengalahkan status lain,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Siapkan project dengan progres <progress> dan task #Site Preparation merah
+4. Buka menu Project Monitoring > New Well Development (/projects/<working_area>/<zone>?category=newwelldevelopment), Sub Category DLC
+5. Cari kartu project",Kartu tetap Late Start (merah) walau progres <progress>.,"Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario Outline: Late Start takes priority
+  Given a project with progress ""<progress>"" and a red ""▲"" indicator
+  When the user views its card
+  Then the card label is ""Late Start""
+
+Examples:
+  | progress |
+  | 100% |
+  | 0% |
+  | 45% |",,,Tentative,,,Yes,,
+,Project Monitoring - Gantt NWD (Status Kartu),TC_PHI2265_IND_018,Batas nilai progres,Positif,Verifikasi status kartu pada batas nilai progres,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Siapkan project tanpa indikator merah dengan progres sesuai Examples
+4. Buka menu Project Monitoring > New Well Development (/projects/<working_area>/<zone>?category=newwelldevelopment), Sub Category DLC
+5. Cari kartu project",Status sesuai Examples.,"Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario Outline: Card status at progress ""<progress>""
+  Given a project without red indicators and progress ""<progress>""
+  When the user views its card
+  Then the card label is ""<status>""
+
+Examples:
+  | progress | status |
+  | 0 | On Hold |
+  | 0.01 | On Time |
+  | 99.99 | On Time |
+  | 100 | Completed |
+  | tanpa data progres | On Hold |",,,Tentative,,,Yes,,
+,Project Monitoring - Gantt NWD (Status Kartu),TC_PHI2265_IND_019,Status kartu vs status task,Positif,"Verifikasi status kartu mengikuti progres project, bukan status task","1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Siapkan project dengan kondisi sesuai Examples
+4. Buka menu Project Monitoring > New Well Development (/projects/<working_area>/<zone>?category=newwelldevelopment), Sub Category DLC
+5. Cari kartu project",Status sesuai Examples.,"Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario Outline: Follow project progress over task status
+  Given ""<condition>""
+  When the user views its card
+  Then the card label is ""<status>""
+
+Examples:
+  | condition | status |
+  | progres 100% tetapi masih ada task In Progress | Completed |
+  | progres 20% tetapi semua task masih Not Started | On Time |",,,Tentative,,,Yes,"PRD revisi: ""Status ini masuknya dari Project Level""",
+,Project Monitoring - Gantt NWD (Status Kartu),TC_PHI2265_IND_020,Nilai progres pada kartu,Positif,Verifikasi progres pada kartu sama dengan progres project di list/detail,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Buka menu Project Monitoring > New Well Development (/projects/<working_area>/<zone>?category=newwelldevelopment), Sub Category DLC
+4. Catat nilai progres pada kartu project
+5. Buka list/detail project yang sama","Nilai progres (0–100, boleh desimal) sama dengan progres aktual project di list/detail.","Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario: Show the same progress as the project list
+  Given project ""MUT-384"" shows progress ""72.5"" in the project list
+  When the user views its Gantt card
+  Then the card shows progress ""72.5""",,,Tentative,,,Yes,,
+,Project Monitoring - Gantt NWD (Status Kartu),TC_PHI2265_IND_021,Status kartu di tab Draft & Approval,Positif,Verifikasi aturan status kartu sama di tab <tab>,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Buka menu Project Monitoring > New Well Development (/projects/<working_area>/<zone>?category=newwelldevelopment), Sub Category DLC
+4. Klik tab <tab>
+5. Cari kartu project",Aturan warna kartu dan indikator sama dengan tab Overview.,"Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario Outline: Apply the same card rules on the ""<tab>"" tab
+  When the user opens the ""<tab>"" tab
+  Then each card status follows the same indicator and progress rules as Overview
+
+Examples:
+  | tab |
+  | Project Draft |
+  | Approval |",,,Tentative,,,Yes,,
+,Project Monitoring - Gantt NWD (Status Kartu),TC_PHI2265_IND_022,Perubahan ETC tercermin,Positif,Verifikasi kartu berubah merah setelah ETC task wajib melewati Plan Date,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Siapkan project On Time
+4. Buka /projects/:id/task project uji
+5. Update progress/ETC sehingga ETC #Perizinan > Plan Date (jalankan recalc ETC)
+6. Buka menu Project Monitoring > New Well Development (/projects/<working_area>/<zone>?category=newwelldevelopment), Sub Category DLC
+7. Refresh Gantt",Indikator ● merah dan kartu berubah menjadi Late Start.,"Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario: Turn the card red after the ETC slips
+  Given project ""X"" is ""On Time""
+  When the ETC of ""#Perizinan"" moves past its plan end date
+  And the user refreshes the Gantt
+  Then the ""●"" indicator is ""Red""
+  And the card label is ""Late Start""",,,Tentative,,,Yes,,

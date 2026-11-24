@@ -1,0 +1,2 @@
+- When Input progress only boq with spk with status released can input progress 
+	- 

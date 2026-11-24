@@ -1,0 +1,20 @@
+info:
+  name: Get Next WO Number
+  type: http
+  seq: 1
+
+http:
+  method: GET
+  url: "{{base_url}}/api/v1/well-surveilence/action-plans/next-wo-number"
+  auth:
+    type: bearer
+    token: "{{ssdp_token}}"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+docs: |
+  Set env `wo_number` dari `data.wo_number`, lalu submit.

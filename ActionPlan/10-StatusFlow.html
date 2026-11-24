@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Action Plan Status Flow</title>
+<style>
+  :root { --bg:#ffffff; --fg:#1f2328; --muted:#59636e; --line:#d0d7de; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --bg:#0d1117; --fg:#e6edf3; --muted:#9198a1; --line:#30363d; }
+  }
+  :root[data-theme="dark"] { --bg:#0d1117; --fg:#e6edf3; --muted:#9198a1; --line:#30363d; }
+  body { background: var(--bg); color: var(--fg); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 0; padding: 16px; }
+  h1 { font-size: 20px; margin: 0 0 4px; }
+  h2 { font-size: 16px; margin: 24px 0 8px; }
+  p { color: var(--muted); margin: 4px 0 12px; }
+  .box { border: 1px solid var(--line); border-radius: 8px; padding: 12px; overflow-x: auto; }
+  .mermaid svg { max-width: 100%; height: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: 13px; }
+  th, td { border: 1px solid var(--line); padding: 6px 8px; text-align: left; vertical-align: top; }
+</style>
+</head>
+<body>
+<h1>Action Plan Status Flow</h1>
+<p>Source: 08-ScenarioTest.md. Decision 17 Nov 2026: modify_returned removed; a return to PO goes back to waiting_review (need_review) with origin data.</p>
+
+<h2>1. Whole flow (submit to approved)</h2>
+<div class="box">
+<pre class="mermaid">
+flowchart TD
+    S["SSDP submit"] --> N["PO PIC notified"]
+    N --> W["waiting_review - need_review"]
+
+    W -->|"PO approve (Test 1)"| A1["approved - SSDP: In Progress"]
+    W -->|"PO modify (Test 2)"| M1["modify_in_approval - level 1"]
+    W -->|"PO reject (Test 3)"| R1["reject_in_approval - level 1"]
+
+    M1 -->|"L1 approve"| M2["modify_in_approval - level 2"]
+    M2 -->|"L2 approve"| SS["waiting_ssdp_review - SSDP creator (NEW)"]
+    M1 -->|"L1 approve, 1 level only"| SS
+    SS -->|"SSDP approve"| A2["approved - proposal applied"]
+
+    M1 -->|"Test 2.1: L1 reject, back to need_review"| W
+    M2 -->|"Test 2.2: L2 reject, back to need_review"| W
+
+    R1 -->|"L1 approve to reject"| R2["reject_in_approval - level 2"]
+    R2 -->|"L2 approve to reject, back to need_review (Test 3)"| W
+    R1 -->|"Test 3.1: L1 ask PO to modify, back to need_review"| W
+    R2 -->|"L2 ask PO to modify, back to need_review"| W
+</pre>
+</div>
+
+<h2>2. Approval status state machine</h2>
+<div class="box">
+<pre class="mermaid">
+stateDiagram-v2
+    [*] --> waiting_review: SSDP submit, PO PIC notified
+    waiting_review --> approved: PO approve (direct)
+    waiting_review --> modify_in_approval: PO modify
+    waiting_review --> reject_in_approval: PO reject
+    modify_in_approval --> modify_in_approval: level approve, next level
+    modify_in_approval --> waiting_ssdp_review: last level approve (NEW)
+    modify_in_approval --> waiting_review: level reject (origin data)
+    reject_in_approval --> reject_in_approval: level continue, next level
+    reject_in_approval --> waiting_review: last level continue / level modify (origin data)
+    waiting_ssdp_review --> approved: SSDP approve (proposal applied)
+</pre>
+</div>
+
+<h2>3. Scenario to expected status</h2>
+<table>
+  <tr><th>Test</th><th>Step</th><th>Action plan status</th><th>Approval status</th><th>Level</th></tr>
+  <tr><td>1</td><td>SSDP submit</td><td>need_review</td><td>waiting_review</td><td>-</td></tr>
+  <tr><td>1</td><td>PO approve</td><td>on_schedule</td><td>approved</td><td>-</td></tr>
+  <tr><td>2</td><td>PO modify</td><td>routing</td><td>modify_in_approval</td><td>1</td></tr>
+  <tr><td>2</td><td>L1 approve</td><td>routing</td><td>modify_in_approval</td><td>2</td></tr>
+  <tr><td>2</td><td>L2 approve</td><td>routing</td><td>waiting_ssdp_review</td><td>-</td></tr>
+  <tr><td>2</td><td>SSDP approve</td><td>on_schedule</td><td>approved</td><td>-</td></tr>
+  <tr><td>2.1</td><td>L1 reject</td><td>need_review</td><td>waiting_review</td><td>-</td></tr>
+  <tr><td>2.2</td><td>L2 reject</td><td>need_review</td><td>waiting_review</td><td>-</td></tr>
+  <tr><td>3</td><td>PO reject, L1 and L2 approve to reject</td><td>need_review</td><td>waiting_review</td><td>-</td></tr>
+  <tr><td>3.1</td><td>L1 ask PO to modify</td><td>need_review</td><td>waiting_review</td><td>-</td></tr>
+  <tr><td>3.2</td><td colspan="4">Invalid as written: a Modify-round level cannot ask PO to modify. Rewrite before use.</td></tr>
+</table>
+
+<script type="module">
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.esm.min.mjs";
+  mermaid.initialize({ startOnLoad: false, theme: window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "default", securityLevel: "strict" });
+  await mermaid.run({ querySelector: ".mermaid" });
+</script>
+</body>
+</html>

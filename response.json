@@ -1,0 +1,3780 @@
+{
+  "access_token": "<TOKEN>",
+  "expires_in": 36000,
+  "refresh_expires_in": 43200,
+  "refresh_token": "<TOKEN>",
+  "token_type": "Bearer",
+  "not-before-policy": 1695106592,
+  "session_state": "0468cd54-2958-4173-b85c-d6624467a0f7",
+  "scope": "profile email",
+  "users": {
+    "name": "Agung Sedayu",
+    "email": "MK.AGUNG.SEDAYU@PERTAMINA.COM",
+    "username": "MK.AGUNG.SEDAYU"
+  },
+  "func": "SUBSURFACE DEVELOPMENT & PLANNING",
+  "subfunc": "SUBSURFACE DEVELOPMENT AREA 2",
+  "posname": "BACK-END ENGINEER",
+  "userInformation": {
+    "USERID": "MK.AGUNG.SEDAYU",
+    "USERNAME": "Agung Sedayu",
+    "EMAIL": "MK.AGUNG.SEDAYU@PERTAMINA.COM",
+    "POSID": "100008096",
+    "POSNAME": "BACK-END ENGINEER",
+    "UNITID": "10122226",
+    "UNITNAME": "GGR SUBSURFACE DEVELOPMENT AREA 2",
+    "COYCODE": "2021",
+    "COYNAME": "PEP",
+    "AREAID": "5608",
+    "AREANAME": "Upstream Reg 3 Zona 9 Office",
+    "SUBAREAID": "SI01",
+    "SUBAREANAME": "Balikpapan",
+    "CCID": "BS503115",
+    "CCNAME": "Z9-Manager Subsurface Development Area 2",
+    "POSCATEGORY": "STAFF",
+    "AUTHSERVER1": "PERSERO",
+    "KBO": "PHI72140",
+    "UIDTYPE": "LDAP",
+    "RESIDENCESTATUS": "HASFAM",
+    "PARENTUSERID": "RIKO.HAFIL",
+    "LOCGROUP": "ZONA 9",
+    "LOCCATEGORY": "OFFICE",
+    "SUBFUNGSI": "SUBSURFACE DEVELOPMENT AREA 2",
+    "FUNGSI": "SUBSURFACE DEVELOPMENT & PLANNING"
+  },
+  "employee": [
+    {
+      "USERID": "MK.AGUNG.SEDAYU",
+      "USERNAME": "Agung Sedayu",
+      "POSID": 100008096,
+      "POSNAME": "BACK-END ENGINEER",
+      "PARENTPOSID": 30234530,
+      "PARENTPOSNAME": "SR GGR SUBSURFACE DEVELOPMENT AREA 2",
+      "UIDTYPE": "LDAP",
+      "EMAIL": "MK.AGUNG.SEDAYU@PERTAMINA.COM",
+      "IDNUM": "367113221089****",
+      "PHONEMOBILE1": "085691046013",
+      "ASSIGNMENTTYPE": "MK",
+      "RESIDENCESTATUS": "HASFAM",
+      "PARENTUSERID": "RIKO.HAFIL",
+      "FUNCTION": "SUBSURFACE DEVELOPMENT & PLANNING",
+      "LOCATION": "OFFICE",
+      "SUBFUNCTION": "SUBSURFACE DEVELOPMENT AREA 2",
+      "LOCATIONGROUP": "ZONA 9",
+      "EMGCONTACTPHONE": "081382171273",
+      "EMGCONTACTNAME": "dani marita"
+    }
+  ],
+  "role": [
+    {
+      "SYSNAME": "PHANTOM",
+      "SYSROLE": "Operations Surface Facilities",
+      "acl": [
+        {
+          "COMPONENTID": "PHANTOM_Read Approval Route_Approval Route",
+          "URLPATH": "Approval Route",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read Approval Route",
+          "SEQ": 119
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update Approval Route_Approval Route",
+          "URLPATH": "Approval Route",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update Approval Route",
+          "SEQ": 120
+        },
+        {
+          "COMPONENTID": "PHANTOM_Delete Approval Route_Approval Route",
+          "URLPATH": "Approval Route",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Delete Approval Route",
+          "SEQ": 121
+        },
+        {
+          "COMPONENTID": "PHANTOM_Create Approval Route_Approval Route",
+          "URLPATH": "Approval Route",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Create Approval Route",
+          "SEQ": 122
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read Bank_Bank",
+          "URLPATH": "Bank",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read Bank",
+          "SEQ": 41
+        },
+        {
+          "COMPONENTID": "PHANTOM_Create Bank_Bank",
+          "URLPATH": "Bank",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Create Bank",
+          "SEQ": 42
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update Bank_Bank",
+          "URLPATH": "Bank",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update Bank",
+          "SEQ": 43
+        },
+        {
+          "COMPONENTID": "PHANTOM_Delete Bank_Bank",
+          "URLPATH": "Bank",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Delete Bank",
+          "SEQ": 44
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read Unit Monitoring_Compressor Monitoring",
+          "URLPATH": "Compressor Monitoring",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read Unit Monitoring",
+          "SEQ": 141
+        },
+        {
+          "COMPONENTID": "PHANTOM_schematic_Compressor Monitoring",
+          "URLPATH": "Compressor Monitoring",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "schematic",
+          "SEQ": 142
+        },
+        {
+          "COMPONENTID": "PHANTOM_Modify Unit Data_Compressor Monitoring",
+          "URLPATH": "Compressor Monitoring",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Modify Unit Data",
+          "SEQ": 144
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read_Contract",
+          "URLPATH": "Contract",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read",
+          "SEQ": 19
+        },
+        {
+          "COMPONENTID": "PHANTOM_Create_Contract",
+          "URLPATH": "Contract",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Create",
+          "SEQ": 20
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update_Contract",
+          "URLPATH": "Contract",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update",
+          "SEQ": 21
+        },
+        {
+          "COMPONENTID": "PHANTOM_Delete_Contract",
+          "URLPATH": "Contract",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Delete",
+          "SEQ": 22
+        },
+        {
+          "COMPONENTID": "PHANTOM_Upload Contract BOQ_Contract",
+          "URLPATH": "Contract",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Upload Contract BOQ",
+          "SEQ": 31
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read Contract BOQ_Contract",
+          "URLPATH": "Contract",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read Contract BOQ",
+          "SEQ": 32
+        },
+        {
+          "COMPONENTID": "PHANTOM_Submit Contract_Contract",
+          "URLPATH": "Contract",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Submit Contract",
+          "SEQ": 62
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read Contract Approval_Contract",
+          "URLPATH": "Contract",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read Contract Approval",
+          "SEQ": 63
+        },
+        {
+          "COMPONENTID": "PHANTOM_Cancel Contract_Contract",
+          "URLPATH": "Contract",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Cancel Contract",
+          "SEQ": 64
+        },
+        {
+          "COMPONENTID": "PHANTOM_Finish Contract_Contract",
+          "URLPATH": "Contract",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Finish Contract",
+          "SEQ": 65
+        },
+        {
+          "COMPONENTID": "PHANTOM_Create Contract Document_Contract",
+          "URLPATH": "Contract",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Create Contract Document",
+          "SEQ": 96
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read Contract Document_Contract",
+          "URLPATH": "Contract",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read Contract Document",
+          "SEQ": 97
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update Contract Document_Contract",
+          "URLPATH": "Contract",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update Contract Document",
+          "SEQ": 98
+        },
+        {
+          "COMPONENTID": "PHANTOM_Delete Contract Document_Contract",
+          "URLPATH": "Contract",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Delete Contract Document",
+          "SEQ": 99
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update Contract Approver_Contract",
+          "URLPATH": "Contract",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update Contract Approver",
+          "SEQ": 118
+        },
+        {
+          "COMPONENTID": "PHANTOM_Contract Depletion Value Warning Notification_Contract",
+          "URLPATH": "Contract",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Contract Depletion Value Warning Notification",
+          "SEQ": 124
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read_Contractor",
+          "URLPATH": "Contractor",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read",
+          "SEQ": 11
+        },
+        {
+          "COMPONENTID": "PHANTOM_Create_Contractor",
+          "URLPATH": "Contractor",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Create",
+          "SEQ": 12
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update_Contractor",
+          "URLPATH": "Contractor",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update",
+          "SEQ": 13
+        },
+        {
+          "COMPONENTID": "PHANTOM_Delete_Contractor",
+          "URLPATH": "Contractor",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Delete",
+          "SEQ": 14
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read_Custom Configuration",
+          "URLPATH": "Custom Configuration",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read",
+          "SEQ": 128
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update_Custom Configuration",
+          "URLPATH": "Custom Configuration",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update",
+          "SEQ": 129
+        },
+        {
+          "COMPONENTID": "PHANTOM_Delete_Custom Configuration",
+          "URLPATH": "Custom Configuration",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Delete",
+          "SEQ": 130
+        },
+        {
+          "COMPONENTID": "PHANTOM_Create_Custom Configuration",
+          "URLPATH": "Custom Configuration",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Create",
+          "SEQ": 131
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read Dashboard_Dashboard",
+          "URLPATH": "Dashboard",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read Dashboard",
+          "SEQ": 68
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read_Field",
+          "URLPATH": "Field",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read",
+          "SEQ": 27
+        },
+        {
+          "COMPONENTID": "PHANTOM_Create_Field",
+          "URLPATH": "Field",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Create",
+          "SEQ": 28
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update_Field",
+          "URLPATH": "Field",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update",
+          "SEQ": 29
+        },
+        {
+          "COMPONENTID": "PHANTOM_Delete_Field",
+          "URLPATH": "Field",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Delete",
+          "SEQ": 30
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read Invoice_Invoice",
+          "URLPATH": "Invoice",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read Invoice",
+          "SEQ": 92
+        },
+        {
+          "COMPONENTID": "PHANTOM_Create Invoice_Invoice",
+          "URLPATH": "Invoice",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Create Invoice",
+          "SEQ": 93
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update Invoice_Invoice",
+          "URLPATH": "Invoice",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update Invoice",
+          "SEQ": 94
+        },
+        {
+          "COMPONENTID": "PHANTOM_Delete Invoice_Invoice",
+          "URLPATH": "Invoice",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Delete Invoice",
+          "SEQ": 95
+        },
+        {
+          "COMPONENTID": "PHANTOM_Upload File_Material Monitoring",
+          "URLPATH": "Material Monitoring",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Upload File",
+          "SEQ": 132
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read_Material Monitoring",
+          "URLPATH": "Material Monitoring",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read",
+          "SEQ": 133
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read OE Benchmark_OE Generator",
+          "URLPATH": "OE Generator",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read OE Benchmark",
+          "SEQ": 145
+        },
+        {
+          "COMPONENTID": "PHANTOM_Generate OE_OE Generator",
+          "URLPATH": "OE Generator",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Generate OE",
+          "SEQ": 146
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read_Project",
+          "URLPATH": "Project",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read",
+          "SEQ": 37
+        },
+        {
+          "COMPONENTID": "PHANTOM_Create_Project",
+          "URLPATH": "Project",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Create",
+          "SEQ": 38
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update_Project",
+          "URLPATH": "Project",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update",
+          "SEQ": 39
+        },
+        {
+          "COMPONENTID": "PHANTOM_Delete_Project",
+          "URLPATH": "Project",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Delete",
+          "SEQ": 40
+        },
+        {
+          "COMPONENTID": "PHANTOM_Upload Project Tasks_Project",
+          "URLPATH": "Project",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Upload Project Tasks",
+          "SEQ": 45
+        },
+        {
+          "COMPONENTID": "PHANTOM_Get Project Task_Project",
+          "URLPATH": "Project",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Get Project Task",
+          "SEQ": 46
+        },
+        {
+          "COMPONENTID": "PHANTOM_Set Project Task Remarks_Project",
+          "URLPATH": "Project",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Set Project Task Remarks",
+          "SEQ": 47
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update Project Task Status_Project",
+          "URLPATH": "Project",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update Project Task Status",
+          "SEQ": 48
+        },
+        {
+          "COMPONENTID": "PHANTOM_Set Project Task Assingee_Project",
+          "URLPATH": "Project",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Set Project Task Assingee",
+          "SEQ": 49
+        },
+        {
+          "COMPONENTID": "PHANTOM_Create Project Task_Project",
+          "URLPATH": "Project",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Create Project Task",
+          "SEQ": 50
+        },
+        {
+          "COMPONENTID": "PHANTOM_Set Project Task BoQ_Project",
+          "URLPATH": "Project",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Set Project Task BoQ",
+          "SEQ": 51
+        },
+        {
+          "COMPONENTID": "PHANTOM_Get Project Task BoQ_Project",
+          "URLPATH": "Project",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Get Project Task BoQ",
+          "SEQ": 52
+        },
+        {
+          "COMPONENTID": "PHANTOM_Submit Project_Project",
+          "URLPATH": "Project",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Submit Project",
+          "SEQ": 53
+        },
+        {
+          "COMPONENTID": "PHANTOM_Project Approval_Project",
+          "URLPATH": "Project",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Project Approval",
+          "SEQ": 54
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read Project Spending Plan_Project",
+          "URLPATH": "Project",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read Project Spending Plan",
+          "SEQ": 55
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update Project Spending Plan_Project",
+          "URLPATH": "Project",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update Project Spending Plan",
+          "SEQ": 56
+        },
+        {
+          "COMPONENTID": "PHANTOM_Cancel Project_Project",
+          "URLPATH": "Project",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Cancel Project",
+          "SEQ": 59
+        },
+        {
+          "COMPONENTID": "PHANTOM_Finish Project_Project",
+          "URLPATH": "Project",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Finish Project",
+          "SEQ": 61
+        },
+        {
+          "COMPONENTID": "PHANTOM_Create Project Document_Project",
+          "URLPATH": "Project",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Create Project Document",
+          "SEQ": 100
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read Project Document_Project",
+          "URLPATH": "Project",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read Project Document",
+          "SEQ": 101
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update Project Document_Project",
+          "URLPATH": "Project",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update Project Document",
+          "SEQ": 102
+        },
+        {
+          "COMPONENTID": "PHANTOM_Delete Project Document_Project",
+          "URLPATH": "Project",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Delete Project Document",
+          "SEQ": 103
+        },
+        {
+          "COMPONENTID": "PHANTOM_Create Project Rebaseline_Project",
+          "URLPATH": "Project",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Create Project Rebaseline",
+          "SEQ": 112
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update Project Approver_Project",
+          "URLPATH": "Project",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update Project Approver",
+          "SEQ": 117
+        },
+        {
+          "COMPONENTID": "PHANTOM_Send Project Reminder via Email and In App notif_Project",
+          "URLPATH": "Project",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Send Project Reminder via Email and In App notif",
+          "SEQ": 127
+        },
+        {
+          "COMPONENTID": "PHANTOM_Add Project Task Progress_Project",
+          "URLPATH": "Project",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Add Project Task Progress",
+          "SEQ": 136
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read RKS Generator_RKS Generator",
+          "URLPATH": "RKS Generator",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read RKS Generator",
+          "SEQ": 147
+        },
+        {
+          "COMPONENTID": "PHANTOM_Preview RKS_RKS Generator",
+          "URLPATH": "RKS Generator",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Preview RKS",
+          "SEQ": 148
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read RKS Master Category_RKS Master Category",
+          "URLPATH": "RKS Master Category",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read RKS Master Category",
+          "SEQ": 149
+        },
+        {
+          "COMPONENTID": "PHANTOM_Create RKS Master Category_RKS Master Category",
+          "URLPATH": "RKS Master Category",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Create RKS Master Category",
+          "SEQ": 150
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read RKS Master Clause_RKS Master Clause",
+          "URLPATH": "RKS Master Clause",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read RKS Master Clause",
+          "SEQ": 151
+        },
+        {
+          "COMPONENTID": "PHANTOM_Create RKS Master Clause_RKS Master Clause",
+          "URLPATH": "RKS Master Clause",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Create RKS Master Clause",
+          "SEQ": 152
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read_Rkap",
+          "URLPATH": "Rkap",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read",
+          "SEQ": 33
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update_Rkap",
+          "URLPATH": "Rkap",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update",
+          "SEQ": 34
+        },
+        {
+          "COMPONENTID": "PHANTOM_Delete_Rkap",
+          "URLPATH": "Rkap",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Delete",
+          "SEQ": 35
+        },
+        {
+          "COMPONENTID": "PHANTOM_Create_Rkap",
+          "URLPATH": "Rkap",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Create",
+          "SEQ": 36
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read",
+          "SEQ": 23
+        },
+        {
+          "COMPONENTID": "PHANTOM_Create_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Create",
+          "SEQ": 24
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update",
+          "SEQ": 25
+        },
+        {
+          "COMPONENTID": "PHANTOM_Delete_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Delete",
+          "SEQ": 26
+        },
+        {
+          "COMPONENTID": "PHANTOM_Submit SPK_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Submit SPK",
+          "SEQ": 57
+        },
+        {
+          "COMPONENTID": "PHANTOM_SPK Approval_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "SPK Approval",
+          "SEQ": 58
+        },
+        {
+          "COMPONENTID": "PHANTOM_Cancel SPK_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Cancel SPK",
+          "SEQ": 60
+        },
+        {
+          "COMPONENTID": "PHANTOM_Finish SPK_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Finish SPK",
+          "SEQ": 66
+        },
+        {
+          "COMPONENTID": "PHANTOM_Create spk boq progress_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Create spk boq progress",
+          "SEQ": 67
+        },
+        {
+          "COMPONENTID": "PHANTOM_Release SPK_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Release SPK",
+          "SEQ": 69
+        },
+        {
+          "COMPONENTID": "PHANTOM_SPK BoQ Progress Approval_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "SPK BoQ Progress Approval",
+          "SEQ": 70
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update Remark_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update Remark",
+          "SEQ": 87
+        },
+        {
+          "COMPONENTID": "PHANTOM_Create SPK Document_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Create SPK Document",
+          "SEQ": 104
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read SPK Document_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read SPK Document",
+          "SEQ": 105
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update SPK Document_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update SPK Document",
+          "SEQ": 106
+        },
+        {
+          "COMPONENTID": "PHANTOM_Delete SPK Document_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Delete SPK Document",
+          "SEQ": 107
+        },
+        {
+          "COMPONENTID": "PHANTOM_Create SPK BoQ Document_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Create SPK BoQ Document",
+          "SEQ": 108
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read SPK BoQ Document_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read SPK BoQ Document",
+          "SEQ": 109
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update SPK BoQ Document_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update SPK BoQ Document",
+          "SEQ": 110
+        },
+        {
+          "COMPONENTID": "PHANTOM_Delete SPK BoQ Document_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Delete SPK BoQ Document",
+          "SEQ": 111
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update SPK Approver_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update SPK Approver",
+          "SEQ": 123
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update SPK Cost Allocation_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update SPK Cost Allocation",
+          "SEQ": 134
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read Service-Acceptance_Service Acceptance",
+          "URLPATH": "Service Acceptance",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read Service-Acceptance",
+          "SEQ": 88
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update Service-Acceptance_Service Acceptance",
+          "URLPATH": "Service Acceptance",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update Service-Acceptance",
+          "SEQ": 89
+        },
+        {
+          "COMPONENTID": "PHANTOM_Get All w/ pagination tender process categories_Tender",
+          "URLPATH": "Tender",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Get All w/ pagination tender process categories",
+          "SEQ": 71
+        },
+        {
+          "COMPONENTID": "PHANTOM_Create tender process categories_Tender",
+          "URLPATH": "Tender",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Create tender process categories",
+          "SEQ": 72
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update tender process categories_Tender",
+          "URLPATH": "Tender",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update tender process categories",
+          "SEQ": 73
+        },
+        {
+          "COMPONENTID": "PHANTOM_Delete tender process categories_Tender",
+          "URLPATH": "Tender",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Delete tender process categories",
+          "SEQ": 74
+        },
+        {
+          "COMPONENTID": "PHANTOM_Get All w/ pagination tender processes_Tender",
+          "URLPATH": "Tender",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Get All w/ pagination tender processes",
+          "SEQ": 75
+        },
+        {
+          "COMPONENTID": "PHANTOM_Create tender processes_Tender",
+          "URLPATH": "Tender",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Create tender processes",
+          "SEQ": 76
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update tender processes_Tender",
+          "URLPATH": "Tender",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update tender processes",
+          "SEQ": 77
+        },
+        {
+          "COMPONENTID": "PHANTOM_Delete tender processes_Tender",
+          "URLPATH": "Tender",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Delete tender processes",
+          "SEQ": 78
+        },
+        {
+          "COMPONENTID": "PHANTOM_Get all Tender_Tender",
+          "URLPATH": "Tender",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Get all Tender",
+          "SEQ": 79
+        },
+        {
+          "COMPONENTID": "PHANTOM_Create Tender_Tender",
+          "URLPATH": "Tender",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Create Tender",
+          "SEQ": 80
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update Tender_Tender",
+          "URLPATH": "Tender",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update Tender",
+          "SEQ": 81
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update Tender Contract_Tender",
+          "URLPATH": "Tender",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update Tender Contract",
+          "SEQ": 82
+        },
+        {
+          "COMPONENTID": "PHANTOM_Delete Tender_Tender",
+          "URLPATH": "Tender",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Delete Tender",
+          "SEQ": 83
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update Tender Actual Timeline_Tender",
+          "URLPATH": "Tender",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update Tender Actual Timeline",
+          "SEQ": 84
+        },
+        {
+          "COMPONENTID": "PHANTOM_Get Process Histories_Tender",
+          "URLPATH": "Tender",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Get Process Histories",
+          "SEQ": 85
+        },
+        {
+          "COMPONENTID": "PHANTOM_Skip Process_Tender",
+          "URLPATH": "Tender",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Skip Process",
+          "SEQ": 86
+        },
+        {
+          "COMPONENTID": "PHANTOM_Show Tender Value_Tender",
+          "URLPATH": "Tender",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Show Tender Value",
+          "SEQ": 135
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read Trash Bin_Trash Management",
+          "URLPATH": "Trash Management",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read Trash Bin",
+          "SEQ": 125
+        },
+        {
+          "COMPONENTID": "PHANTOM_Restore Trash Bin_Trash Management",
+          "URLPATH": "Trash Management",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Restore Trash Bin",
+          "SEQ": 126
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read_Unit",
+          "URLPATH": "Unit",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read",
+          "SEQ": 15
+        },
+        {
+          "COMPONENTID": "PHANTOM_Create_Unit",
+          "URLPATH": "Unit",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Create",
+          "SEQ": 16
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update_Unit",
+          "URLPATH": "Unit",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update",
+          "SEQ": 17
+        },
+        {
+          "COMPONENTID": "PHANTOM_Delete_Unit",
+          "URLPATH": "Unit",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Delete",
+          "SEQ": 18
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read Well Monitoring Overview_Well Monitoring",
+          "URLPATH": "Well Monitoring",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read Well Monitoring Overview",
+          "SEQ": 137
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read PHSS Wells_Well Monitoring",
+          "URLPATH": "Well Monitoring",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read PHSS Wells",
+          "SEQ": 153
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read PEP Wells_Well Monitoring",
+          "URLPATH": "Well Monitoring",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read PEP Wells",
+          "SEQ": 155
+        },
+        {
+          "COMPONENTID": "PHANTOM_Upload Well Data_Well Monitoring EUR",
+          "URLPATH": "Well Monitoring EUR",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Upload Well Data",
+          "SEQ": 138
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read Well Monitoring EUR_Well Monitoring EUR",
+          "URLPATH": "Well Monitoring EUR",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read Well Monitoring EUR",
+          "SEQ": 140
+        }
+      ],
+      "SEQROLE": 0
+    },
+    {
+      "SYSNAME": "PHANTOM",
+      "SYSROLE": "Field Inspector",
+      "acl": [
+        {
+          "COMPONENTID": "PHANTOM_Read_Contract",
+          "URLPATH": "Contract",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read",
+          "SEQ": 19
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read Dashboard_Dashboard",
+          "URLPATH": "Dashboard",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read Dashboard",
+          "SEQ": 68
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read _Project",
+          "URLPATH": "Project",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read ",
+          "SEQ": 37
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read Project Tasks_Project",
+          "URLPATH": "Project",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read Project Tasks",
+          "SEQ": 46
+        },
+        {
+          "COMPONENTID": "PHANTOM_Set Project Task Remarks_Project",
+          "URLPATH": "Project",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Set Project Task Remarks",
+          "SEQ": 47
+        },
+        {
+          "COMPONENTID": "PHANTOM_Get Project Task BoQ_Project",
+          "URLPATH": "Project",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Get Project Task BoQ",
+          "SEQ": 52
+        },
+        {
+          "COMPONENTID": "PHANTOM_Create Project Document_Project",
+          "URLPATH": "Project",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Create Project Document",
+          "SEQ": 100
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read Project Document_Project",
+          "URLPATH": "Project",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read Project Document",
+          "SEQ": 101
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update Project Document_Project",
+          "URLPATH": "Project",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update Project Document",
+          "SEQ": 102
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read",
+          "SEQ": 23
+        },
+        {
+          "COMPONENTID": "PHANTOM_Input Progress_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Input Progress",
+          "SEQ": 67
+        },
+        {
+          "COMPONENTID": "PHANTOM_SPK BoQ Progress Approval_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "SPK BoQ Progress Approval",
+          "SEQ": 70
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update SPK Remark_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update SPK Remark",
+          "SEQ": 87
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read SPK Document_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read SPK Document",
+          "SEQ": 105
+        },
+        {
+          "COMPONENTID": "PHANTOM_Create SPK BoQ Document_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Create SPK BoQ Document",
+          "SEQ": 108
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read SPK BoQ Document_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read SPK BoQ Document",
+          "SEQ": 109
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update SPK BoQ Document_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update SPK BoQ Document",
+          "SEQ": 110
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read_User",
+          "URLPATH": "User",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read",
+          "SEQ": 1
+        }
+      ],
+      "SEQROLE": 0
+    },
+    {
+      "SYSNAME": "PHANTOM",
+      "SYSROLE": "Production Operations",
+      "acl": [
+        {
+          "COMPONENTID": "PHANTOM_Read Approval Route_Approval Route",
+          "URLPATH": "Approval Route",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read Approval Route",
+          "SEQ": 119
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update Approval Route_Approval Route",
+          "URLPATH": "Approval Route",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update Approval Route",
+          "SEQ": 120
+        },
+        {
+          "COMPONENTID": "PHANTOM_Delete Approval Route_Approval Route",
+          "URLPATH": "Approval Route",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Delete Approval Route",
+          "SEQ": 121
+        },
+        {
+          "COMPONENTID": "PHANTOM_Create Approval Route_Approval Route",
+          "URLPATH": "Approval Route",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Create Approval Route",
+          "SEQ": 122
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read Bank_Bank",
+          "URLPATH": "Bank",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read Bank",
+          "SEQ": 41
+        },
+        {
+          "COMPONENTID": "PHANTOM_Create Bank_Bank",
+          "URLPATH": "Bank",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Create Bank",
+          "SEQ": 42
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update Bank_Bank",
+          "URLPATH": "Bank",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update Bank",
+          "SEQ": 43
+        },
+        {
+          "COMPONENTID": "PHANTOM_Delete Bank_Bank",
+          "URLPATH": "Bank",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Delete Bank",
+          "SEQ": 44
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read Unit Monitoring_Compressor Monitoring",
+          "URLPATH": "Compressor Monitoring",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read Unit Monitoring",
+          "SEQ": 141
+        },
+        {
+          "COMPONENTID": "PHANTOM_schematic_Compressor Monitoring",
+          "URLPATH": "Compressor Monitoring",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "schematic",
+          "SEQ": 142
+        },
+        {
+          "COMPONENTID": "PHANTOM_Modify Unit Data_Compressor Monitoring",
+          "URLPATH": "Compressor Monitoring",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Modify Unit Data",
+          "SEQ": 144
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read_Contract",
+          "URLPATH": "Contract",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read",
+          "SEQ": 19
+        },
+        {
+          "COMPONENTID": "PHANTOM_Create_Contract",
+          "URLPATH": "Contract",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Create",
+          "SEQ": 20
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update_Contract",
+          "URLPATH": "Contract",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update",
+          "SEQ": 21
+        },
+        {
+          "COMPONENTID": "PHANTOM_Delete_Contract",
+          "URLPATH": "Contract",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Delete",
+          "SEQ": 22
+        },
+        {
+          "COMPONENTID": "PHANTOM_Upload Contract BOQ_Contract",
+          "URLPATH": "Contract",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Upload Contract BOQ",
+          "SEQ": 31
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read Contract BOQ_Contract",
+          "URLPATH": "Contract",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read Contract BOQ",
+          "SEQ": 32
+        },
+        {
+          "COMPONENTID": "PHANTOM_Submit Contract_Contract",
+          "URLPATH": "Contract",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Submit Contract",
+          "SEQ": 62
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read Contract Approval_Contract",
+          "URLPATH": "Contract",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read Contract Approval",
+          "SEQ": 63
+        },
+        {
+          "COMPONENTID": "PHANTOM_Cancel Contract_Contract",
+          "URLPATH": "Contract",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Cancel Contract",
+          "SEQ": 64
+        },
+        {
+          "COMPONENTID": "PHANTOM_Finish Contract_Contract",
+          "URLPATH": "Contract",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Finish Contract",
+          "SEQ": 65
+        },
+        {
+          "COMPONENTID": "PHANTOM_Create Contract Document_Contract",
+          "URLPATH": "Contract",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Create Contract Document",
+          "SEQ": 96
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read Contract Document_Contract",
+          "URLPATH": "Contract",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read Contract Document",
+          "SEQ": 97
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update Contract Document_Contract",
+          "URLPATH": "Contract",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update Contract Document",
+          "SEQ": 98
+        },
+        {
+          "COMPONENTID": "PHANTOM_Delete Contract Document_Contract",
+          "URLPATH": "Contract",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Delete Contract Document",
+          "SEQ": 99
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update Contract Approver_Contract",
+          "URLPATH": "Contract",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update Contract Approver",
+          "SEQ": 118
+        },
+        {
+          "COMPONENTID": "PHANTOM_Contract Depletion Value Warning Notification_Contract",
+          "URLPATH": "Contract",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Contract Depletion Value Warning Notification",
+          "SEQ": 124
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read_Contractor",
+          "URLPATH": "Contractor",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read",
+          "SEQ": 11
+        },
+        {
+          "COMPONENTID": "PHANTOM_Create_Contractor",
+          "URLPATH": "Contractor",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Create",
+          "SEQ": 12
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update_Contractor",
+          "URLPATH": "Contractor",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update",
+          "SEQ": 13
+        },
+        {
+          "COMPONENTID": "PHANTOM_Delete_Contractor",
+          "URLPATH": "Contractor",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Delete",
+          "SEQ": 14
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read_Custom Configuration",
+          "URLPATH": "Custom Configuration",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read",
+          "SEQ": 128
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update_Custom Configuration",
+          "URLPATH": "Custom Configuration",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update",
+          "SEQ": 129
+        },
+        {
+          "COMPONENTID": "PHANTOM_Delete_Custom Configuration",
+          "URLPATH": "Custom Configuration",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Delete",
+          "SEQ": 130
+        },
+        {
+          "COMPONENTID": "PHANTOM_Create_Custom Configuration",
+          "URLPATH": "Custom Configuration",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Create",
+          "SEQ": 131
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read Dashboard_Dashboard",
+          "URLPATH": "Dashboard",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read Dashboard",
+          "SEQ": 68
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read_Field",
+          "URLPATH": "Field",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read",
+          "SEQ": 27
+        },
+        {
+          "COMPONENTID": "PHANTOM_Create_Field",
+          "URLPATH": "Field",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Create",
+          "SEQ": 28
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update_Field",
+          "URLPATH": "Field",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update",
+          "SEQ": 29
+        },
+        {
+          "COMPONENTID": "PHANTOM_Delete_Field",
+          "URLPATH": "Field",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Delete",
+          "SEQ": 30
+        },
+        {
+          "COMPONENTID": "PHANTOM_Upload File_Material Monitoring",
+          "URLPATH": "Material Monitoring",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Upload File",
+          "SEQ": 132
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read_Material Monitoring",
+          "URLPATH": "Material Monitoring",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read",
+          "SEQ": 133
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read_Rkap",
+          "URLPATH": "Rkap",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read",
+          "SEQ": 33
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update_Rkap",
+          "URLPATH": "Rkap",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update",
+          "SEQ": 34
+        },
+        {
+          "COMPONENTID": "PHANTOM_Delete_Rkap",
+          "URLPATH": "Rkap",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Delete",
+          "SEQ": 35
+        },
+        {
+          "COMPONENTID": "PHANTOM_Create_Rkap",
+          "URLPATH": "Rkap",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Create",
+          "SEQ": 36
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read",
+          "SEQ": 23
+        },
+        {
+          "COMPONENTID": "PHANTOM_Create_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Create",
+          "SEQ": 24
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update",
+          "SEQ": 25
+        },
+        {
+          "COMPONENTID": "PHANTOM_Delete_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Delete",
+          "SEQ": 26
+        },
+        {
+          "COMPONENTID": "PHANTOM_Submit SPK_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Submit SPK",
+          "SEQ": 57
+        },
+        {
+          "COMPONENTID": "PHANTOM_SPK Approval_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "SPK Approval",
+          "SEQ": 58
+        },
+        {
+          "COMPONENTID": "PHANTOM_Cancel SPK_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Cancel SPK",
+          "SEQ": 60
+        },
+        {
+          "COMPONENTID": "PHANTOM_Finish SPK_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Finish SPK",
+          "SEQ": 66
+        },
+        {
+          "COMPONENTID": "PHANTOM_Create spk boq progress_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Create spk boq progress",
+          "SEQ": 67
+        },
+        {
+          "COMPONENTID": "PHANTOM_Release SPK_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Release SPK",
+          "SEQ": 69
+        },
+        {
+          "COMPONENTID": "PHANTOM_SPK BoQ Progress Approval_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "SPK BoQ Progress Approval",
+          "SEQ": 70
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update Remark_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update Remark",
+          "SEQ": 87
+        },
+        {
+          "COMPONENTID": "PHANTOM_Create SPK Document_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Create SPK Document",
+          "SEQ": 104
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read SPK Document_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read SPK Document",
+          "SEQ": 105
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update SPK Document_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update SPK Document",
+          "SEQ": 106
+        },
+        {
+          "COMPONENTID": "PHANTOM_Delete SPK Document_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Delete SPK Document",
+          "SEQ": 107
+        },
+        {
+          "COMPONENTID": "PHANTOM_Create SPK BoQ Document_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Create SPK BoQ Document",
+          "SEQ": 108
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read SPK BoQ Document_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read SPK BoQ Document",
+          "SEQ": 109
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update SPK BoQ Document_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update SPK BoQ Document",
+          "SEQ": 110
+        },
+        {
+          "COMPONENTID": "PHANTOM_Delete SPK BoQ Document_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Delete SPK BoQ Document",
+          "SEQ": 111
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update SPK Approver_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update SPK Approver",
+          "SEQ": 123
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update SPK Cost Allocation_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update SPK Cost Allocation",
+          "SEQ": 134
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read Trash Bin_Trash Management",
+          "URLPATH": "Trash Management",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read Trash Bin",
+          "SEQ": 125
+        },
+        {
+          "COMPONENTID": "PHANTOM_Restore Trash Bin_Trash Management",
+          "URLPATH": "Trash Management",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Restore Trash Bin",
+          "SEQ": 126
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read_Unit",
+          "URLPATH": "Unit",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read",
+          "SEQ": 15
+        },
+        {
+          "COMPONENTID": "PHANTOM_Create_Unit",
+          "URLPATH": "Unit",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Create",
+          "SEQ": 16
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update_Unit",
+          "URLPATH": "Unit",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update",
+          "SEQ": 17
+        },
+        {
+          "COMPONENTID": "PHANTOM_Delete_Unit",
+          "URLPATH": "Unit",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Delete",
+          "SEQ": 18
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read Well Monitoring Overview_Well Monitoring",
+          "URLPATH": "Well Monitoring",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read Well Monitoring Overview",
+          "SEQ": 137
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read PHSS Wells_Well Monitoring",
+          "URLPATH": "Well Monitoring",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read PHSS Wells",
+          "SEQ": 153
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read PEP Wells_Well Monitoring",
+          "URLPATH": "Well Monitoring",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read PEP Wells",
+          "SEQ": 155
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read Well Monitoring EUR_Well Monitoring EUR",
+          "URLPATH": "Well Monitoring EUR",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read Well Monitoring EUR",
+          "SEQ": 140
+        }
+      ],
+      "SEQROLE": 0
+    },
+    {
+      "SYSNAME": "PHANTOM",
+      "SYSROLE": "Subsurface Development Area 2",
+      "acl": [
+        {
+          "COMPONENTID": "PHANTOM_ADMIN_PRCM_ADMIN_PRCM",
+          "URLPATH": "ADMIN_PRCM",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "ADMIN_PRCM",
+          "SEQ": 1
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read Well Monitoring Overview_Well Monitoring",
+          "URLPATH": "Well Monitoring",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read Well Monitoring Overview",
+          "SEQ": 137
+        },
+        {
+          "COMPONENTID": "PHANTOM_Modify Well Data_Well Monitoring",
+          "URLPATH": "Well Monitoring",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Modify Well Data",
+          "SEQ": 139
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read PHSS Wells_Well Monitoring",
+          "URLPATH": "Well Monitoring",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read PHSS Wells",
+          "SEQ": 153
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read PEP Wells_Well Monitoring",
+          "URLPATH": "Well Monitoring",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read PEP Wells",
+          "SEQ": 155
+        },
+        {
+          "COMPONENTID": "PHANTOM_Modify PEP Wells_Well Monitoring",
+          "URLPATH": "Well Monitoring",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Modify PEP Wells",
+          "SEQ": 156
+        },
+        {
+          "COMPONENTID": "PHANTOM_Upload Well Data_Well Monitoring EUR",
+          "URLPATH": "Well Monitoring EUR",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Upload Well Data",
+          "SEQ": 138
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read Well Monitoring EUR_Well Monitoring EUR",
+          "URLPATH": "Well Monitoring EUR",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read Well Monitoring EUR",
+          "SEQ": 140
+        }
+      ],
+      "SEQROLE": 0
+    },
+    {
+      "SYSNAME": "PHANTOM",
+      "SYSROLE": "Subsurface Development Area 1",
+      "acl": [
+        {
+          "COMPONENTID": "PHANTOM_Read PEP Wells_Well Monitoring",
+          "URLPATH": "Well Monitoring",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read PEP Wells",
+          "SEQ": 155
+        },
+        {
+          "COMPONENTID": "PHANTOM_read_card",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "read",
+          "SEQ": 0
+        },
+        {
+          "COMPONENTID": "PHANTOM_update_card",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "update",
+          "SEQ": 0
+        },
+        {
+          "COMPONENTID": "PHANTOM_org-region_datarestriction",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "org-region",
+          "SEQ": 1
+        },
+        {
+          "COMPONENTID": "PHANTOM_org-division_datarestriction",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "org-division",
+          "SEQ": 2
+        },
+        {
+          "COMPONENTID": "PHANTOM_org-subdivision_datarestriction",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "org-subdivision",
+          "SEQ": 3
+        },
+        {
+          "COMPONENTID": "PHANTOM_org-department_datarestriction",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "org-department",
+          "SEQ": 4
+        },
+        {
+          "COMPONENTID": "PHANTOM_org-section_datarestriction",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "org-section",
+          "SEQ": 5
+        },
+        {
+          "COMPONENTID": "PHANTOM_cat-internship_datarestriction",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "cat-internship",
+          "SEQ": 0
+        },
+        {
+          "COMPONENTID": "PHANTOM_cat-mk_datarestriction",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "cat-mk",
+          "SEQ": 0
+        },
+        {
+          "COMPONENTID": "PHANTOM_cat-pwt_datarestriction",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "cat-pwt",
+          "SEQ": 0
+        },
+        {
+          "COMPONENTID": "PHANTOM_cat-pwtt_datarestriction",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "cat-pwtt",
+          "SEQ": 0
+        },
+        {
+          "COMPONENTID": "PHANTOM_cat-tkjp_datarestriction",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "cat-tkjp",
+          "SEQ": 0
+        },
+        {
+          "COMPONENTID": "PHANTOM_create_doareg",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "create",
+          "SEQ": 0
+        },
+        {
+          "COMPONENTID": "PHANTOM_delete_doareg",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "delete",
+          "SEQ": 0
+        },
+        {
+          "COMPONENTID": "PHANTOM_read_doareg",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "read",
+          "SEQ": 0
+        },
+        {
+          "COMPONENTID": "PHANTOM_update_doareg",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "update",
+          "SEQ": 0
+        },
+        {
+          "COMPONENTID": "PHANTOM_create_empdat",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "create",
+          "SEQ": 0
+        },
+        {
+          "COMPONENTID": "PHANTOM_delete_empdat",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "delete",
+          "SEQ": 0
+        },
+        {
+          "COMPONENTID": "PHANTOM_read_empdat",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "read",
+          "SEQ": 0
+        },
+        {
+          "COMPONENTID": "PHANTOM_update_empdat",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "update",
+          "SEQ": 0
+        },
+        {
+          "COMPONENTID": "PHANTOM_create_itdat",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "create",
+          "SEQ": 0
+        },
+        {
+          "COMPONENTID": "PHANTOM_delete_itdat",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "delete",
+          "SEQ": 0
+        },
+        {
+          "COMPONENTID": "PHANTOM_read_itdat",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "read",
+          "SEQ": 0
+        },
+        {
+          "COMPONENTID": "PHANTOM_update_itdat",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "update",
+          "SEQ": 0
+        },
+        {
+          "COMPONENTID": "PHANTOM_read_mcu",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "read",
+          "SEQ": 0
+        },
+        {
+          "COMPONENTID": "PHANTOM_update_mcu",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "update",
+          "SEQ": 0
+        },
+        {
+          "COMPONENTID": "PHANTOM_create_posasg",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "create",
+          "SEQ": 0
+        },
+        {
+          "COMPONENTID": "PHANTOM_delete_posasg",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "delete",
+          "SEQ": 0
+        },
+        {
+          "COMPONENTID": "PHANTOM_read_posasg",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "read",
+          "SEQ": 0
+        },
+        {
+          "COMPONENTID": "PHANTOM_update_posasg",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "update",
+          "SEQ": 0
+        },
+        {
+          "COMPONENTID": "PHANTOM_create_posmaster",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "create",
+          "SEQ": 0
+        },
+        {
+          "COMPONENTID": "PHANTOM_delete_posmaster",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "delete",
+          "SEQ": 0
+        },
+        {
+          "COMPONENTID": "PHANTOM_read_posmaster",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "read",
+          "SEQ": 0
+        },
+        {
+          "COMPONENTID": "PHANTOM_update_posmaster",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "update",
+          "SEQ": 0
+        },
+        {
+          "COMPONENTID": "PHANTOM_read_prlgroup",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "read",
+          "SEQ": 0
+        },
+        {
+          "COMPONENTID": "PHANTOM_update_prlgroup",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "update",
+          "SEQ": 0
+        },
+        {
+          "COMPONENTID": "PHANTOM_create_roleasg",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "create",
+          "SEQ": 0
+        },
+        {
+          "COMPONENTID": "PHANTOM_delete_roleasg",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "delete",
+          "SEQ": 0
+        },
+        {
+          "COMPONENTID": "PHANTOM_read_roleasg",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "read",
+          "SEQ": 0
+        },
+        {
+          "COMPONENTID": "PHANTOM_update_roleasg",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "update",
+          "SEQ": 0
+        },
+        {
+          "COMPONENTID": "PHANTOM_read_staging",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "read",
+          "SEQ": 0
+        }
+      ],
+      "SEQROLE": 0
+    },
+    {
+      "SYSNAME": "PHANTOM",
+      "SYSROLE": "Super Admin",
+      "acl": [
+        {
+          "COMPONENTID": "PHANTOM_Read Approval Route_Approval Route",
+          "URLPATH": "Approval Route",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read Approval Route",
+          "SEQ": 119
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update Approval Route_Approval Route",
+          "URLPATH": "Approval Route",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update Approval Route",
+          "SEQ": 120
+        },
+        {
+          "COMPONENTID": "PHANTOM_Delete Approval Route_Approval Route",
+          "URLPATH": "Approval Route",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Delete Approval Route",
+          "SEQ": 121
+        },
+        {
+          "COMPONENTID": "PHANTOM_Create Approval Route_Approval Route",
+          "URLPATH": "Approval Route",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Create Approval Route",
+          "SEQ": 122
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read_Bank",
+          "URLPATH": "Bank",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read",
+          "SEQ": 41
+        },
+        {
+          "COMPONENTID": "PHANTOM_Create_Bank",
+          "URLPATH": "Bank",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Create",
+          "SEQ": 42
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update_Bank",
+          "URLPATH": "Bank",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update",
+          "SEQ": 43
+        },
+        {
+          "COMPONENTID": "PHANTOM_Delete_Bank",
+          "URLPATH": "Bank",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Delete",
+          "SEQ": 44
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read_Contract",
+          "URLPATH": "Contract",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read",
+          "SEQ": 19
+        },
+        {
+          "COMPONENTID": "PHANTOM_Create_Contract",
+          "URLPATH": "Contract",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Create",
+          "SEQ": 20
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update_Contract",
+          "URLPATH": "Contract",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update",
+          "SEQ": 21
+        },
+        {
+          "COMPONENTID": "PHANTOM_Delete_Contract",
+          "URLPATH": "Contract",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Delete",
+          "SEQ": 22
+        },
+        {
+          "COMPONENTID": "PHANTOM_Upload Contract BOQ_Contract",
+          "URLPATH": "Contract",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Upload Contract BOQ",
+          "SEQ": 31
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read Contract BOQ_Contract",
+          "URLPATH": "Contract",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read Contract BOQ",
+          "SEQ": 32
+        },
+        {
+          "COMPONENTID": "PHANTOM_Submit_Contract",
+          "URLPATH": "Contract",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Submit",
+          "SEQ": 62
+        },
+        {
+          "COMPONENTID": "PHANTOM_Contract Approval_Contract",
+          "URLPATH": "Contract",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Contract Approval",
+          "SEQ": 63
+        },
+        {
+          "COMPONENTID": "PHANTOM_Cancel Contract_Contract",
+          "URLPATH": "Contract",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Cancel Contract",
+          "SEQ": 64
+        },
+        {
+          "COMPONENTID": "PHANTOM_Finish Contract_Contract",
+          "URLPATH": "Contract",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Finish Contract",
+          "SEQ": 65
+        },
+        {
+          "COMPONENTID": "PHANTOM_Create Contract Document_Contract",
+          "URLPATH": "Contract",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Create Contract Document",
+          "SEQ": 96
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read Contract Document_Contract",
+          "URLPATH": "Contract",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read Contract Document",
+          "SEQ": 97
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update Contract Document_Contract",
+          "URLPATH": "Contract",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update Contract Document",
+          "SEQ": 98
+        },
+        {
+          "COMPONENTID": "PHANTOM_Delete Contract Document_Contract",
+          "URLPATH": "Contract",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Delete Contract Document",
+          "SEQ": 99
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update Contract Approver_Contract",
+          "URLPATH": "Contract",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update Contract Approver",
+          "SEQ": 118
+        },
+        {
+          "COMPONENTID": "PHANTOM_Manage Contract Depletion Value Warning Notification_Contract",
+          "URLPATH": "Contract",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Manage Contract Depletion Value Warning Notification",
+          "SEQ": 124
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read_Contractor",
+          "URLPATH": "Contractor",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read",
+          "SEQ": 11
+        },
+        {
+          "COMPONENTID": "PHANTOM_Create_Contractor",
+          "URLPATH": "Contractor",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Create",
+          "SEQ": 12
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update_Contractor",
+          "URLPATH": "Contractor",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update",
+          "SEQ": 13
+        },
+        {
+          "COMPONENTID": "PHANTOM_Delete_Contractor",
+          "URLPATH": "Contractor",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Delete",
+          "SEQ": 14
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read Dashboard_Dashboard",
+          "URLPATH": "Dashboard",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read Dashboard",
+          "SEQ": 68
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read_Field",
+          "URLPATH": "Field",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read",
+          "SEQ": 27
+        },
+        {
+          "COMPONENTID": "PHANTOM_Create_Field",
+          "URLPATH": "Field",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Create",
+          "SEQ": 28
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update_Field",
+          "URLPATH": "Field",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update",
+          "SEQ": 29
+        },
+        {
+          "COMPONENTID": "PHANTOM_Delete_Field",
+          "URLPATH": "Field",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Delete",
+          "SEQ": 30
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read_Invoice",
+          "URLPATH": "Invoice",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read",
+          "SEQ": 92
+        },
+        {
+          "COMPONENTID": "PHANTOM_Create_Invoice",
+          "URLPATH": "Invoice",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Create",
+          "SEQ": 93
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update_Invoice",
+          "URLPATH": "Invoice",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update",
+          "SEQ": 94
+        },
+        {
+          "COMPONENTID": "PHANTOM_Delete_Invoice",
+          "URLPATH": "Invoice",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Delete",
+          "SEQ": 95
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read_Manage Custom Configurations",
+          "URLPATH": "Manage Custom Configurations",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read",
+          "SEQ": 128
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update_Manage Custom Configurations",
+          "URLPATH": "Manage Custom Configurations",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update",
+          "SEQ": 129
+        },
+        {
+          "COMPONENTID": "PHANTOM_Delete_Manage Custom Configurations",
+          "URLPATH": "Manage Custom Configurations",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Delete",
+          "SEQ": 130
+        },
+        {
+          "COMPONENTID": "PHANTOM_Create_Manage Custom Configurations",
+          "URLPATH": "Manage Custom Configurations",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Create",
+          "SEQ": 131
+        },
+        {
+          "COMPONENTID": "PHANTOM_Upload File_Material Monitoring",
+          "URLPATH": "Material Monitoring",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Upload File",
+          "SEQ": 132
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read_Material Monitoring",
+          "URLPATH": "Material Monitoring",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read",
+          "SEQ": 133
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read _Project",
+          "URLPATH": "Project",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read ",
+          "SEQ": 37
+        },
+        {
+          "COMPONENTID": "PHANTOM_Create_Project",
+          "URLPATH": "Project",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Create",
+          "SEQ": 38
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update _Project",
+          "URLPATH": "Project",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update ",
+          "SEQ": 39
+        },
+        {
+          "COMPONENTID": "PHANTOM_Delete_Project",
+          "URLPATH": "Project",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Delete",
+          "SEQ": 40
+        },
+        {
+          "COMPONENTID": "PHANTOM_Upload Project Tasks_Project",
+          "URLPATH": "Project",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Upload Project Tasks",
+          "SEQ": 45
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read Project Tasks_Project",
+          "URLPATH": "Project",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read Project Tasks",
+          "SEQ": 46
+        },
+        {
+          "COMPONENTID": "PHANTOM_Set Project Task Remarks_Project",
+          "URLPATH": "Project",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Set Project Task Remarks",
+          "SEQ": 47
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update Project Task Status_Project",
+          "URLPATH": "Project",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update Project Task Status",
+          "SEQ": 48
+        },
+        {
+          "COMPONENTID": "PHANTOM_Set Project Task BoQ_Project",
+          "URLPATH": "Project",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Set Project Task BoQ",
+          "SEQ": 51
+        },
+        {
+          "COMPONENTID": "PHANTOM_Get Project Task BoQ_Project",
+          "URLPATH": "Project",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Get Project Task BoQ",
+          "SEQ": 52
+        },
+        {
+          "COMPONENTID": "PHANTOM_Submit Project_Project",
+          "URLPATH": "Project",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Submit Project",
+          "SEQ": 53
+        },
+        {
+          "COMPONENTID": "PHANTOM_Project Approval_Project",
+          "URLPATH": "Project",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Project Approval",
+          "SEQ": 54
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read Project Spending Plan_Project",
+          "URLPATH": "Project",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read Project Spending Plan",
+          "SEQ": 55
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update Project Spending Plan_Project",
+          "URLPATH": "Project",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update Project Spending Plan",
+          "SEQ": 56
+        },
+        {
+          "COMPONENTID": "PHANTOM_Cancel Project_Project",
+          "URLPATH": "Project",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Cancel Project",
+          "SEQ": 59
+        },
+        {
+          "COMPONENTID": "PHANTOM_Finish Project_Project",
+          "URLPATH": "Project",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Finish Project",
+          "SEQ": 61
+        },
+        {
+          "COMPONENTID": "PHANTOM_Create Project Document_Project",
+          "URLPATH": "Project",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Create Project Document",
+          "SEQ": 100
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read Project Document_Project",
+          "URLPATH": "Project",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read Project Document",
+          "SEQ": 101
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update Project Document_Project",
+          "URLPATH": "Project",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update Project Document",
+          "SEQ": 102
+        },
+        {
+          "COMPONENTID": "PHANTOM_Delete Project Document_Project",
+          "URLPATH": "Project",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Delete Project Document",
+          "SEQ": 103
+        },
+        {
+          "COMPONENTID": "PHANTOM_Create Project Rebaseline_Project",
+          "URLPATH": "Project",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Create Project Rebaseline",
+          "SEQ": 112
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update Project Approver_Project",
+          "URLPATH": "Project",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update Project Approver",
+          "SEQ": 117
+        },
+        {
+          "COMPONENTID": "PHANTOM_Manage Project Reminder via Email and In App notif_Project",
+          "URLPATH": "Project",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Manage Project Reminder via Email and In App notif",
+          "SEQ": 127
+        },
+        {
+          "COMPONENTID": "PHANTOM_Add Project Task Progress_Project",
+          "URLPATH": "Project",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Add Project Task Progress",
+          "SEQ": 136
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read Single Data_Rkap",
+          "URLPATH": "Rkap",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read Single Data",
+          "SEQ": 33
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update Data_Rkap",
+          "URLPATH": "Rkap",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update Data",
+          "SEQ": 34
+        },
+        {
+          "COMPONENTID": "PHANTOM_Delete_Rkap",
+          "URLPATH": "Rkap",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Delete",
+          "SEQ": 35
+        },
+        {
+          "COMPONENTID": "PHANTOM_Create_Rkap",
+          "URLPATH": "Rkap",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Create",
+          "SEQ": 36
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read_Role",
+          "URLPATH": "Role",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read",
+          "SEQ": 5
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update_Role",
+          "URLPATH": "Role",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update",
+          "SEQ": 6
+        },
+        {
+          "COMPONENTID": "PHANTOM_Delete_Role",
+          "URLPATH": "Role",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Delete",
+          "SEQ": 7
+        },
+        {
+          "COMPONENTID": "PHANTOM_Create_Role",
+          "URLPATH": "Role",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Create",
+          "SEQ": 8
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read Permissions_Role",
+          "URLPATH": "Role",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read Permissions",
+          "SEQ": 9
+        },
+        {
+          "COMPONENTID": "PHANTOM_Set Permissions_Role",
+          "URLPATH": "Role",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Set Permissions",
+          "SEQ": 10
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read",
+          "SEQ": 23
+        },
+        {
+          "COMPONENTID": "PHANTOM_Create_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Create",
+          "SEQ": 24
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update",
+          "SEQ": 25
+        },
+        {
+          "COMPONENTID": "PHANTOM_Delete_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Delete",
+          "SEQ": 26
+        },
+        {
+          "COMPONENTID": "PHANTOM_Submit SPK_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Submit SPK",
+          "SEQ": 57
+        },
+        {
+          "COMPONENTID": "PHANTOM_SPK Approval_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "SPK Approval",
+          "SEQ": 58
+        },
+        {
+          "COMPONENTID": "PHANTOM_Cancel SPK_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Cancel SPK",
+          "SEQ": 60
+        },
+        {
+          "COMPONENTID": "PHANTOM_Finish SPK_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Finish SPK",
+          "SEQ": 66
+        },
+        {
+          "COMPONENTID": "PHANTOM_Input Progress_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Input Progress",
+          "SEQ": 67
+        },
+        {
+          "COMPONENTID": "PHANTOM_Release SPK_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Release SPK",
+          "SEQ": 69
+        },
+        {
+          "COMPONENTID": "PHANTOM_SPK BoQ Progress Approval_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "SPK BoQ Progress Approval",
+          "SEQ": 70
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update SPK Remark_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update SPK Remark",
+          "SEQ": 87
+        },
+        {
+          "COMPONENTID": "PHANTOM_Create SPK Document_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Create SPK Document",
+          "SEQ": 104
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read SPK Document_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read SPK Document",
+          "SEQ": 105
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update SPK Document_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update SPK Document",
+          "SEQ": 106
+        },
+        {
+          "COMPONENTID": "PHANTOM_Delete SPK Document_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Delete SPK Document",
+          "SEQ": 107
+        },
+        {
+          "COMPONENTID": "PHANTOM_Create SPK BoQ Document_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Create SPK BoQ Document",
+          "SEQ": 108
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read SPK BoQ Document_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read SPK BoQ Document",
+          "SEQ": 109
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update SPK BoQ Document_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update SPK BoQ Document",
+          "SEQ": 110
+        },
+        {
+          "COMPONENTID": "PHANTOM_Delete SPK BoQ Document_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Delete SPK BoQ Document",
+          "SEQ": 111
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update SPK Approver_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update SPK Approver",
+          "SEQ": 123
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update SPK Cost Allocation_SPK",
+          "URLPATH": "SPK",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update SPK Cost Allocation",
+          "SEQ": 134
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read_Service Acceptance",
+          "URLPATH": "Service Acceptance",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read",
+          "SEQ": 88
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update_Service Acceptance",
+          "URLPATH": "Service Acceptance",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update",
+          "SEQ": 89
+        },
+        {
+          "COMPONENTID": "PHANTOM_Delete_Service Acceptance",
+          "URLPATH": "Service Acceptance",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Delete",
+          "SEQ": 90
+        },
+        {
+          "COMPONENTID": "PHANTOM_Create_Service Acceptance",
+          "URLPATH": "Service Acceptance",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Create",
+          "SEQ": 91
+        },
+        {
+          "COMPONENTID": "PHANTOM_Create Service Acceptance Document_Service Acceptance",
+          "URLPATH": "Service Acceptance",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Create Service Acceptance Document",
+          "SEQ": 113
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read Service Acceptance Document_Service Acceptance",
+          "URLPATH": "Service Acceptance",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read Service Acceptance Document",
+          "SEQ": 114
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update Service Acceptance Document_Service Acceptance",
+          "URLPATH": "Service Acceptance",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update Service Acceptance Document",
+          "SEQ": 115
+        },
+        {
+          "COMPONENTID": "PHANTOM_Delete Service Acceptance Document_Service Acceptance",
+          "URLPATH": "Service Acceptance",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Delete Service Acceptance Document",
+          "SEQ": 116
+        },
+        {
+          "COMPONENTID": "PHANTOM_Get tender process categories_Tender",
+          "URLPATH": "Tender",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Get tender process categories",
+          "SEQ": 71
+        },
+        {
+          "COMPONENTID": "PHANTOM_Create tender process categories_Tender",
+          "URLPATH": "Tender",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Create tender process categories",
+          "SEQ": 72
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update tender process categories_Tender",
+          "URLPATH": "Tender",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update tender process categories",
+          "SEQ": 73
+        },
+        {
+          "COMPONENTID": "PHANTOM_Delete tender process categories_Tender",
+          "URLPATH": "Tender",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Delete tender process categories",
+          "SEQ": 74
+        },
+        {
+          "COMPONENTID": "PHANTOM_Get tender processes_Tender",
+          "URLPATH": "Tender",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Get tender processes",
+          "SEQ": 75
+        },
+        {
+          "COMPONENTID": "PHANTOM_Create tender processes_Tender",
+          "URLPATH": "Tender",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Create tender processes",
+          "SEQ": 76
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update tender processes_Tender",
+          "URLPATH": "Tender",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update tender processes",
+          "SEQ": 77
+        },
+        {
+          "COMPONENTID": "PHANTOM_Delete tender processes_Tender",
+          "URLPATH": "Tender",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Delete tender processes",
+          "SEQ": 78
+        },
+        {
+          "COMPONENTID": "PHANTOM_Get Tender_Tender",
+          "URLPATH": "Tender",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Get Tender",
+          "SEQ": 79
+        },
+        {
+          "COMPONENTID": "PHANTOM_Create Tender_Tender",
+          "URLPATH": "Tender",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Create Tender",
+          "SEQ": 80
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update Tender_Tender",
+          "URLPATH": "Tender",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update Tender",
+          "SEQ": 81
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update Tender Contract_Tender",
+          "URLPATH": "Tender",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update Tender Contract",
+          "SEQ": 82
+        },
+        {
+          "COMPONENTID": "PHANTOM_Delete Tender_Tender",
+          "URLPATH": "Tender",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Delete Tender",
+          "SEQ": 83
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update Tender Actual Timeline_Tender",
+          "URLPATH": "Tender",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update Tender Actual Timeline",
+          "SEQ": 84
+        },
+        {
+          "COMPONENTID": "PHANTOM_Get Process Histories_Tender",
+          "URLPATH": "Tender",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Get Process Histories",
+          "SEQ": 85
+        },
+        {
+          "COMPONENTID": "PHANTOM_Skip Process_Tender",
+          "URLPATH": "Tender",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Skip Process",
+          "SEQ": 86
+        },
+        {
+          "COMPONENTID": "PHANTOM_Show Tender Value_Tender",
+          "URLPATH": "Tender",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Show Tender Value",
+          "SEQ": 135
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read Trash Bin_Trash Bin",
+          "URLPATH": "Trash Bin",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read Trash Bin",
+          "SEQ": 125
+        },
+        {
+          "COMPONENTID": "PHANTOM_Restore Trash Bin_Trash Bin",
+          "URLPATH": "Trash Bin",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Restore Trash Bin",
+          "SEQ": 126
+        },
+        {
+          "COMPONENTID": "PHANTOM_Read_Unit",
+          "URLPATH": "Unit",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Read",
+          "SEQ": 15
+        },
+        {
+          "COMPONENTID": "PHANTOM_Create_Unit",
+          "URLPATH": "Unit",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Create",
+          "SEQ": 16
+        },
+        {
+          "COMPONENTID": "PHANTOM_Update_Unit",
+          "URLPATH": "Unit",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Update",
+          "SEQ": 17
+        },
+        {
+          "COMPONENTID": "PHANTOM_Delete_Unit",
+          "URLPATH": "Unit",
+          "HIDDEN": 0,
+          "READONLY": 0,
+          "DISABLED": 0,
+          "PAGE": "Delete",
+          "SEQ": 18
+        }
+      ],
+      "SEQROLE": 0
+    }
+  ]
+}
+

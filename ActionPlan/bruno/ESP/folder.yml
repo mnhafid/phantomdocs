@@ -1,0 +1,27 @@
+info:
+  name: ESP
+  type: folder
+  seq: 2
+
+request:
+  auth: inherit
+
+docs: |
+  ## Action Plan PEP - Electric Submersible Pump (PHI-2496 / 2497)
+
+  Urutan: Get Next WO Number → Submit (set `plan_id` dari `data.id`) → Detail → Review (Approve / Modify / Reject)
+  → Level Approve / Reject. Token: `ssdp_token` (phi.sda1), `po_token` (phi.po), `mgr_token` (phi.superadmin).
+  **Hanya PEP, hanya installation** (`installation_schedule` / `installation_update`). Selalu masuk approval PO
+  (`approval_status = waiting_review`), sama seperti WHC installation. `adjustment` → 400. PHSS → 400.
+
+  **Field bersama**
+  - `wo_number`: dari `GET /api/v1/well-surveilence/action-plans/next-wo-number` (opsional).
+  - `pic_ids` wajib minimal 1. `artificial_lift.assigned_department` ("Assign to") wajib.
+  - `owned_by` wajib: `rental` | `owned`. `contract_number` (free text) hanya untuk `rental`, `asset_number` hanya untuk `owned`.
+  - `production`, `pressure` wajib, >= 0.
+
+  **Field ESP** (`method = electric_submersible_pump`, PHI-2496):
+  - `frequency` dan `electric_current` WAJIB, >= 0.
+  - **Default FE = `0`. `0` adalah angka, BUKAN boolean / kosong.** Backend cek `null`, bukan falsy:
+    `0` diterima dan disimpan `0`; hanya `null` / tidak dikirim yang 400.
+  - Field SRP (`stroke_length`, `spmfreq`, `power`, `pump_type`, `pump_brand`, `prime_mover_name`) dan field adjustment dibuang.

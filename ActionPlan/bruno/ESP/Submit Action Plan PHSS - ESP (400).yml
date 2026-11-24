@@ -1,0 +1,62 @@
+info:
+  name: Submit Action Plan PHSS - ESP (400)
+  type: http
+  seq: 10
+
+http:
+  method: POST
+  url: "{{base_url}}/api/v1/well-surveilence/action-plans/phss/submit"
+  body:
+    type: json
+    data: |-
+      {
+        "action_plan_type": "artificial_lift",
+        "draft_id": null,
+        "well_id": "{{well_id}}",
+        "wo_number": "{{wo_number}}",
+        "start_date": "2026-12-14",
+        "end_date": "2026-12-16",
+        "pic_ids": [
+          "{{pic_id}}"
+        ],
+        "notes": "ESP di PHSS",
+        "ownership": "Pertamina EP",
+        "artificial_lift": {
+          "activity_type": "installation",
+          "action_mode": "installation_schedule",
+          "method": "electric_submersible_pump",
+          "assigned_department": "Production Operations",
+          "frequency": 0,
+          "electric_current": 0,
+          "owned_by": "owned",
+          "asset_number": "AST-ESP-0007",
+          "production": 300,
+          "pressure": 180
+        }
+      }
+  auth:
+    type: bearer
+    token: "{{ssdp_phss_token}}"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: PHSS ditolak
+    request:
+      url: "{{base_url}}/api/v1/well-surveilence/action-plans/phss/submit"
+      method: POST
+    response:
+      status: 400
+      statusText: Bad Request
+      body:
+        type: text
+        data: |-
+          {
+            "status": "failed",
+            "code": "01",
+            "message": "artificial_lift.method electric_submersible_pump is only available for PEP"
+          }

@@ -1,0 +1,163 @@
+info:
+  name: Submit Action Plan PEP - SRP Installation Schedule
+  type: http
+  seq: 2
+
+http:
+  method: POST
+  url: "{{base_url}}/api/v1/well-surveilence/action-plans/pep/submit"
+  body:
+    type: json
+    data: |-
+      {
+        "action_plan_type": "artificial_lift",
+        "draft_id": null,
+        "well_id": "{{well_id}}",
+        "wo_number": "{{wo_number}}",
+        "start_date": "2026-12-14",
+        "end_date": "2026-12-16",
+        "pic_ids": [
+          "{{pic_id}}"
+        ],
+        "notes": "SRP installation schedule",
+        "ownership": "Pertamina EP",
+        "artificial_lift": {
+          "activity_type": "installation",
+          "action_mode": "installation_schedule",
+          "method": "sucker_rod_pump",
+          "assigned_department": "Production Operations",
+          "pump_type": "Insert Pump",
+          "pump_brand": "Weatherford",
+          "stroke_length": 86,
+          "spmfreq": 8.5,
+          "prime_mover_name": "Gas Engine G3306",
+          "power": 40,
+          "owned_by": "rental",
+          "contract_number": "CTR-PO/2026/021",
+          "production": 120,
+          "pressure": 150
+        }
+      }
+  auth:
+    type: bearer
+    token: "{{ssdp_token}}"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: Submit OK (waiting_review)
+    request:
+      url: "{{base_url}}/api/v1/well-surveilence/action-plans/pep/submit"
+      method: POST
+    response:
+      status: 200
+      statusText: OK
+      body:
+        type: text
+        data: |-
+          {
+            "data": {
+              "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+              "record_state": "submitted",
+              "approval_status": "waiting_review",
+              "work_order_number": "0005/WO/SDA1/2026"
+            },
+            "status": "success",
+            "code": "00",
+            "message": "Submit action plan PEP succeed"
+          }
+  - name: stroke_length kosong (400)
+    request:
+      url: "{{base_url}}/api/v1/well-surveilence/action-plans/pep/submit"
+      method: POST
+    response:
+      status: 400
+      statusText: Bad Request
+      body:
+        type: text
+        data: |-
+          {
+            "status": "failed",
+            "code": "01",
+            "message": "artificial_lift.stroke_length is required"
+          }
+  - name: spmfreq 0 (400)
+    request:
+      url: "{{base_url}}/api/v1/well-surveilence/action-plans/pep/submit"
+      method: POST
+    response:
+      status: 400
+      statusText: Bad Request
+      body:
+        type: text
+        data: |-
+          {
+            "status": "failed",
+            "code": "01",
+            "message": "artificial_lift.spmfreq must be more than 0"
+          }
+  - name: owned_by kosong (400)
+    request:
+      url: "{{base_url}}/api/v1/well-surveilence/action-plans/pep/submit"
+      method: POST
+    response:
+      status: 400
+      statusText: Bad Request
+      body:
+        type: text
+        data: |-
+          {
+            "status": "failed",
+            "code": "01",
+            "message": "artificial_lift.owned_by must be rental or owned"
+          }
+  - name: pic_ids kosong (400)
+    request:
+      url: "{{base_url}}/api/v1/well-surveilence/action-plans/pep/submit"
+      method: POST
+    response:
+      status: 400
+      statusText: Bad Request
+      body:
+        type: text
+        data: |-
+          {
+            "status": "failed",
+            "code": "01",
+            "message": "pic_ids needs at least one PIC for method sucker_rod_pump"
+          }
+  - name: activity_type adjustment (400)
+    request:
+      url: "{{base_url}}/api/v1/well-surveilence/action-plans/pep/submit"
+      method: POST
+    response:
+      status: 400
+      statusText: Bad Request
+      body:
+        type: text
+        data: |-
+          {
+            "status": "failed",
+            "code": "01",
+            "message": "artificial_lift.activity_type must be installation for method sucker_rod_pump"
+          }
+
+docs: |
+  **Hanya PEP, hanya installation** (`installation_schedule` / `installation_update`). Selalu masuk approval PO
+  (`approval_status = waiting_review`), sama seperti WHC installation. `adjustment` → 400. PHSS → 400.
+
+  **Field bersama**
+  - `wo_number`: dari `GET /api/v1/well-surveilence/action-plans/next-wo-number` (opsional).
+  - `pic_ids` wajib minimal 1. `artificial_lift.assigned_department` ("Assign to") wajib.
+  - `owned_by` wajib: `rental` | `owned`. `contract_number` (free text) hanya untuk `rental`, `asset_number` hanya untuk `owned`.
+  - `production`, `pressure` wajib, >= 0.
+
+  **Field SRP** (`method = sucker_rod_pump`, PHI-2494):
+  - `stroke_length` wajib, > 0. `spmfreq` (stroke per minute) wajib, > 0.
+  - `power` opsional, >= 0. `pump_type`, `pump_brand`, `prime_mover_name` opsional, free text.
+  - `prime_mover` (decimal) TIDAK dipakai SRP: itu field pump adjustment. SRP memakai `prime_mover_name` (teks).
+  - Field ESP (`frequency`, `electric_current`) dan field adjustment dibuang.

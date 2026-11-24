@@ -1,0 +1,867 @@
+sysrole,seq,privilege_group,privilege_name,class
+Projects - Modify - Leader,1,User,Read,read
+Projects - Modify - Leader,2,User,Set User Role,modify
+Projects - Modify - Leader,3,User,Update,modify
+Projects - Modify - Leader,4,User,Create,modify
+Projects - Modify - Leader,5,Role,Read,read
+Projects - Modify - Leader,6,Role,Update,modify
+Projects - Modify - Leader,7,Role,Delete,modify
+Projects - Modify - Leader,8,Role,Create,modify
+Projects - Modify - Leader,9,Role,Read Permissions,read
+Projects - Modify - Leader,10,Role,Set Permissions,modify
+Projects - Modify - Leader,11,Contractor,Read,read
+Projects - Modify - Leader,12,Contractor,Create,modify
+Projects - Modify - Leader,13,Contractor,Update,modify
+Projects - Modify - Leader,14,Contractor,Delete,modify
+Projects - Modify - Leader,15,Unit,Read,read
+Projects - Modify - Leader,16,Unit,Create,modify
+Projects - Modify - Leader,17,Unit,Update,modify
+Projects - Modify - Leader,18,Unit,Delete,modify
+Projects - Modify - Leader,19,Contract,Read,read
+Projects - Modify - Leader,20,Contract,Create,modify
+Projects - Modify - Leader,21,Contract,Update,modify
+Projects - Modify - Leader,22,Contract,Delete,modify
+Projects - Modify - Leader,23,SPK,Read,read
+Projects - Modify - Leader,24,SPK,Create,modify
+Projects - Modify - Leader,25,SPK,Update,modify
+Projects - Modify - Leader,26,SPK,Delete,modify
+Projects - Modify - Leader,27,Field,Read,read
+Projects - Modify - Leader,28,Field,Create,modify
+Projects - Modify - Leader,29,Field,Update,modify
+Projects - Modify - Leader,30,Field,Delete,modify
+Projects - Modify - Leader,31,Contract,Upload Contract BOQ,modify
+Projects - Modify - Leader,32,Contract,Read Contract BOQ,read
+Projects - Modify - Leader,33,Rkap,Read Single Data,read
+Projects - Modify - Leader,34,Rkap,Update Data,modify
+Projects - Modify - Leader,35,Rkap,Delete,modify
+Projects - Modify - Leader,36,Rkap,Create,modify
+Projects - Modify - Leader,37,Project,Read,read
+Projects - Modify - Leader,38,Project,Create,modify
+Projects - Modify - Leader,39,Project,Update,modify
+Projects - Modify - Leader,40,Project,Delete,modify
+Projects - Modify - Leader,41,Bank,Read,read
+Projects - Modify - Leader,42,Bank,Create,modify
+Projects - Modify - Leader,43,Bank,Update,modify
+Projects - Modify - Leader,44,Bank,Delete,modify
+Projects - Modify - Leader,45,Project,Upload Project Tasks,modify
+Projects - Modify - Leader,46,Project,Read Project Tasks,read
+Projects - Modify - Leader,47,Project,Set Project Task Remarks,modify
+Projects - Modify - Leader,48,Project,Update Project Task Status,modify
+Projects - Modify - Leader,49,Project,Set Project Task Assignee,modify
+Projects - Modify - Leader,50,Project,Create Project Task,modify
+Projects - Modify - Leader,51,Project,Set Project Task BoQ,modify
+Projects - Modify - Leader,52,Project,Get Project Task BoQ,modify
+Projects - Modify - Leader,53,Project,Submit Project,modify
+Projects - Modify - Leader,54,Project,Project Approval,approval
+Projects - Modify - Leader,55,Project,Read Project Spending Plan,read
+Projects - Modify - Leader,56,Project,Update Project Spending Plan,modify
+Projects - Modify - Leader,57,SPK,Submit Work Order,modify
+Projects - Modify - Leader,58,SPK,Work Order Approval,approval
+Projects - Modify - Leader,59,Project,Cancel Project,modify
+Projects - Modify - Leader,60,SPK,Cancel Work Order,modify
+Projects - Modify - Leader,61,Project,Finish Project,modify
+Projects - Modify - Leader,62,Contract,Submit,modify
+Projects - Modify - Leader,63,Contract,Contract Approval,approval
+Projects - Modify - Leader,64,Contract,Cancel Contract,modify
+Projects - Modify - Leader,65,Contract,Finish Contract,modify
+Projects - Modify - Leader,66,SPK,Finish Work Order,modify
+Projects - Modify - Leader,67,SPK,Input Progress,modify
+Projects - Modify - Leader,68,Dashboard,Read Dashboard,read
+Projects - Modify - Leader,69,SPK,Release Work Order,modify
+Projects - Modify - Leader,70,SPK,Work Order BoQ Progress Approval,approval
+Projects - Modify - Leader,71,Tender,Get tender process categories,modify
+Projects - Modify - Leader,72,Tender,Create tender process categories,modify
+Projects - Modify - Leader,73,Tender,Update tender process categories,modify
+Projects - Modify - Leader,74,Tender,Delete tender process categories,modify
+Projects - Modify - Leader,75,Tender,Get tender processes,modify
+Projects - Modify - Leader,76,Tender,Create tender processes,modify
+Projects - Modify - Leader,77,Tender,Update tender processes,modify
+Projects - Modify - Leader,78,Tender,Delete tender processes,modify
+Projects - Modify - Leader,79,Tender,Get Tender,modify
+Projects - Modify - Leader,80,Tender,Create Tender,modify
+Projects - Modify - Leader,81,Tender,Update Tender,modify
+Projects - Modify - Leader,82,Tender,Update Tender Contract,modify
+Projects - Modify - Leader,83,Tender,Delete Tender,modify
+Projects - Modify - Leader,84,Tender,Update Tender Actual Timeline,modify
+Projects - Modify - Leader,85,Tender,Get Process Histories,modify
+Projects - Modify - Leader,86,Tender,Skip Process,modify
+Projects - Modify - Leader,87,SPK,Update Work Order Remark,modify
+Projects - Modify - Leader,88,Service Acceptance,Read,read
+Projects - Modify - Leader,89,Service Acceptance,Update,modify
+Projects - Modify - Leader,92,Invoice,Read,read
+Projects - Modify - Leader,93,Invoice,Create,modify
+Projects - Modify - Leader,94,Invoice,Update,modify
+Projects - Modify - Leader,95,Invoice,Delete,modify
+Projects - Modify - Leader,96,Contract,Create Contract Document,modify
+Projects - Modify - Leader,97,Contract,Read Contract Document,read
+Projects - Modify - Leader,98,Contract,Update Contract Document,modify
+Projects - Modify - Leader,99,Contract,Delete Contract Document,modify
+Projects - Modify - Leader,100,Project,Create Project Document,modify
+Projects - Modify - Leader,101,Project,Read Project Document,read
+Projects - Modify - Leader,102,Project,Update Project Document,modify
+Projects - Modify - Leader,103,Project,Delete Project Document,modify
+Projects - Modify - Leader,104,SPK,Create Work Order Document,modify
+Projects - Modify - Leader,105,SPK,Read Work Order Document,read
+Projects - Modify - Leader,106,SPK,Update Work Order Document,modify
+Projects - Modify - Leader,107,SPK,Delete Work Order Document,modify
+Projects - Modify - Leader,108,SPK,Create Work Order BoQ Document,modify
+Projects - Modify - Leader,109,SPK,Read Work Order BoQ Document,read
+Projects - Modify - Leader,110,SPK,Update Work Order BoQ Document,modify
+Projects - Modify - Leader,111,SPK,Delete Work Order BoQ Document,modify
+Projects - Modify - Leader,112,Project,Create Project Rebaseline,modify
+Projects - Modify - Leader,117,Project,Update Project Approver,modify
+Projects - Modify - Leader,118,Contract,Update Contract Approver,modify
+Projects - Modify - Leader,119,Approval Route,Read Approval Route,read
+Projects - Modify - Leader,120,Approval Route,Update Approval Route,modify
+Projects - Modify - Leader,121,Approval Route,Delete Approval Route,modify
+Projects - Modify - Leader,122,Approval Route,Create Approval Route,modify
+Projects - Modify - Leader,123,SPK,Update Work Order Approver,modify
+Projects - Modify - Leader,124,Contract,Manage Contract Depletion Value Warning Notification,modify
+Projects - Modify - Leader,125,Trash Management,Read Trash Bin,read
+Projects - Modify - Leader,126,Trash Management,Restore Trash Bin,modify
+Projects - Modify - Leader,127,Project,Manage Project Reminder via Email and In App notif,modify
+Projects - Modify - Leader,128,Custom Configuration,Read,read
+Projects - Modify - Leader,129,Custom Configuration,Update,modify
+Projects - Modify - Leader,130,Custom Configuration,Delete,modify
+Projects - Modify - Leader,131,Custom Configuration,Create,modify
+Projects - Modify - Leader,132,Material Monitoring,Upload File,modify
+Projects - Modify - Leader,133,Material Monitoring,Read,read
+Projects - Modify - Leader,134,SPK,Update Work Order Cost Allocation,modify
+Projects - Modify - Leader,135,Tender,Show Tender Value,modify
+Projects - Modify - Leader,136,Project,Add Project Task Progress,modify
+Projects - Modify - Leader,137,Well Monitoring,Manage Subscription,modify
+Projects - Modify - Leader,145,OE Generator,Read OE Generator,read
+Projects - Modify - Leader,146,OE Generator,Modify OE Generator,modify
+Projects - Modify - Leader,147,RKS Generator,Read RKS Generator,read
+Projects - Modify - Leader,148,RKS Generator,Generate RKS,modify
+Projects - Modify - Leader,149,RKS Master Category,Read RKS Master Category,read
+Projects - Modify - Leader,150,RKS Master Category,Modify RKS Master Category,modify
+Projects - Modify - Leader,151,RKS Master Clause,Read RKS Master Clause,read
+Projects - Modify - Leader,152,RKS Master Clause,Modify RKS Master Clause,modify
+Projects - Modify - Leader,153,Well Monitoring,Read PHSS Wells,read
+Projects - Modify - Leader,155,Well Monitoring,Read PEP Wells,read
+Projects - Modify - Member,1,User,Read,read
+Projects - Modify - Member,2,User,Set User Role,modify
+Projects - Modify - Member,3,User,Update,modify
+Projects - Modify - Member,4,User,Create,modify
+Projects - Modify - Member,5,Role,Read,read
+Projects - Modify - Member,6,Role,Update,modify
+Projects - Modify - Member,7,Role,Delete,modify
+Projects - Modify - Member,8,Role,Create,modify
+Projects - Modify - Member,9,Role,Read Permissions,read
+Projects - Modify - Member,10,Role,Set Permissions,modify
+Projects - Modify - Member,11,Contractor,Read,read
+Projects - Modify - Member,12,Contractor,Create,modify
+Projects - Modify - Member,13,Contractor,Update,modify
+Projects - Modify - Member,14,Contractor,Delete,modify
+Projects - Modify - Member,15,Unit,Read,read
+Projects - Modify - Member,16,Unit,Create,modify
+Projects - Modify - Member,17,Unit,Update,modify
+Projects - Modify - Member,18,Unit,Delete,modify
+Projects - Modify - Member,19,Contract,Read,read
+Projects - Modify - Member,20,Contract,Create,modify
+Projects - Modify - Member,21,Contract,Update,modify
+Projects - Modify - Member,22,Contract,Delete,modify
+Projects - Modify - Member,23,SPK,Read,read
+Projects - Modify - Member,24,SPK,Create,modify
+Projects - Modify - Member,25,SPK,Update,modify
+Projects - Modify - Member,26,SPK,Delete,modify
+Projects - Modify - Member,27,Field,Read,read
+Projects - Modify - Member,28,Field,Create,modify
+Projects - Modify - Member,29,Field,Update,modify
+Projects - Modify - Member,30,Field,Delete,modify
+Projects - Modify - Member,31,Contract,Upload Contract BOQ,modify
+Projects - Modify - Member,32,Contract,Read Contract BOQ,read
+Projects - Modify - Member,33,Rkap,Read Single Data,read
+Projects - Modify - Member,34,Rkap,Update Data,modify
+Projects - Modify - Member,35,Rkap,Delete,modify
+Projects - Modify - Member,36,Rkap,Create,modify
+Projects - Modify - Member,37,Project,Read,read
+Projects - Modify - Member,38,Project,Create,modify
+Projects - Modify - Member,39,Project,Update,modify
+Projects - Modify - Member,40,Project,Delete,modify
+Projects - Modify - Member,41,Bank,Read,read
+Projects - Modify - Member,42,Bank,Create,modify
+Projects - Modify - Member,43,Bank,Update,modify
+Projects - Modify - Member,44,Bank,Delete,modify
+Projects - Modify - Member,45,Project,Upload Project Tasks,modify
+Projects - Modify - Member,46,Project,Read Project Tasks,read
+Projects - Modify - Member,47,Project,Set Project Task Remarks,modify
+Projects - Modify - Member,48,Project,Update Project Task Status,modify
+Projects - Modify - Member,49,Project,Set Project Task Assignee,modify
+Projects - Modify - Member,50,Project,Create Project Task,modify
+Projects - Modify - Member,51,Project,Set Project Task BoQ,modify
+Projects - Modify - Member,52,Project,Get Project Task BoQ,modify
+Projects - Modify - Member,53,Project,Submit Project,modify
+Projects - Modify - Member,55,Project,Read Project Spending Plan,read
+Projects - Modify - Member,56,Project,Update Project Spending Plan,modify
+Projects - Modify - Member,57,SPK,Submit Work Order,modify
+Projects - Modify - Member,59,Project,Cancel Project,modify
+Projects - Modify - Member,60,SPK,Cancel Work Order,modify
+Projects - Modify - Member,61,Project,Finish Project,modify
+Projects - Modify - Member,62,Contract,Submit,modify
+Projects - Modify - Member,64,Contract,Cancel Contract,modify
+Projects - Modify - Member,65,Contract,Finish Contract,modify
+Projects - Modify - Member,66,SPK,Finish Work Order,modify
+Projects - Modify - Member,67,SPK,Input Progress,modify
+Projects - Modify - Member,68,Dashboard,Read Dashboard,read
+Projects - Modify - Member,69,SPK,Release Work Order,modify
+Projects - Modify - Member,71,Tender,Get tender process categories,modify
+Projects - Modify - Member,72,Tender,Create tender process categories,modify
+Projects - Modify - Member,73,Tender,Update tender process categories,modify
+Projects - Modify - Member,74,Tender,Delete tender process categories,modify
+Projects - Modify - Member,75,Tender,Get tender processes,modify
+Projects - Modify - Member,76,Tender,Create tender processes,modify
+Projects - Modify - Member,77,Tender,Update tender processes,modify
+Projects - Modify - Member,78,Tender,Delete tender processes,modify
+Projects - Modify - Member,79,Tender,Get Tender,modify
+Projects - Modify - Member,80,Tender,Create Tender,modify
+Projects - Modify - Member,81,Tender,Update Tender,modify
+Projects - Modify - Member,82,Tender,Update Tender Contract,modify
+Projects - Modify - Member,83,Tender,Delete Tender,modify
+Projects - Modify - Member,84,Tender,Update Tender Actual Timeline,modify
+Projects - Modify - Member,85,Tender,Get Process Histories,modify
+Projects - Modify - Member,86,Tender,Skip Process,modify
+Projects - Modify - Member,87,SPK,Update Work Order Remark,modify
+Projects - Modify - Member,88,Service Acceptance,Read,read
+Projects - Modify - Member,89,Service Acceptance,Update,modify
+Projects - Modify - Member,92,Invoice,Read,read
+Projects - Modify - Member,93,Invoice,Create,modify
+Projects - Modify - Member,94,Invoice,Update,modify
+Projects - Modify - Member,95,Invoice,Delete,modify
+Projects - Modify - Member,96,Contract,Create Contract Document,modify
+Projects - Modify - Member,97,Contract,Read Contract Document,read
+Projects - Modify - Member,98,Contract,Update Contract Document,modify
+Projects - Modify - Member,99,Contract,Delete Contract Document,modify
+Projects - Modify - Member,100,Project,Create Project Document,modify
+Projects - Modify - Member,101,Project,Read Project Document,read
+Projects - Modify - Member,102,Project,Update Project Document,modify
+Projects - Modify - Member,103,Project,Delete Project Document,modify
+Projects - Modify - Member,104,SPK,Create Work Order Document,modify
+Projects - Modify - Member,105,SPK,Read Work Order Document,read
+Projects - Modify - Member,106,SPK,Update Work Order Document,modify
+Projects - Modify - Member,107,SPK,Delete Work Order Document,modify
+Projects - Modify - Member,108,SPK,Create Work Order BoQ Document,modify
+Projects - Modify - Member,109,SPK,Read Work Order BoQ Document,read
+Projects - Modify - Member,110,SPK,Update Work Order BoQ Document,modify
+Projects - Modify - Member,111,SPK,Delete Work Order BoQ Document,modify
+Projects - Modify - Member,112,Project,Create Project Rebaseline,modify
+Projects - Modify - Member,117,Project,Update Project Approver,modify
+Projects - Modify - Member,118,Contract,Update Contract Approver,modify
+Projects - Modify - Member,119,Approval Route,Read Approval Route,read
+Projects - Modify - Member,120,Approval Route,Update Approval Route,modify
+Projects - Modify - Member,121,Approval Route,Delete Approval Route,modify
+Projects - Modify - Member,122,Approval Route,Create Approval Route,modify
+Projects - Modify - Member,123,SPK,Update Work Order Approver,modify
+Projects - Modify - Member,124,Contract,Manage Contract Depletion Value Warning Notification,modify
+Projects - Modify - Member,125,Trash Management,Read Trash Bin,read
+Projects - Modify - Member,126,Trash Management,Restore Trash Bin,modify
+Projects - Modify - Member,127,Project,Manage Project Reminder via Email and In App notif,modify
+Projects - Modify - Member,128,Custom Configuration,Read,read
+Projects - Modify - Member,129,Custom Configuration,Update,modify
+Projects - Modify - Member,130,Custom Configuration,Delete,modify
+Projects - Modify - Member,131,Custom Configuration,Create,modify
+Projects - Modify - Member,132,Material Monitoring,Upload File,modify
+Projects - Modify - Member,133,Material Monitoring,Read,read
+Projects - Modify - Member,134,SPK,Update Work Order Cost Allocation,modify
+Projects - Modify - Member,135,Tender,Show Tender Value,modify
+Projects - Modify - Member,136,Project,Add Project Task Progress,modify
+Projects - Modify - Member,137,Well Monitoring,Manage Subscription,modify
+Projects - Modify - Member,145,OE Generator,Read OE Generator,read
+Projects - Modify - Member,146,OE Generator,Modify OE Generator,modify
+Projects - Modify - Member,147,RKS Generator,Read RKS Generator,read
+Projects - Modify - Member,148,RKS Generator,Generate RKS,modify
+Projects - Modify - Member,149,RKS Master Category,Read RKS Master Category,read
+Projects - Modify - Member,150,RKS Master Category,Modify RKS Master Category,modify
+Projects - Modify - Member,151,RKS Master Clause,Read RKS Master Clause,read
+Projects - Modify - Member,152,RKS Master Clause,Modify RKS Master Clause,modify
+Projects - Modify - Member,153,Well Monitoring,Read PHSS Wells,read
+Projects - Modify - Member,155,Well Monitoring,Read PEP Wells,read
+Projects - Read - Guest,1,User,Read,read
+Projects - Read - Guest,5,Role,Read,read
+Projects - Read - Guest,9,Role,Read Permissions,read
+Projects - Read - Guest,11,Contractor,Read,read
+Projects - Read - Guest,15,Unit,Read,read
+Projects - Read - Guest,19,Contract,Read,read
+Projects - Read - Guest,23,SPK,Read,read
+Projects - Read - Guest,27,Field,Read,read
+Projects - Read - Guest,32,Contract,Read Contract BOQ,read
+Projects - Read - Guest,33,Rkap,Read Single Data,read
+Projects - Read - Guest,37,Project,Read,read
+Projects - Read - Guest,41,Bank,Read,read
+Projects - Read - Guest,46,Project,Read Project Tasks,read
+Projects - Read - Guest,55,Project,Read Project Spending Plan,read
+Projects - Read - Guest,68,Dashboard,Read Dashboard,read
+Projects - Read - Guest,88,Service Acceptance,Read,read
+Projects - Read - Guest,92,Invoice,Read,read
+Projects - Read - Guest,97,Contract,Read Contract Document,read
+Projects - Read - Guest,101,Project,Read Project Document,read
+Projects - Read - Guest,105,SPK,Read Work Order Document,read
+Projects - Read - Guest,109,SPK,Read Work Order BoQ Document,read
+Projects - Read - Guest,119,Approval Route,Read Approval Route,read
+Projects - Read - Guest,125,Trash Management,Read Trash Bin,read
+Projects - Read - Guest,128,Custom Configuration,Read,read
+Projects - Read - Guest,133,Material Monitoring,Read,read
+Projects - Read - Guest,145,OE Generator,Read OE Generator,read
+Projects - Read - Guest,147,RKS Generator,Read RKS Generator,read
+Projects - Read - Guest,149,RKS Master Category,Read RKS Master Category,read
+Projects - Read - Guest,151,RKS Master Clause,Read RKS Master Clause,read
+Projects - Read - Guest,153,Well Monitoring,Read PHSS Wells,read
+Projects - Read - Guest,155,Well Monitoring,Read PEP Wells,read
+Projects - Approval - Member,1,User,Read,read
+Projects - Approval - Member,5,Role,Read,read
+Projects - Approval - Member,9,Role,Read Permissions,read
+Projects - Approval - Member,11,Contractor,Read,read
+Projects - Approval - Member,15,Unit,Read,read
+Projects - Approval - Member,19,Contract,Read,read
+Projects - Approval - Member,23,SPK,Read,read
+Projects - Approval - Member,27,Field,Read,read
+Projects - Approval - Member,32,Contract,Read Contract BOQ,read
+Projects - Approval - Member,33,Rkap,Read Single Data,read
+Projects - Approval - Member,37,Project,Read,read
+Projects - Approval - Member,41,Bank,Read,read
+Projects - Approval - Member,46,Project,Read Project Tasks,read
+Projects - Approval - Member,54,Project,Project Approval,approval
+Projects - Approval - Member,55,Project,Read Project Spending Plan,read
+Projects - Approval - Member,58,SPK,Work Order Approval,approval
+Projects - Approval - Member,63,Contract,Contract Approval,approval
+Projects - Approval - Member,68,Dashboard,Read Dashboard,read
+Projects - Approval - Member,70,SPK,Work Order BoQ Progress Approval,approval
+Projects - Approval - Member,88,Service Acceptance,Read,read
+Projects - Approval - Member,92,Invoice,Read,read
+Projects - Approval - Member,97,Contract,Read Contract Document,read
+Projects - Approval - Member,101,Project,Read Project Document,read
+Projects - Approval - Member,105,SPK,Read Work Order Document,read
+Projects - Approval - Member,109,SPK,Read Work Order BoQ Document,read
+Projects - Approval - Member,119,Approval Route,Read Approval Route,read
+Projects - Approval - Member,125,Trash Management,Read Trash Bin,read
+Projects - Approval - Member,128,Custom Configuration,Read,read
+Projects - Approval - Member,133,Material Monitoring,Read,read
+Projects - Approval - Member,145,OE Generator,Read OE Generator,read
+Projects - Approval - Member,147,RKS Generator,Read RKS Generator,read
+Projects - Approval - Member,149,RKS Master Category,Read RKS Master Category,read
+Projects - Approval - Member,151,RKS Master Clause,Read RKS Master Clause,read
+Projects - Approval - Member,153,Well Monitoring,Read PHSS Wells,read
+Projects - Approval - Member,155,Well Monitoring,Read PEP Wells,read
+Operations & Surface Facilities - Modify - Leader,11,Contractor,Read,read
+Operations & Surface Facilities - Modify - Leader,12,Contractor,Create,modify
+Operations & Surface Facilities - Modify - Leader,13,Contractor,Update,modify
+Operations & Surface Facilities - Modify - Leader,14,Contractor,Delete,modify
+Operations & Surface Facilities - Modify - Leader,15,Unit,Read,read
+Operations & Surface Facilities - Modify - Leader,16,Unit,Create,modify
+Operations & Surface Facilities - Modify - Leader,17,Unit,Update,modify
+Operations & Surface Facilities - Modify - Leader,18,Unit,Delete,modify
+Operations & Surface Facilities - Modify - Leader,19,Contract,Read,read
+Operations & Surface Facilities - Modify - Leader,20,Contract,Create,modify
+Operations & Surface Facilities - Modify - Leader,21,Contract,Update,modify
+Operations & Surface Facilities - Modify - Leader,22,Contract,Delete,modify
+Operations & Surface Facilities - Modify - Leader,23,SPK,Read,read
+Operations & Surface Facilities - Modify - Leader,24,SPK,Create,modify
+Operations & Surface Facilities - Modify - Leader,25,SPK,Update,modify
+Operations & Surface Facilities - Modify - Leader,26,SPK,Delete,modify
+Operations & Surface Facilities - Modify - Leader,27,Field,Read,read
+Operations & Surface Facilities - Modify - Leader,28,Field,Create,modify
+Operations & Surface Facilities - Modify - Leader,29,Field,Update,modify
+Operations & Surface Facilities - Modify - Leader,30,Field,Delete,modify
+Operations & Surface Facilities - Modify - Leader,31,Contract,Upload Contract BOQ,modify
+Operations & Surface Facilities - Modify - Leader,32,Contract,Read Contract BOQ,read
+Operations & Surface Facilities - Modify - Leader,33,Rkap,Read Single Data,read
+Operations & Surface Facilities - Modify - Leader,34,Rkap,Update Data,modify
+Operations & Surface Facilities - Modify - Leader,35,Rkap,Delete,modify
+Operations & Surface Facilities - Modify - Leader,36,Rkap,Create,modify
+Operations & Surface Facilities - Modify - Leader,37,Project,Read,read
+Operations & Surface Facilities - Modify - Leader,38,Project,Create,modify
+Operations & Surface Facilities - Modify - Leader,39,Project,Update,modify
+Operations & Surface Facilities - Modify - Leader,40,Project,Delete,modify
+Operations & Surface Facilities - Modify - Leader,41,Bank,Read,read
+Operations & Surface Facilities - Modify - Leader,42,Bank,Create,modify
+Operations & Surface Facilities - Modify - Leader,43,Bank,Update,modify
+Operations & Surface Facilities - Modify - Leader,44,Bank,Delete,modify
+Operations & Surface Facilities - Modify - Leader,45,Project,Upload Project Tasks,modify
+Operations & Surface Facilities - Modify - Leader,46,Project,Read Project Tasks,read
+Operations & Surface Facilities - Modify - Leader,47,Project,Set Project Task Remarks,modify
+Operations & Surface Facilities - Modify - Leader,48,Project,Update Project Task Status,modify
+Operations & Surface Facilities - Modify - Leader,49,Project,Set Project Task Assignee,modify
+Operations & Surface Facilities - Modify - Leader,50,Project,Create Project Task,modify
+Operations & Surface Facilities - Modify - Leader,51,Project,Set Project Task BoQ,modify
+Operations & Surface Facilities - Modify - Leader,52,Project,Get Project Task BoQ,modify
+Operations & Surface Facilities - Modify - Leader,53,Project,Submit Project,modify
+Operations & Surface Facilities - Modify - Leader,54,Project,Project Approval,approval
+Operations & Surface Facilities - Modify - Leader,55,Project,Read Project Spending Plan,read
+Operations & Surface Facilities - Modify - Leader,56,Project,Update Project Spending Plan,modify
+Operations & Surface Facilities - Modify - Leader,57,SPK,Submit Work Order,modify
+Operations & Surface Facilities - Modify - Leader,58,SPK,Work Order Approval,approval
+Operations & Surface Facilities - Modify - Leader,59,Project,Cancel Project,modify
+Operations & Surface Facilities - Modify - Leader,60,SPK,Cancel Work Order,modify
+Operations & Surface Facilities - Modify - Leader,61,Project,Finish Project,modify
+Operations & Surface Facilities - Modify - Leader,62,Contract,Submit,modify
+Operations & Surface Facilities - Modify - Leader,63,Contract,Contract Approval,approval
+Operations & Surface Facilities - Modify - Leader,64,Contract,Cancel Contract,modify
+Operations & Surface Facilities - Modify - Leader,65,Contract,Finish Contract,modify
+Operations & Surface Facilities - Modify - Leader,66,SPK,Finish Work Order,modify
+Operations & Surface Facilities - Modify - Leader,67,SPK,Input Progress,modify
+Operations & Surface Facilities - Modify - Leader,68,Dashboard,Read Dashboard,read
+Operations & Surface Facilities - Modify - Leader,69,SPK,Release Work Order,modify
+Operations & Surface Facilities - Modify - Leader,70,SPK,Work Order BoQ Progress Approval,approval
+Operations & Surface Facilities - Modify - Leader,71,Tender,Get tender process categories,modify
+Operations & Surface Facilities - Modify - Leader,72,Tender,Create tender process categories,modify
+Operations & Surface Facilities - Modify - Leader,73,Tender,Update tender process categories,modify
+Operations & Surface Facilities - Modify - Leader,74,Tender,Delete tender process categories,modify
+Operations & Surface Facilities - Modify - Leader,75,Tender,Get tender processes,modify
+Operations & Surface Facilities - Modify - Leader,76,Tender,Create tender processes,modify
+Operations & Surface Facilities - Modify - Leader,77,Tender,Update tender processes,modify
+Operations & Surface Facilities - Modify - Leader,78,Tender,Delete tender processes,modify
+Operations & Surface Facilities - Modify - Leader,79,Tender,Get Tender,modify
+Operations & Surface Facilities - Modify - Leader,80,Tender,Create Tender,modify
+Operations & Surface Facilities - Modify - Leader,81,Tender,Update Tender,modify
+Operations & Surface Facilities - Modify - Leader,82,Tender,Update Tender Contract,modify
+Operations & Surface Facilities - Modify - Leader,83,Tender,Delete Tender,modify
+Operations & Surface Facilities - Modify - Leader,84,Tender,Update Tender Actual Timeline,modify
+Operations & Surface Facilities - Modify - Leader,85,Tender,Get Process Histories,modify
+Operations & Surface Facilities - Modify - Leader,86,Tender,Skip Process,modify
+Operations & Surface Facilities - Modify - Leader,87,SPK,Update Work Order Remark,modify
+Operations & Surface Facilities - Modify - Leader,88,Service Acceptance,Read,read
+Operations & Surface Facilities - Modify - Leader,89,Service Acceptance,Update,modify
+Operations & Surface Facilities - Modify - Leader,92,Invoice,Read,read
+Operations & Surface Facilities - Modify - Leader,93,Invoice,Create,modify
+Operations & Surface Facilities - Modify - Leader,94,Invoice,Update,modify
+Operations & Surface Facilities - Modify - Leader,95,Invoice,Delete,modify
+Operations & Surface Facilities - Modify - Leader,96,Contract,Create Contract Document,modify
+Operations & Surface Facilities - Modify - Leader,97,Contract,Read Contract Document,read
+Operations & Surface Facilities - Modify - Leader,98,Contract,Update Contract Document,modify
+Operations & Surface Facilities - Modify - Leader,99,Contract,Delete Contract Document,modify
+Operations & Surface Facilities - Modify - Leader,100,Project,Create Project Document,modify
+Operations & Surface Facilities - Modify - Leader,101,Project,Read Project Document,read
+Operations & Surface Facilities - Modify - Leader,102,Project,Update Project Document,modify
+Operations & Surface Facilities - Modify - Leader,103,Project,Delete Project Document,modify
+Operations & Surface Facilities - Modify - Leader,104,SPK,Create Work Order Document,modify
+Operations & Surface Facilities - Modify - Leader,105,SPK,Read Work Order Document,read
+Operations & Surface Facilities - Modify - Leader,106,SPK,Update Work Order Document,modify
+Operations & Surface Facilities - Modify - Leader,107,SPK,Delete Work Order Document,modify
+Operations & Surface Facilities - Modify - Leader,108,SPK,Create Work Order BoQ Document,modify
+Operations & Surface Facilities - Modify - Leader,109,SPK,Read Work Order BoQ Document,read
+Operations & Surface Facilities - Modify - Leader,110,SPK,Update Work Order BoQ Document,modify
+Operations & Surface Facilities - Modify - Leader,111,SPK,Delete Work Order BoQ Document,modify
+Operations & Surface Facilities - Modify - Leader,112,Project,Create Project Rebaseline,modify
+Operations & Surface Facilities - Modify - Leader,117,Project,Update Project Approver,modify
+Operations & Surface Facilities - Modify - Leader,118,Contract,Update Contract Approver,modify
+Operations & Surface Facilities - Modify - Leader,119,Approval Route,Read Approval Route,read
+Operations & Surface Facilities - Modify - Leader,120,Approval Route,Update Approval Route,modify
+Operations & Surface Facilities - Modify - Leader,121,Approval Route,Delete Approval Route,modify
+Operations & Surface Facilities - Modify - Leader,122,Approval Route,Create Approval Route,modify
+Operations & Surface Facilities - Modify - Leader,123,SPK,Update Work Order Approver,modify
+Operations & Surface Facilities - Modify - Leader,124,Contract,Manage Contract Depletion Value Warning Notification,modify
+Operations & Surface Facilities - Modify - Leader,125,Trash Management,Read Trash Bin,read
+Operations & Surface Facilities - Modify - Leader,126,Trash Management,Restore Trash Bin,modify
+Operations & Surface Facilities - Modify - Leader,127,Project,Manage Project Reminder via Email and In App notif,modify
+Operations & Surface Facilities - Modify - Leader,128,Custom Configuration,Read,read
+Operations & Surface Facilities - Modify - Leader,129,Custom Configuration,Update,modify
+Operations & Surface Facilities - Modify - Leader,130,Custom Configuration,Delete,modify
+Operations & Surface Facilities - Modify - Leader,131,Custom Configuration,Create,modify
+Operations & Surface Facilities - Modify - Leader,132,Material Monitoring,Upload File,modify
+Operations & Surface Facilities - Modify - Leader,133,Material Monitoring,Read,read
+Operations & Surface Facilities - Modify - Leader,134,SPK,Update Work Order Cost Allocation,modify
+Operations & Surface Facilities - Modify - Leader,135,Tender,Show Tender Value,modify
+Operations & Surface Facilities - Modify - Leader,136,Project,Add Project Task Progress,modify
+Operations & Surface Facilities - Modify - Leader,137,Well Monitoring,Manage Subscription,modify
+Operations & Surface Facilities - Modify - Leader,145,OE Generator,Read OE Generator,read
+Operations & Surface Facilities - Modify - Leader,146,OE Generator,Modify OE Generator,modify
+Operations & Surface Facilities - Modify - Leader,147,RKS Generator,Read RKS Generator,read
+Operations & Surface Facilities - Modify - Leader,148,RKS Generator,Generate RKS,modify
+Operations & Surface Facilities - Modify - Leader,149,RKS Master Category,Read RKS Master Category,read
+Operations & Surface Facilities - Modify - Leader,150,RKS Master Category,Modify RKS Master Category,modify
+Operations & Surface Facilities - Modify - Leader,151,RKS Master Clause,Read RKS Master Clause,read
+Operations & Surface Facilities - Modify - Leader,152,RKS Master Clause,Modify RKS Master Clause,modify
+Operations & Surface Facilities - Modify - Leader,153,Well Monitoring,Read PHSS Wells,read
+Operations & Surface Facilities - Modify - Leader,155,Well Monitoring,Read PEP Wells,read
+Operations & Surface Facilities - Modify - Member,11,Contractor,Read,read
+Operations & Surface Facilities - Modify - Member,12,Contractor,Create,modify
+Operations & Surface Facilities - Modify - Member,13,Contractor,Update,modify
+Operations & Surface Facilities - Modify - Member,14,Contractor,Delete,modify
+Operations & Surface Facilities - Modify - Member,15,Unit,Read,read
+Operations & Surface Facilities - Modify - Member,16,Unit,Create,modify
+Operations & Surface Facilities - Modify - Member,17,Unit,Update,modify
+Operations & Surface Facilities - Modify - Member,18,Unit,Delete,modify
+Operations & Surface Facilities - Modify - Member,19,Contract,Read,read
+Operations & Surface Facilities - Modify - Member,20,Contract,Create,modify
+Operations & Surface Facilities - Modify - Member,21,Contract,Update,modify
+Operations & Surface Facilities - Modify - Member,22,Contract,Delete,modify
+Operations & Surface Facilities - Modify - Member,23,SPK,Read,read
+Operations & Surface Facilities - Modify - Member,24,SPK,Create,modify
+Operations & Surface Facilities - Modify - Member,25,SPK,Update,modify
+Operations & Surface Facilities - Modify - Member,26,SPK,Delete,modify
+Operations & Surface Facilities - Modify - Member,27,Field,Read,read
+Operations & Surface Facilities - Modify - Member,28,Field,Create,modify
+Operations & Surface Facilities - Modify - Member,29,Field,Update,modify
+Operations & Surface Facilities - Modify - Member,30,Field,Delete,modify
+Operations & Surface Facilities - Modify - Member,31,Contract,Upload Contract BOQ,modify
+Operations & Surface Facilities - Modify - Member,32,Contract,Read Contract BOQ,read
+Operations & Surface Facilities - Modify - Member,33,Rkap,Read Single Data,read
+Operations & Surface Facilities - Modify - Member,34,Rkap,Update Data,modify
+Operations & Surface Facilities - Modify - Member,35,Rkap,Delete,modify
+Operations & Surface Facilities - Modify - Member,36,Rkap,Create,modify
+Operations & Surface Facilities - Modify - Member,37,Project,Read,read
+Operations & Surface Facilities - Modify - Member,38,Project,Create,modify
+Operations & Surface Facilities - Modify - Member,39,Project,Update,modify
+Operations & Surface Facilities - Modify - Member,40,Project,Delete,modify
+Operations & Surface Facilities - Modify - Member,41,Bank,Read,read
+Operations & Surface Facilities - Modify - Member,42,Bank,Create,modify
+Operations & Surface Facilities - Modify - Member,43,Bank,Update,modify
+Operations & Surface Facilities - Modify - Member,44,Bank,Delete,modify
+Operations & Surface Facilities - Modify - Member,45,Project,Upload Project Tasks,modify
+Operations & Surface Facilities - Modify - Member,46,Project,Read Project Tasks,read
+Operations & Surface Facilities - Modify - Member,47,Project,Set Project Task Remarks,modify
+Operations & Surface Facilities - Modify - Member,48,Project,Update Project Task Status,modify
+Operations & Surface Facilities - Modify - Member,49,Project,Set Project Task Assignee,modify
+Operations & Surface Facilities - Modify - Member,50,Project,Create Project Task,modify
+Operations & Surface Facilities - Modify - Member,51,Project,Set Project Task BoQ,modify
+Operations & Surface Facilities - Modify - Member,52,Project,Get Project Task BoQ,modify
+Operations & Surface Facilities - Modify - Member,53,Project,Submit Project,modify
+Operations & Surface Facilities - Modify - Member,55,Project,Read Project Spending Plan,read
+Operations & Surface Facilities - Modify - Member,56,Project,Update Project Spending Plan,modify
+Operations & Surface Facilities - Modify - Member,57,SPK,Submit Work Order,modify
+Operations & Surface Facilities - Modify - Member,59,Project,Cancel Project,modify
+Operations & Surface Facilities - Modify - Member,60,SPK,Cancel Work Order,modify
+Operations & Surface Facilities - Modify - Member,61,Project,Finish Project,modify
+Operations & Surface Facilities - Modify - Member,62,Contract,Submit,modify
+Operations & Surface Facilities - Modify - Member,64,Contract,Cancel Contract,modify
+Operations & Surface Facilities - Modify - Member,65,Contract,Finish Contract,modify
+Operations & Surface Facilities - Modify - Member,66,SPK,Finish Work Order,modify
+Operations & Surface Facilities - Modify - Member,67,SPK,Input Progress,modify
+Operations & Surface Facilities - Modify - Member,68,Dashboard,Read Dashboard,read
+Operations & Surface Facilities - Modify - Member,69,SPK,Release Work Order,modify
+Operations & Surface Facilities - Modify - Member,71,Tender,Get tender process categories,modify
+Operations & Surface Facilities - Modify - Member,72,Tender,Create tender process categories,modify
+Operations & Surface Facilities - Modify - Member,73,Tender,Update tender process categories,modify
+Operations & Surface Facilities - Modify - Member,74,Tender,Delete tender process categories,modify
+Operations & Surface Facilities - Modify - Member,75,Tender,Get tender processes,modify
+Operations & Surface Facilities - Modify - Member,76,Tender,Create tender processes,modify
+Operations & Surface Facilities - Modify - Member,77,Tender,Update tender processes,modify
+Operations & Surface Facilities - Modify - Member,78,Tender,Delete tender processes,modify
+Operations & Surface Facilities - Modify - Member,79,Tender,Get Tender,modify
+Operations & Surface Facilities - Modify - Member,80,Tender,Create Tender,modify
+Operations & Surface Facilities - Modify - Member,81,Tender,Update Tender,modify
+Operations & Surface Facilities - Modify - Member,82,Tender,Update Tender Contract,modify
+Operations & Surface Facilities - Modify - Member,83,Tender,Delete Tender,modify
+Operations & Surface Facilities - Modify - Member,84,Tender,Update Tender Actual Timeline,modify
+Operations & Surface Facilities - Modify - Member,85,Tender,Get Process Histories,modify
+Operations & Surface Facilities - Modify - Member,86,Tender,Skip Process,modify
+Operations & Surface Facilities - Modify - Member,87,SPK,Update Work Order Remark,modify
+Operations & Surface Facilities - Modify - Member,88,Service Acceptance,Read,read
+Operations & Surface Facilities - Modify - Member,89,Service Acceptance,Update,modify
+Operations & Surface Facilities - Modify - Member,92,Invoice,Read,read
+Operations & Surface Facilities - Modify - Member,93,Invoice,Create,modify
+Operations & Surface Facilities - Modify - Member,94,Invoice,Update,modify
+Operations & Surface Facilities - Modify - Member,95,Invoice,Delete,modify
+Operations & Surface Facilities - Modify - Member,96,Contract,Create Contract Document,modify
+Operations & Surface Facilities - Modify - Member,97,Contract,Read Contract Document,read
+Operations & Surface Facilities - Modify - Member,98,Contract,Update Contract Document,modify
+Operations & Surface Facilities - Modify - Member,99,Contract,Delete Contract Document,modify
+Operations & Surface Facilities - Modify - Member,100,Project,Create Project Document,modify
+Operations & Surface Facilities - Modify - Member,101,Project,Read Project Document,read
+Operations & Surface Facilities - Modify - Member,102,Project,Update Project Document,modify
+Operations & Surface Facilities - Modify - Member,103,Project,Delete Project Document,modify
+Operations & Surface Facilities - Modify - Member,104,SPK,Create Work Order Document,modify
+Operations & Surface Facilities - Modify - Member,105,SPK,Read Work Order Document,read
+Operations & Surface Facilities - Modify - Member,106,SPK,Update Work Order Document,modify
+Operations & Surface Facilities - Modify - Member,107,SPK,Delete Work Order Document,modify
+Operations & Surface Facilities - Modify - Member,108,SPK,Create Work Order BoQ Document,modify
+Operations & Surface Facilities - Modify - Member,109,SPK,Read Work Order BoQ Document,read
+Operations & Surface Facilities - Modify - Member,110,SPK,Update Work Order BoQ Document,modify
+Operations & Surface Facilities - Modify - Member,111,SPK,Delete Work Order BoQ Document,modify
+Operations & Surface Facilities - Modify - Member,112,Project,Create Project Rebaseline,modify
+Operations & Surface Facilities - Modify - Member,117,Project,Update Project Approver,modify
+Operations & Surface Facilities - Modify - Member,118,Contract,Update Contract Approver,modify
+Operations & Surface Facilities - Modify - Member,119,Approval Route,Read Approval Route,read
+Operations & Surface Facilities - Modify - Member,120,Approval Route,Update Approval Route,modify
+Operations & Surface Facilities - Modify - Member,121,Approval Route,Delete Approval Route,modify
+Operations & Surface Facilities - Modify - Member,122,Approval Route,Create Approval Route,modify
+Operations & Surface Facilities - Modify - Member,123,SPK,Update Work Order Approver,modify
+Operations & Surface Facilities - Modify - Member,124,Contract,Manage Contract Depletion Value Warning Notification,modify
+Operations & Surface Facilities - Modify - Member,125,Trash Management,Read Trash Bin,read
+Operations & Surface Facilities - Modify - Member,126,Trash Management,Restore Trash Bin,modify
+Operations & Surface Facilities - Modify - Member,127,Project,Manage Project Reminder via Email and In App notif,modify
+Operations & Surface Facilities - Modify - Member,128,Custom Configuration,Read,read
+Operations & Surface Facilities - Modify - Member,129,Custom Configuration,Update,modify
+Operations & Surface Facilities - Modify - Member,130,Custom Configuration,Delete,modify
+Operations & Surface Facilities - Modify - Member,131,Custom Configuration,Create,modify
+Operations & Surface Facilities - Modify - Member,132,Material Monitoring,Upload File,modify
+Operations & Surface Facilities - Modify - Member,133,Material Monitoring,Read,read
+Operations & Surface Facilities - Modify - Member,134,SPK,Update Work Order Cost Allocation,modify
+Operations & Surface Facilities - Modify - Member,135,Tender,Show Tender Value,modify
+Operations & Surface Facilities - Modify - Member,136,Project,Add Project Task Progress,modify
+Operations & Surface Facilities - Modify - Member,137,Well Monitoring,Manage Subscription,modify
+Operations & Surface Facilities - Modify - Member,145,OE Generator,Read OE Generator,read
+Operations & Surface Facilities - Modify - Member,146,OE Generator,Modify OE Generator,modify
+Operations & Surface Facilities - Modify - Member,147,RKS Generator,Read RKS Generator,read
+Operations & Surface Facilities - Modify - Member,148,RKS Generator,Generate RKS,modify
+Operations & Surface Facilities - Modify - Member,149,RKS Master Category,Read RKS Master Category,read
+Operations & Surface Facilities - Modify - Member,150,RKS Master Category,Modify RKS Master Category,modify
+Operations & Surface Facilities - Modify - Member,151,RKS Master Clause,Read RKS Master Clause,read
+Operations & Surface Facilities - Modify - Member,152,RKS Master Clause,Modify RKS Master Clause,modify
+Operations & Surface Facilities - Modify - Member,153,Well Monitoring,Read PHSS Wells,read
+Operations & Surface Facilities - Modify - Member,155,Well Monitoring,Read PEP Wells,read
+Operations & Surface Facilities - Read - Guest,11,Contractor,Read,read
+Operations & Surface Facilities - Read - Guest,15,Unit,Read,read
+Operations & Surface Facilities - Read - Guest,19,Contract,Read,read
+Operations & Surface Facilities - Read - Guest,23,SPK,Read,read
+Operations & Surface Facilities - Read - Guest,27,Field,Read,read
+Operations & Surface Facilities - Read - Guest,32,Contract,Read Contract BOQ,read
+Operations & Surface Facilities - Read - Guest,33,Rkap,Read Single Data,read
+Operations & Surface Facilities - Read - Guest,37,Project,Read,read
+Operations & Surface Facilities - Read - Guest,41,Bank,Read,read
+Operations & Surface Facilities - Read - Guest,46,Project,Read Project Tasks,read
+Operations & Surface Facilities - Read - Guest,55,Project,Read Project Spending Plan,read
+Operations & Surface Facilities - Read - Guest,68,Dashboard,Read Dashboard,read
+Operations & Surface Facilities - Read - Guest,88,Service Acceptance,Read,read
+Operations & Surface Facilities - Read - Guest,92,Invoice,Read,read
+Operations & Surface Facilities - Read - Guest,97,Contract,Read Contract Document,read
+Operations & Surface Facilities - Read - Guest,101,Project,Read Project Document,read
+Operations & Surface Facilities - Read - Guest,105,SPK,Read Work Order Document,read
+Operations & Surface Facilities - Read - Guest,109,SPK,Read Work Order BoQ Document,read
+Operations & Surface Facilities - Read - Guest,119,Approval Route,Read Approval Route,read
+Operations & Surface Facilities - Read - Guest,125,Trash Management,Read Trash Bin,read
+Operations & Surface Facilities - Read - Guest,128,Custom Configuration,Read,read
+Operations & Surface Facilities - Read - Guest,133,Material Monitoring,Read,read
+Operations & Surface Facilities - Read - Guest,145,OE Generator,Read OE Generator,read
+Operations & Surface Facilities - Read - Guest,147,RKS Generator,Read RKS Generator,read
+Operations & Surface Facilities - Read - Guest,149,RKS Master Category,Read RKS Master Category,read
+Operations & Surface Facilities - Read - Guest,151,RKS Master Clause,Read RKS Master Clause,read
+Operations & Surface Facilities - Read - Guest,153,Well Monitoring,Read PHSS Wells,read
+Operations & Surface Facilities - Read - Guest,155,Well Monitoring,Read PEP Wells,read
+Operations & Surface Facilities - Approval - Member,11,Contractor,Read,read
+Operations & Surface Facilities - Approval - Member,15,Unit,Read,read
+Operations & Surface Facilities - Approval - Member,19,Contract,Read,read
+Operations & Surface Facilities - Approval - Member,23,SPK,Read,read
+Operations & Surface Facilities - Approval - Member,27,Field,Read,read
+Operations & Surface Facilities - Approval - Member,32,Contract,Read Contract BOQ,read
+Operations & Surface Facilities - Approval - Member,33,Rkap,Read Single Data,read
+Operations & Surface Facilities - Approval - Member,37,Project,Read,read
+Operations & Surface Facilities - Approval - Member,41,Bank,Read,read
+Operations & Surface Facilities - Approval - Member,46,Project,Read Project Tasks,read
+Operations & Surface Facilities - Approval - Member,54,Project,Project Approval,approval
+Operations & Surface Facilities - Approval - Member,55,Project,Read Project Spending Plan,read
+Operations & Surface Facilities - Approval - Member,58,SPK,Work Order Approval,approval
+Operations & Surface Facilities - Approval - Member,63,Contract,Contract Approval,approval
+Operations & Surface Facilities - Approval - Member,68,Dashboard,Read Dashboard,read
+Operations & Surface Facilities - Approval - Member,70,SPK,Work Order BoQ Progress Approval,approval
+Operations & Surface Facilities - Approval - Member,88,Service Acceptance,Read,read
+Operations & Surface Facilities - Approval - Member,92,Invoice,Read,read
+Operations & Surface Facilities - Approval - Member,97,Contract,Read Contract Document,read
+Operations & Surface Facilities - Approval - Member,101,Project,Read Project Document,read
+Operations & Surface Facilities - Approval - Member,105,SPK,Read Work Order Document,read
+Operations & Surface Facilities - Approval - Member,109,SPK,Read Work Order BoQ Document,read
+Operations & Surface Facilities - Approval - Member,119,Approval Route,Read Approval Route,read
+Operations & Surface Facilities - Approval - Member,125,Trash Management,Read Trash Bin,read
+Operations & Surface Facilities - Approval - Member,128,Custom Configuration,Read,read
+Operations & Surface Facilities - Approval - Member,133,Material Monitoring,Read,read
+Operations & Surface Facilities - Approval - Member,145,OE Generator,Read OE Generator,read
+Operations & Surface Facilities - Approval - Member,147,RKS Generator,Read RKS Generator,read
+Operations & Surface Facilities - Approval - Member,149,RKS Master Category,Read RKS Master Category,read
+Operations & Surface Facilities - Approval - Member,151,RKS Master Clause,Read RKS Master Clause,read
+Operations & Surface Facilities - Approval - Member,153,Well Monitoring,Read PHSS Wells,read
+Operations & Surface Facilities - Approval - Member,155,Well Monitoring,Read PEP Wells,read
+Production Operations - Modify - Leader,11,Contractor,Read,read
+Production Operations - Modify - Leader,12,Contractor,Create,modify
+Production Operations - Modify - Leader,13,Contractor,Update,modify
+Production Operations - Modify - Leader,14,Contractor,Delete,modify
+Production Operations - Modify - Leader,15,Unit,Read,read
+Production Operations - Modify - Leader,16,Unit,Create,modify
+Production Operations - Modify - Leader,17,Unit,Update,modify
+Production Operations - Modify - Leader,18,Unit,Delete,modify
+Production Operations - Modify - Leader,19,Contract,Read,read
+Production Operations - Modify - Leader,20,Contract,Create,modify
+Production Operations - Modify - Leader,21,Contract,Update,modify
+Production Operations - Modify - Leader,22,Contract,Delete,modify
+Production Operations - Modify - Leader,23,SPK,Read,read
+Production Operations - Modify - Leader,24,SPK,Create,modify
+Production Operations - Modify - Leader,25,SPK,Update,modify
+Production Operations - Modify - Leader,26,SPK,Delete,modify
+Production Operations - Modify - Leader,27,Field,Read,read
+Production Operations - Modify - Leader,28,Field,Create,modify
+Production Operations - Modify - Leader,29,Field,Update,modify
+Production Operations - Modify - Leader,30,Field,Delete,modify
+Production Operations - Modify - Leader,31,Contract,Upload Contract BOQ,modify
+Production Operations - Modify - Leader,32,Contract,Read Contract BOQ,read
+Production Operations - Modify - Leader,33,Rkap,Read Single Data,read
+Production Operations - Modify - Leader,34,Rkap,Update Data,modify
+Production Operations - Modify - Leader,35,Rkap,Delete,modify
+Production Operations - Modify - Leader,36,Rkap,Create,modify
+Production Operations - Modify - Leader,41,Bank,Read,read
+Production Operations - Modify - Leader,42,Bank,Create,modify
+Production Operations - Modify - Leader,43,Bank,Update,modify
+Production Operations - Modify - Leader,44,Bank,Delete,modify
+Production Operations - Modify - Leader,57,SPK,Submit Work Order,modify
+Production Operations - Modify - Leader,58,SPK,Work Order Approval,approval
+Production Operations - Modify - Leader,60,SPK,Cancel Work Order,modify
+Production Operations - Modify - Leader,62,Contract,Submit,modify
+Production Operations - Modify - Leader,63,Contract,Contract Approval,approval
+Production Operations - Modify - Leader,64,Contract,Cancel Contract,modify
+Production Operations - Modify - Leader,65,Contract,Finish Contract,modify
+Production Operations - Modify - Leader,66,SPK,Finish Work Order,modify
+Production Operations - Modify - Leader,67,SPK,Input Progress,modify
+Production Operations - Modify - Leader,68,Dashboard,Read Dashboard,read
+Production Operations - Modify - Leader,69,SPK,Release Work Order,modify
+Production Operations - Modify - Leader,70,SPK,Work Order BoQ Progress Approval,approval
+Production Operations - Modify - Leader,87,SPK,Update Work Order Remark,modify
+Production Operations - Modify - Leader,96,Contract,Create Contract Document,modify
+Production Operations - Modify - Leader,97,Contract,Read Contract Document,read
+Production Operations - Modify - Leader,98,Contract,Update Contract Document,modify
+Production Operations - Modify - Leader,99,Contract,Delete Contract Document,modify
+Production Operations - Modify - Leader,104,SPK,Create Work Order Document,modify
+Production Operations - Modify - Leader,105,SPK,Read Work Order Document,read
+Production Operations - Modify - Leader,106,SPK,Update Work Order Document,modify
+Production Operations - Modify - Leader,107,SPK,Delete Work Order Document,modify
+Production Operations - Modify - Leader,108,SPK,Create Work Order BoQ Document,modify
+Production Operations - Modify - Leader,109,SPK,Read Work Order BoQ Document,read
+Production Operations - Modify - Leader,110,SPK,Update Work Order BoQ Document,modify
+Production Operations - Modify - Leader,111,SPK,Delete Work Order BoQ Document,modify
+Production Operations - Modify - Leader,118,Contract,Update Contract Approver,modify
+Production Operations - Modify - Leader,119,Approval Route,Read Approval Route,read
+Production Operations - Modify - Leader,120,Approval Route,Update Approval Route,modify
+Production Operations - Modify - Leader,121,Approval Route,Delete Approval Route,modify
+Production Operations - Modify - Leader,122,Approval Route,Create Approval Route,modify
+Production Operations - Modify - Leader,123,SPK,Update Work Order Approver,modify
+Production Operations - Modify - Leader,124,Contract,Manage Contract Depletion Value Warning Notification,modify
+Production Operations - Modify - Leader,125,Trash Management,Read Trash Bin,read
+Production Operations - Modify - Leader,126,Trash Management,Restore Trash Bin,modify
+Production Operations - Modify - Leader,128,Custom Configuration,Read,read
+Production Operations - Modify - Leader,129,Custom Configuration,Update,modify
+Production Operations - Modify - Leader,130,Custom Configuration,Delete,modify
+Production Operations - Modify - Leader,131,Custom Configuration,Create,modify
+Production Operations - Modify - Leader,132,Material Monitoring,Upload File,modify
+Production Operations - Modify - Leader,133,Material Monitoring,Read,read
+Production Operations - Modify - Leader,134,SPK,Update Work Order Cost Allocation,modify
+Production Operations - Modify - Leader,137,Well Monitoring,Manage Subscription,modify
+Production Operations - Modify - Leader,153,Well Monitoring,Read PHSS Wells,read
+Production Operations - Modify - Leader,155,Well Monitoring,Read PEP Wells,read
+Production Operations - Modify - Member,11,Contractor,Read,read
+Production Operations - Modify - Member,12,Contractor,Create,modify
+Production Operations - Modify - Member,13,Contractor,Update,modify
+Production Operations - Modify - Member,14,Contractor,Delete,modify
+Production Operations - Modify - Member,15,Unit,Read,read
+Production Operations - Modify - Member,16,Unit,Create,modify
+Production Operations - Modify - Member,17,Unit,Update,modify
+Production Operations - Modify - Member,18,Unit,Delete,modify
+Production Operations - Modify - Member,19,Contract,Read,read
+Production Operations - Modify - Member,20,Contract,Create,modify
+Production Operations - Modify - Member,21,Contract,Update,modify
+Production Operations - Modify - Member,22,Contract,Delete,modify
+Production Operations - Modify - Member,23,SPK,Read,read
+Production Operations - Modify - Member,24,SPK,Create,modify
+Production Operations - Modify - Member,25,SPK,Update,modify
+Production Operations - Modify - Member,26,SPK,Delete,modify
+Production Operations - Modify - Member,27,Field,Read,read
+Production Operations - Modify - Member,28,Field,Create,modify
+Production Operations - Modify - Member,29,Field,Update,modify
+Production Operations - Modify - Member,30,Field,Delete,modify
+Production Operations - Modify - Member,31,Contract,Upload Contract BOQ,modify
+Production Operations - Modify - Member,32,Contract,Read Contract BOQ,read
+Production Operations - Modify - Member,33,Rkap,Read Single Data,read
+Production Operations - Modify - Member,34,Rkap,Update Data,modify
+Production Operations - Modify - Member,35,Rkap,Delete,modify
+Production Operations - Modify - Member,36,Rkap,Create,modify
+Production Operations - Modify - Member,41,Bank,Read,read
+Production Operations - Modify - Member,42,Bank,Create,modify
+Production Operations - Modify - Member,43,Bank,Update,modify
+Production Operations - Modify - Member,44,Bank,Delete,modify
+Production Operations - Modify - Member,57,SPK,Submit Work Order,modify
+Production Operations - Modify - Member,60,SPK,Cancel Work Order,modify
+Production Operations - Modify - Member,62,Contract,Submit,modify
+Production Operations - Modify - Member,64,Contract,Cancel Contract,modify
+Production Operations - Modify - Member,65,Contract,Finish Contract,modify
+Production Operations - Modify - Member,66,SPK,Finish Work Order,modify
+Production Operations - Modify - Member,67,SPK,Input Progress,modify
+Production Operations - Modify - Member,68,Dashboard,Read Dashboard,read
+Production Operations - Modify - Member,69,SPK,Release Work Order,modify
+Production Operations - Modify - Member,87,SPK,Update Work Order Remark,modify
+Production Operations - Modify - Member,96,Contract,Create Contract Document,modify
+Production Operations - Modify - Member,97,Contract,Read Contract Document,read
+Production Operations - Modify - Member,98,Contract,Update Contract Document,modify
+Production Operations - Modify - Member,99,Contract,Delete Contract Document,modify
+Production Operations - Modify - Member,104,SPK,Create Work Order Document,modify
+Production Operations - Modify - Member,105,SPK,Read Work Order Document,read
+Production Operations - Modify - Member,106,SPK,Update Work Order Document,modify
+Production Operations - Modify - Member,107,SPK,Delete Work Order Document,modify
+Production Operations - Modify - Member,108,SPK,Create Work Order BoQ Document,modify
+Production Operations - Modify - Member,109,SPK,Read Work Order BoQ Document,read
+Production Operations - Modify - Member,110,SPK,Update Work Order BoQ Document,modify
+Production Operations - Modify - Member,111,SPK,Delete Work Order BoQ Document,modify
+Production Operations - Modify - Member,118,Contract,Update Contract Approver,modify
+Production Operations - Modify - Member,119,Approval Route,Read Approval Route,read
+Production Operations - Modify - Member,120,Approval Route,Update Approval Route,modify
+Production Operations - Modify - Member,121,Approval Route,Delete Approval Route,modify
+Production Operations - Modify - Member,122,Approval Route,Create Approval Route,modify
+Production Operations - Modify - Member,123,SPK,Update Work Order Approver,modify
+Production Operations - Modify - Member,124,Contract,Manage Contract Depletion Value Warning Notification,modify
+Production Operations - Modify - Member,125,Trash Management,Read Trash Bin,read
+Production Operations - Modify - Member,126,Trash Management,Restore Trash Bin,modify
+Production Operations - Modify - Member,128,Custom Configuration,Read,read
+Production Operations - Modify - Member,129,Custom Configuration,Update,modify
+Production Operations - Modify - Member,130,Custom Configuration,Delete,modify
+Production Operations - Modify - Member,131,Custom Configuration,Create,modify
+Production Operations - Modify - Member,132,Material Monitoring,Upload File,modify
+Production Operations - Modify - Member,133,Material Monitoring,Read,read
+Production Operations - Modify - Member,134,SPK,Update Work Order Cost Allocation,modify
+Production Operations - Modify - Member,137,Well Monitoring,Manage Subscription,modify
+Production Operations - Modify - Member,153,Well Monitoring,Read PHSS Wells,read
+Production Operations - Modify - Member,155,Well Monitoring,Read PEP Wells,read
+Production Operations - Read - Guest,11,Contractor,Read,read
+Production Operations - Read - Guest,15,Unit,Read,read
+Production Operations - Read - Guest,19,Contract,Read,read
+Production Operations - Read - Guest,23,SPK,Read,read
+Production Operations - Read - Guest,27,Field,Read,read
+Production Operations - Read - Guest,32,Contract,Read Contract BOQ,read
+Production Operations - Read - Guest,33,Rkap,Read Single Data,read
+Production Operations - Read - Guest,41,Bank,Read,read
+Production Operations - Read - Guest,68,Dashboard,Read Dashboard,read
+Production Operations - Read - Guest,97,Contract,Read Contract Document,read
+Production Operations - Read - Guest,105,SPK,Read Work Order Document,read
+Production Operations - Read - Guest,109,SPK,Read Work Order BoQ Document,read
+Production Operations - Read - Guest,119,Approval Route,Read Approval Route,read
+Production Operations - Read - Guest,125,Trash Management,Read Trash Bin,read
+Production Operations - Read - Guest,128,Custom Configuration,Read,read
+Production Operations - Read - Guest,133,Material Monitoring,Read,read
+Production Operations - Read - Guest,153,Well Monitoring,Read PHSS Wells,read
+Production Operations - Read - Guest,155,Well Monitoring,Read PEP Wells,read
+Production Operations - Approval - Member,11,Contractor,Read,read
+Production Operations - Approval - Member,15,Unit,Read,read
+Production Operations - Approval - Member,19,Contract,Read,read
+Production Operations - Approval - Member,23,SPK,Read,read
+Production Operations - Approval - Member,27,Field,Read,read
+Production Operations - Approval - Member,32,Contract,Read Contract BOQ,read
+Production Operations - Approval - Member,33,Rkap,Read Single Data,read
+Production Operations - Approval - Member,41,Bank,Read,read
+Production Operations - Approval - Member,58,SPK,Work Order Approval,approval
+Production Operations - Approval - Member,63,Contract,Contract Approval,approval
+Production Operations - Approval - Member,68,Dashboard,Read Dashboard,read
+Production Operations - Approval - Member,70,SPK,Work Order BoQ Progress Approval,approval
+Production Operations - Approval - Member,97,Contract,Read Contract Document,read
+Production Operations - Approval - Member,105,SPK,Read Work Order Document,read
+Production Operations - Approval - Member,109,SPK,Read Work Order BoQ Document,read
+Production Operations - Approval - Member,119,Approval Route,Read Approval Route,read
+Production Operations - Approval - Member,125,Trash Management,Read Trash Bin,read
+Production Operations - Approval - Member,128,Custom Configuration,Read,read
+Production Operations - Approval - Member,133,Material Monitoring,Read,read
+Production Operations - Approval - Member,153,Well Monitoring,Read PHSS Wells,read
+Production Operations - Approval - Member,155,Well Monitoring,Read PEP Wells,read
+Subsurface Development Area 1 - Modify - Leader,137,Well Monitoring,Manage Subscription,modify
+Subsurface Development Area 1 - Modify - Leader,139,Well Monitoring,Modify Well Data,modify
+Subsurface Development Area 1 - Modify - Leader,153,Well Monitoring,Read PHSS Wells,read
+Subsurface Development Area 1 - Modify - Leader,154,Well Monitoring,Modify PHSS Wells,modify
+Subsurface Development Area 1 - Modify - Member,137,Well Monitoring,Manage Subscription,modify
+Subsurface Development Area 1 - Modify - Member,139,Well Monitoring,Modify Well Data,modify
+Subsurface Development Area 1 - Modify - Member,153,Well Monitoring,Read PHSS Wells,read
+Subsurface Development Area 1 - Modify - Member,154,Well Monitoring,Modify PHSS Wells,modify
+Subsurface Development Area 1 - Read - Guest,153,Well Monitoring,Read PHSS Wells,read
+Subsurface Development Area 1 - Approval - Member,153,Well Monitoring,Read PHSS Wells,read
+Subsurface Development Area 2 - Modify - Leader,137,Well Monitoring,Manage Subscription,modify
+Subsurface Development Area 2 - Modify - Leader,139,Well Monitoring,Modify Well Data,modify
+Subsurface Development Area 2 - Modify - Leader,155,Well Monitoring,Read PEP Wells,read
+Subsurface Development Area 2 - Modify - Leader,156,Well Monitoring,Modify PEP Wells,modify
+Subsurface Development Area 2 - Modify - Member,137,Well Monitoring,Manage Subscription,modify
+Subsurface Development Area 2 - Modify - Member,139,Well Monitoring,Modify Well Data,modify
+Subsurface Development Area 2 - Modify - Member,155,Well Monitoring,Read PEP Wells,read
+Subsurface Development Area 2 - Modify - Member,156,Well Monitoring,Modify PEP Wells,modify
+Subsurface Development Area 2 - Read - Guest,155,Well Monitoring,Read PEP Wells,read
+Subsurface Development Area 2 - Approval - Member,155,Well Monitoring,Read PEP Wells,read

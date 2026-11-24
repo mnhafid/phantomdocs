@@ -1,0 +1,334 @@
+﻿No Ticket,*Module,*Test Id,*Feature / Item,*Test Type,*Test Scenario,*Test Step,*Expected Result,Gherkin User Story,*Test Data,*Result Testing,automation Candidate ,*PIC,*PIC Reviewer,*Prioritas,Keterangan,*Evidence
+PHI-2265,Project Monitoring - Master Rig,TC_PHI2265_RIG_001,List Rig,Positif,Verifikasi list master rig tampil tanpa pagination dan urut nama,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Ambil bearer token sesi login untuk memanggil API (Postman/Bruno)
+4. Kirim GET /v1/master/rigs tanpa parameter","Response 200, data berupa array (tanpa page/count), urut name ascending. Tiap item memuat id, name, capacity, capacity_unit, display_name, is_active, working_area, created_at, created_by, updated_at, updated_by. Rig yang sudah dihapus tidak tampil.","Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario: List all rigs
+  When the client sends ""GET /v1/master/rigs""
+  Then the API responds 200
+  And the data is a list sorted by name ascending without pagination
+  And soft-deleted rigs are not returned",,,Tentative,,,Yes,,
+,Project Monitoring - Master Rig,TC_PHI2265_RIG_002,List Rig - filter is_active,Positif,Verifikasi filter is_active <is_active> pada list master rig,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Ambil bearer token sesi login untuk memanggil API (Postman/Bruno)
+4. Kirim GET /v1/master/rigs?is_active=<is_active>",Response 200. Data sesuai <expected>. Nilai kosong atau bukan boolean diabaikan (tidak error 500).,"Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario Outline: Filter rigs by is_active ""<is_active>""
+  When the client sends ""GET /v1/master/rigs?is_active=<is_active>""
+  Then the API responds 200
+  And the result contains ""<expected>""
+
+Examples:
+  | is_active | expected |
+  | true | active rigs only |
+  | false | inactive rigs only |
+  | (kosong) | all rigs |
+  | abc | all rigs |",,,Tentative,,,Yes,,
+,Project Monitoring - Master Rig,TC_PHI2265_RIG_003,List Rig - filter working_area,Positif,Verifikasi filter working_area <working_area> pada list master rig,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Ambil bearer token sesi login untuk memanggil API (Postman/Bruno)
+4. Kirim GET /v1/master/rigs?working_area=<working_area>",Response 200. Data sesuai <expected>. Filter tidak membedakan huruf besar/kecil.,"Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario Outline: Filter rigs by working_area ""<working_area>""
+  When the client sends ""GET /v1/master/rigs?working_area=<working_area>""
+  Then the API responds 200
+  And the result contains ""<expected>""
+
+Examples:
+  | working_area | expected |
+  | PEP | PEP rigs only |
+  | phss | PHSS rigs only |
+  | (kosong) | all rigs |
+  | XYZ | empty list |",,,Tentative,,,Yes,,
+,Project Monitoring - Master Rig,TC_PHI2265_RIG_004,List Rig - dropdown Add Project,Positif,Verifikasi kombinasi filter yang dipakai dropdown Rig Name,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Ambil bearer token sesi login untuk memanggil API (Postman/Bruno)
+4. Kirim GET /v1/master/rigs?is_active=true&working_area=PEP","Response 200. Hanya rig aktif PEP yang belum dihapus. display_name berformat ""<name> (<capacity> <capacity_unit>)"", atau hanya name bila capacity kosong.","Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario: List rigs for the Rig Name dropdown
+  When the client sends ""GET /v1/master/rigs?is_active=true&working_area=PEP""
+  Then only active, non-deleted PEP rigs are returned
+  And each display_name is ""<name> (<capacity> <capacity_unit>)"" or just ""<name>"" when capacity is empty",,,Tentative,,,Yes,,
+,Project Monitoring - Master Rig,TC_PHI2265_RIG_005,Detail Rig,Positif,Verifikasi detail master rig berdasarkan id,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Ambil bearer token sesi login untuk memanggil API (Postman/Bruno)
+4. Kirim GET /v1/master/rigs/{id} dengan id rig yang ada","Response 200 dengan data rig lengkap termasuk created_by dan updated_by (id, full_name, email).","Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario: Get a rig by id
+  Given rig ""ELANG-09"" exists
+  When the client sends ""GET /v1/master/rigs/{id}""
+  Then the API responds 200 with the rig data",,,Tentative,,,Yes,,
+,Project Monitoring - Master Rig,TC_PHI2265_RIG_006,Detail Rig - tidak ditemukan,Negatif,Verifikasi detail master rig dengan id <case>,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Ambil bearer token sesi login untuk memanggil API (Postman/Bruno)
+4. Kirim GET /v1/master/rigs/<id>","Response 404 ""Data not found"".","Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario Outline: Get a rig that does not exist
+  When the client sends ""GET /v1/master/rigs/<id>""
+  Then the API responds 404
+
+Examples:
+  | case | id |
+  | tidak terdaftar | 11111111-1111-1111-1111-111111111111 |
+  | sudah dihapus | <deleted rig id> |
+  | bukan GUID | abc |",,,Tentative,,,Yes,,
+,Project Monitoring - Master Rig,TC_PHI2265_RIG_007,Create Rig,Positif,Verifikasi create master rig dengan data <case>,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Ambil bearer token sesi login untuk memanggil API (Postman/Bruno)
+4. Kirim POST /v1/master/rigs dengan body sesuai Examples
+5. Kirim GET /v1/master/rigs/{id} dari response","Response 201. Data tersimpan sesuai input; working_area dinormalisasi ke huruf besar; name di-trim; display_name sesuai Examples; created_at, created_by, updated_at, updated_by terisi user login.","Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario Outline: Create a rig with ""<case>""
+  When the client sends ""POST /v1/master/rigs"" with name ""<name>"", capacity ""<capacity>"", capacity_unit ""<unit>"", working_area ""<wa>""
+  Then the API responds 201
+  And display_name is ""<display_name>"" and working_area is ""<saved_wa>""
+
+Examples:
+  | case | name | capacity | unit | wa | display_name | saved_wa |
+  | lengkap | ELANG-09 | 1500 | HP | PEP | ELANG-09 (1500 HP) | PEP |
+  | tanpa kapasitas | RIG-TEST-01 |  |  | PHSS | RIG-TEST-01 | PHSS |
+  | tanpa unit | RIG-TEST-02 | 800 |  | PEP | RIG-TEST-02 (800) | PEP |
+  | working area huruf kecil | RIG-TEST-03 | 1000 | HP | pep | RIG-TEST-03 (1000 HP) | PEP |
+  | tanpa working area | RIG-TEST-04 |  |  |  | RIG-TEST-04 | null |
+  | nama berspasi |   RIG-TEST-05   |  |  | PEP | RIG-TEST-05 | PEP |",Gunakan nama unik per eksekusi,,Tentative,,,Yes,,
+,Project Monitoring - Master Rig,TC_PHI2265_RIG_008,Create Rig - is_active false,Positif,Verifikasi create master rig nonaktif tetap tersimpan nonaktif,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Ambil bearer token sesi login untuk memanggil API (Postman/Bruno)
+4. Kirim POST /v1/master/rigs dengan is_active=false
+5. Kirim GET /v1/master/rigs?is_active=false","Response 201 dengan is_active=false. Rig muncul pada filter is_active=false dan tidak muncul di dropdown (is_active=true). Jika is_active tidak dikirim, default true.","Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario: Create an inactive rig
+  When the client sends ""POST /v1/master/rigs"" with name ""RIG-OFF-01"" and is_active false
+  Then the API responds 201 with is_active false
+  And ""GET /v1/master/rigs?is_active=true"" does not return ""RIG-OFF-01""",,,Tentative,,,Yes,Regresi: kolom bit tanpa default EF supaya false tidak tertimpa true,
+,Project Monitoring - Master Rig,TC_PHI2265_RIG_009,Create Rig - validasi,Negatif,Verifikasi create master rig ditolak untuk <case>,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Ambil bearer token sesi login untuk memanggil API (Postman/Bruno)
+4. Kirim POST /v1/master/rigs dengan body sesuai Examples",Response 400 dengan pesan sesuai Examples. Tidak ada data baru tersimpan.,"Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario Outline: Reject an invalid rig on create (""<case>"")
+  When the client sends ""POST /v1/master/rigs"" with ""<body>""
+  Then the API responds 400 with message ""<message>""
+
+Examples:
+  | case | body | message |
+  | name kosong | name """" | Name is required |
+  | name hanya spasi | name ""   "" | Name is required |
+  | name > 255 karakter | name 256 karakter | Name must not exceed 255 characters |
+  | capacity negatif | capacity -1 | Capacity must not be negative |
+  | capacity_unit > 20 karakter | capacity_unit 21 karakter | Capacity unit must not exceed 20 characters |
+  | working_area tidak valid | working_area ""ABC"" | Working area must be one of: PHSS, PEP |
+  | name sudah dipakai | name rig yang sudah ada | Name already used by another rig |",,,Tentative,,,Yes,,
+,Project Monitoring - Master Rig,TC_PHI2265_RIG_010,Create Rig - nama rig terhapus,Positif,Verifikasi nama rig yang sudah dihapus dapat dipakai lagi,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Ambil bearer token sesi login untuk memanggil API (Postman/Bruno)
+4. Hapus rig ""RIG-REUSE"" via POST /v1/master/rigs/{id}/delete
+5. Kirim POST /v1/master/rigs dengan name ""RIG-REUSE""",Response 201. Rig baru dibuat dengan id berbeda; rig lama tetap terhapus.,"Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario: Reuse the name of a deleted rig
+  Given rig ""RIG-REUSE"" has been deleted
+  When the client sends ""POST /v1/master/rigs"" with name ""RIG-REUSE""
+  Then the API responds 201 with a new id",,,Tentative,,,Yes,,
+,Project Monitoring - Master Rig,TC_PHI2265_RIG_011,Update Rig,Positif,Verifikasi update master rig,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Ambil bearer token sesi login untuk memanggil API (Postman/Bruno)
+4. Kirim POST /v1/master/rigs/{id}/update dengan capacity, capacity_unit, is_active, working_area baru
+5. Kirim GET /v1/master/rigs/{id}","Response 200. Data berubah sesuai input, display_name ikut berubah, updated_at dan updated_by diperbarui, created_at/created_by tidak berubah.","Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario: Update a rig
+  Given rig ""ELANG-09"" with capacity 1500 HP
+  When the client sends ""POST /v1/master/rigs/{id}/update"" with capacity 2000 and capacity_unit ""HP""
+  Then the API responds 200
+  And display_name is ""ELANG-09 (2000 HP)""
+  And updated_at and updated_by are refreshed",,,Tentative,,,Yes,,
+,Project Monitoring - Master Rig,TC_PHI2265_RIG_012,Update Rig - rename sinkron ke project,Positif,Verifikasi rename rig ikut mengubah Rig Name pada project yang memakai rig,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Ambil bearer token sesi login untuk memanggil API (Postman/Bruno)
+4. Pastikan rig ""ELANG-09"" sudah dialokasikan ke project NWD DLC
+5. Kirim POST /v1/master/rigs/{id}/update dengan name ""ELANG-09A""
+6. Buka list/detail project tersebut","Response 200. Kolom Rig Name (rig_name) di list dan pencarian project berubah menjadi ""ELANG-09A"". Project tetap terhubung ke rig yang sama (rig_id tidak berubah).","Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario: Rename a rig used by a project
+  Given rig ""ELANG-09"" is allocated to project ""MUT-384""
+  When the client sends ""POST /v1/master/rigs/{id}/update"" with name ""ELANG-09A""
+  Then the API responds 200
+  And project ""MUT-384"" shows rig name ""ELANG-09A""
+  And searching projects by ""ELANG-09A"" returns ""MUT-384""",,,Tentative,,,Yes,,
+,Project Monitoring - Master Rig,TC_PHI2265_RIG_013,Update Rig - nonaktifkan,Positif,Verifikasi rig yang dinonaktifkan hilang dari dropdown tetapi project lama tetap,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Ambil bearer token sesi login untuk memanggil API (Postman/Bruno)
+4. Kirim POST /v1/master/rigs/{id}/update dengan is_active=false
+5. Kirim GET /v1/master/rigs?is_active=true
+6. Buka Edit Project yang sudah memakai rig tersebut lalu Submit tanpa mengganti rig",Rig tidak muncul di dropdown. Project lama tetap menampilkan rig tersebut dan dapat disimpan selama rig tidak diganti.,"Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario: Deactivate a rig in use
+  Given rig ""ELANG-09"" is allocated to project ""MUT-384""
+  When the client deactivates ""ELANG-09""
+  Then ""GET /v1/master/rigs?is_active=true"" does not return ""ELANG-09""
+  And project ""MUT-384"" can still be saved without changing its rig",,,Tentative,,,Yes,,
+,Project Monitoring - Master Rig,TC_PHI2265_RIG_014,Update Rig - validasi,Negatif,Verifikasi update master rig ditolak untuk <case>,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Ambil bearer token sesi login untuk memanggil API (Postman/Bruno)
+4. Kirim POST /v1/master/rigs/<id>/update dengan body sesuai Examples",Response sesuai Examples. Data rig tidak berubah.,"Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario Outline: Reject an invalid rig update (""<case>"")
+  When the client sends ""POST /v1/master/rigs/<id>/update"" with ""<body>""
+  Then the API responds <status> with message ""<message>""
+
+Examples:
+  | case | id | body | status | message |
+  | nama dipakai rig lain | {id} | name rig lain | 400 | Name already used by another rig |
+  | name kosong | {id} | name """" | 400 | Name is required |
+  | working_area tidak valid | {id} | working_area ""ABC"" | 400 | Working area must be one of: PHSS, PEP |
+  | rig tidak terdaftar | 11111111-1111-1111-1111-111111111111 | body valid | 404 | Data not found |
+  | rig sudah dihapus | <deleted rig id> | body valid | 404 | Data not found |",,,Tentative,,,Yes,,
+,Project Monitoring - Master Rig,TC_PHI2265_RIG_015,Update Rig - nama sama,Positif,Verifikasi update tanpa mengganti nama tidak dianggap duplikat,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Ambil bearer token sesi login untuk memanggil API (Postman/Bruno)
+4. Kirim POST /v1/master/rigs/{id}/update dengan name yang sama dan capacity baru","Response 200. Tidak ada error ""Name already used by another rig"".","Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario: Keep the same name on update
+  When the client sends ""POST /v1/master/rigs/{id}/update"" with its current name and a new capacity
+  Then the API responds 200",,,Tentative,,,Yes,,
+,Project Monitoring - Master Rig,TC_PHI2265_RIG_016,Delete Rig,Positif,Verifikasi soft delete master rig,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Ambil bearer token sesi login untuk memanggil API (Postman/Bruno)
+4. Kirim POST /v1/master/rigs/{id}/delete
+5. Kirim GET /v1/master/rigs dan GET /v1/master/rigs/{id}
+6. Cek tabel master_rigs di database","Response 200 ""Delete rig succeed"". Rig tidak muncul di list, detail 404. Di database baris masih ada dengan deleted_at dan deleted_by terisi.","Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario: Soft delete a rig
+  When the client sends ""POST /v1/master/rigs/{id}/delete""
+  Then the API responds 200
+  And the rig is not returned by ""GET /v1/master/rigs""
+  And ""GET /v1/master/rigs/{id}"" responds 404
+  And the database row keeps deleted_at and deleted_by",,,Tentative,,,Yes,,
+,Project Monitoring - Master Rig,TC_PHI2265_RIG_017,Delete Rig - rig dipakai project,Positif,Verifikasi project yang memakai rig terhapus tetap aman,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Ambil bearer token sesi login untuk memanggil API (Postman/Bruno)
+4. Pastikan rig dialokasikan ke project NWD DLC
+5. Kirim POST /v1/master/rigs/{id}/delete
+6. Buka Gantt NWD DLC dan detail project
+7. Edit project lalu coba pilih ulang rig terhapus",Delete berhasil (tidak diblokir). Project tetap terhubung ke rig dan tampil di baris rig tersebut pada Gantt. Rig terhapus tidak muncul di dropdown dan tidak bisa dipilih untuk project lain.,"Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario: Delete a rig used by a project
+  Given rig ""ELANG-09"" is allocated to project ""MUT-384""
+  When the client deletes ""ELANG-09""
+  Then the API responds 200
+  And the Gantt still shows ""MUT-384"" on row ""ELANG-09""
+  And ""ELANG-09"" is not offered in the Rig Name dropdown",,,Tentative,,,Yes,,
+,Project Monitoring - Master Rig,TC_PHI2265_RIG_018,Delete Rig - tidak ditemukan,Negatif,Verifikasi delete master rig dengan id <case>,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Ambil bearer token sesi login untuk memanggil API (Postman/Bruno)
+4. Kirim POST /v1/master/rigs/<id>/delete","Response 404 ""Data not found"".","Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario Outline: Delete a rig that does not exist (""<case>"")
+  When the client sends ""POST /v1/master/rigs/<id>/delete""
+  Then the API responds 404
+
+Examples:
+  | case | id |
+  | tidak terdaftar | 11111111-1111-1111-1111-111111111111 |
+  | sudah dihapus (delete 2x) | <deleted rig id> |",,,Tentative,,,Yes,,
+,Project Monitoring - Master Rig,TC_PHI2265_RIG_019,Delete Rig - method,Negatif,Verifikasi endpoint master rig hanya menerima GET dan POST,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Ambil bearer token sesi login untuk memanggil API (Postman/Bruno)
+4. Kirim <method> /v1/master/rigs/{id}",Response 405 Method Not Allowed. POST /v1/master/rigs/{id} tanpa /update atau /delete juga tidak menghapus maupun mengubah data.,"Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario Outline: Reject unsupported methods
+  When the client sends ""<method> /v1/master/rigs/{id}""
+  Then the API responds <status>
+  And the rig is unchanged
+
+Examples:
+  | method | status |
+  | DELETE | 405 |
+  | PUT | 405 |
+  | POST | 405 |",,,Tentative,,,Yes,Route sengaja GET/POST saja; update dan delete pakai sub-path eksplisit,
+,Project Monitoring - Master Rig,TC_PHI2265_RIG_020,Akses API,Negatif,Verifikasi endpoint master rig menolak request tanpa login,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Ambil bearer token sesi login untuk memanggil API (Postman/Bruno)
+4. Kirim <request> tanpa header Authorization","Response 401 ""Please login to access this feature"". Tidak ada data berubah.","Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario Outline: Reject requests without login
+  When the client sends ""<request>"" without an Authorization header
+  Then the API responds 401
+
+Examples:
+  | request |
+  | GET /v1/master/rigs |
+  | POST /v1/master/rigs |
+  | POST /v1/master/rigs/{id}/update |
+  | POST /v1/master/rigs/{id}/delete |",,,Tentative,,,Yes,,
+,Project Monitoring - Master Rig,TC_PHI2265_RIG_021,Akses API - semua user login,Positif,Verifikasi seluruh user login dapat melakukan CRUD master rig,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Ambil bearer token sesi login untuk memanggil API (Postman/Bruno)
+4. Login sebagai <subFunction>
+5. Kirim GET, POST create, POST update, POST delete master rig","Semua request berhasil (200/201) untuk user yang login, tanpa permission admin khusus.","Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario Outline: CRUD rigs as ""<subFunction>""
+  Given I login as user ""<subFunction>"" with account ""<account>""
+  When I create, update and delete a rig
+  Then every request succeeds
+
+Examples:
+  | subFunction | account |
+  | PROJECT | <account> |
+  | OPERATION & SURFACE FACILITIES | <account> |",,,Tentative,,,Yes,Keputusan: CRUD terbuka untuk semua user login (tidak ada gate admin),
+,Project Monitoring - Master Rig,TC_PHI2265_RIG_022,Seed rig dari data lama,Positif,Verifikasi migrasi membuat master rig dari Rig Name project lama dan menghubungkan project,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Ambil bearer token sesi login untuk memanggil API (Postman/Bruno)
+4. Jalankan migration 20261030100000_AddMasterRigs (atau script SQL pasangannya)
+5. Query master_rigs dan projects (rig_name, rig_id)","Satu rig per nama rig_name unik (di-trim). working_area terisi bila seluruh project rig tersebut di area yang sama. capacity kosong. Semua project yang punya rig_name terhubung ke rig (rig_id terisi); query verifikasi ""rig_name ada tapi rig_id kosong"" mengembalikan 0 baris. Menjalankan ulang script tidak membuat duplikat.","Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario: Seed rigs from existing project rig names
+  Given projects with rig_name ""ELANG-03 (1000 HP)"" and ""BKY-04 (1000 HP)""
+  When the AddMasterRigs migration runs
+  Then one master rig exists per distinct trimmed rig_name
+  And every project with a rig_name has rig_id set
+  And running the twin SQL again creates no duplicates","Data dev: 4 rig hasil seed (BKY-04 (1000 HP), ELANG-03 (1000 HP), Rig Chevron 12, Rig Tati-01)",,Tentative,,,Yes,"Nama rig lama sudah mengandung ""(1000 HP)""; jangan isi capacity sebelum nama dirapikan agar display_name tidak dobel",

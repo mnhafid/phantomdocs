@@ -1,0 +1,27 @@
+info:
+  name: SRP
+  type: folder
+  seq: 1
+
+request:
+  auth: inherit
+
+docs: |
+  ## Action Plan PEP - Sucker Rod Pump (PHI-2494 / 2495)
+
+  Urutan: Get Next WO Number → Submit (set `plan_id` dari `data.id`) → Detail → Review (Approve / Modify / Reject)
+  → Level Approve / Reject. Token: `ssdp_token` (phi.sda1), `po_token` (phi.po), `mgr_token` (phi.superadmin).
+  **Hanya PEP, hanya installation** (`installation_schedule` / `installation_update`). Selalu masuk approval PO
+  (`approval_status = waiting_review`), sama seperti WHC installation. `adjustment` → 400. PHSS → 400.
+
+  **Field bersama**
+  - `wo_number`: dari `GET /api/v1/well-surveilence/action-plans/next-wo-number` (opsional).
+  - `pic_ids` wajib minimal 1. `artificial_lift.assigned_department` ("Assign to") wajib.
+  - `owned_by` wajib: `rental` | `owned`. `contract_number` (free text) hanya untuk `rental`, `asset_number` hanya untuk `owned`.
+  - `production`, `pressure` wajib, >= 0.
+
+  **Field SRP** (`method = sucker_rod_pump`, PHI-2494):
+  - `stroke_length` wajib, > 0. `spmfreq` (stroke per minute) wajib, > 0.
+  - `power` opsional, >= 0. `pump_type`, `pump_brand`, `prime_mover_name` opsional, free text.
+  - `prime_mover` (decimal) TIDAK dipakai SRP: itu field pump adjustment. SRP memakai `prime_mover_name` (teks).
+  - Field ESP (`frequency`, `electric_current`) dan field adjustment dibuang.

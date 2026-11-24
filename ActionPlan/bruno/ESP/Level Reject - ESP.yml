@@ -1,0 +1,33 @@
+info:
+  name: Level Reject - ESP
+  type: http
+  seq: 9
+
+http:
+  method: POST
+  url: "{{base_url}}/api/v1/well-surveilence/action-plans/:source/:id/approval/reject"
+  params:
+    - name: source
+      value: "pep"
+      type: path
+    - name: id
+      value: "{{plan_id}}"
+      type: path
+  body:
+    type: json
+    data: |-
+      {
+        "remarks": "OK"
+      }
+  auth:
+    type: bearer
+    token: "{{mgr_token}}"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+docs: |
+  Level manager. Modify round: approve → level berikutnya; level terakhir (creator SSDP, pakai `ssdp_token`) → `approved`. Reject round: reject = setuju → `rejected`.

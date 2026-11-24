@@ -1,0 +1,107 @@
+info:
+  name: Review Action Plan - SRP Modify
+  type: http
+  seq: 6
+
+http:
+  method: POST
+  url: "{{base_url}}/api/v1/well-surveilence/action-plans/:source/:id/review"
+  params:
+    - name: source
+      value: "pep"
+      type: path
+    - name: id
+      value: "{{plan_id}}"
+      type: path
+  body:
+    type: json
+    data: |-
+      {
+        "decision": "modify",
+        "remarks": "Ubah parameter pompa",
+        "proposed": {
+          "start_date": "2026-12-14",
+          "end_date": "2026-12-16",
+          "pic_ids": [
+            "{{pic_id}}"
+          ],
+          "artificial_lift": {
+            "activity_type": "installation",
+            "action_mode": "installation_schedule",
+            "method": "sucker_rod_pump",
+            "assigned_department": "Production Operations",
+            "pump_type": "Insert Pump",
+            "pump_brand": "Lufkin",
+            "stroke_length": 100,
+            "spmfreq": 8.5,
+            "prime_mover_name": "Gas Engine G3306",
+            "power": 40,
+            "owned_by": "rental",
+            "contract_number": "CTR-PO/2026/021",
+            "production": 120,
+            "pressure": 150
+          }
+        },
+        "approvers": [
+          {
+            "level": 1,
+            "user_id": [
+              "{{mgr_id}}"
+            ]
+          }
+        ]
+      }
+  auth:
+    type: bearer
+    token: "{{po_token}}"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
+examples:
+  - name: Modify
+    request:
+      url: "{{base_url}}/api/v1/well-surveilence/action-plans/:source/:id/review"
+      method: POST
+    response:
+      status: 200
+      statusText: OK
+      body:
+        type: text
+        data: |-
+          {
+            "data": {
+              "action_plan_id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+              "source": "pep",
+              "work_order_number": "0005/WO/SDA1/2026",
+              "approval_status": "modify_in_approval",
+              "cycle_no": 1,
+              "path": "modify",
+              "current_level": 1,
+              "total_levels": 2
+            },
+            "status": "success",
+            "code": "00",
+            "message": "Review action plan succeed"
+          }
+  - name: Proposal melanggar aturan (400)
+    request:
+      url: "{{base_url}}/api/v1/well-surveilence/action-plans/:source/:id/review"
+      method: POST
+    response:
+      status: 400
+      statusText: Bad Request
+      body:
+        type: text
+        data: |-
+          {
+            "status": "failed",
+            "code": "01",
+            "message": "artificial_lift.spmfreq must be more than 0"
+          }
+
+docs: |
+  `method` dan `activity_type` tidak boleh berubah. Aturan field yang sama dipakai untuk `proposed`. Level terakhir = creator SSDP (ditambahkan backend).

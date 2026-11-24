@@ -1,0 +1,22 @@
+name: LOCAL
+variables:
+  - name: base_url
+    value: http://0.0.0.0:5071
+  - name: ssdp_token
+    value: ""
+  - name: ssdp_phss_token
+    value: ""
+  - name: po_token
+    value: ""
+  - name: mgr_token
+    value: ""
+  - name: well_id
+    value: ""
+  - name: pic_id
+    value: ""
+  - name: mgr_id
+    value: ""
+  - name: wo_number
+    value: ""
+  - name: plan_id
+    value: ""

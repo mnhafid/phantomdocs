@@ -1,0 +1,495 @@
+﻿No Ticket,*Module,*Test Id,*Feature / Item,*Test Type,*Test Scenario,*Test Step,*Expected Result,Gherkin User Story,*Test Data,*Result Testing,automation Candidate ,*PIC,*PIC Reviewer,*Prioritas,Keterangan,*Evidence
+PHI-2265,Project Monitoring - Form Add/Edit Project (Rig Name),TC_PHI2265_001,Dropdown Rig Name (DLC/FL),Positif,Verifikasi dropdown Rig Name tampil saat memilih Category New Well Development dengan Sub Category <sub_category>,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Buka menu Project Monitoring > New Well Development (/projects/<working_area>/<zone>?category=newwelldevelopment)
+4. Klik tombol + Add Project
+5. Pilih Category ""New Well Development""
+6. Pilih Sub Category <sub_category>
+7. Buka tab Network pada DevTools lalu klik dropdown Rig Name","Field dropdown Rig Name tampil di section Main Project Details. Sistem memanggil GET /v1/master/rigs?is_active=true&working_area=<working_area> (200 OK). Opsi menampilkan nama rig beserta kapasitas, contoh ""ELANG-03 (1000 HP)"". Rig nonaktif dan rig working area lain tidak tampil.","Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario Outline: Show Rig Name dropdown for NWD ""<sub_category>""
+  Given the user opens the Add Project modal on ""/projects/<working_area>/abibd?category=newwelldevelopment""
+  When the user selects Category ""New Well Development"" and Sub Category ""<sub_category>""
+  Then the ""Rig Name"" dropdown is displayed
+  And the system calls ""GET /v1/master/rigs?is_active=true&working_area=<working_area>""
+  And each option is shown as ""<display_name>""
+
+Examples:
+  | working_area | sub_category | display_name       |
+  | pep          | DLC          | ELANG-03 (1000 HP) |
+  | phss         | FL           | ELANG-03 (1000 HP) |","Master rig aktif: ELANG-03, capacity 1000, capacity_unit HP, working_area sesuai project",,Tentative,,,Yes,,
+,Project Monitoring - Form Add/Edit Project (Rig Name),TC_PHI2265_002,Validasi mandatory Rig Name,Negatif,Verifikasi submit gagal jika Rig Name kosong untuk Sub Category <sub_category>,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Buka menu Project Monitoring > New Well Development (/projects/<working_area>/<zone>?category=newwelldevelopment)
+4. Klik tombol + Add Project
+5. Isi seluruh field wajib (Project Description, Project Number, Field, Area, Plant, Start Date, End Date, WBS, RK)
+6. Pilih Category ""New Well Development"" dan Sub Category <sub_category>
+7. Biarkan Rig Name kosong
+8. Klik Submit","Submit digagalkan, request POST /v1/projects tidak dikirim. Outline Rig Name merah dengan pesan ""Field is required"".","Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario Outline: Reject submit without Rig Name for ""<sub_category>""
+  Given the user fills all mandatory fields in the Add Project modal
+  And the user selects Category ""New Well Development"" and Sub Category ""<sub_category>""
+  When the user leaves ""Rig Name"" empty and clicks ""Submit""
+  Then the submit is blocked and no ""POST /v1/projects"" request is sent
+  And the ""Rig Name"" field shows the error ""Field is required""
+
+Examples:
+  | sub_category |
+  | DLC          |
+  | FL           |",,,Tentative,,,Yes,,
+,Project Monitoring - Form Add/Edit Project (Rig Name),TC_PHI2265_003,Validasi backend rig_id,Negatif,Verifikasi backend menolak rig_id tidak valid saat create/update project NWD <sub_category> (anti bypass FE),"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Kirim request POST /v1/projects (atau POST /v1/projects/:id) via Postman/Bruno dengan payload NWD <sub_category> dan rig_id = <rig_id>",Response 400 dengan pesan <message>. Data project tidak tersimpan/berubah.,"Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario Outline: Backend rejects an invalid rig_id
+  Given a create project payload with category ""newwelldevelopment"" and sub_category ""<sub_category>""
+  When the client sends the payload with rig_id ""<rig_id>""
+  Then the API responds 400 with message ""<message>""
+
+Examples:
+  | sub_category | rig_id                 | message                          |
+  | DLC          | null                   | Field is required                |
+  | FL           | <random uuid>          | Rig not found                    |
+  | DLC          | <inactive rig id>      | Rig is inactive                  |
+  | DLC          | <deleted rig id>       | Rig not found                    |
+  | DLC          | <PHSS rig on PEP proj> | Rig working area does not match  |","Rig nonaktif, rig ter-delete, rig working_area PHSS",,Tentative,,,Yes,Keputusan BE: pengecekan aktif/delete/working area hanya saat rig_id berubah; teks pesan final mengikuti implementasi,
+,Project Monitoring - Form Add/Edit Project (Rig Name),TC_PHI2265_004,Hide Rig Name (GL/RTWS),Positif,Verifikasi field Rig Name disembunyikan dan Area wajib untuk Sub Category <sub_category>,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Buka menu Project Monitoring > New Well Development (/projects/<working_area>/<zone>?category=newwelldevelopment)
+4. Klik tombol + Add Project
+5. Pilih Category ""New Well Development"" dan Sub Category <sub_category>
+6. Submit dengan Area terisi",Field Rig Name tidak tampil. Field Area tampil dengan tanda bintang merah dan wajib diisi. Project tersimpan dengan rig_id = null.,"Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario Outline: Hide Rig Name for ""<sub_category>""
+  Given the user opens the Add Project modal
+  When the user selects Category ""New Well Development"" and Sub Category ""<sub_category>""
+  Then the ""Rig Name"" field is hidden
+  And the ""Area"" field is mandatory
+  And the saved project has no rig
+
+Examples:
+  | sub_category |
+  | GL           |
+  | RTWS         |",,,Tentative,,,Yes,,
+,Project Monitoring - Form Add/Edit Project (Rig Name),TC_PHI2265_005,Edit Project - prefill & ganti Rig,Positif,"Verifikasi Edit Project menampilkan Rig tersimpan, dapat diganti, dan di-clear saat Sub Category diubah ke GL/RTWS","1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Buka detail project NWD DLC yang sudah punya rig (/projects/:id/detail)
+4. Klik Edit
+5. Amati field Rig Name
+6. Ganti Rig Name lalu Submit
+7. Edit lagi, ubah Sub Category menjadi GL lalu Submit","Rig Name ter-prefill dari response detail (rig.id, rig.display_name). Setelah diganti, detail menampilkan rig baru. Setelah Sub Category diubah ke GL, rig project menjadi null.","Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario: Prefill, change and clear the rig on Edit Project
+  Given an NWD ""DLC"" project allocated to rig ""ELANG-03""
+  When the user opens Edit Project
+  Then ""Rig Name"" is prefilled with ""ELANG-03 (1000 HP)""
+  When the user changes the rig to ""ELANG-05"" and submits
+  Then the project detail shows rig ""ELANG-05""
+  When the user changes Sub Category to ""GL"" and submits
+  Then the project has no rig",,,Tentative,,,Yes,,
+,Project Monitoring - Master Rig,TC_PHI2265_006,Create Rig,Positif,Verifikasi create master rig berhasil,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Kirim POST /v1/master/rigs dengan body name, capacity, capacity_unit, is_active, working_area
+4. Kirim GET /v1/master/rigs/:id","Response 201. Data tersimpan, display_name = ""<name> (<capacity> <capacity_unit>)"", created_at/created_by terisi.","Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario Outline: Create a rig
+  When the client sends ""POST /v1/master/rigs"" with name ""<name>"", capacity ""<capacity>"", capacity_unit ""<unit>"", working_area ""<wa>""
+  Then the API responds 201
+  And display_name is ""<display_name>""
+
+Examples:
+  | name     | capacity | unit | wa   | display_name       |
+  | ELANG-09 | 1000     | HP   | PEP  | ELANG-09 (1000 HP) |
+  | RIG-TEST |          |      | PHSS | RIG-TEST           |",,,Tentative,,,Yes,"CRUD master rig di luar skenario PRD (keputusan BE); halaman admin FE belum ada, uji via API",
+,Project Monitoring - Master Rig,TC_PHI2265_007,Create Rig - validasi,Negatif,Verifikasi create/update master rig ditolak untuk input tidak valid,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Kirim POST /v1/master/rigs dengan body <case>",Response 400 dengan pesan <message>. Data tidak tersimpan.,"Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario Outline: Reject an invalid rig
+  When the client sends ""POST /v1/master/rigs"" with ""<case>""
+  Then the API responds 400 with message ""<message>""
+
+Examples:
+  | case                       | message                                 |
+  | name kosong                | Name is required                        |
+  | name sudah dipakai         | Name already used by another rig        |
+  | working_area ""ABC""         | Working area must be one of: PHSS, PEP  |
+  | capacity -1                | Capacity must not be negative           |",,,Tentative,,,Yes,Uji via API,
+,Project Monitoring - Master Rig,TC_PHI2265_008,Update Rig,Positif,Verifikasi update master rig dan rename tersinkron ke project,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Kirim POST /v1/master/rigs/:id/update dengan name baru dan capacity baru
+4. Buka list project yang memakai rig tersebut",Response 200. Data rig berubah. Kolom Rig Name pada list project (rig_name) ikut berubah ke nama baru.,"Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario: Rename a rig
+  Given rig ""ELANG-03"" is allocated to project ""MUT-384""
+  When the client sends ""POST /v1/master/rigs/{id}/update"" with name ""ELANG-03A""
+  Then the API responds 200
+  And project ""MUT-384"" shows rig name ""ELANG-03A""",,,Tentative,,,Yes,Uji via API,
+,Project Monitoring - Master Rig,TC_PHI2265_009,Delete Rig (soft delete),Positif,Verifikasi soft delete master rig,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Kirim POST /v1/master/rigs/:id/delete
+4. Kirim GET /v1/master/rigs
+5. Buka Gantt NWD DLC dan Edit Project yang memakai rig tersebut",Response 200. Rig tidak muncul di list/dropdown. Project lama tetap tampil di baris rig tersebut pada Gantt. Memilih ulang rig yang sudah dihapus ditolak.,"Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario: Soft delete a rig
+  Given rig ""ELANG-03"" is allocated to project ""MUT-384""
+  When the client sends ""POST /v1/master/rigs/{id}/delete""
+  Then the API responds 200
+  And ""GET /v1/master/rigs"" does not return ""ELANG-03""
+  And the Gantt still shows ""MUT-384"" on row ""ELANG-03""",,,Tentative,,,Yes,"Uji via API; tidak ada endpoint DELETE, hanya POST",
+,Project Monitoring - Master Rig,TC_PHI2265_010,List Rig - filter,Positif,Verifikasi filter list master rig berdasarkan is_active dan working_area,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Kirim GET /v1/master/rigs?is_active=<is_active>&working_area=<wa>","Response 200 tanpa pagination, urut nama ascending, hanya rig sesuai filter. Parameter kosong diabaikan (bukan error).","Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario Outline: Filter the rig list
+  When the client sends ""GET /v1/master/rigs?is_active=<is_active>&working_area=<wa>""
+  Then the API responds 200
+  And only rigs matching ""<expected>"" are returned
+
+Examples:
+  | is_active | wa   | expected                    |
+  | true      | PEP  | active PEP rigs             |
+  | false     |      | inactive rigs in both areas |
+  |           |      | all non-deleted rigs        |",,,Tentative,,,Yes,Uji via API,
+,Project Monitoring - Gantt Chart NWD,TC_PHI2265_011,Navigasi kartu ke detail,Positif,Verifikasi klik kartu project pada Gantt membuka halaman detail project,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Buka menu Project Monitoring > New Well Development (/projects/<working_area>/<zone>?category=newwelldevelopment)
+4. Klik salah satu kartu project pada Gantt",User dinavigasikan ke /projects/:id/detail project yang diklik.,"Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario: Open project detail from a Gantt card
+  Given the user is on the NWD Gantt chart
+  When the user clicks a project card
+  Then the user is navigated to the project detail page of that project",,,Tentative,,,Yes,,
+,Project Monitoring - Gantt Chart NWD,TC_PHI2265_012,Grouping Rig Name (DLC/FL),Positif,Verifikasi Sumbu Y dikelompokkan berdasarkan Rig untuk Sub Category <sub_category>,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Buka menu Project Monitoring > New Well Development (/projects/<working_area>/<zone>?category=newwelldevelopment)
+4. Pilih tab Sub Category <sub_category>","Header kolom pertama ""Rig Name"". Baris per rig dengan format ""ELANG-03 (1000 HP)"". Seluruh project yang dialokasikan ke rig tampil pada baris rig tersebut. Baris urut nama ascending.","Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario Outline: Group the Gantt by rig for ""<sub_category>""
+  Given NWD ""<sub_category>"" projects allocated to rig ""ELANG-03""
+  When the user selects Sub Category ""<sub_category>""
+  Then the first column header is ""Rig Name""
+  And row ""ELANG-03 (1000 HP)"" contains every project allocated to ""ELANG-03""
+
+Examples:
+  | sub_category |
+  | DLC          |
+  | FL           |",,,Tentative,,,Yes,,
+,Project Monitoring - Gantt Chart NWD,TC_PHI2265_013,Grouping Area (GL/RTWS),Positif,Verifikasi Sumbu Y dikelompokkan berdasarkan Area untuk Sub Category <sub_category>,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Buka menu Project Monitoring > New Well Development (/projects/<working_area>/<zone>?category=newwelldevelopment)
+4. Pilih tab Sub Category <sub_category>","Header kolom pertama ""Area Name"". Baris per area (contoh MUTIARA, PAMAGUAN, NILAM).","Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario Outline: Group the Gantt by area for ""<sub_category>""
+  When the user selects Sub Category ""<sub_category>""
+  Then the first column header is ""Area Name""
+  And rows are grouped by area name
+
+Examples:
+  | sub_category |
+  | GL           |
+  | RTWS         |",,,Tentative,,,Yes,,
+,Project Monitoring - Gantt Chart NWD,TC_PHI2265_014,Project tanpa Rig/Area,Negatif,Verifikasi project <sub_category> tanpa <key> tidak tampil di Gantt,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Buka menu Project Monitoring > New Well Development (/projects/<working_area>/<zone>?category=newwelldevelopment)
+4. Pilih tab Sub Category <sub_category>
+5. Cari project yang belum punya <key>
+6. Bandingkan dengan list/export","Project tanpa rig/area tidak tampil pada Gantt (tidak ada baris ""Unassigned""). Project tetap ada di export.","Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario Outline: Hide projects without a grouping key
+  Given an NWD ""<sub_category>"" project without ""<key>""
+  When the user opens the Gantt for ""<sub_category>""
+  Then the project is not shown on any row
+
+Examples:
+  | sub_category | key  |
+  | DLC          | rig  |
+  | GL           | area |",,,Tentative,,,Yes,Keputusan BE (hide); data lama rig_name sudah di-backfill ke rig_id,
+,Project Monitoring - Gantt Chart NWD,TC_PHI2265_015,Sumbu X & garis TODAY,Positif,Verifikasi Sumbu X 12 bulan tahun berjalan dan garis TODAY,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Buka menu Project Monitoring > New Well Development (/projects/<working_area>/<zone>?category=newwelldevelopment)
+4. Buka halaman tanpa mengubah filter tahun
+5. Ubah filter tahun ke 2025","Default 12 kolom Jan–Dec tahun berjalan dengan garis merah ""TODAY"" pada tanggal hari ini. Saat tahun 2025 dipilih, garis TODAY disembunyikan.","Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario: Show the year axis and TODAY marker
+  When the user opens the NWD Gantt
+  Then the X axis shows 12 months from Jan to Dec of the current year
+  And a red ""TODAY"" line is shown at today
+  When the user selects year ""2025""
+  Then the ""TODAY"" line is hidden",,,Tentative,,,Yes,,
+,Project Monitoring - Gantt Chart NWD,TC_PHI2265_016,Tab Approval,Positif,Verifikasi tab Approval menampilkan Gantt untuk project dalam antrean approval,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Buka menu Project Monitoring > New Well Development (/projects/<working_area>/<zone>?category=newwelldevelopment)
+4. Klik tab ""Approval""
+5. Amati request pada tab Network",Tampilan tetap Gantt (bukan tabel). Request GET /v1/projects/nwd?need_approval=true&... Kartu yang tampil sama dengan project pada list need-approval (status on hold dengan approval aktif).,"Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario: Show the Approval tab as a Gantt
+  When the user clicks the ""Approval"" tab
+  Then the Gantt chart is shown instead of a table
+  And the system calls ""GET /v1/projects/nwd"" with ""need_approval=true""
+  And only projects in the approval queue are rendered",,,Tentative,,,Yes,Keputusan BE: flag need_approval (+ need_my_approval opsional) pada endpoint yang sama,
+,Project Monitoring - Gantt Chart NWD,TC_PHI2265_017,Tab Project Draft,Positif,Verifikasi tab Project Draft menampilkan Gantt project Draft/Canceled,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Buka menu Project Monitoring > New Well Development (/projects/<working_area>/<zone>?category=newwelldevelopment)
+4. Klik tab ""Project Draft""
+5. Amati request pada tab Network",Tampilan tetap Gantt. Request GET /v1/projects/nwd?status=draft|canceled. Kartu berstatus draft/canceled tampil pada baris rig/area terkait.,"Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario: Show the Draft tab as a Gantt
+  When the user clicks the ""Project Draft"" tab
+  Then the Gantt chart is shown instead of a table
+  And the system calls ""GET /v1/projects/nwd"" with ""status=draft|canceled""",,,Tentative,,,Yes,,
+,Project Monitoring - Gantt Chart NWD,TC_PHI2265_018,Panjang kartu dari task,Positif,Verifikasi posisi awal/akhir kartu dari task paling awal dan paling akhir,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Upload .mpp untuk Proyek X (task paling awal 10-02-2026, paling akhir 25-05-2026)
+4. Buka menu Project Monitoring > New Well Development (/projects/<working_area>/<zone>?category=newwelldevelopment)
+5. Hover kartu Proyek X","Kartu mulai 10 Feb 2026 dan berakhir 25 Mei 2026. Tooltip Start: 10-02-2026, End: 25-05-2026.","Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario: Derive card dates from project tasks
+  Given project ""X"" has tasks from ""10-02-2026"" to ""25-05-2026""
+  When the user hovers the card of project ""X""
+  Then the card spans from ""10-02-2026"" to ""25-05-2026""
+  And the tooltip shows ""Start: 10-02-2026"" and ""End: 25-05-2026""",,,Tentative,,,Yes,,
+,Project Monitoring - Gantt Chart NWD,TC_PHI2265_019,Project tanpa task,Positif,Verifikasi kartu project tanpa task (belum upload .mpp) memakai tanggal project,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Siapkan project NWD draft tanpa task
+4. Buka menu Project Monitoring > New Well Development (/projects/<working_area>/<zone>?category=newwelldevelopment)
+5. Klik tab Project Draft",Kartu tampil dengan start/end date project. Ketiga indikator kuning (on_hold). Project tanpa tanggal sama sekali tidak tampil.,"Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario: Fall back to project dates when there are no tasks
+  Given a draft NWD project without tasks and start/end date ""01-03-2026""/""30-06-2026""
+  When the user opens the ""Project Draft"" tab
+  Then the card spans from ""01-03-2026"" to ""30-06-2026""
+  And all three indicators are yellow",,,Tentative,,,Yes,Keputusan BE,
+,Project Monitoring - Gantt Chart NWD,TC_PHI2265_020,Warna 3 indikator,Positif,Verifikasi warna indikator <indicator> saat status task <task_status> dan ETC <etc_rule> Plan Date,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Buka /projects/:id/task
+4. Ubah status task <indicator> menjadi <task_status> dan isi ETC sesuai kondisi
+5. Buka menu Project Monitoring > New Well Development (/projects/<working_area>/<zone>?category=newwelldevelopment)
+6. Refresh Gantt dan lihat simbol indikator","Simbol indikator berwarna <color>. Plan Date = end date task, ETC = ETC task.","Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario Outline: Color the mandatory task indicators
+  Given task ""<indicator>"" has status ""<task_status>"" and ETC ""<etc_rule>"" its plan end date
+  When the user refreshes the Gantt
+  Then the ""<symbol>"" indicator is ""<color>""
+
+Examples:
+  | indicator         | symbol | task_status        | etc_rule | color  |
+  | #Perizinan        | ●      | Finished           | any      | Blue   |
+  | #Perizinan        | ●      | Finished with Note | any      | Blue   |
+  | #Land Acquisition | ■      | In Progress        | <=       | Green  |
+  | #Site Preparation | ▲      | Not Started        | <=       | Yellow |
+  | #Land Acquisition | ■      | In Progress        | >        | Red    |
+  | #Site Preparation | ▲      | Not Started        | >        | Red    |","Contoh: Plan 20-03-2026, ETC 18-03-2026 (hijau); Plan 15-03-2026, ETC 28-03-2026 (merah)",,Tentative,,,Yes,,
+,Project Monitoring - Gantt Chart NWD,TC_PHI2265_021,Indikator - edge case,Positif,Verifikasi aturan indikator untuk kondisi <case>,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Siapkan task wajib sesuai kondisi <case>
+4. Buka menu Project Monitoring > New Well Development (/projects/<working_area>/<zone>?category=newwelldevelopment)
+5. Refresh Gantt dan lihat simbol indikator",Indikator berwarna <color>.,"Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario Outline: Indicator edge cases
+  Given a mandatory task in condition ""<case>""
+  When the user refreshes the Gantt
+  Then the indicator is ""<color>""
+
+Examples:
+  | case                                            | color  |
+  | ETC kosong, status In Progress                  | Green  |
+  | Status task On Hold, ETC <= Plan                | Yellow |
+  | Status task Canceled                            | Blue   |
+  | Task wajib tidak ada di project                 | Yellow |
+  | Dua task #Perizinan: Finished dan late          | Red    |
+  | Nama task ""  #perizinan "" (spasi & huruf kecil) | dikenali sebagai Perizinan |",,,Tentative,,,Yes,"Keputusan BE (di luar PRD 3.2): ETC kosong = on track, On Hold = Not Started, Canceled = completed, missing = on_hold, duplikat ambil terburuk",
+,Project Monitoring - Gantt Chart NWD,TC_PHI2265_022,Status & warna kartu,Positif,Verifikasi status kartu <status> berdasarkan indikator dan progres fisik project,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Siapkan project dengan kondisi <condition>
+4. Buka menu Project Monitoring > New Well Development (/projects/<working_area>/<zone>?category=newwelldevelopment)
+5. Cari kartu project tersebut","Kartu berlatar <bg>, border <border>, label ""<status>"".","Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario Outline: Card status from project level
+  Given a project with ""<condition>""
+  When the user views its card
+  Then the card label is ""<status>"" with background ""<bg>"" and border ""<border>""
+
+Examples:
+  | condition                                   | status     | bg                     | border  |
+  | salah satu indikator merah                  | Late Start | tw-bg-appNegative-bg   | #DC2626 |
+  | tidak ada merah, progres fisik 100%         | Completed  | tw-bg-appPrimary-bg    | #0284C7 |
+  | tidak ada merah, progres fisik 0%           | On Hold    | tw-bg-appWarning-bg    | #D97706 |
+  | tidak ada merah, progres > 0% dan < 100%    | On Time    | tw-bg-appPositive-bg   | #16A34A |",,,Tentative,,,Yes,"Status dari Project Level: progres fisik project (vwProjectSummary actual), merah dari indikator",
+,Project Monitoring - Gantt Chart NWD,TC_PHI2265_023,Filter tahun,Positif,Verifikasi ganti tahun memuat project yang task-nya berlangsung pada tahun tersebut,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Buka menu Project Monitoring > New Well Development (/projects/<working_area>/<zone>?category=newwelldevelopment)
+4. Pilih tahun 2025 pada filter tahun",Request GET /v1/projects/nwd?year=2025&... Timeline 2025 dirender ulang. Project lintas tahun (mis. 01-11-2025 s/d 15-03-2026) ikut tampil.,"Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario: Change the calendar year
+  Given a project with tasks from ""01-11-2025"" to ""15-03-2026""
+  When the user selects year ""2025""
+  Then the system calls ""GET /v1/projects/nwd"" with ""year=2025""
+  And the project is shown in the 2025 timeline",,,Tentative,,,Yes,,
+,Project Monitoring - Gantt Chart NWD,TC_PHI2265_024,Search keyword,Positif,Verifikasi pencarian project berdasarkan keyword,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Buka menu Project Monitoring > New Well Development (/projects/<working_area>/<zone>?category=newwelldevelopment)
+4. Ketik ""MUT-384"" pada search bar
+5. Tunggu debounce ±700ms",Request GET /v1/projects/nwd?keyword=MUT-384. Hanya kartu project yang cocok yang dirender; baris tanpa project cocok tidak tampil.,"Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario: Search projects by keyword
+  When the user types ""MUT-384"" in the search bar
+  Then the system calls ""GET /v1/projects/nwd"" with ""keyword=MUT-384""
+  And only projects matching ""MUT-384"" are rendered",,,Tentative,,,Yes,,
+,Project Monitoring - Gantt Chart NWD,TC_PHI2265_025,Clear search,Positif,Verifikasi hapus keyword mengembalikan seluruh data,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Buka menu Project Monitoring > New Well Development (/projects/<working_area>/<zone>?category=newwelldevelopment)
+4. Dengan keyword ""MUT-384"" aktif, klik ikon x pada search bar",Param keyword dihapus dan GET /v1/projects/nwd dipanggil ulang. Seluruh rig dan project tahun aktif tampil kembali.,"Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario: Clear the search keyword
+  Given the Gantt is filtered by ""MUT-384""
+  When the user clears the search bar
+  Then the system calls ""GET /v1/projects/nwd"" without ""keyword""
+  And all rigs and projects of the active year are shown",,,Tentative,,,Yes,,
+,Project Monitoring - Gantt Chart NWD,TC_PHI2265_026,Data kosong,Negatif,Verifikasi tampilan saat tidak ada data Gantt,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Buka menu Project Monitoring > New Well Development (/projects/<working_area>/<zone>?category=newwelldevelopment)
+4. Ketik keyword yang tidak ada (mis. ""XYZ-000"") atau pilih tahun tanpa project","Response 200 dengan data []. Gantt menampilkan ""No Gantt data available"".","Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario: Show the empty state
+  When the user searches ""XYZ-000""
+  Then the API responds 200 with an empty data list
+  And the Gantt shows ""No Gantt data available""",,,Tentative,,,Yes,,
+,Project Monitoring - Gantt Chart NWD,TC_PHI2265_027,Clipping kiri,Positif,Verifikasi kartu lintas tahun (mulai tahun sebelumnya) terpotong di 1 Januari,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Buka menu Project Monitoring > New Well Development (/projects/<working_area>/<zone>?category=newwelldevelopment)
+4. Pilih tahun 2026
+5. Hover kartu Proyek A (01-11-2025 s/d 15-03-2026)",Ujung kiri kartu rata (gantt-card--clipped-left) di 1 Jan 2026. Tooltip Start: 01-11-2025.,"Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario: Clip a card starting in the previous year
+  Given project ""A"" runs from ""01-11-2025"" to ""15-03-2026""
+  When the user views year ""2026""
+  Then the card is clipped at ""01-01-2026""
+  And the tooltip shows ""Start: 01-11-2025""",,,Tentative,,,Yes,,
+,Project Monitoring - Gantt Chart NWD,TC_PHI2265_028,Clipping kanan,Positif,Verifikasi kartu lintas tahun (selesai tahun berikutnya) terpotong di 31 Desember,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Buka menu Project Monitoring > New Well Development (/projects/<working_area>/<zone>?category=newwelldevelopment)
+4. Pilih tahun 2026
+5. Hover kartu Proyek B (01-10-2026 s/d 28-02-2027)",Ujung kanan kartu rata (gantt-card--clipped-right) di 31 Des 2026. Tooltip End: 28-02-2027.,"Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario: Clip a card ending in the next year
+  Given project ""B"" runs from ""01-10-2026"" to ""28-02-2027""
+  When the user views year ""2026""
+  Then the card is clipped at ""31-12-2026""
+  And the tooltip shows ""End: 28-02-2027""",,,Tentative,,,Yes,,
+,Project Monitoring - Gantt Chart NWD,TC_PHI2265_029,Multi-track stacking,Positif,Verifikasi dua project overlap pada rig yang sama ditumpuk ke track berbeda,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Buka menu Project Monitoring > New Well Development (/projects/<working_area>/<zone>?category=newwelldevelopment)
+4. Pilih Sub Category DLC, tahun 2026
+5. Amati baris rig ELANG-03","Kedua kartu tidak saling menimpa. Proyek 1 di track 0, Proyek 2 di track 1. Tinggi baris bertambah proporsional.","Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario: Stack overlapping projects on the same rig
+  Given rig ""ELANG-03"" has project 1 ""01-02-2026""–""30-04-2026"" and project 2 ""15-03-2026""–""15-06-2026""
+  When the user views Sub Category ""DLC"" in year ""2026""
+  Then project 1 is on track 0 and project 2 on track 1
+  And the row height grows with the number of tracks",,,Tentative,,,Yes,,
+,Project Monitoring - Gantt Chart NWD,TC_PHI2265_030,Export Excel,Positif,Verifikasi export Gantt NWD ke .xlsx membawa filter aktif,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Buka menu Project Monitoring > New Well Development (/projects/<working_area>/<zone>?category=newwelldevelopment)
+4. Pilih Sub Category DLC dan tahun 2026, ketik keyword ""MUT-384""
+5. Klik tombol Export
+6. Buka file yang terunduh","Tombol menampilkan spinner. Request GET /v1/projects/nwd/export dengan working_area, zone, sub_category=DLC, year=2026, keyword=MUT-384. File Project_NWD_DLC_2026_[YYYY-MM-DD_HH.mm.ss].xlsx berisi kolom Rig/Area Name, Kapasitas Rig, Nomor Proyek, Deskripsi Proyek, Start Date, End Date, Progress (%), Status Perizinan, Status Land Acq, Status Site Prep, Status Akhir Proyek. Isi sama dengan kartu di layar.","Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario: Export the NWD Gantt to Excel
+  Given the user filters Sub Category ""DLC"", year ""2026"" and keyword ""MUT-384""
+  When the user clicks ""Export""
+  Then the system calls ""GET /v1/projects/nwd/export"" with the active filters
+  And a file ""Project_NWD_DLC_2026_<timestamp>.xlsx"" is downloaded
+  And the rows match the cards shown on the Gantt",,,Tentative,,,Yes,,
+,Project Monitoring - Gantt Chart NWD,TC_PHI2265_031,Export data kosong,Negatif,Verifikasi export saat tidak ada data,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Buka menu Project Monitoring > New Well Development (/projects/<working_area>/<zone>?category=newwelldevelopment)
+4. Pilih filter tanpa data (""No Gantt data available"")
+5. Klik tombol Export","Toast warning ""No project data available to export"". Tidak ada file kosong terunduh dan tombol tidak stuck loading.","Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario: Block export when there is no data
+  Given the Gantt shows ""No Gantt data available""
+  When the user clicks ""Export""
+  Then a warning toast ""No project data available to export"" is shown
+  And no file is downloaded",,,Tentative,,,Yes,,
+,Project Monitoring - Gantt Chart NWD,TC_PHI2265_032,Akses read-only,Negatif,Verifikasi user dengan Project READ saja dapat melihat Gantt tetapi tidak dapat Add Project,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Login sebagai user viewer (OSF / Management / Field Inspector)
+4. Buka menu Project Monitoring > New Well Development (/projects/<working_area>/<zone>?category=newwelldevelopment)
+5. ",Gantt dan filter dapat digunakan. Tombol + Add Project dan Edit tidak tampil.,"Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario Outline: Read-only access to the NWD Gantt as ""<subFunction>""
+  Given I login as user ""<subFunction>"" with account ""<account>""
+  When I open the NWD Gantt
+  Then the Gantt chart is visible
+  And the ""+ Add Project"" button is not displayed
+
+Examples:
+  | subFunction                     | account   |
+  | OPERATION & SURFACE FACILITIES  | <account> |
+  | Field Inspector                 | <account> |",,,Tentative,,,Yes,,

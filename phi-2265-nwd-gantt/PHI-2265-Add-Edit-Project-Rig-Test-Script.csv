@@ -1,0 +1,379 @@
+﻿No Ticket,*Module,*Test Id,*Feature / Item,*Test Type,*Test Scenario,*Test Step,*Expected Result,Gherkin User Story,*Test Data,*Result Testing,automation Candidate ,*PIC,*PIC Reviewer,*Prioritas,Keterangan,*Evidence
+PHI-2265,Project Monitoring - Add Project NWD (Rig),TC_PHI2265_PRJ_001,Dropdown Rig Name,Positif,Verifikasi dropdown Rig Name tampil untuk NWD <sub_category> di <working_area>,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Buka menu Project Monitoring > New Well Development (/projects/<working_area>/<zone>?category=newwelldevelopment)
+4. Klik tombol + Add Project
+5. Pilih Category ""New Well Development""
+6. Pilih Sub Category <sub_category>
+7. Buka tab Network pada DevTools lalu klik dropdown Rig Name","Field Rig Name tampil di section Main Project Details dengan tanda wajib. Sistem memanggil GET /v1/master/rigs?is_active=true&working_area=<WA> (200 OK). Opsi berformat ""<name> (<capacity> <capacity_unit>)"". Rig nonaktif, rig terhapus, dan rig working area lain tidak tampil.","Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario Outline: Show the Rig Name dropdown for ""<sub_category>"" in ""<working_area>""
+  Given the user opens the Add Project modal on ""/projects/<working_area>/abibd?category=newwelldevelopment""
+  When the user selects Category ""New Well Development"" and Sub Category ""<sub_category>""
+  Then the ""Rig Name"" dropdown is displayed as mandatory
+  And the system calls ""GET /v1/master/rigs?is_active=true&working_area=<WA>""
+  And only active rigs of ""<WA>"" are listed
+
+Examples:
+  | working_area | WA | sub_category |
+  | pep | PEP | DLC |
+  | pep | PEP | FL |
+  | phss | PHSS | DLC |
+  | phss | PHSS | FL |","Master rig aktif PEP dan PHSS, satu rig nonaktif, satu rig terhapus",,Tentative,,,Yes,,
+,Project Monitoring - Add Project NWD (Rig),TC_PHI2265_PRJ_002,Hide Rig Name,Positif,Verifikasi field Rig Name tidak tampil untuk <case>,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Buka menu Project Monitoring > New Well Development (/projects/<working_area>/<zone>?category=newwelldevelopment)
+4. Klik tombol + Add Project
+5. Pilih Category dan Sub Category sesuai Examples",Field Rig Name tidak tampil. Untuk NWD GL/RTWS field Area tampil dengan tanda wajib.,"Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario Outline: Hide Rig Name for ""<case>""
+  Given the user opens the Add Project modal
+  When the user selects Category ""<category>"" and Sub Category ""<sub_category>""
+  Then the ""Rig Name"" field is hidden
+
+Examples:
+  | case | category | sub_category |
+  | NWD GL | New Well Development | GL |
+  | NWD RTWS | New Well Development | RTWS |
+  | Fasprod | Fasprod | - |",,,Tentative,,,Yes,,
+,Project Monitoring - Add Project NWD (Rig),TC_PHI2265_PRJ_003,Ganti Sub Category di form,Positif,Verifikasi Rig Name muncul/hilang dan nilainya di-reset saat Sub Category diganti sebelum submit,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Buka menu Project Monitoring > New Well Development (/projects/<working_area>/<zone>?category=newwelldevelopment)
+4. Klik tombol + Add Project
+5. Pilih NWD DLC lalu pilih Rig Name ""ELANG-03""
+6. Ganti Sub Category ke GL
+7. Ganti lagi ke FL","Saat GL, field Rig Name hilang. Saat kembali ke FL, field Rig Name tampil kosong (pilihan sebelumnya tidak terbawa diam-diam).","Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario: Reset Rig Name when Sub Category changes
+  Given the user selected NWD ""DLC"" and rig ""ELANG-03"" in the Add Project modal
+  When the user changes Sub Category to ""GL""
+  Then the ""Rig Name"" field is hidden
+  When the user changes Sub Category to ""FL""
+  Then the ""Rig Name"" field is shown empty",,,Tentative,,,Yes,Perilaku FE; usulan agar payload GL tidak membawa rig_id lama,
+,Project Monitoring - Add Project NWD (Rig),TC_PHI2265_PRJ_004,Create Project NWD dengan Rig,Positif,Verifikasi create project NWD <sub_category> dengan Rig berhasil,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Buka menu Project Monitoring > New Well Development (/projects/<working_area>/<zone>?category=newwelldevelopment)
+4. Klik tombol + Add Project
+5. Pilih Category ""New Well Development"" dan Sub Category <sub_category>
+6. Isi field wajib lain (Project Description, Project Number, Field, Area, Plant, Start Date, End Date, WBS, RK)
+7. Pilih Rig Name ""ELANG-03 (1000 HP)""
+8. Klik Submit
+9. Buka detail project yang baru dibuat","Notifikasi sukses, project tersimpan. Payload POST /v1/projects membawa rig_id. Detail project menampilkan Rig Name ""ELANG-03 (1000 HP)""; response detail berisi rig {id, name, display_name}. Kolom Rig Name di list project dan pencarian project berisi nama rig.","Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario Outline: Create an NWD ""<sub_category>"" project with a rig
+  Given the user fills all mandatory fields in the Add Project modal
+  And the user selects Category ""New Well Development"" and Sub Category ""<sub_category>""
+  And the user selects rig ""ELANG-03 (1000 HP)""
+  When the user clicks ""Submit""
+  Then ""POST /v1/projects"" is sent with the rig_id of ""ELANG-03""
+  And the project detail shows rig ""ELANG-03 (1000 HP)""
+  And the project list shows rig name ""ELANG-03""
+
+Examples:
+  | sub_category |
+  | DLC |
+  | FL |",,,Tentative,,,Yes,,
+,Project Monitoring - Add Project NWD (Rig),TC_PHI2265_PRJ_005,Create Project NWD tanpa Rig,Positif,Verifikasi create project NWD <sub_category> tersimpan tanpa Rig,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Buka menu Project Monitoring > New Well Development (/projects/<working_area>/<zone>?category=newwelldevelopment)
+4. Klik tombol + Add Project
+5. Pilih Category ""New Well Development"" dan Sub Category <sub_category>
+6. Isi field wajib lain (Project Description, Project Number, Field, Area, Plant, Start Date, End Date, WBS, RK)
+7. Klik Submit",Project tersimpan dengan rig kosong (rig = null pada detail). Project tampil di Gantt pada baris Area.,"Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario Outline: Create an NWD ""<sub_category>"" project without a rig
+  Given the user fills all mandatory fields including ""Area""
+  And the user selects Category ""New Well Development"" and Sub Category ""<sub_category>""
+  When the user clicks ""Submit""
+  Then the project is saved with no rig
+  And the project appears on its area row in the Gantt
+
+Examples:
+  | sub_category |
+  | GL |
+  | RTWS |",,,Tentative,,,Yes,,
+,Project Monitoring - Add Project NWD (Rig),TC_PHI2265_PRJ_006,Validasi Rig wajib (FE),Negatif,Verifikasi submit gagal jika Rig Name kosong untuk NWD <sub_category>,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Buka menu Project Monitoring > New Well Development (/projects/<working_area>/<zone>?category=newwelldevelopment)
+4. Klik tombol + Add Project
+5. Pilih Category ""New Well Development"" dan Sub Category <sub_category>
+6. Isi field wajib lain (Project Description, Project Number, Field, Area, Plant, Start Date, End Date, WBS, RK)
+7. Biarkan Rig Name kosong
+8. Klik Submit","Submit digagalkan, request POST /v1/projects tidak dikirim. Outline Rig Name merah dengan pesan ""Field is required"".","Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario Outline: Block submit without a rig for ""<sub_category>""
+  Given the user fills all other mandatory fields
+  And the user selects Category ""New Well Development"" and Sub Category ""<sub_category>""
+  When the user leaves ""Rig Name"" empty and clicks ""Submit""
+  Then no ""POST /v1/projects"" request is sent
+  And ""Rig Name"" shows the error ""Field is required""
+
+Examples:
+  | sub_category |
+  | DLC |
+  | FL |",,,Tentative,,,Yes,,
+,Project Monitoring - Add Project NWD (Rig),TC_PHI2265_PRJ_007,Validasi Area wajib (FE),Negatif,Verifikasi submit gagal jika Area kosong untuk NWD <sub_category>,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Buka menu Project Monitoring > New Well Development (/projects/<working_area>/<zone>?category=newwelldevelopment)
+4. Klik tombol + Add Project
+5. Pilih Category ""New Well Development"" dan Sub Category <sub_category>
+6. Isi field wajib lain kecuali Area
+7. Klik Submit","Submit digagalkan dengan pesan ""Field is required"" pada Area.","Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario Outline: Area stays mandatory for ""<sub_category>""
+  Given the user selects Category ""New Well Development"" and Sub Category ""<sub_category>""
+  When the user leaves ""Area"" empty and clicks ""Submit""
+  Then ""Area"" shows the error ""Field is required""
+
+Examples:
+  | sub_category |
+  | DLC |
+  | FL |
+  | GL |
+  | RTWS |",,,Tentative,,,Yes,PRD 1.3: Area tetap wajib untuk semua sub category,
+,Project Monitoring - Add Project NWD (Rig),TC_PHI2265_PRJ_008,Validasi rig_id (API),Negatif,Verifikasi backend menolak create project NWD dengan rig_id <case>,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Ambil bearer token sesi login untuk memanggil API (Postman/Bruno)
+4. Kirim POST /v1/projects dengan payload project NWD <sub_category> valid dan rig_id sesuai Examples",Response 400 dengan pesan sesuai Examples. Project tidak tersimpan.,"Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario Outline: Reject an invalid rig_id on create (""<case>"")
+  Given a valid create payload with category ""newwelldevelopment"" and sub_category ""<sub_category>"" in ""<project_wa>""
+  When the client sends ""POST /v1/projects"" with rig_id ""<rig_id>""
+  Then the API responds 400 with message ""<message>""
+
+Examples:
+  | case | sub_category | project_wa | rig_id | message |
+  | kosong | DLC | PEP | null | Rig is required for DLC and FL |
+  | tidak terdaftar | FL | PEP | 11111111-1111-1111-1111-111111111111 | Rig not found or inactive |
+  | nonaktif | DLC | PEP | <inactive rig id> | Rig not found or inactive |
+  | terhapus | DLC | PEP | <deleted rig id> | Rig not found or inactive |
+  | beda working area | DLC | PEP | <PHSS rig id> | Rig working area does not match the project |
+  | bukan GUID | DLC | PEP | abc | Rig is not a valid identifier |","Rig nonaktif, rig terhapus, rig PHSS",,Tentative,,,Yes,"Mencegah bypass FE. Teks pesan adalah usulan untuk implementasi #3 (mengikuti pola ""Area not found or inactive"")",
+,Project Monitoring - Add Project NWD (Rig),TC_PHI2265_PRJ_009,rig_id diabaikan (API),Positif,Verifikasi rig_id diabaikan untuk <case>,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Ambil bearer token sesi login untuk memanggil API (Postman/Bruno)
+4. Kirim POST /v1/projects dengan payload <case> dan rig_id rig aktif
+5. Kirim GET /v1/projects/{id}",Response sukses. Project tersimpan dengan rig = null dan Rig Name kosong.,"Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario Outline: Ignore rig_id for ""<case>""
+  When the client sends ""POST /v1/projects"" for ""<case>"" with the rig_id of an active rig
+  Then the project is saved
+  And the project has no rig
+
+Examples:
+  | case |
+  | NWD GL |
+  | NWD RTWS |
+  | Fasprod |",,,Tentative,,,Yes,,
+,Project Monitoring - Add Project NWD (Rig),TC_PHI2265_PRJ_010,Rig beda working area tapi rig tanpa working area,Positif,Verifikasi rig tanpa working area dapat dipakai di PHSS maupun PEP,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Ambil bearer token sesi login untuk memanggil API (Postman/Bruno)
+4. Siapkan rig dengan working_area kosong (contoh hasil seed lama)
+5. Kirim POST /v1/projects NWD DLC PEP dengan rig tersebut
+6. Ulangi untuk project PHSS",Kedua project tersimpan. Pengecekan working area hanya berlaku jika rig punya working_area.,"Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario: Allow a rig without a working area in both areas
+  Given rig ""RIG-TEST-04"" has no working area
+  When the client creates NWD ""DLC"" projects in ""PEP"" and ""PHSS"" with that rig
+  Then both projects are saved",,,Tentative,,,Yes,,
+,Project Monitoring - Edit Project NWD (Rig),TC_PHI2265_PRJ_011,Prefill Rig Name,Positif,Verifikasi Edit Project menampilkan Rig yang tersimpan,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Buka menu Project Monitoring > New Well Development (/projects/<working_area>/<zone>?category=newwelldevelopment)
+4. Buka detail project NWD DLC yang sudah punya rig (/projects/:id/detail)
+5. Klik Edit","Rig Name ter-prefill dengan ""ELANG-03 (1000 HP)"" dari response detail (rig.id, rig.display_name). Dropdown tetap memuat rig aktif sesuai working area project.","Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario: Prefill Rig Name on Edit Project
+  Given an NWD ""DLC"" project allocated to rig ""ELANG-03""
+  When the user opens Edit Project
+  Then ""Rig Name"" is prefilled with ""ELANG-03 (1000 HP)""",,,Tentative,,,Yes,,
+,Project Monitoring - Edit Project NWD (Rig),TC_PHI2265_PRJ_012,Ganti Rig,Positif,Verifikasi mengganti Rig pada Edit Project,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Buka menu Project Monitoring > New Well Development (/projects/<working_area>/<zone>?category=newwelldevelopment)
+4. Buka Edit Project NWD DLC dengan rig ""ELANG-03""
+5. Pilih Rig Name ""ELANG-05""
+6. Klik Submit
+7. Buka Gantt NWD DLC","Project tersimpan dengan rig ""ELANG-05"". Rig Name di list/detail berubah. Di Gantt kartu project pindah dari baris ELANG-03 ke baris ELANG-05.","Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario: Change the rig of a project
+  Given an NWD ""DLC"" project allocated to rig ""ELANG-03""
+  When the user changes ""Rig Name"" to ""ELANG-05"" and submits
+  Then the project detail shows rig ""ELANG-05""
+  And the Gantt shows the project on row ""ELANG-05"" instead of ""ELANG-03""",,,Tentative,,,Yes,,
+,Project Monitoring - Edit Project NWD (Rig),TC_PHI2265_PRJ_013,Edit field lain tanpa ganti Rig,Positif,Verifikasi edit field lain tetap berhasil walau rig project sudah <case>,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Buka menu Project Monitoring > New Well Development (/projects/<working_area>/<zone>?category=newwelldevelopment)
+4. Siapkan project NWD DLC dengan rig yang kemudian <case>
+5. Buka Edit Project
+6. Ubah Project Description saja
+7. Klik Submit",Submit berhasil. Rig project tidak berubah. Validasi aktif/terhapus/working area hanya dijalankan saat rig diganti.,"Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario Outline: Save other fields while the current rig is ""<case>""
+  Given an NWD ""DLC"" project whose rig was later ""<case>""
+  When the user changes only the description and submits
+  Then the project is saved
+  And its rig is unchanged
+
+Examples:
+  | case |
+  | dinonaktifkan |
+  | dihapus |",,,Tentative,,,Yes,Keputusan BE Q10: cek is_active hanya saat rig_id berubah,
+,Project Monitoring - Edit Project NWD (Rig),TC_PHI2265_PRJ_014,Ganti ke Rig tidak valid,Negatif,Verifikasi Edit Project menolak penggantian ke rig <case>,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Ambil bearer token sesi login untuk memanggil API (Postman/Bruno)
+4. Kirim POST /v1/projects/{id} untuk project NWD DLC PEP dengan rig_id sesuai Examples",Response 400 dengan pesan sesuai Examples. Rig project tidak berubah.,"Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario Outline: Reject changing to an invalid rig (""<case>"")
+  Given an NWD ""DLC"" project in ""PEP"" allocated to rig ""ELANG-03""
+  When the client sends ""POST /v1/projects/{id}"" with rig_id ""<rig_id>""
+  Then the API responds 400 with message ""<message>""
+  And the project keeps rig ""ELANG-03""
+
+Examples:
+  | case | rig_id | message |
+  | nonaktif | <inactive rig id> | Rig not found or inactive |
+  | terhapus | <deleted rig id> | Rig not found or inactive |
+  | tidak terdaftar | 11111111-1111-1111-1111-111111111111 | Rig not found or inactive |
+  | beda working area | <PHSS rig id> | Rig working area does not match the project |",,,Tentative,,,Yes,Teks pesan usulan untuk implementasi #3,
+,Project Monitoring - Edit Project NWD (Rig),TC_PHI2265_PRJ_015,rig_id tidak dikirim saat update,Positif,Verifikasi rig tetap tersimpan jika payload update tidak membawa rig_id,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Ambil bearer token sesi login untuk memanggil API (Postman/Bruno)
+4. Kirim POST /v1/projects/{id} untuk project NWD DLC tanpa field rig_id (atau rig_id null)
+5. Kirim GET /v1/projects/{id}",Response sukses. Rig project tidak berubah (null pada update = tidak diubah).,"Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario: Keep the rig when rig_id is not sent on update
+  Given an NWD ""DLC"" project allocated to rig ""ELANG-03""
+  When the client sends ""POST /v1/projects/{id}"" without rig_id
+  Then the project keeps rig ""ELANG-03""",,,Tentative,,,Yes,Keputusan BE Q10: menjaga FE versi lama yang belum mengirim rig_id,
+,Project Monitoring - Edit Project NWD (Rig),TC_PHI2265_PRJ_016,Ganti Sub Category,Positif,Verifikasi perilaku Rig saat Sub Category project diubah dari <from> ke <to>,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Buka menu Project Monitoring > New Well Development (/projects/<working_area>/<zone>?category=newwelldevelopment)
+4. Buka Edit Project NWD <from>
+5. Ubah Sub Category menjadi <to> (pilih rig bila diminta)
+6. Klik Submit
+7. Buka detail project dan Gantt",Hasil sesuai Examples.,"Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario Outline: Change Sub Category from ""<from>"" to ""<to>""
+  Given an NWD ""<from>"" project ""<rig_before>""
+  When the user changes Sub Category to ""<to>"" and submits
+  Then ""<result>""
+
+Examples:
+  | from | to | rig_before | result |
+  | DLC | GL | with rig ELANG-03 | rig is cleared and the project moves to its area row |
+  | DLC | FL | with rig ELANG-03 | rig ELANG-03 is kept |
+  | GL | DLC | without rig | Rig Name is required before submit; the chosen rig is saved |",,,Tentative,,,Yes,,
+,Project Monitoring - Edit Project NWD (Rig),TC_PHI2265_PRJ_017,Ganti Category ke Fasprod,Positif,Verifikasi rig dihapus saat Category project diubah dari NWD ke Fasprod,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Ambil bearer token sesi login untuk memanggil API (Postman/Bruno)
+4. Kirim POST /v1/projects/{id} untuk project NWD DLC ber-rig dengan category fasprod
+5. Kirim GET /v1/projects/{id}","Response sukses. Sub category, rig, dan Rig Name menjadi kosong.","Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario: Clear the rig when the project becomes Fasprod
+  Given an NWD ""DLC"" project allocated to rig ""ELANG-03""
+  When the project category is changed to ""Fasprod""
+  Then sub_category, rig and rig name are empty",,,Tentative,,,Yes,,
+,Project Monitoring - Edit Project NWD (Rig),TC_PHI2265_PRJ_018,Validasi GL ke DLC tanpa Rig (API),Negatif,Verifikasi backend menolak perubahan Sub Category GL ke DLC tanpa rig_id,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Ambil bearer token sesi login untuk memanggil API (Postman/Bruno)
+4. Kirim POST /v1/projects/{id} untuk project NWD GL dengan sub_category DLC tanpa rig_id","Response 400 ""Rig is required for DLC and FL"". Project tetap GL.","Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario: Require a rig when moving from GL to DLC
+  Given an NWD ""GL"" project without a rig
+  When the client sends ""POST /v1/projects/{id}"" with sub_category ""DLC"" and no rig_id
+  Then the API responds 400 with message ""Rig is required for DLC and FL""",,,Tentative,,,Yes,Teks pesan usulan untuk implementasi #3,
+,Project Monitoring - Edit Project NWD (Rig),TC_PHI2265_PRJ_019,Rename rig tersinkron,Positif,Verifikasi project menampilkan nama rig terbaru setelah master rig di-rename,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Ambil bearer token sesi login untuk memanggil API (Postman/Bruno)
+4. Siapkan project NWD DLC dengan rig ""ELANG-03""
+5. Rename rig via POST /v1/master/rigs/{id}/update menjadi ""ELANG-03A""
+6. Buka list, detail, dan Edit Project","List project, pencarian, detail, dan prefill Edit Project menampilkan ""ELANG-03A"".","Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario: Show the new rig name after a rename
+  Given an NWD ""DLC"" project allocated to rig ""ELANG-03""
+  When the rig is renamed to ""ELANG-03A""
+  Then the project list, detail and Edit Project show ""ELANG-03A""",,,Tentative,,,Yes,,
+,Project Monitoring - Edit Project NWD (Rig),TC_PHI2265_PRJ_020,Project lama hasil backfill,Positif,Verifikasi project NWD lama yang dulu mengisi Rig Name manual terhubung ke master rig,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Buka menu Project Monitoring > New Well Development (/projects/<working_area>/<zone>?category=newwelldevelopment)
+4. Buka Edit Project NWD DLC lama (dibuat sebelum fitur master rig) yang punya Rig Name
+5. Amati field Rig Name
+6. Klik Submit tanpa perubahan",Rig Name ter-prefill dari master rig hasil backfill (bukan kosong). Submit berhasil tanpa diminta memilih ulang rig.,"Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario: Edit a legacy project with a backfilled rig
+  Given a legacy NWD ""DLC"" project whose rig name was typed before master rigs existed
+  When the user opens Edit Project
+  Then ""Rig Name"" is prefilled from the backfilled master rig
+  And the project can be saved without choosing a rig again","Data dev: project dengan rig BKY-04 (1000 HP), ELANG-03 (1000 HP), Rig Chevron 12, Rig Tati-01",,Tentative,,,Yes,,
+,Project Monitoring - Edit Project NWD (Rig),TC_PHI2265_PRJ_021,Project lama tanpa Rig,Negatif,Verifikasi project NWD DLC/FL lama tanpa rig wajib memilih rig saat diedit,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Buka menu Project Monitoring > New Well Development (/projects/<working_area>/<zone>?category=newwelldevelopment)
+4. Buka Edit Project NWD DLC lama yang tidak punya Rig Name
+5. Ubah Project Description
+6. Klik Submit tanpa memilih rig
+7. Pilih rig lalu Submit","Submit pertama gagal dengan ""Field is required"" pada Rig Name. Setelah rig dipilih, project tersimpan dan mulai tampil di Gantt.","Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario: Require a rig when editing a legacy DLC project without one
+  Given a legacy NWD ""DLC"" project without a rig
+  When the user edits it and submits without choosing a rig
+  Then ""Rig Name"" shows ""Field is required""
+  When the user chooses rig ""ELANG-03"" and submits
+  Then the project is saved and appears on row ""ELANG-03"" in the Gantt",,,Tentative,,,Yes,Project DLC/FL tanpa rig disembunyikan dari Gantt sampai rig diisi,
+,Project Monitoring - Add Project NWD (Rig),TC_PHI2265_PRJ_022,Akses tanpa permission,Negatif,Verifikasi user tanpa Project CREATE/UPDATE tidak dapat Add/Edit project,"1. Buka aplikasi PHANTOM_PROJECT
+2. Login dengan kredensial valid
+3. Buka menu Project Monitoring > New Well Development (/projects/<working_area>/<zone>?category=newwelldevelopment)
+4. Login sebagai user read-only (OSF / Management / Field Inspector)
+5. Buka halaman NWD dan detail project",Tombol + Add Project dan Edit tidak tampil.,"Background:
+  Given User on ""PHANTOM_PROJECT""
+  And User login with credentials
+
+Scenario Outline: Hide Add and Edit for ""<subFunction>""
+  Given I login as user ""<subFunction>"" with account ""<account>""
+  When I open the NWD project page
+  Then the ""+ Add Project"" and ""Edit"" buttons are not displayed
+
+Examples:
+  | subFunction | account |
+  | OPERATION & SURFACE FACILITIES | <account> |
+  | Field Inspector | <account> |",,,Tentative,,,Yes,,
