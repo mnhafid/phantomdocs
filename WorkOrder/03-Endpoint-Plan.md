@@ -241,13 +241,13 @@ All actions check: the status, `current_level` / `current_layer`, and that the u
 - If the template row is missing, nothing is sent. The log shows "Notification template '…' not found".
 - Placeholders: `{{wo_number}}`, `{{department}}`, `{{fullname}}` (added per recipient), and `{{reason}}` for reject events.
 - Web link: `/work-order/{id}` ("Go to Work Order"). Project events use the project page ("Go to Project").
-- Email: the team doc says in-app only (I5). Project approval also sends an email, but that email body is in the code, not in a table. So email needs no table rows. Decide if a project made from a WO sends that email.
+- Email: the team doc says in-app only (I5). Project approval also sends an email, but that email body is in the code, not in a table. So email needs no table rows. Decided 25 Nov (TD17): a project made from a WO sends no email, in-app only.
 
 ### 6.2 List of WO notifications
 
 Proposed template names use the `phantom_iac_wo_` prefix. Source: the notification table in the team doc (Knowledge Documents, its own §6) and the WO-x acceptance criteria in `02-Knowledge.md`.
 
-`Type` = how the notification reaches the user: **In-app** (Notification Center, one `notifications` row) or **Email** (`IMailerService`). The team doc says in-app only for every WO event. N16 / N17 use the project approval flow, which today also sends an email (`ApprovalNotifier`); decide if a project made from a WO keeps that email (§6.4).
+`Type` = how the notification reaches the user: **In-app** (Notification Center, one `notifications` row) or **Email** (`IMailerService`). The team doc says in-app only for every WO event. Decided 25 Nov (TD17): **every** WO notification is in-app only, also N16 / N17. The project approval flow (`ApprovalNotifier`) sends an email today; for a project made from a WO (it has a WO number), do not send that email.
 
 | # | Event (endpoint) | Title (team doc) | Recipients | Type | Category | Color | Template name (proposed) |
 |---|---|---|---|---|---|---|---|
@@ -266,8 +266,8 @@ Proposed template names use the `phantom_iac_wo_` prefix. Source: the notificati
 | N13 | Transfer | Transferred Work Order | Users of the assigned dept (Level 2) | In-app | Request | info | `phantom_iac_wo_transferred_in` |
 | N14 | Transfer | Work Order Transferred | Requestor | In-app | Approval | info | `phantom_iac_wo_transferred` |
 | N15 | Create Disposition | Disposition Created | PIC + Requestor | In-app | Approval | info | `phantom_iac_wo_disposition_created` |
-| N16 | Submit project (from WO) | New Project Approval | Project approvers (Q36, open) | In-app + email (today, check) | Request | info | existing project approval template (check) |
-| N17 | Project approved | Project Approved | PIC | In-app + email (today, check) | Approval | success | existing project template (check) |
+| N16 | Submit project (from WO) | New Project Approval | Project approvers (Q36, open) | In-app (no email, TD17) | Request | info | existing project approval template (check) |
+| N17 | Project approved | Project Approved | PIC | In-app (no email, TD17) | Approval | success | existing project template (check) |
 | N18 | Project returned | Project Returned | PIC (with reason) | In-app | Approval | warning | `phantom_iac_wo_project_returned` |
 | N19 | Finish project | Work Order Completed | Requestor + Senior Officer | In-app | Approval | success | `phantom_iac_wo_completed` |
 | N20 | SLA escalation (if kept, §8) | Work Order Escalated | Next approver + skipped approver | In-app | Request | warning | `phantom_iac_wo_escalated` |
@@ -293,7 +293,7 @@ Proposed template names use the `phantom_iac_wo_` prefix. Source: the notificati
 - N16 / N17: check if the project module already has approval templates before adding new ones.
 - No-approval category (R1): does the target dept still get N3? Open Q24, proposal = yes.
 - Well WO: keep the 12 Action Plan `phantom_iac_*` templates, or map to the WO templates (I5).
-- Email: in-app only (team doc). Decide if a project made from a WO still sends the project approval email.
+- ~~Email~~ Decided 25 Nov (TD17): in-app only. Code to do: `ApprovalNotifier` must skip the email when the project has a WO number.
 - N7 depends on the re-submit decision (D3).
 
 ---

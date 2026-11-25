@@ -1363,7 +1363,7 @@ These decisions override the findings below. Each row lists what the Knowledge D
   - AP is in-app, but uses different titles (12 `phantom_iac_*` templates) and the CTA links to the well page (`ActionPlanApprovalNotifier.cs:24-35,107`).
   - Project approval **also sends email** (`Notifications/ApprovalNotifier.cs:204-245`).
   - **Fix:** add a template mapping. Say whether email is suppressed for projects born from a WO.
-  - **25 Nov:** the template list (N1–N20) and the tables to insert are in `03-Endpoint-Plan.md` §3.6.1.
+  - **25 Nov:** the template list (N1–N20) and the tables to insert are in `03-Endpoint-Plan.md` §6. Email decided (TD17): in-app only, also for a project made from a WO.
 - **I6. PIC overlap.**
   - The Knowledge Documents have a Transfer PIC and a Disposition PIC.
   - AP already has `assigned_department` (set by SSDP) and `execution_department_id` + `execution_pic_id` (set by PO). The PIC must be an active user of that department. It is required for WT and optional for AL (`ActionPlanApprovalService.cs:566-596`).

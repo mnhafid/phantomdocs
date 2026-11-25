@@ -66,6 +66,7 @@ Write a new entry at the bottom of each section. Do not change old entries. If a
 | TD14 | 24 Nov | Delete the second "Approve & Create Disposition" section in the team doc (it is a copy). | User | – |
 | TD15 | 24 Nov | After a Transfer, the WO status is "Waiting Approval" (the status that shows "Set Approval Flow"). | User | – |
 | TD16 | 24 Nov | A permission counts only in the department of its Level. Example: a PO Senior with the permission does not review an OSF WO. The user list (`/users/by-permission`) must be filtered by that department. | User | – |
+| TD17 | 25 Nov | WO notifications are **in-app only**. This includes a project made from a WO (N16 / N17): it sends no project approval email. List in `03-Endpoint-Plan.md` §6.2. | User | I5 (email open) |
 
 ---
 
