@@ -101,6 +101,294 @@ Full curl and responses: `07-Ticket.md` WO-T05, run 2.
 
 ## 2. Test cases: flows to build (from the decisions)
 
+Scenario style, as in `../ActionPlan/08-ScenarioTest.md`: each test is a list of steps. After each step, check the WO state and who gets a notification.
+
+**How to read a state line**
+- `Status WO` = `work_orders.status`, then `L` = `current_level`, `Layer` = `current_layer`. Source: `02` §8.1a.
+- `Process` = the `approval_processes` row of the Level (`Work Order Level 0 / 1 / 2`, `Work Order Reject Level 0`, TD21–TD22).
+- `Notif` = the notification code of `03` §6.2 (all in-app, TD17).
+- `Task` = the WO shows in "Waiting for my action" (`my-approval-list`) for these users only.
+
+**Users** (§4.5): PO = requestor (Level 0), OSF = target (Level 1), Projects = assigned after a Transfer (Level 2).
+
+| Short name | Username |
+|---|---|
+| PO PIC | `phi.wo.po.pic` |
+| PO Senior / PO Senior 2 | `phi.wo.po.senior` / `phi.wo.po.senior2` |
+| PO Manager | `phi.wo.po.manager` |
+| OSF PIC / OSF Senior / OSF Manager / OSF Guest | `phi.wo.osf.pic` / `phi.wo.osf.senior` / `phi.wo.osf.manager` / `phi.wo.osf.guest` |
+| PRJ PIC / PRJ Senior / PRJ Manager | `phi.wo.prj.pic` / `phi.wo.prj.senior` / `phi.wo.prj.manager` |
+
+**Before every test**
+- The 3 approval routes exist: "Work Order - Production Operations" (Level 0), "… - Operation & Surface Facilities" (Level 1), "… - Project" (Level 2). Layer 1 = permission 276, Layer 2 = 277 (§4.6 item 1).
+- The reject route `wo_reject_level_0` exists for the PO department (TD21).
+- `/users/by-permission/276?department=…` and `/277` return the users of §4.5 (§4.6 item 2).
+
+Result words: **Pass**, **Fail**, **Blocked** (an endpoint is not built), **To test**.
+
+---
+
+### 2.1 Happy flow (Level 0 → Level 1 → Disposition → Project → Completed)
+
+**Test #1. Case: Happy flow, target approves without a flow** · Result: To test
+- PO PIC creates a WO: `request_to=osf`, picks the Level 0 route, submits.
+	- Status WO = `waiting_approval` · L0 · Layer 1
+	- Process = `Work Order Level 0` open, level 1, `initiate` log
+	- History = `submitted`
+	- Notif N1 → PO Senior, PO Senior 2
+	- Task = PO Senior, PO Senior 2. Not PO Manager, not OSF users.
+	- List: PO PIC sees it in Outgoing. OSF users do **not** see it in Incoming yet.
+- PO Senior approves.
+	- Status WO = `waiting_approval` · L0 · Layer 2
+	- Process = `approve` log, level 2
+	- Notif N2 → PO Manager + PO PIC
+	- Task = PO Manager only. It is gone from PO Senior 2 also.
+- PO Manager approves.
+	- Status WO = `waiting_approval` · **L1** · Layer 1
+	- Process = `Work Order Level 0` `approved`
+	- Notif N3 → OSF Senior. Notif N4 → PO PIC.
+	- List: OSF users now see it in Incoming.
+	- Detail (OSF Senior): buttons Approve, Set Approval Flow, Transfer. No Modify, no Reject (no flow yet).
+- OSF Senior approves (no flow needed, TD2).
+	- Status WO = `approved` · L1
+	- Notif N8 → PO PIC
+	- Detail (OSF Senior): buttons Transfer, Create Disposition.
+- OSF Senior creates a disposition: Work Type `ABO Routine`, PIC = OSF PIC, notes.
+	- Status WO = `project_preparation`
+	- Notif N15 → OSF PIC + PO PIC
+- OSF PIC creates a project from the WO (OSF = detail schedule).
+	- Status WO = `project_approval`
+	- `projects.work_order_id` = this WO
+	- Notif N16 (in-app only, **no email**, TD17)
+- The project approvers approve the project.
+	- Status WO = `on_going`
+	- Notif N17 → OSF PIC (in-app only)
+- OSF PIC finishes all schedules.
+	- Status WO = `completed`
+	- Notif N19 → PO PIC + OSF Senior
+- Expected: the overview cards and the list counts move on each step. History has one row per step, with the actor's level and layer (TD25).
+
+**Test #1.1. Case: Senior requestor is reviewed by another Senior** · Result: To test
+- PO Senior creates and submits a WO.
+	- Status WO = `waiting_approval` · L0 · Layer 1
+	- Task = PO Senior 2. PO Senior also sees it (has 276); check that the system does not skip Layer 1.
+- PO Senior 2 approves, then PO Manager approves.
+- Expected: same as Test #1 from Level 1. No layer is skipped (decision: no Senior skip).
+
+**Test #1.2. Case: Bulk approve** · Result: To test
+- PO PIC submits 3 WOs. PO Senior selects all 3 and clicks Approve Selected.
+- Expected: each WO goes to `waiting_approval` · L0 · Layer 2. One N2 for each WO. A WO that is not at the user's step is skipped and listed in the response.
+
+**Test #1.3. Case: Project from an Action Plan WO** · Result: To test
+- SDA 1 PIC (`phi.wo.sda1.pic`) makes a well Action Plan that needs a WO (`request_to=po`).
+- Follow Test #1 to the disposition. PO is a simple schedule.
+- Expected: Create Project → Status WO = `on_going` at once (project approval skipped). `pep/phss_action_plan` has the WO link.
+
+---
+
+### 2.2 Level 0 Modify (TD23)
+
+**Test #2. Case: Senior modifies, Manager approves the change** · Result: To test
+- PO PIC submits a WO.
+- PO Senior clicks Modify, changes the end date and the description.
+	- Status WO = `modification_review` · L0 · Layer 2
+	- History = `modified` (proposal snapshot). The WO itself keeps the old values.
+	- Notif N5 → PO Manager + PO PIC
+	- Detail (PO Manager): banner "Work Order modified by [PO Senior]" + View Changes.
+- PO Manager opens View Changes: old and new values side by side. Buttons Export, Reject, Modify, Approve.
+- PO Manager clicks Approve.
+	- Status WO = `waiting_approval` · **L1** · Layer 1
+	- The new end date and description are in the WO.
+	- Notif N3 → OSF Senior
+- Expected: OSF users see the new values. A reader outside the requestor side does not see the Level 0 `modified` row text (TD26).
+
+**Test #2.1. Case: Manager rejects the change** · Result: To test
+- Same as Test #2 to View Changes. PO Manager clicks Reject (with remarks).
+	- Proposal dropped. The WO keeps the old values.
+	- Status WO = `waiting_approval` · L0 (layer: open point G34)
+	- Task = back to the step that G34 decides.
+- Expected: no change in the WO fields. History has a `reject` row for the proposal.
+
+**Test #2.2. Case: Manager modifies again (Self Modify)** · Result: To test
+- Same as Test #2 to View Changes. PO Manager clicks Modify, changes the title, saves.
+	- Status WO = `waiting_approval` · **L1** · Layer 1
+	- The WO has the Senior change **and** the Manager change.
+	- Notif N3 → OSF Senior
+- Expected: one modify step + one approve step in the history.
+
+**Test #2.3. Case: Manager modifies with no Senior change** · Result: To test
+- PO PIC submits. PO Senior approves. PO Manager clicks Modify at `waiting_approval` · L0 · Layer 2.
+- Expected: Status WO = `waiting_approval` · L1 · Layer 1, the change applied (Self Modify = modify + approve).
+
+---
+
+### 2.3 Level 0 Reject (TD21, reject route)
+
+**Test #3. Case: Senior rejects, the reject route confirms** · Result: To test
+- PO PIC submits a WO.
+- PO Senior clicks Reject: reason (required, max 500), fields to revise (optional).
+	- Status WO = `rejection_review` · L0
+	- Process = `Work Order Reject Level 0` open (route `wo_reject_level_0`)
+	- Task = the users of the reject route
+- The reject route user(s) approve the rejection (all levels).
+	- Status WO = `rejected` (final)
+	- Process: reject process `approved`, `Work Order Level 0` `rejected`
+	- Notif N6 → PO PIC, with the fields to revise
+- Expected: no button on the WO. Requestor makes a new WO with a new number (G6 open: Figma shows "Revision").
+
+**Test #3.1. Case: the reject route refuses** · Result: To test
+- Same as Test #3 to `rejection_review`. The reject route user refuses.
+	- Status WO = `waiting_approval` · L0 · same layer
+	- Process: reject process `rejected`; `Work Order Level 0` goes on
+- Expected: PO Senior can approve or modify again.
+
+**Test #3.2. Case: Manager rejects at Layer 2** · Result: To test
+- PO PIC submits. PO Senior approves. PO Manager clicks Reject.
+- Expected: same as Test #3 from `rejection_review`.
+
+---
+
+### 2.4 Level 1 Set Approval Flow and Modify
+
+**Test #4. Case: target Senior modifies, both Managers agree** · Result: To test
+- Follow Test #1 to `waiting_approval` · L1 · Layer 1.
+- OSF Senior clicks Set Approval Flow, picks "Work Order - Operation & Surface Facilities".
+	- Status WO = `waiting_approval` · L1 (no change)
+	- Process = `Work Order Level 1` open
+	- Detail (OSF Senior): only Modify and Reject show. **Check:** Approve still works by the API without a flow (TD2).
+	- Approver list shows OSF users only (TD16). No PO user.
+- OSF Senior clicks Modify, changes the schedule dates.
+	- Status WO = `modification_review` · L1 · Layer 2
+	- Proposal kept; the WO keeps the old values
+	- Task = OSF Manager
+- OSF Manager approves the change.
+	- Status WO = `modification_review` · **L0** · Layer 2
+	- Notif N9 → PO Manager ("Modification Verification")
+	- Task = PO Manager
+- PO Manager clicks "Modification OK".
+	- Status WO = `approved` · L1, the proposal is copied into the WO
+	- Notif N10 → PO PIC + OSF users
+- Expected: the history shows each step. PO PIC sees the new values.
+
+**Test #4.1. Case: target Manager refuses the change** · Result: To test
+- Same as Test #4 to `modification_review` · L1 · Layer 2. OSF Manager refuses.
+- Expected: Status WO = `waiting_approval` · L1 · Layer 1, proposal dropped, old values.
+
+**Test #4.2. Case: requestor Manager refuses the change** · Result: To test
+- Same as Test #4 to `modification_review` · L0 · Layer 2. PO Manager clicks "Not OK".
+- Expected: Status WO = `approved` · L1 with the **old** values. Proposal dropped (X5). No N10.
+
+---
+
+### 2.5 Level 1 Reject (two confirmations)
+
+**Test #5. Case: both Managers agree to reject** · Result: To test
+- Follow Test #4 to Set Approval Flow.
+- OSF Senior clicks Reject (reason).
+	- Status WO = `rejection_review` · L1 · Layer 2
+	- Notif N11 → OSF Manager
+- OSF Manager clicks "Yes, Reject".
+	- Status WO = `rejection_review` · **L0** · Layer 2
+	- Task = PO Manager
+- PO Manager accepts the rejection.
+	- Status WO = `rejected` (final)
+	- Notif N12 → PO PIC + all levels
+- Expected: no button on the WO.
+
+**Test #5.1. Case: target Manager cancels** · Result: To test
+- Same as Test #5 to `rejection_review` · L1. OSF Manager clicks "No, Cancel".
+- Expected: Status WO = `waiting_approval` · L1 · Layer 1. OSF Senior can act again.
+
+**Test #5.2. Case: requestor Manager refuses the rejection** · Result: To test
+- Same as Test #5 to `rejection_review` · L0. PO Manager refuses.
+	- Status WO = `waiting_approval` · L1 · Layer 1, `no_reject` = true
+- OSF Senior opens the WO.
+	- Detail: Approve and Modify only. **No Reject button.**
+	- API: `POST …/reject` → 400 (the block is also on the server).
+- OSF Senior approves.
+- Expected: Status WO = `approved` · L1.
+
+---
+
+### 2.6 Transfer and Level 2
+
+**Test #6. Case: transfer to Projects, Level 2 approves** · Result: To test
+- Follow Test #1 to `approved` · L1.
+- OSF Senior clicks Transfer: department = Projects (from the OSF list), sub-unit / PIC (open point: Figma has PIC, team doc has sub-unit), notes optional.
+	- Status WO = `waiting_approval` · **L2** · Layer 1 (TD15)
+	- Notif N13 → PRJ Senior. Notif N14 → PO PIC.
+	- List: Projects users see it in Incoming.
+- PRJ Senior: Set Approval Flow "Work Order - Project" (Level 2 process: open point 3 of `02` §8.1a), then Approve.
+	- Status WO = `approved` · L2
+	- Detail (PRJ Senior): Create Disposition. **No Transfer button.**
+- PRJ Senior creates a disposition (Work Type `ABI/BD`, PIC = PRJ PIC).
+	- Status WO = `project_preparation`
+- Expected: from here as Test #1 (project, on going, completed).
+
+**Test #6.1. Case: Level 2 modify is hidden from Level 1** · Result: To test
+- Same as Test #6 to Level 2. PRJ Senior sets the flow and modifies.
+- Expected: the same Modify steps as Test #4 (PRJ Manager, then PO Manager). OSF readers outside the Level 2 side do not see the Level 2 proposal text in the history (TD26).
+
+**Test #6.2. Case: no second transfer** · Result: To test
+- At `approved` · L2, call `POST …/transfer` by the API as PRJ Senior.
+- Expected: 400. Status WO does not change.
+
+---
+
+### 2.7 Disposition rules
+
+**Test #7. Case: Work Type by department** · Result: To test
+
+| Disposition by | Work Type | Expected |
+|---|---|---|
+| OSF | ABO Routine / ABO Non Routine | 200 |
+| OSF | ABI/NBD | 200 |
+| OSF | ABI/BD | 400 (only Projects and PO) |
+| Projects | ABI/BD | 200 |
+| Projects | ABI/NBD | 400 (only OSF) |
+| PO | ABI/BD | 200 |
+
+- Also check: no PIC → field error, button disabled (N14).
+
+---
+
+### 2.8 Permission and visibility (negative)
+
+**Test #8. Case: users who must not act** · Result: To test
+
+| User | WO state | Try | Expected |
+|---|---|---|---|
+| PO PIC (requestor) | `waiting_approval` · L0 · Layer 1 | Approve by the API | 403, no change, no log row |
+| PO Manager | `waiting_approval` · L0 · Layer 1 | Approve (not their layer yet) | 400 / 403 |
+| PO Senior (has 276) | `waiting_approval` · L1 (OSF WO) | Approve | 403. The permission counts only in the department of the Level (TD16) |
+| OSF Guest (273 only) | any | Open the detail | Sees the WO, no action buttons |
+| OSF Senior | `waiting_approval` · L0 | Open the detail | View only. Not in Incoming yet |
+| `phi.wo.gm` (3 roles) | OSF WO at L1 | Switch department PO → OSF | Buttons change with the selected department only |
+
+- The backend does not check the permission ID for an action. It checks the WO status, the Level / Layer, and the copied approvers (decision 24 Nov). This table tests those checks.
+
+---
+
+### 2.9 Check on every step
+
+- **Notification:** the users of the step that is due get it (`03` §6.2). The actor does not get a copy of their own action. In-app only, no email (TD17).
+- **Task:** the WO is in "Waiting for my action" only for the users of the current Level and Layer. It leaves the list for all of them when one user acts.
+- **List tabs:** Outgoing = requestor department. Incoming = target / assigned department, only **after** Level 0 is done.
+- **Overview cards:** the counts move with the status (`02` §8.1a).
+- **Buttons:** only the buttons of the current state show (Approve; Set Approval Flow; Modify / Reject after the flow; Transfer at L1 Approved; Create Disposition at Approved).
+- **History:** one row per action, with the actor's level and layer (TD25). Hidden rows keep their place with blank remarks (TD26).
+- **Approver list:** `GET /users/by-permission/{id}?department=` returns only users of the department of that Level (TD16).
+- **Export:** always shown on the detail, on every level (G35).
+
+---
+
+### 2.10 Short list (first draft, 24 Nov)
+
+Kept for reference. The scenarios above replace it. Notes on rows that later decisions changed:
+- F2: 25 Nov WO-T05 has no "no approval" skip. Open whether Submit skips later (R1, Q24).
+- F5: the Manager review is TD23 (Test #2).
+- F6: a Level 0 reject now goes through the reject route (TD21, Test #3). It is not final at once.
+
 | # | Flow | Given | When | Then |
 |---|---|---|---|---|
 | F1 | Submit #8 | draft with all mandatory fields and a Level 0 route | submit | Waiting Approval, Level 0 / Layer 1, approvers copied from the route (stage 1) |
