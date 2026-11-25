@@ -26,5 +26,6 @@ Tanggal pasti release belum ditetapkan; ganti nama folder kalau tanggalnya berub
 | 09 | enhancement | [Card On Stream: Plan / Rebaseline / Expected](09-enhancement-onstream-plan-rebaseline.md) | PHI-2267 / PR #1485 | Merged; backfill SQL belum dijalankan |
 | 10 | enhancement | [Aksi approval rebaseline di Personal Dashboard](10-enhancement-rebaseline-approval-dashboard.md) | PHI-2263 / PR #1485 | Merged; seed template belum dijalankan; `/review` on-hold 500 di staging |
 | 11 | fix | [`/my-task-list` timeout: query raw + cover index](11-fix-my-task-list-timeout.md) | tanpa ticket / PR #1493 | PR open; index sudah di dev |
-| 12 | enhancement | [`is_can_review` list Action Plan juga untuk approver level pending](12-enhancement-is-can-review-approvers.md) | PHI-2243 / PR belum | Staged; belum build / test |
+| 12 | enhancement | [`is_can_review` list Action Plan juga untuk approver level pending](12-enhancement-is-can-review-approvers.md) | PHI-2243 / PR #1542 | Merged |
 | 13 | enhancement | [Permission 162 / 163 untuk SDA 1 dan SDA 2](13-enhancement-sda-approve-reject-permission-162-163.md) | PHI-2243 / tanpa kode | Dev selesai (data mock); prod menunggu R3 team |
+| 14 | enhancement | [Review: `execution_pic_id` → `execution_pic_ids` (several PICs)](14-enhancement-review-execution-pic-ids.md) | PHI-2243 / PR #1543 | PR open; migration on dev; FE breaking |

@@ -2221,6 +2221,65 @@ flowchart TD
 - **A Reject from the target department needs two confirmations:** first the target Manager, then the requestor Manager. If the requestor Manager refuses the rejection, the WO goes back to the target Senior with the Reject button hidden.
 - **Level 2:** the WO gets Level 2 only after a Transfer. The steps are the same as Level 1, but the assigned department cannot transfer again.
 
+
+### 1a. Status change on every level (25 Nov)
+
+From the chart above, `WorkOrderStatusConstants.cs` and the decisions TD15, TD19–TD22. **Process** = the `approval_processes` row of the Level (`Work Order Level 0 / 1 / 2`, `Work Order Reject Level 0`). L0 / L1 / L2 = Level 0 / 1 / 2.
+
+**Create**
+
+| Action | From | To | Process |
+|---|---|---|---|
+| Save As Draft | – | `draft` · L0 · Layer 0 | none |
+| Submit, category needs approval | `draft` | `waiting_approval` · L0 · Layer 1 | open `Work Order Level 0`, level 1, `initiate` log (TD20) |
+| Submit, category with no approval (R1) | `draft` | `approved` · L1 | none |
+
+**Level 0 (requestor department)**
+
+| Action | By | From | To | Process |
+|---|---|---|---|---|
+| Approve | Layer 1 Senior | `waiting_approval` · L0 · Layer 1 | `waiting_approval` · L0 · Layer 2 | `approve` log, level → 2 |
+| Modify (approve in one step, X2) | Layer 1 / 2 | as Approve | as Approve | `approve` log + history snapshot |
+| Approve | Layer 2 Manager | `waiting_approval` · L0 · Layer 2 | `waiting_approval` · **L1** · Layer 1 | L0 process `approved` |
+| Reject | Layer 1 / 2 | `waiting_approval` · L0 | `rejection_review` · L0 (proposal) | open `Work Order Reject Level 0`, route `wo_reject_level_0` (TD21) |
+| Reject confirmed (last reject level) | reject route user | `rejection_review` · L0 | `rejected` (final) | reject process `approved`, L0 process `rejected` |
+| Reject refused | reject route user | `rejection_review` · L0 | `waiting_approval` · L0 (same layer) | reject process `rejected`, L0 process goes on |
+
+**Level 1 (target department; Level 2 has the same steps)**
+
+| Action | By | From | To | Process |
+|---|---|---|---|---|
+| WO arrives | – | – | `waiting_approval` · L1 · Layer 1 | none yet |
+| Approve (no flow needed) | Layer 1 Senior | `waiting_approval` · L1 | `approved` · L1 | none |
+| Set Approval Flow | Layer 1 | `waiting_approval` · L1 | same; only Modify / Reject | open `Work Order Level 1` (target department route) |
+| Modify | Layer 1 Senior | `waiting_approval` · L1 | `modification_review` · L1 · Layer 2 (target Manager) | `approve` log, proposal kept |
+| Modify OK | target Manager | `modification_review` · L1 · Layer 2 | `modification_review` · L0 · Layer 2 (requestor Manager) | target step closed |
+| Modify not OK | target Manager | `modification_review` · L1 | `waiting_approval` · L1 · Layer 1 | proposal dropped |
+| Modify OK | requestor Manager | `modification_review` · L0 · Layer 2 | `approved` · L1, proposal applied | `approved` |
+| Modify not OK | requestor Manager | `modification_review` · L0 · Layer 2 | `approved` · L1, old values | `approved` |
+| Reject | Layer 1 Senior | `waiting_approval` · L1 | `rejection_review` · L1 · Layer 2 (target Manager) | `reject` log |
+| No, Cancel | target Manager | `rejection_review` · L1 | `waiting_approval` · L1 · Layer 1 | – |
+| Yes, Reject | target Manager | `rejection_review` · L1 | `rejection_review` · L0 · Layer 2 (requestor Manager) | – |
+| Accept the rejection | requestor Manager | `rejection_review` · L0 | `rejected` (final) | `rejected` |
+| Refuse the rejection | requestor Manager | `rejection_review` · L0 | `waiting_approval` · L1 · Layer 1, `no_reject` = true | only Approve / Modify |
+
+**After approval**
+
+| Action | From | To | Process |
+|---|---|---|---|
+| Transfer (Level 1 only) | `approved` · L1 | `waiting_approval` · **L2** · Layer 1 (TD15) | later `Work Order Level 2` (assigned department route) |
+| Create Disposition | `approved` · L1 / L2 | `project_preparation` | none |
+| Create Project (not an Action Plan WO) | `project_preparation` | `project_approval` | project approval (flow `Project`) |
+| Create Project (Action Plan WO) | `project_preparation` | `on_going` (project approval skipped) | none |
+| Project approved / rejected | `project_approval` | `on_going` / `project_preparation` | – |
+| Finish (all schedules) | `on_going` | `completed` | – |
+
+**Open points**
+1. Level 1 status name: `WorkOrderStatusConstants.cs` says Level 1 / 2 use `under_review`; the team doc and TD15 say Waiting Approval. These tables use `waiting_approval` + `current_level` = 1. Decide which one.
+2. Level 0 reject status while the reject route decides: `rejection_review` at L0 is a proposal (TD21).
+3. Level 2 process: does it open on Transfer or on Set Approval Flow (as Level 1)? `03` §2.7 does not say yet.
+4. Not in these tables: Study (`study_review`, `study_approval`), `needs_revision`, and the urgent 2 × 24 h escalation.
+
 ---
 
 ### 2. Approval route flow (who approves, and when the system finds them)

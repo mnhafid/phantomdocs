@@ -1,8 +1,8 @@
 # 12 — Enhancement: `is_can_review` di list Action Plan juga untuk approver
 
-- **Ticket / PR:** PHI-2243 (approval), branch `feat/PHI-2243-is-can-review-approvers` (dari `origin/phi-dev` 91509cd5), PR belum dibuat
+- **Ticket / PR:** PHI-2243 (approval), branch `feat/PHI-2243-is-can-review-approvers` (dari `origin/phi-dev` 91509cd5), PR #1542
 - **Dicatat:** 25 Nov 2026
-- **Status:** staged di `.worktrees/ap-is-can-review-approvers`, belum commit; build + test belum dijalankan
+- **Status:** PR #1542 open (commit a58eb590); build OK, test ActionPlan 286/286, curl lokal OK (25 Nov 2026)
 
 ## Alasan
 

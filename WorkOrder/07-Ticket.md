@@ -33,7 +33,7 @@ Common rules for all tickets (from `03` and the decisions):
 | WO-T02 | Form options | #4 | – | PHI-2993 | Tested, staged |
 | WO-T03 | Approval route for WO (layers + permission) | #5, §3.2 | – | | Skipped for now (25 Nov); WO uses the route as it is (TD18) |
 | WO-T04 | Save draft and update draft | #6, #7 | – | PHI-2993 | Tested, staged |
-| WO-T05 | Create (submit) WO, no approval logic | #8 | WO-T04 | PHI-2993 | Tested, staged |
+| WO-T05 | Create (submit) WO, no approval logic | #8 | WO-T04 | PHI-2993 | Tested, staged (run 2: B4 open) |
 | WO-T06 | Delete draft | #9 | WO-T04 | PHI-2993 | Tested, staged |
 | WO-T07 | WO details and allowed actions | #10 | WO-T05 | | To do |
 | WO-T08 | Approval history and modification comparison | #11 | WO-T05 | | To do |
@@ -471,6 +471,675 @@ curl -X POST "{{base_url}}/api/v1/work-order/pep" -H "Authorization: Bearer <tok
     "code": "01",
     "message": "field_id '8248bb0c-a37c-423c-9ce6-36c592f79906' is not in working area pep"
 }
+```
+
+**Run 2: Create scenarios (25 Nov 2026, user request "add curl test to create wo")**
+
+- Status: **Pass, 1 case differs** (B4). 39 calls: 33 Create cases + 6 setup / counter calls.
+- Users: `phi.wo.po.pic` (creator), `phi.wo.po.senior` (not the creator, C1).
+- Env: local WebApi (`feat/work-order-draft`) on the dev DB. Quartz in RAM by a local change, reverted after the run. Files go to dev MinIO.
+- Scenarios: `06-Test-Cases-and-Users.md` §1.2. Error responses below show only status, code and message; `error_data.description` = `message`.
+- DB check after the run: every 200 WO is `waiting_approval`, Level 0 / Layer 1, `submitted_at` set, one `submitted` history row (plus `created` when it came from a draft). No approver rows except A2 (note 1). PO counter = 15. A1 / A4: `schedule_kind` project for osf, simple for po. A11 stored all optional values (wbs `["101","102"]`, abo_routine, rkap, area, location, function, type_service, the 6 numbers), 2 PIC rows. A9 = 2 and A10 = 5 attachment rows.
+- Notes:
+  1. A2: the draft saved 2 approver rows (Level 0, Layer 1 and 2). Create keeps them. This matches the code, but the decision is open.
+  2. B4: `start_date=2026-12-01` was accepted (stored 2026-12-01). The shared `ActionPlanCommon.ParseDate` also takes `yyyy-MM-dd` and `MM-dd-yyyy`; the error text says DD-MM-YYYY. Not changed; needs a decision. Test row 0014/WO/PO/2026.
+  3. D1: the 422 text says "already used by another action plan" (shared `WorkOrderNumberUsedException`), also for a WO number.
+- Test rows left on dev (keep): 0004–0015/WO/PO/2026, all `waiting_approval`.
+
+| # | Case | User | HTTP | Result |
+|---|---|---|---|---|
+| A1 | new WO on phss, request_to osf | `phi.wo.po.pic` | 200 | Pass |
+| A2a | save draft with approvers (setup) | `phi.wo.po.pic` | 200 | Pass |
+| A2b | next number before create (counter check) | `phi.wo.po.pic` | 200 | Pass |
+| A2c | create from the draft | `phi.wo.po.pic` | 200 | Pass |
+| A2d | next number after create (counter not moved) | `phi.wo.po.pic` | 200 | Pass |
+| A4 | request_to po (simple schedule) | `phi.wo.po.pic` | 200 | Pass |
+| A5 | category without approval | `phi.wo.po.pic` | 200 | Pass |
+| A6 | zone9 with a PEP field | `phi.wo.po.pic` | 200 | Pass |
+| A7 | pep with a PEP field | `phi.wo.po.pic` | 200 | Pass |
+| A8a | next number (setup) | `phi.wo.po.pic` | 200 | Pass |
+| A8b | wo_number = the next number | `phi.wo.po.pic` | 200 | Pass |
+| A9 | two files | `phi.wo.po.pic` | 200 | Pass |
+| A10a | draft with 2 files (setup) | `phi.wo.po.pic` | 200 | Pass |
+| A10b | create from the draft with 3 new files (5 in total) | `phi.wo.po.pic` | 200 | Pass |
+| A11 | all optional fields | `phi.wo.po.pic` | 200 | Pass |
+| B1 | missing description | `phi.wo.po.pic` | 400 | Pass |
+| B2 | only title (all others missing) | `phi.wo.po.pic` | 400 | Pass |
+| B3 | end_date before start_date | `phi.wo.po.pic` | 400 | Pass |
+| B4 | date not DD-MM-YYYY | `phi.wo.po.pic` | 200 | Differs |
+| B5 | request_to not in config | `phi.wo.po.pic` | 400 | Pass |
+| B6 | budget_type not in list | `phi.wo.po.pic` | 400 | Pass |
+| B7 | title longer than 255 | `phi.wo.po.pic` | 400 | Pass |
+| B8a | unknown field_id | `phi.wo.po.pic` | 400 | Pass |
+| B8b | unknown rkap_id | `phi.wo.po.pic` | 400 | Pass |
+| B9 | unknown user in pic_ids | `phi.wo.po.pic` | 400 | Pass |
+| B10 | PHSS field on pep | `phi.wo.po.pic` | 400 | Pass |
+| B11 | working_area abc | `phi.wo.po.pic` | 400 | Pass |
+| B12 | six files | `phi.wo.po.pic` | 400 | Pass |
+| B13a | exe file | `phi.wo.po.pic` | 400 | Pass |
+| B13b | empty file | `phi.wo.po.pic` | 400 | Pass |
+| B14 | wo_number wrong department | `phi.wo.po.pic` | 400 | Pass |
+| B15 | wo_number ahead of the next number | `phi.wo.po.pic` | 400 | Pass |
+| B18 | JSON body, not multipart | `phi.wo.po.pic` | 400 | Pass |
+| C0 | save draft (setup) | `phi.wo.po.pic` | 200 | Pass |
+| C1 | create from another user's draft | `phi.wo.po.senior` | 403 | Pass |
+| C2 | create with unknown id | `phi.wo.po.pic` | 404 | Pass |
+| C3a | create from the draft (first time) | `phi.wo.po.pic` | 200 | Pass |
+| C3b | create from the same draft again | `phi.wo.po.pic` | 400 | Pass |
+| D1 | wo_number already used | `phi.wo.po.pic` | 422 | Pass |
+
+Cases:
+
+**A1 new WO on phss, request_to osf**: user `phi.wo.po.pic`, HTTP 200
+
+```bash
+curl -X POST "{{base_url}}/api/v1/work-order/phss" -H "Authorization: Bearer <token of phi.wo.po.pic>" -F title=CT\ A1\ new\ osf -F description=Scope\ of\ works\ -\ create\ test -F urgency_level=important -F category=well_test -F start_date=01-12-2026 -F end_date=15-12-2026 -F request_to=osf -F field_id=8248bb0c-a37c-423c-9ce6-36c592f79906
+```
+
+```json
+{
+  "data": {
+    "id": "55c04cc5-d92a-4472-9772-19227b8c16f1",
+    "wo_number": "0004/WO/PO/2026",
+    "status": "waiting_approval",
+    "current_level": 0,
+    "current_layer": 1,
+    "created_date": "25-11-2026",
+    "attachment_count": 0
+  },
+  "status": "success",
+  "code": "00",
+  "message": "Create work order succeed"
+}
+```
+
+**A2a save draft with approvers (setup)**: user `phi.wo.po.pic`, HTTP 200
+
+```bash
+curl -X POST "{{base_url}}/api/v1/work-order/draft" -H "Authorization: Bearer <token of phi.wo.po.pic>" -F title=CT\ A2\ draft -F description=Scope\ of\ works\ -\ create\ test -F urgency_level=important -F category=well_test -F start_date=01-12-2026 -F end_date=15-12-2026 -F request_to=osf -F field_id=8248bb0c-a37c-423c-9ce6-36c592f79906 -F approvers=\[\{\"level\":1,\"sla_days\":2,\"user_id\":\[\"0b000000-0000-0000-0000-000000000602\"\]\},\{\"level\":2,\"sla_days\":2,\"user_id\":\[\"0b000000-0000-0000-0000-000000000604\"\]\}\]
+```
+
+```json
+{
+  "data": {
+    "id": "e24e74e5-2933-4527-b7a3-4f8aa28dbfd5",
+    "wo_number": "0005/WO/PO/2026",
+    "status": "draft",
+    "current_level": 0,
+    "current_layer": 0,
+    "created_date": "25-11-2026",
+    "attachment_count": 0
+  },
+  "status": "success",
+  "code": "00",
+  "message": "Save work order draft succeed"
+}
+```
+
+**A2b next number before create (counter check)**: user `phi.wo.po.pic`, HTTP 200
+
+```bash
+curl -X GET "{{base_url}}/api/v1/work-order/next-number" -H "Authorization: Bearer <token of phi.wo.po.pic>"
+```
+
+```json
+{
+  "data": {
+    "sequence_number": "0006",
+    "wo_number": "0006/WO/PO/2026",
+    "department": "Production Operations"
+  },
+  "status": "success",
+  "code": "00",
+  "message": "Get next work order number succeed"
+}
+```
+
+**A2c create from the draft**: user `phi.wo.po.pic`, HTTP 200
+
+```bash
+curl -X POST "{{base_url}}/api/v1/work-order/phss" -H "Authorization: Bearer <token of phi.wo.po.pic>" -F id=e24e74e5-2933-4527-b7a3-4f8aa28dbfd5 -F title=CT\ A2\ from\ draft -F description=Scope\ of\ works\ -\ create\ test -F urgency_level=important -F category=well_test -F start_date=01-12-2026 -F end_date=15-12-2026 -F request_to=osf -F field_id=8248bb0c-a37c-423c-9ce6-36c592f79906
+```
+
+```json
+{
+  "data": {
+    "id": "e24e74e5-2933-4527-b7a3-4f8aa28dbfd5",
+    "wo_number": "0005/WO/PO/2026",
+    "status": "waiting_approval",
+    "current_level": 0,
+    "current_layer": 1,
+    "created_date": "25-11-2026",
+    "attachment_count": 0
+  },
+  "status": "success",
+  "code": "00",
+  "message": "Create work order succeed"
+}
+```
+
+**A2d next number after create (counter not moved)**: user `phi.wo.po.pic`, HTTP 200
+
+```bash
+curl -X GET "{{base_url}}/api/v1/work-order/next-number" -H "Authorization: Bearer <token of phi.wo.po.pic>"
+```
+
+```json
+{
+  "data": {
+    "sequence_number": "0006",
+    "wo_number": "0006/WO/PO/2026",
+    "department": "Production Operations"
+  },
+  "status": "success",
+  "code": "00",
+  "message": "Get next work order number succeed"
+}
+```
+
+**A4 request_to po (simple schedule)**: user `phi.wo.po.pic`, HTTP 200
+
+```bash
+curl -X POST "{{base_url}}/api/v1/work-order/phss" -H "Authorization: Bearer <token of phi.wo.po.pic>" -F title=CT\ A4\ po -F description=Scope\ of\ works\ -\ create\ test -F urgency_level=important -F category=well_test -F start_date=01-12-2026 -F end_date=15-12-2026 -F request_to=po -F field_id=8248bb0c-a37c-423c-9ce6-36c592f79906
+```
+
+```json
+{
+  "data": {
+    "id": "79aaef58-59c1-4974-a6ce-31f508e7b186",
+    "wo_number": "0006/WO/PO/2026",
+    "status": "waiting_approval",
+    "current_level": 0,
+    "current_layer": 1,
+    "created_date": "25-11-2026",
+    "attachment_count": 0
+  },
+  "status": "success",
+  "code": "00",
+  "message": "Create work order succeed"
+}
+```
+
+**A5 category without approval**: user `phi.wo.po.pic`, HTTP 200
+
+```bash
+curl -X POST "{{base_url}}/api/v1/work-order/phss" -H "Authorization: Bearer <token of phi.wo.po.pic>" -F title=CT\ A5\ choke -F description=Scope\ of\ works\ -\ create\ test -F urgency_level=important -F category=well_test -F start_date=01-12-2026 -F end_date=15-12-2026 -F request_to=osf -F field_id=8248bb0c-a37c-423c-9ce6-36c592f79906 -F category=choke_adjustment
+```
+
+```json
+{
+  "data": {
+    "id": "89d2607e-408a-4126-b88f-03be831f2809",
+    "wo_number": "0007/WO/PO/2026",
+    "status": "waiting_approval",
+    "current_level": 0,
+    "current_layer": 1,
+    "created_date": "25-11-2026",
+    "attachment_count": 0
+  },
+  "status": "success",
+  "code": "00",
+  "message": "Create work order succeed"
+}
+```
+
+**A6 zone9 with a PEP field**: user `phi.wo.po.pic`, HTTP 200
+
+```bash
+curl -X POST "{{base_url}}/api/v1/work-order/zone9" -H "Authorization: Bearer <token of phi.wo.po.pic>" -F title=CT\ A6\ zone9 -F description=Scope\ of\ works\ -\ create\ test -F urgency_level=important -F category=well_test -F start_date=01-12-2026 -F end_date=15-12-2026 -F request_to=osf -F field_id=a3988f9d-b43a-490c-9d36-22a7ea8083ce
+```
+
+```json
+{
+  "data": {
+    "id": "c300756f-3f1d-4a3e-a191-f677f12fb38d",
+    "wo_number": "0008/WO/PO/2026",
+    "status": "waiting_approval",
+    "current_level": 0,
+    "current_layer": 1,
+    "created_date": "25-11-2026",
+    "attachment_count": 0
+  },
+  "status": "success",
+  "code": "00",
+  "message": "Create work order succeed"
+}
+```
+
+**A7 pep with a PEP field**: user `phi.wo.po.pic`, HTTP 200
+
+```bash
+curl -X POST "{{base_url}}/api/v1/work-order/pep" -H "Authorization: Bearer <token of phi.wo.po.pic>" -F title=CT\ A7\ pep -F description=Scope\ of\ works\ -\ create\ test -F urgency_level=important -F category=well_test -F start_date=01-12-2026 -F end_date=15-12-2026 -F request_to=osf -F field_id=a3988f9d-b43a-490c-9d36-22a7ea8083ce
+```
+
+```json
+{
+  "data": {
+    "id": "35fb46b5-d8e7-41e7-8a99-7afd8bb71185",
+    "wo_number": "0009/WO/PO/2026",
+    "status": "waiting_approval",
+    "current_level": 0,
+    "current_layer": 1,
+    "created_date": "25-11-2026",
+    "attachment_count": 0
+  },
+  "status": "success",
+  "code": "00",
+  "message": "Create work order succeed"
+}
+```
+
+**A8a next number (setup)**: user `phi.wo.po.pic`, HTTP 200
+
+```bash
+curl -X GET "{{base_url}}/api/v1/work-order/next-number" -H "Authorization: Bearer <token of phi.wo.po.pic>"
+```
+
+```json
+{
+  "data": {
+    "sequence_number": "0010",
+    "wo_number": "0010/WO/PO/2026",
+    "department": "Production Operations"
+  },
+  "status": "success",
+  "code": "00",
+  "message": "Get next work order number succeed"
+}
+```
+
+**A8b wo_number = the next number**: user `phi.wo.po.pic`, HTTP 200
+
+```bash
+curl -X POST "{{base_url}}/api/v1/work-order/phss" -H "Authorization: Bearer <token of phi.wo.po.pic>" -F title=CT\ A8\ own\ number -F wo_number=0010/WO/PO/2026 -F description=Scope\ of\ works\ -\ create\ test -F urgency_level=important -F category=well_test -F start_date=01-12-2026 -F end_date=15-12-2026 -F request_to=osf -F field_id=8248bb0c-a37c-423c-9ce6-36c592f79906
+```
+
+```json
+{
+  "data": {
+    "id": "481db909-34d8-4751-ba64-4e95132d500f",
+    "wo_number": "0010/WO/PO/2026",
+    "status": "waiting_approval",
+    "current_level": 0,
+    "current_layer": 1,
+    "created_date": "25-11-2026",
+    "attachment_count": 0
+  },
+  "status": "success",
+  "code": "00",
+  "message": "Create work order succeed"
+}
+```
+
+**A9 two files**: user `phi.wo.po.pic`, HTTP 200
+
+```bash
+curl -X POST "{{base_url}}/api/v1/work-order/phss" -H "Authorization: Bearer <token of phi.wo.po.pic>" -F title=CT\ A9\ files -F description=Scope\ of\ works\ -\ create\ test -F urgency_level=important -F category=well_test -F start_date=01-12-2026 -F end_date=15-12-2026 -F request_to=osf -F field_id=8248bb0c-a37c-423c-9ce6-36c592f79906 -F files=@/private/tmp/claude-501/-Users-hafidhidayatullah-Stuffs-Grounds-OceanInovasi-phi-phiDev/fa08d967-8bce-4eb2-ac30-368a7f240259/scratchpad/files/a.pdf -F files=@/private/tmp/claude-501/-Users-hafidhidayatullah-Stuffs-Grounds-OceanInovasi-phi-phiDev/fa08d967-8bce-4eb2-ac30-368a7f240259/scratchpad/files/g.png
+```
+
+```json
+{
+  "data": {
+    "id": "88282fd9-991e-4dd4-a8b8-bb72ceed494d",
+    "wo_number": "0011/WO/PO/2026",
+    "status": "waiting_approval",
+    "current_level": 0,
+    "current_layer": 1,
+    "created_date": "25-11-2026",
+    "attachment_count": 2
+  },
+  "status": "success",
+  "code": "00",
+  "message": "Create work order succeed"
+}
+```
+
+**A10a draft with 2 files (setup)**: user `phi.wo.po.pic`, HTTP 200
+
+```bash
+curl -X POST "{{base_url}}/api/v1/work-order/draft" -H "Authorization: Bearer <token of phi.wo.po.pic>" -F title=CT\ A10\ draft -F description=Scope\ of\ works\ -\ create\ test -F urgency_level=important -F category=well_test -F start_date=01-12-2026 -F end_date=15-12-2026 -F request_to=osf -F field_id=8248bb0c-a37c-423c-9ce6-36c592f79906 -F files=@/private/tmp/claude-501/-Users-hafidhidayatullah-Stuffs-Grounds-OceanInovasi-phi-phiDev/fa08d967-8bce-4eb2-ac30-368a7f240259/scratchpad/files/a.pdf -F files=@/private/tmp/claude-501/-Users-hafidhidayatullah-Stuffs-Grounds-OceanInovasi-phi-phiDev/fa08d967-8bce-4eb2-ac30-368a7f240259/scratchpad/files/b.pdf
+```
+
+```json
+{
+  "data": {
+    "id": "fb6f7c62-5da7-4dcb-bfbd-47116e32155d",
+    "wo_number": "0012/WO/PO/2026",
+    "status": "draft",
+    "current_level": 0,
+    "current_layer": 0,
+    "created_date": "25-11-2026",
+    "attachment_count": 2
+  },
+  "status": "success",
+  "code": "00",
+  "message": "Save work order draft succeed"
+}
+```
+
+**A10b create from the draft with 3 new files (5 in total)**: user `phi.wo.po.pic`, HTTP 200
+
+```bash
+curl -X POST "{{base_url}}/api/v1/work-order/phss" -H "Authorization: Bearer <token of phi.wo.po.pic>" -F id=fb6f7c62-5da7-4dcb-bfbd-47116e32155d -F title=CT\ A10\ from\ draft -F description=Scope\ of\ works\ -\ create\ test -F urgency_level=important -F category=well_test -F start_date=01-12-2026 -F end_date=15-12-2026 -F request_to=osf -F field_id=8248bb0c-a37c-423c-9ce6-36c592f79906 -F files=@/private/tmp/claude-501/-Users-hafidhidayatullah-Stuffs-Grounds-OceanInovasi-phi-phiDev/fa08d967-8bce-4eb2-ac30-368a7f240259/scratchpad/files/c.pdf -F files=@/private/tmp/claude-501/-Users-hafidhidayatullah-Stuffs-Grounds-OceanInovasi-phi-phiDev/fa08d967-8bce-4eb2-ac30-368a7f240259/scratchpad/files/d.pdf -F files=@/private/tmp/claude-501/-Users-hafidhidayatullah-Stuffs-Grounds-OceanInovasi-phi-phiDev/fa08d967-8bce-4eb2-ac30-368a7f240259/scratchpad/files/e.pdf
+```
+
+```json
+{
+  "data": {
+    "id": "fb6f7c62-5da7-4dcb-bfbd-47116e32155d",
+    "wo_number": "0012/WO/PO/2026",
+    "status": "waiting_approval",
+    "current_level": 0,
+    "current_layer": 1,
+    "created_date": "25-11-2026",
+    "attachment_count": 5
+  },
+  "status": "success",
+  "code": "00",
+  "message": "Create work order succeed"
+}
+```
+
+**A11 all optional fields**: user `phi.wo.po.pic`, HTTP 200
+
+```bash
+curl -X POST "{{base_url}}/api/v1/work-order/phss" -H "Authorization: Bearer <token of phi.wo.po.pic>" -F title=CT\ A11\ optional -F description=Scope\ of\ works\ -\ create\ test -F urgency_level=important -F category=well_test -F start_date=01-12-2026 -F end_date=15-12-2026 -F request_to=osf -F field_id=8248bb0c-a37c-423c-9ce6-36c592f79906 -F wbs=\[\"101\",\"102\"\] -F budget_type=\[\"abo_routine\"\] -F rkap_id=7e6608da-d068-43d7-a0e5-03bd6299f51f -F area_id=79cbb997-1b75-4b82-8288-056890bd7a93 -F location=Well\ pad\ 12 -F pic_ids=\[\"0b000000-0000-0000-0000-000000000601\",\"0b000000-0000-0000-0000-000000000602\"\] -F function=production -F type_service=routine -F production_gain_gas=1.5 -F production_gain_oil=20 -F loss_avoidance_gas=0.5 -F loss_avoidance_oil=3 -F lpo_potential_gas=0.2 -F lpo_potential_oil=1
+```
+
+```json
+{
+  "data": {
+    "id": "c1aed93a-2031-458f-88ef-35892aacc75e",
+    "wo_number": "0013/WO/PO/2026",
+    "status": "waiting_approval",
+    "current_level": 0,
+    "current_layer": 1,
+    "created_date": "25-11-2026",
+    "attachment_count": 0
+  },
+  "status": "success",
+  "code": "00",
+  "message": "Create work order succeed"
+}
+```
+
+**B1 missing description**: user `phi.wo.po.pic`, HTTP 400
+
+```bash
+curl -X POST "{{base_url}}/api/v1/work-order/phss" -H "Authorization: Bearer <token of phi.wo.po.pic>" -F title=x -F urgency_level=important -F request_to=osf -F field_id=8248bb0c-a37c-423c-9ce6-36c592f79906 -F start_date=01-12-2026 -F end_date=15-12-2026
+```
+
+```json
+{"status": "failed", "code": "01", "message": "Required to submit: description"}
+```
+
+**B2 only title (all others missing)**: user `phi.wo.po.pic`, HTTP 400
+
+```bash
+curl -X POST "{{base_url}}/api/v1/work-order/phss" -H "Authorization: Bearer <token of phi.wo.po.pic>" -F title=x
+```
+
+```json
+{"status": "failed", "code": "01", "message": "Required to submit: description, urgency_level, request_to, field_id, start_date, end_date"}
+```
+
+**B3 end_date before start_date**: user `phi.wo.po.pic`, HTTP 400
+
+```bash
+curl -X POST "{{base_url}}/api/v1/work-order/phss" -H "Authorization: Bearer <token of phi.wo.po.pic>" -F title=x -F description=d -F urgency_level=important -F request_to=osf -F field_id=8248bb0c-a37c-423c-9ce6-36c592f79906 -F start_date=15-12-2026 -F end_date=01-12-2026
+```
+
+```json
+{"status": "failed", "code": "01", "message": "end_date must be on or after start_date"}
+```
+
+**B4 date not DD-MM-YYYY**: user `phi.wo.po.pic`, HTTP 200
+
+```bash
+curl -X POST "{{base_url}}/api/v1/work-order/phss" -H "Authorization: Bearer <token of phi.wo.po.pic>" -F title=x -F description=d -F urgency_level=important -F request_to=osf -F field_id=8248bb0c-a37c-423c-9ce6-36c592f79906 -F start_date=2026-12-01 -F end_date=15-12-2026
+```
+
+```json
+{
+  "data": {
+    "id": "a9346658-e807-49b6-96ab-05d9f720344b",
+    "wo_number": "0014/WO/PO/2026",
+    "status": "waiting_approval",
+    "current_level": 0,
+    "current_layer": 1,
+    "created_date": "25-11-2026",
+    "attachment_count": 0
+  },
+  "status": "success",
+  "code": "00",
+  "message": "Create work order succeed"
+}
+```
+
+**B5 request_to not in config**: user `phi.wo.po.pic`, HTTP 400
+
+```bash
+curl -X POST "{{base_url}}/api/v1/work-order/phss" -H "Authorization: Bearer <token of phi.wo.po.pic>" -F title=x -F description=Scope\ of\ works\ -\ create\ test -F urgency_level=important -F category=well_test -F start_date=01-12-2026 -F end_date=15-12-2026 -F request_to=xyz -F field_id=8248bb0c-a37c-423c-9ce6-36c592f79906
+```
+
+```json
+{"status": "failed", "code": "01", "message": "request_to 'xyz' is not a Request To code of work_order.request_to"}
+```
+
+**B6 budget_type not in list**: user `phi.wo.po.pic`, HTTP 400
+
+```bash
+curl -X POST "{{base_url}}/api/v1/work-order/phss" -H "Authorization: Bearer <token of phi.wo.po.pic>" -F title=x -F description=Scope\ of\ works\ -\ create\ test -F urgency_level=important -F category=well_test -F start_date=01-12-2026 -F end_date=15-12-2026 -F request_to=osf -F field_id=8248bb0c-a37c-423c-9ce6-36c592f79906 -F budget_type=\[\"other\"\]
+```
+
+```json
+{"status": "failed", "code": "01", "message": "budget_type must be one of abibd, abinbd, abo_routine, abo_non_routine"}
+```
+
+**B7 title longer than 255**: user `phi.wo.po.pic`, HTTP 400
+
+```bash
+curl -X POST "{{base_url}}/api/v1/work-order/phss" -H "Authorization: Bearer <token of phi.wo.po.pic>" -F title=TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT -F description=Scope\ of\ works\ -\ create\ test -F urgency_level=important -F category=well_test -F start_date=01-12-2026 -F end_date=15-12-2026 -F request_to=osf -F field_id=8248bb0c-a37c-423c-9ce6-36c592f79906
+```
+
+```json
+{"status": "failed", "code": "01", "message": "title must be at most 255 characters"}
+```
+
+**B8a unknown field_id**: user `phi.wo.po.pic`, HTTP 400
+
+```bash
+curl -X POST "{{base_url}}/api/v1/work-order/phss" -H "Authorization: Bearer <token of phi.wo.po.pic>" -F title=x -F description=Scope\ of\ works\ -\ create\ test -F urgency_level=important -F category=well_test -F start_date=01-12-2026 -F end_date=15-12-2026 -F request_to=osf -F field_id=00000000-0000-0000-0000-0000000000f1
+```
+
+```json
+{"status": "failed", "code": "01", "message": "field_id '00000000-0000-0000-0000-0000000000f1' was not found"}
+```
+
+**B8b unknown rkap_id**: user `phi.wo.po.pic`, HTTP 400
+
+```bash
+curl -X POST "{{base_url}}/api/v1/work-order/phss" -H "Authorization: Bearer <token of phi.wo.po.pic>" -F title=x -F description=Scope\ of\ works\ -\ create\ test -F urgency_level=important -F category=well_test -F start_date=01-12-2026 -F end_date=15-12-2026 -F request_to=osf -F field_id=8248bb0c-a37c-423c-9ce6-36c592f79906 -F rkap_id=00000000-0000-0000-0000-0000000000f2
+```
+
+```json
+{"status": "failed", "code": "01", "message": "rkap_id '00000000-0000-0000-0000-0000000000f2' was not found"}
+```
+
+**B9 unknown user in pic_ids**: user `phi.wo.po.pic`, HTTP 400
+
+```bash
+curl -X POST "{{base_url}}/api/v1/work-order/phss" -H "Authorization: Bearer <token of phi.wo.po.pic>" -F title=x -F description=Scope\ of\ works\ -\ create\ test -F urgency_level=important -F category=well_test -F start_date=01-12-2026 -F end_date=15-12-2026 -F request_to=osf -F field_id=8248bb0c-a37c-423c-9ce6-36c592f79906 -F pic_ids=\[\"00000000-0000-0000-0000-0000000000f3\"\]
+```
+
+```json
+{"status": "failed", "code": "01", "message": "pic_ids not found: 00000000-0000-0000-0000-0000000000f3"}
+```
+
+**B10 PHSS field on pep**: user `phi.wo.po.pic`, HTTP 400
+
+```bash
+curl -X POST "{{base_url}}/api/v1/work-order/pep" -H "Authorization: Bearer <token of phi.wo.po.pic>" -F title=x -F description=Scope\ of\ works\ -\ create\ test -F urgency_level=important -F category=well_test -F start_date=01-12-2026 -F end_date=15-12-2026 -F request_to=osf -F field_id=8248bb0c-a37c-423c-9ce6-36c592f79906
+```
+
+```json
+{"status": "failed", "code": "01", "message": "field_id '8248bb0c-a37c-423c-9ce6-36c592f79906' is not in working area pep"}
+```
+
+**B11 working_area abc**: user `phi.wo.po.pic`, HTTP 400
+
+```bash
+curl -X POST "{{base_url}}/api/v1/work-order/abc" -H "Authorization: Bearer <token of phi.wo.po.pic>" -F title=x -F description=Scope\ of\ works\ -\ create\ test -F urgency_level=important -F category=well_test -F start_date=01-12-2026 -F end_date=15-12-2026 -F request_to=osf -F field_id=8248bb0c-a37c-423c-9ce6-36c592f79906
+```
+
+```json
+{"status": "failed", "code": "01", "message": "Invalid working area, must be 'zone9', 'phss' or 'pep'"}
+```
+
+**B12 six files**: user `phi.wo.po.pic`, HTTP 400
+
+```bash
+curl -X POST "{{base_url}}/api/v1/work-order/phss" -H "Authorization: Bearer <token of phi.wo.po.pic>" -F title=x -F description=Scope\ of\ works\ -\ create\ test -F urgency_level=important -F category=well_test -F start_date=01-12-2026 -F end_date=15-12-2026 -F request_to=osf -F field_id=8248bb0c-a37c-423c-9ce6-36c592f79906 -F files=@/private/tmp/claude-501/-Users-hafidhidayatullah-Stuffs-Grounds-OceanInovasi-phi-phiDev/fa08d967-8bce-4eb2-ac30-368a7f240259/scratchpad/files/a.pdf -F files=@/private/tmp/claude-501/-Users-hafidhidayatullah-Stuffs-Grounds-OceanInovasi-phi-phiDev/fa08d967-8bce-4eb2-ac30-368a7f240259/scratchpad/files/b.pdf -F files=@/private/tmp/claude-501/-Users-hafidhidayatullah-Stuffs-Grounds-OceanInovasi-phi-phiDev/fa08d967-8bce-4eb2-ac30-368a7f240259/scratchpad/files/c.pdf -F files=@/private/tmp/claude-501/-Users-hafidhidayatullah-Stuffs-Grounds-OceanInovasi-phi-phiDev/fa08d967-8bce-4eb2-ac30-368a7f240259/scratchpad/files/d.pdf -F files=@/private/tmp/claude-501/-Users-hafidhidayatullah-Stuffs-Grounds-OceanInovasi-phi-phiDev/fa08d967-8bce-4eb2-ac30-368a7f240259/scratchpad/files/e.pdf -F files=@/private/tmp/claude-501/-Users-hafidhidayatullah-Stuffs-Grounds-OceanInovasi-phi-phiDev/fa08d967-8bce-4eb2-ac30-368a7f240259/scratchpad/files/f.pdf
+```
+
+```json
+{"status": "failed", "code": "01", "message": "A work order takes at most 5 files (0 already attached)"}
+```
+
+**B13a exe file**: user `phi.wo.po.pic`, HTTP 400
+
+```bash
+curl -X POST "{{base_url}}/api/v1/work-order/phss" -H "Authorization: Bearer <token of phi.wo.po.pic>" -F title=x -F description=Scope\ of\ works\ -\ create\ test -F urgency_level=important -F category=well_test -F start_date=01-12-2026 -F end_date=15-12-2026 -F request_to=osf -F field_id=8248bb0c-a37c-423c-9ce6-36c592f79906 -F files=@/private/tmp/claude-501/-Users-hafidhidayatullah-Stuffs-Grounds-OceanInovasi-phi-phiDev/fa08d967-8bce-4eb2-ac30-368a7f240259/scratchpad/files/bad.exe
+```
+
+```json
+{"status": "failed", "code": "01", "message": "File 'bad.exe': only PDF, DOC, DOCX, XLS, XLSX, JPG and PNG are accepted"}
+```
+
+**B13b empty file**: user `phi.wo.po.pic`, HTTP 400
+
+```bash
+curl -X POST "{{base_url}}/api/v1/work-order/phss" -H "Authorization: Bearer <token of phi.wo.po.pic>" -F title=x -F description=Scope\ of\ works\ -\ create\ test -F urgency_level=important -F category=well_test -F start_date=01-12-2026 -F end_date=15-12-2026 -F request_to=osf -F field_id=8248bb0c-a37c-423c-9ce6-36c592f79906 -F files=@/private/tmp/claude-501/-Users-hafidhidayatullah-Stuffs-Grounds-OceanInovasi-phi-phiDev/fa08d967-8bce-4eb2-ac30-368a7f240259/scratchpad/files/empty.pdf
+```
+
+```json
+{"status": "failed", "code": "01", "message": "File 'empty.pdf' must be larger than 0 and at most 10 MB"}
+```
+
+**B14 wo_number wrong department**: user `phi.wo.po.pic`, HTTP 400
+
+```bash
+curl -X POST "{{base_url}}/api/v1/work-order/phss" -H "Authorization: Bearer <token of phi.wo.po.pic>" -F title=x -F wo_number=0099/WO/OSF/2026 -F description=Scope\ of\ works\ -\ create\ test -F urgency_level=important -F category=well_test -F start_date=01-12-2026 -F end_date=15-12-2026 -F request_to=osf -F field_id=8248bb0c-a37c-423c-9ce6-36c592f79906
+```
+
+```json
+{"status": "failed", "code": "01", "message": "wo_number must be NNNN/WO/PO/2026"}
+```
+
+**B15 wo_number ahead of the next number**: user `phi.wo.po.pic`, HTTP 400
+
+```bash
+curl -X POST "{{base_url}}/api/v1/work-order/phss" -H "Authorization: Bearer <token of phi.wo.po.pic>" -F title=x -F wo_number=0999/WO/PO/2026 -F description=Scope\ of\ works\ -\ create\ test -F urgency_level=important -F category=well_test -F start_date=01-12-2026 -F end_date=15-12-2026 -F request_to=osf -F field_id=8248bb0c-a37c-423c-9ce6-36c592f79906
+```
+
+```json
+{"status": "failed", "code": "01", "message": "wo_number 0999/WO/PO/2026 is ahead of the next work order number 0015/WO/PO/2026"}
+```
+
+**B18 JSON body, not multipart**: user `phi.wo.po.pic`, HTTP 400
+
+```bash
+curl -X POST "{{base_url}}/api/v1/work-order/phss" -H "Authorization: Bearer <token of phi.wo.po.pic>" -H Content-Type:\ application/json -d \{\"title\":\"x\"\}
+```
+
+```json
+{"status": "failed", "code": "01", "message": "The body must be multipart/form-data"}
+```
+
+**C0 save draft (setup)**: user `phi.wo.po.pic`, HTTP 200
+
+```bash
+curl -X POST "{{base_url}}/api/v1/work-order/draft" -H "Authorization: Bearer <token of phi.wo.po.pic>" -F title=CT\ C\ draft -F description=Scope\ of\ works\ -\ create\ test -F urgency_level=important -F category=well_test -F start_date=01-12-2026 -F end_date=15-12-2026 -F request_to=osf -F field_id=8248bb0c-a37c-423c-9ce6-36c592f79906
+```
+
+```json
+{
+  "data": {
+    "id": "0359da97-91f2-409e-b710-6748b60f7dc5",
+    "wo_number": "0015/WO/PO/2026",
+    "status": "draft",
+    "current_level": 0,
+    "current_layer": 0,
+    "created_date": "25-11-2026",
+    "attachment_count": 0
+  },
+  "status": "success",
+  "code": "00",
+  "message": "Save work order draft succeed"
+}
+```
+
+**C1 create from another user's draft**: user `phi.wo.po.senior`, HTTP 403
+
+```bash
+curl -X POST "{{base_url}}/api/v1/work-order/phss" -H "Authorization: Bearer <token of phi.wo.po.senior>" -F id=0359da97-91f2-409e-b710-6748b60f7dc5 -F title=x -F description=Scope\ of\ works\ -\ create\ test -F urgency_level=important -F category=well_test -F start_date=01-12-2026 -F end_date=15-12-2026 -F request_to=osf -F field_id=8248bb0c-a37c-423c-9ce6-36c592f79906
+```
+
+```json
+{"status": "failed", "code": "01", "message": "Only the creator can change this work order draft"}
+```
+
+**C2 create with unknown id**: user `phi.wo.po.pic`, HTTP 404
+
+```bash
+curl -X POST "{{base_url}}/api/v1/work-order/phss" -H "Authorization: Bearer <token of phi.wo.po.pic>" -F id=00000000-0000-0000-0000-0000000000f4 -F title=x -F description=Scope\ of\ works\ -\ create\ test -F urgency_level=important -F category=well_test -F start_date=01-12-2026 -F end_date=15-12-2026 -F request_to=osf -F field_id=8248bb0c-a37c-423c-9ce6-36c592f79906
+```
+
+```json
+{"status": "failed", "code": "01", "message": "Work order not found"}
+```
+
+**C3a create from the draft (first time)**: user `phi.wo.po.pic`, HTTP 200
+
+```bash
+curl -X POST "{{base_url}}/api/v1/work-order/phss" -H "Authorization: Bearer <token of phi.wo.po.pic>" -F id=0359da97-91f2-409e-b710-6748b60f7dc5 -F title=CT\ C\ from\ draft -F description=Scope\ of\ works\ -\ create\ test -F urgency_level=important -F category=well_test -F start_date=01-12-2026 -F end_date=15-12-2026 -F request_to=osf -F field_id=8248bb0c-a37c-423c-9ce6-36c592f79906
+```
+
+```json
+{
+  "data": {
+    "id": "0359da97-91f2-409e-b710-6748b60f7dc5",
+    "wo_number": "0015/WO/PO/2026",
+    "status": "waiting_approval",
+    "current_level": 0,
+    "current_layer": 1,
+    "created_date": "25-11-2026",
+    "attachment_count": 0
+  },
+  "status": "success",
+  "code": "00",
+  "message": "Create work order succeed"
+}
+```
+
+**C3b create from the same draft again**: user `phi.wo.po.pic`, HTTP 400
+
+```bash
+curl -X POST "{{base_url}}/api/v1/work-order/phss" -H "Authorization: Bearer <token of phi.wo.po.pic>" -F id=0359da97-91f2-409e-b710-6748b60f7dc5 -F title=x -F description=Scope\ of\ works\ -\ create\ test -F urgency_level=important -F category=well_test -F start_date=01-12-2026 -F end_date=15-12-2026 -F request_to=osf -F field_id=8248bb0c-a37c-423c-9ce6-36c592f79906
+```
+
+```json
+{"status": "failed", "code": "01", "message": "Only a draft can be changed; this work order is waiting_approval"}
+```
+
+**D1 wo_number already used**: user `phi.wo.po.pic`, HTTP 422
+
+```bash
+curl -X POST "{{base_url}}/api/v1/work-order/phss" -H "Authorization: Bearer <token of phi.wo.po.pic>" -F title=x -F wo_number=0001/WO/PO/2026 -F description=Scope\ of\ works\ -\ create\ test -F urgency_level=important -F category=well_test -F start_date=01-12-2026 -F end_date=15-12-2026 -F request_to=osf -F field_id=8248bb0c-a37c-423c-9ce6-36c592f79906
+```
+
+```json
+{"status": "failed", "code": "01", "message": "wo_number 0001/WO/PO/2026 is already used by another action plan, please get the next work order number again"}
 ```
 
 

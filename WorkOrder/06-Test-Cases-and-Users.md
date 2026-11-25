@@ -26,7 +26,7 @@ Source of the rules: `01-Decision-Log.md` and `02-Knowledge.md`. Endpoints: `03-
 | T15 | Update draft #7 | my draft | update with a new title and no PICs | title changed, PICs removed, WO number unchanged | Unit test only |
 | T16 | Update draft #7 | – | unknown id; another user's draft; a submitted WO | 404; 403; 400 | Unit test only |
 
-### 1.1 Create Work Order form (built 25 Nov, `WorkOrderFormTests.cs`, not run yet)
+### 1.1 Create Work Order form (built 25 Nov, `WorkOrderFormTests.cs`, 29 WO unit tests pass)
 
 | # | Given | When | Then | Result |
 |---|---|---|---|---|
@@ -34,11 +34,70 @@ Source of the rules: `01-Decision-Log.md` and `02-Knowledge.md`. Endpoints: `03-
 | T18 | route with Layer 1 + Layer 2 users | Save As Draft with 2 files | number taken, draft Level 0 / 0, 2 approver rows (stage 1), 2 files uploaded, `created` history | Unit test |
 | T19 | a draft | Update with edited `approvers` and 1 file | route replaced by the edited step (SLA 2 days = 48 h), 2 files total, number unchanged | Unit test |
 | T20 | a draft, `request_to` = `po` | Create with `id` | `waiting_approval`, Level 0 / Layer 1, `schedule_kind` simple, snapshot has the action plan key; PO user sees it in Incoming only after Level 0 | Unit test |
-| T21 | category `choke_adjustment` | Create with no approvers | `approved` at Level 1, no approver rows | Unit test |
-| T22 | – | Create with no title / no approvers / `request_to` = a name / `budget_type` = "ABI BD" / field outside the path working area | 400, nothing saved | Unit test |
+| T21 | category `choke_adjustment` | Create with no approvers | `waiting_approval` at Level 0 / Layer 1, no approver rows (25 Nov: Create does nothing on approval) | Unit test |
+| T22 | – | Create with no title / `request_to` = a name / `budget_type` = "ABI BD" / field outside the path working area | 400, nothing saved (no approvers is not an error since 25 Nov) | Unit test |
 | T23 | draft with 4 files | add 2 more; add an `.exe` | "at most 5 files"; type refused | Unit test |
 | T24 | requestor department without a short name (for example a Field department) | Save As Draft | 400 "no work order short name" (G32) | To test |
 | T25 | requestor from Project / OSF / PO / Drilling / WLI | Save As Draft | 200, wo_number `NNNN/WO/{PROJECTS\|OSF\|PO\|DRILLING\|WLI}/{year}` | To test |
+
+### 1.2 Create WO scenarios (WO-T05, curl run 25 Nov)
+
+`POST /api/v1/work-order/{working_area}`, multipart. Users: `phi.wo.po.pic` (creator), `phi.wo.po.senior` (another PO user). PHSS field `8248bb0c-…`, PEP field `a3988f9d-…`.
+Required to submit: title, description, urgency_level, request_to, field_id, start_date, end_date.
+The draft checks (404 / 403 / 400) run before the field checks.
+Full curl and responses: `07-Ticket.md` WO-T05, run 2.
+
+**A. Pass (200).** After each one: `waiting_approval`, Level 0 / Layer 1, `submitted_at` set, one `submitted` history row, no new approver rows.
+
+| # | Scenario | Expected | Result |
+|---|---|---|---|
+| A1 | New WO on `phss`, `request_to=osf` | Next number, counter +1, `schedule_kind` project | Pass |
+| A2 | Create from my draft that has approvers | Same id and number; counter not moved; the draft approver rows stay | Pass (approver rows: open decision) |
+| A4 | `request_to=po` | `schedule_kind` simple | Pass |
+| A5 | Category with no approval (`choke_adjustment`) | Still `waiting_approval`, no skip | Pass |
+| A6 | `zone9` with a PEP field | 200 (zone9 takes every field) | Pass |
+| A7 | `pep` with a PEP field | 200 | Pass |
+| A8 | `wo_number` = the number from `/next-number` | That number | Pass |
+| A9 | 2 files (PDF + PNG) | `attachment_count` 2 | Pass |
+| A10 | Draft with 2 files + 3 new files on Create | `attachment_count` 5 | Pass |
+| A11 | All optional fields (wbs, budget_type, rkap_id, area_id, location, function, type_service, pic_ids, 6 numbers) | All stored, 2 PIC rows | Pass |
+
+**B. Validation (400).**
+
+| # | Scenario | Expected message | Result |
+|---|---|---|---|
+| B1 | No description | `Required to submit: description` | Pass |
+| B2 | Only title | All 6 missing names in one message | Pass |
+| B3 | end_date before start_date | `end_date must be on or after start_date` | Pass |
+| B4 | start_date `2026-12-01` | 400 not DD-MM-YYYY | **Differs: 200** (shared parser takes yyyy-MM-dd and MM-dd-yyyy; decision open) |
+| B5 | `request_to=xyz` | not a Request To code | Pass |
+| B6 | `budget_type=["other"]` | must be one of … | Pass |
+| B7 | Title of 256 characters | at most 255 | Pass |
+| B8 | Unknown field_id / rkap_id | was not found | Pass |
+| B9 | Unknown user in pic_ids | pic_ids not found | Pass |
+| B10 | PHSS field on `pep` | not in working area pep | Pass |
+| B11 | `working_area=abc` | Invalid working area | Pass |
+| B12 | 6 files | at most 5 files | Pass |
+| B13 | `.exe` file / empty file | type refused / larger than 0 | Pass |
+| B14 | `wo_number` of another department | must be NNNN/WO/PO/2026 | Pass |
+| B15 | `wo_number` ahead of the next number | is ahead of the next number | Pass |
+| B16 | User with no department | `Your account has no department` | Unit test only (no such WO test user) |
+| B17 | Department with no short name | no work order short name | Unit test only (T24) |
+| B18 | JSON body | must be multipart/form-data | Pass |
+
+**C. Draft owner and state.**
+
+| # | Scenario | Expected | Result |
+|---|---|---|---|
+| C1 | Draft of another user | 403 | Pass |
+| C2 | Unknown id | 404 | Pass |
+| C3 | Create the same draft two times | Second call 400 (not a draft) | Pass |
+
+**D. Number conflict.**
+
+| # | Scenario | Expected | Result |
+|---|---|---|---|
+| D1 | `wo_number` already used (`0001/WO/PO/2026`) | 422 | Pass (text says "another action plan") |
 
 ## 2. Test cases: flows to build (from the decisions)
 
