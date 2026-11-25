@@ -28,6 +28,42 @@ Rules for all endpoints:
 
 ## 2. New endpoints
 
+### 2.0 Path table (proposal 24 Nov, waits for OK)
+Rule: base `/api/v1/work-order` (singular, like the merged #1530 / #1533). A WO id is always `{id:guid}`. A fixed word (`draft`, `next-number`, `form-options`, `approve`) is a literal segment. ASP.NET picks a literal segment before a parameter, and `{id:guid}` matches only a GUID, so no path collides with `/work-order/{working_area}`. The sections below still show the old `/work-orders` names; this table is the target.
+
+| # | Method | New path | Old plan path | Body / query | Status |
+|---|---|---|---|---|---|
+| 1 | GET | `/work-order/{working_area}/overview` | `/work-orders/overview?tab=` | – | Merged (#1530) |
+| 2 | GET | `/work-order/{working_area}` | `/work-orders?tab=…` | `flow_type`, `search`, `status`, `recipient`, `category`, `field_id`, `sort_column`, `sort_order`, `page`, `page_size` | Merged (#1533) |
+| 3 | GET | `/work-order/next-number` | `/work-orders/next-number` | – | To do |
+| 4 | GET | `/work-order/form-options` | `/work-orders/form-options` | – | To do |
+| 5 | GET | `/approval-routes?category=…&department_id=…` and `/approval-routes/{id}` | `/work-orders/approval-flows` | existing endpoints, changed (§3.2) | To do (change) |
+| 6 | POST | `/work-order/draft` | `/work-orders/draft` | JSON draft body | Built, staged (`feat/work-order-draft`) |
+| 7 | POST | `/work-order/draft/{id:guid}` | `/work-orders/draft/{id}` | JSON draft body | Built, staged (`feat/work-order-draft`) |
+| 8 | POST | `/work-order/submit` | `/work-orders/submit` | JSON body + optional `id` of a draft | To do |
+| 9 | POST | `/work-order/{id:guid}/delete` | `/work-orders/{id}/delete` | – | To do |
+| 10 | GET | `/work-order/{id:guid}` | `/work-orders/{id}` | – | To do |
+| 11 | GET | `/work-order/{id:guid}/histories` | `/work-orders/{id}/histories` | – | To do |
+| 12 | POST | `/work-order/{id:guid}/attachments` | `/work-orders/{id}/attachments` | multipart files | To do |
+| 13 | POST | `/work-order/{id:guid}/attachments/{attachmentId:guid}/delete` | `/work-orders/{id}/attachments/{attachmentId}/delete` | – | To do |
+| 15 | POST | `/work-order/{id:guid}/approve` | `/work-orders/{id}/approve` | `{ remarks }` | To do |
+| 16 | POST | `/work-order/approve/bulk` | `/work-orders/approve/bulk` | `{ ids[] }` | To do |
+| 17 | POST | `/work-order/{id:guid}/modify` | `/work-orders/{id}/modify` | `{ changed fields, remarks }` | To do |
+| 18 | POST | `/work-order/{id:guid}/reject` | `/work-orders/{id}/reject` | `{ remarks }` | To do |
+| 19 | POST | `/work-order/{id:guid}/modification/decision` | `/work-orders/{id}/modification/decision` | `{ decision, remarks }` | To do |
+| 20 | POST | `/work-order/{id:guid}/rejection/decision` | `/work-orders/{id}/rejection/decision` | `{ decision, remarks }` | To do |
+| 21 | POST | `/work-order/{id:guid}/approval-flow` | `/work-orders/{id}/approval-flow` | `{ approval_route_id }` | To do |
+| 22 | GET | `/work-order/{id:guid}/approvers` | `/work-orders/{id}/approvers` | `level`, `layer` (`string?`) | To do |
+| 23 | GET | `/work-order/{id:guid}/transfer-options` | `/work-orders/{id}/transfer-options` | – | To do |
+| 24 | POST | `/work-order/{id:guid}/transfer` | `/work-orders/{id}/transfer` | `{ department, sub_unit?, pic_id?, notes? }` (PIC open) | To do |
+| 25 | POST | `/work-order/{id:guid}/disposition` | `/work-orders/{id}/disposition` | `{ work_type, pic_ids[], notes? }` | To do |
+| 26 | GET | `/work-order/{id:guid}/project-prefill` | `/work-orders/{id}/project-prefill` | – | To do |
+
+Notes:
+- #14 is not used (a gap in the old numbering).
+- The working area is only on #1 and #2 (the page tab). A WO id already fixes its working area, so the id paths do not take it.
+- `{working_area}` has no constraint today. A wrong word (for example a typo of `next-number`) falls into #2 and gets "Invalid working area" (400). That is acceptable; a route constraint is optional.
+
 ### 2.1 Overview and list (WO Lv 0 / Lv 1 / Lv 2 overview)
 1. `GET /work-orders/overview?tab=incoming|outgoing`
    - Returns 6 counts: Total WO, Received WO, In Review, Submit WO, Rejected WO, Draft WO.
