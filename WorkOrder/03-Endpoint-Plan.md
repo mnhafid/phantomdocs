@@ -35,13 +35,13 @@ Rule: base `/api/v1/work-order` (singular, like the merged #1530 / #1533). A WO 
 |---|---|---|---|---|---|
 | 1 | GET | `/work-order/{working_area}/overview` | `/work-orders/overview?tab=` | – | Merged (#1530) |
 | 2 | GET | `/work-order/{working_area}` | `/work-orders?tab=…` | `flow_type`, `search`, `status`, `recipient`, `category`, `field_id`, `sort_column`, `sort_order`, `page`, `page_size` | Merged (#1533) |
-| 3 | GET | `/work-order/next-number` | `/work-orders/next-number` | – | To do |
-| 4 | GET | `/work-order/form-options` | `/work-orders/form-options` | – | To do |
+| 3 | GET | `/work-order/next-number` | `/work-orders/next-number` | – | Built, staged (`feat/work-order-draft`), WO-T01 |
+| 4 | GET | `/work-order/form-options` | `/work-orders/form-options` | – | Built, staged (`feat/work-order-draft`), WO-T02 |
 | 5 | GET | `/approval-routes?category=…&department_id=…` and `/approval-routes/{id}` | `/work-orders/approval-flows` | existing endpoints, changed (§3.2) | To do (change) |
 | 6 | POST | `/work-order/draft` | `/work-orders/draft` | multipart FE form | Built, staged (`feat/work-order-draft`) |
 | 7 | POST | `/work-order/draft/{id:guid}` | `/work-orders/draft/{id}` | multipart FE form | Built, staged (`feat/work-order-draft`) |
 | 8 | POST | `/work-order/{working_area}` | `/work-orders/submit` | multipart FE form + optional `id` of a draft | Built, staged (`feat/work-order-draft`) |
-| 9 | POST | `/work-order/{id:guid}/delete` | `/work-orders/{id}/delete` | – | To do |
+| 9 | POST | `/work-order/{id:guid}/delete` | `/work-orders/{id}/delete` | – | Built, staged (`feat/work-order-draft`), WO-T06 |
 | 10 | GET | `/work-order/{id:guid}` | `/work-orders/{id}` | – | To do |
 | 11 | GET | `/work-order/{id:guid}/histories` | `/work-orders/{id}/histories` | – | To do |
 | 12 | POST | `/work-order/{id:guid}/attachments` | `/work-orders/{id}/attachments` | multipart files | To do |
@@ -89,8 +89,7 @@ Notes:
 8. `POST /work-order/{working_area}` (multipart FE form; with `id` for a saved draft, or a new WO). **Built 25 Nov** (`feat/work-order-draft`, staged):
    - Checks the mandatory fields.
    - Sets `schedule_kind` from the department (the user does not send it).
-   - If the category needs no approval: skips all steps. Status = Approved at Level 1.
-   - Else: copies the steps of the selected Level 0 flow into `work_order_approvers`. Status = Waiting Approval, Level 0 / Layer 1.
+   - **25 Nov: no approval logic in Create** (WO-T05). It copies no steps and skips nothing. Status = Waiting Approval, Level 0 / Layer 1.
 9. `POST /work-orders/{id}/delete`: deletes a Draft (soft delete). Only the creator, only in Draft.
 
 **Form rules (25 Nov, user decisions; #6, #7, #8 built on `feat/work-order-draft`, #9 not built):**
@@ -126,7 +125,7 @@ All actions check: the status, `current_level` / `current_layer`, and that the u
     - Level 0: writes the change into the WO and approves it in one step. The requestor gets a notification only.
     - Level 1 / 2: needs the approval flow of that Level first. Saves the change as a **proposal** (history snapshot). Status = Modification Review (Manager of that department).
 18. `POST /work-orders/{id}/reject` { remarks }
-    - Level 0: final. Status = Rejected.
+    - Level 0: goes through the route `wo_reject_level_0` first (TD21). After its last level → Rejected.
     - Level 1 / 2: needs the approval flow first, and `no_reject` must be false. Status = Rejection Review (Manager of that department).
 19. `POST /work-orders/{id}/modification/decision` { decision: approve | reject, remarks }
     - Manager of the target (or assigned) department: approve → goes to the Manager of the requestor department. Reject → the proposal is dropped, and the WO goes back to Waiting Approval (Senior).
@@ -134,6 +133,36 @@ All actions check: the status, `current_level` / `current_layer`, and that the u
 20. `POST /work-orders/{id}/rejection/decision` { decision: confirm | cancel, remarks }
     - Manager of the target (or assigned) department: "Yes, Reject" → goes to the Manager of the requestor department. "No, Cancel" → back to Waiting Approval (Senior).
     - Manager of the requestor department: accept → Rejected (final). Refuse → back to the Senior, with `no_reject = true` (only Approve or Modify).
+
+**Approval route and approval process tables (TD18, 25 Nov; design only, not built):**
+- **Route:** the requestor picks a route from the approval route list (`GET /approval-routes?category=work_order`). The backend checks the same rule as the list: category `work_order`, `is_active`, not deleted, and the route department is in the user's active departments (`IDepartmentContext`). Today Create accepts any active route (WO-T05 does not read it).
+- **Approvers:** the route users (`approval_route_users`, level = Layer) are copied to `work_order_approvers` at submit. `approvers[]` on the form wins over the route (decision 4).
+- **SLA:** for each layer: `approvers[].sla_days`, else the route template (`approval_route_level_slas`), else the global default (`ApprovalSlaService.ResolveSlaDays`).
+- **Approval process tables** (same as `ActionPlanApprovalService.OpenProcessAsync`):
+
+| Table | When | What |
+|---|---|---|
+| `approval_processes` | Submit (a WO with steps) | `reference_id` = WO id, `approval_flow` = `Work Order` (proposal), `latest_approval_level` = the pending layer, `status` = `active`. One process for each WO Level (0, 1, 2). |
+| `approval_logs` | Submit, then each action | `initiate` at level 0 on submit; `approve` / `reject` with the layer, `remarks` and `reference_status` (the WO status after the action). |
+| `approval_process_levels` | Each layer that opens | `ApprovalSlaService.OpenProcessLevelAsync` (started, due date in working days). Closed with the outcome on approve / reject (`CloseOpenProcessLevelsAsync`). |
+
+- **On approve:** close the open level, write the `approve` log, move `latest_approval_level` to the next layer and open its level. After the last layer: `status` = `approved`, and the WO goes to the next Level.
+- **Lists:** `MyTaskList` filters `approval_processes` by `approval_flow`. Add the `Work Order` flow there (WO-T23).
+- **Round = stage (TD19):** no cycle table. One approval round = the `work_order_approvers` rows of one `level` + `stage`; one `approval_processes` row for each round. Do not copy the Action Plan cycle rules (PO review first, reject once per plan, return to PO).
+- **Submit opens Level 0 (TD20):** the requestor picks the flow on the Create form. Submit copies the route steps (or `approvers[]`) to `work_order_approvers` (Level 0, stage 1), opens `approval_processes` (`latest_approval_level` = 1), writes the `initiate` log and opens the Layer 1 timer, in the submit transaction. A category with no approval (R1) opens no process.
+- **Reject at Level 0 (TD21):** its own approval route, category `wo_reject_level_0`. A Level 0 reject opens a second process (flow proposal `Work Order Reject Level 0`) with the users of that route. After its last level → Rejected. A "no" at any level → back to the Level 0 approval. Open: who sits on this route, and is it one route for each department (like `work_order`)?
+- **Flow names (TD22, decided):**
+
+| `approval_flow` | Department that owns the route | Route picked by | When the process opens |
+|---|---|---|---|
+| `Work Order Level 0` | Requestor department | Requestor, on the Create form | Submit |
+| `Work Order Level 1` | Target department (Request To) | Target department, Set Approval Flow (#21) | Level 0 approved |
+| `Work Order Level 2` | Transfer or Disposition department | That department, Set Approval Flow (#21) | After Transfer / Disposition |
+| `Work Order Reject Level 0` | Requestor department (`wo_reject_level_0`) | Backend (TD21) | Level 0 reject |
+
+- **3 routes from 3 departments (TD22):** each Level uses a route of its own department. The route list rule (my departments) gives each department only its own routes.
+- **Permission ID per layer (TD22):** each route layer holds a permission ID. The FE fetches the users who can review with `GET /users/by-permission/{id}?department=` (TD11, TD13, §3.1). This needs the route layer change of §3.2 (WO-T03, not now).
+- **Not now:** no change to the approval route module (WO-T03 skipped; the new categories `work_order` and `wo_reject_level_0` need it) and no change to the Create code (WO-T05). Build this with WO-T10 / WO-T12.
 
 ### 2.6 Set Approval Flow (Level 1 and Level 2)
 21. `POST /work-orders/{id}/approval-flow` { approval_route_id }
