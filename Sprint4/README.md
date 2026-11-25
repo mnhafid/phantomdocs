@@ -3,7 +3,9 @@
 Source: Figma file "PHI - Latest Design", page "Drilling & WLI Sprint 4".
 Link: https://www.figma.com/design/usSi3zXbPKJf1snvAFEyLl/PHI---Latest-Design?node-id=20533-107575
 
-Captured: 2026-11-25, from browser screenshots (zoom to frame). Folders follow the Figma layers: section / sub-section / screen. Numbers follow the layer order. Tall frames are small in the image; open Figma for detail.
+Captured: 2026-11-25, from the Figma prototype view at 100% width (about 1465 px wide). Tall screens are scrolled and stitched into one full-height PNG. Folders follow the Figma layers: section / sub-section / screen. Numbers follow the layer order.
+
+Exception: "WELL INTERVENTION/Project Detail/05 - S-Curve & Gantt Chart" is a Figma section, not a screen. The prototype view cannot show it, so it is still the small zoom-to-fit capture.
 
 
 ## NEW WELL DEVELOPMENT
