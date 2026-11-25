@@ -27,3 +27,4 @@ Tanggal pasti release belum ditetapkan; ganti nama folder kalau tanggalnya berub
 | 10 | enhancement | [Aksi approval rebaseline di Personal Dashboard](10-enhancement-rebaseline-approval-dashboard.md) | PHI-2263 / PR #1485 | Merged; seed template belum dijalankan; `/review` on-hold 500 di staging |
 | 11 | fix | [`/my-task-list` timeout: query raw + cover index](11-fix-my-task-list-timeout.md) | tanpa ticket / PR #1493 | PR open; index sudah di dev |
 | 12 | enhancement | [`is_can_review` list Action Plan juga untuk approver level pending](12-enhancement-is-can-review-approvers.md) | PHI-2243 / PR belum | Staged; belum build / test |
+| 13 | enhancement | [Permission 162 / 163 untuk SDA 1 dan SDA 2](13-enhancement-sda-approve-reject-permission-162-163.md) | PHI-2243 / tanpa kode | Dev selesai (data mock); prod menunggu R3 team |

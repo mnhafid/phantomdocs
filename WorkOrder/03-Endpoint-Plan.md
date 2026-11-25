@@ -247,28 +247,30 @@ All actions check: the status, `current_level` / `current_layer`, and that the u
 
 Proposed template names use the `phantom_iac_wo_` prefix. Source: the notification table in the team doc (Knowledge Documents, its own §6) and the WO-x acceptance criteria in `02-Knowledge.md`.
 
-| # | Event (endpoint) | Title (team doc) | Recipients | Category | Color | Template name (proposed) |
-|---|---|---|---|---|---|---|
-| N1 | Submit (#8 Create) | Work Order Approval Request | Users of Layer 1 Level 0 (requestor dept) | Request | info | `phantom_iac_wo_approval_request` |
-| N2 | Approve Layer 1 Level 0 | Work Order Approved at Level 1 | Manager Requestor (Layer 2) + Requestor | Approval | info | `phantom_iac_wo_approved_level_1` |
-| N3 | Approve Layer 2 Level 0 | Incoming Work Order Request | Users of Layer 1 Level 1 (target dept, `request_to`) | Request | info | `phantom_iac_wo_incoming_request` |
-| N4 | Approve Layer 2 Level 0 | Work Order Approved at Level 2 | Requestor | Approval | info | `phantom_iac_wo_approved_level_2` |
-| N5 | Modify at Level 0 (X2) | Work Order Modified by Manager | Requestor (+ Senior, M10) | Approval | warning | `phantom_iac_wo_modified` |
-| N6 | Reject at Level 0 | Work Order Rejected | Requestor (with fields to revise) | Approval | danger | `phantom_iac_wo_rejected` |
-| N7 | Re-submit after reject (D3, open) | Work Order Revised by Requestor | Senior + Manager Requestor (M9) | Request | info | `phantom_iac_wo_revised` |
-| N8 | Approve Level 1 (target) | Work Order Approved by Target Department | Requestor | Approval | success | `phantom_iac_wo_approved_target` |
-| N9 | Modify request at Level 1 / 2 | Modification Verification | Manager Requestor (Layer 2 Level 0, X4) | Request | warning | `phantom_iac_wo_modification_verification` |
-| N10 | Modification OK = Yes | Modification Approved | Requestor + Level 1 (+ Level 2 if transferred) | Approval | success | `phantom_iac_wo_modification_approved` |
-| N11 | Reject at Level 1 (needs approval) | Rejection Approval | Manager of the target dept | Request | warning | `phantom_iac_wo_rejection_approval` |
-| N12 | Rejection = Yes, Reject | Work Order Rejected | Requestor + all levels | Approval | danger | same as N6 (`phantom_iac_wo_rejected`) |
-| N13 | Transfer | Transferred Work Order | Users of the assigned dept (Level 2) | Request | info | `phantom_iac_wo_transferred_in` |
-| N14 | Transfer | Work Order Transferred | Requestor | Approval | info | `phantom_iac_wo_transferred` |
-| N15 | Create Disposition | Disposition Created | PIC + Requestor | Approval | info | `phantom_iac_wo_disposition_created` |
-| N16 | Submit project (from WO) | New Project Approval | Project approvers (Q36, open) | Request | info | existing project approval template (check) |
-| N17 | Project approved | Project Approved | PIC | Approval | success | existing project template (check) |
-| N18 | Project returned | Project Returned | PIC (with reason) | Approval | warning | `phantom_iac_wo_project_returned` |
-| N19 | Finish project | Work Order Completed | Requestor + Senior Officer | Approval | success | `phantom_iac_wo_completed` |
-| N20 | SLA escalation (if kept, §8) | Work Order Escalated | Next approver + skipped approver | Request | warning | `phantom_iac_wo_escalated` |
+`Type` = how the notification reaches the user: **In-app** (Notification Center, one `notifications` row) or **Email** (`IMailerService`). The team doc says in-app only for every WO event. N16 / N17 use the project approval flow, which today also sends an email (`ApprovalNotifier`); decide if a project made from a WO keeps that email (§6.4).
+
+| # | Event (endpoint) | Title (team doc) | Recipients | Type | Category | Color | Template name (proposed) |
+|---|---|---|---|---|---|---|---|
+| N1 | Submit (#8 Create) | Work Order Approval Request | Users of Layer 1 Level 0 (requestor dept) | In-app | Request | info | `phantom_iac_wo_approval_request` |
+| N2 | Approve Layer 1 Level 0 | Work Order Approved at Level 1 | Manager Requestor (Layer 2) + Requestor | In-app | Approval | info | `phantom_iac_wo_approved_level_1` |
+| N3 | Approve Layer 2 Level 0 | Incoming Work Order Request | Users of Layer 1 Level 1 (target dept, `request_to`) | In-app | Request | info | `phantom_iac_wo_incoming_request` |
+| N4 | Approve Layer 2 Level 0 | Work Order Approved at Level 2 | Requestor | In-app | Approval | info | `phantom_iac_wo_approved_level_2` |
+| N5 | Modify at Level 0 (X2) | Work Order Modified by Manager | Requestor (+ Senior, M10) | In-app | Approval | warning | `phantom_iac_wo_modified` |
+| N6 | Reject at Level 0 | Work Order Rejected | Requestor (with fields to revise) | In-app | Approval | danger | `phantom_iac_wo_rejected` |
+| N7 | Re-submit after reject (D3, open) | Work Order Revised by Requestor | Senior + Manager Requestor (M9) | In-app | Request | info | `phantom_iac_wo_revised` |
+| N8 | Approve Level 1 (target) | Work Order Approved by Target Department | Requestor | In-app | Approval | success | `phantom_iac_wo_approved_target` |
+| N9 | Modify request at Level 1 / 2 | Modification Verification | Manager Requestor (Layer 2 Level 0, X4) | In-app | Request | warning | `phantom_iac_wo_modification_verification` |
+| N10 | Modification OK = Yes | Modification Approved | Requestor + Level 1 (+ Level 2 if transferred) | In-app | Approval | success | `phantom_iac_wo_modification_approved` |
+| N11 | Reject at Level 1 (needs approval) | Rejection Approval | Manager of the target dept | In-app | Request | warning | `phantom_iac_wo_rejection_approval` |
+| N12 | Rejection = Yes, Reject | Work Order Rejected | Requestor + all levels | In-app | Approval | danger | same as N6 (`phantom_iac_wo_rejected`) |
+| N13 | Transfer | Transferred Work Order | Users of the assigned dept (Level 2) | In-app | Request | info | `phantom_iac_wo_transferred_in` |
+| N14 | Transfer | Work Order Transferred | Requestor | In-app | Approval | info | `phantom_iac_wo_transferred` |
+| N15 | Create Disposition | Disposition Created | PIC + Requestor | In-app | Approval | info | `phantom_iac_wo_disposition_created` |
+| N16 | Submit project (from WO) | New Project Approval | Project approvers (Q36, open) | In-app + email (today, check) | Request | info | existing project approval template (check) |
+| N17 | Project approved | Project Approved | PIC | In-app + email (today, check) | Approval | success | existing project template (check) |
+| N18 | Project returned | Project Returned | PIC (with reason) | In-app | Approval | warning | `phantom_iac_wo_project_returned` |
+| N19 | Finish project | Work Order Completed | Requestor + Senior Officer | In-app | Approval | success | `phantom_iac_wo_completed` |
+| N20 | SLA escalation (if kept, §8) | Work Order Escalated | Next approver + skipped approver | In-app | Request | warning | `phantom_iac_wo_escalated` |
 
 - Bulk Approve sends the same notification as a single Approve (N2 / N3 / N4 / N8) for each WO.
 - A category with no approval (R1): open Q24, proposal = still send N3 to the target dept.
@@ -283,7 +285,7 @@ Proposed template names use the `phantom_iac_wo_` prefix. Source: the notificati
 | `notifications` | Nothing (seed) | The dispatcher writes these rows at run time. |
 | Email | Nothing | Email bodies are in the code (`ApprovalNotifier`). |
 
-- **Source of the HTML:** the FE team makes one file per template in `ocean-email-template/phantom/notification_inapp_content/<name>.html`. The Action Plan templates came from that repo (PR #23). Ask the FE team for the WO files first.
+- **Source of the HTML:** the FE team makes one file per template in `ocean-email-template/phantom/notification_inapp_content/<name>.html`. The Action Plan templates came from that repo (PR #23)[https://github.com/rinaldyocean/ocean-email-template]. Ask the FE team for the WO files first.
 - **New seed file (to do):** `DataAccess/Database/seed_work_order_notification_templates.sql`. Run it after `seed_work_order_config.sql`.
 
 ### 6.4 Open points
@@ -293,3 +295,40 @@ Proposed template names use the `phantom_iac_wo_` prefix. Source: the notificati
 - Well WO: keep the 12 Action Plan `phantom_iac_*` templates, or map to the WO templates (I5).
 - Email: in-app only (team doc). Decide if a project made from a WO still sends the project approval email.
 - N7 depends on the re-submit decision (D3).
+
+---
+
+## 7. Create WO: implementation plan (25 Nov, waits for OK)
+
+Goal: one PR to `phi-dev` that lets the requestor fill the Create Work Order form, save a draft, and submit it.
+
+### 7.1 State today
+- Built and **staged** in `.worktrees/wo-draft` (branch `feat/work-order-draft`): #6 save draft, #7 update draft, #8 create (submit), multipart parser, config reader, seed `seed_work_order_config.sql`, 9 tests in `WorkOrderFormTests.cs`, Bruno requests.
+- Not built, tests not run.
+- The branch base is old (`d6149aca`, the #1533 branch). `phi-dev` now has #1539 (`field_id` as text). Both change `WorkOrdersService.cs`, so one conflict is expected.
+
+### 7.2 Steps
+| # | Step | Detail |
+|---|---|---|
+| 1 | Update the base | Make a patch of the staged changes. Reset the branch to `origin/phi-dev`. Apply the patch with `--3way`. Fix the conflict in `WorkOrdersService.cs` by hand (keep the #1539 `field_id` text rule). |
+| 2 | Add #3 `GET /work-order/next-number` | Preview only. `WorkOrderNumbers` preview with the requestor department short name. No number is taken. |
+| 3 | Add #4 `GET /work-order/form-options` | One call: Request To (code + label, Category / Function on or off), categories per Request To, urgency levels, budget types, `categories_without_approval`. Source: `custom_configurations` (`WorkOrderConfig`). Schedule kind is not in the form (the BE sets it). |
+| 4 | Add #9 `POST /work-order/{id:guid}/delete` | Soft delete. Only the creator (403), only a draft (400), 404 if not found. One history row. The number is not given back (gap in the sequence). |
+| 5 | Tests | Add: next number, form options, delete draft (owner / not owner / not draft), submit with a no-approval category, the 5-file limit, the code → department match. |
+| 6 | Build and test | `make build`, `dotnet test` (check the build exit code first), `make check-migrations` (no new migration expected). Only after your OK. |
+| 7 | Seed on dev | Run `seed_work_order_config.sql` on dev. Only after your OK. |
+| 8 | Bruno | Add Next Number, Form Options, Delete Draft, with example responses. Stage only. |
+| 9 | Stage and PR | Stage only. You commit: `[PHI-xxxx] feat(work-order): create work order (draft, submit, form options)`. PR to `phi-dev` with the endpoint table and the test result. |
+
+### 7.3 Not in this PR (later PRs)
+- Approval route layers with a permission ID (§3.2). Until then the approver steps come from the `approvers` field, or from the route users (route level = Layer). `work_order_approvers.permission_id` stays empty.
+- `/users/by-permission` department filter (§3.1).
+- Action Plan link (§3.4). The Action Plan key stays in the `submitted` history snapshot.
+- Notifications on submit (§6).
+- Attachments after create (#12, #13) and details (#10).
+
+### 7.4 Decisions needed
+1. Put #3, #4 and #9 in this PR? Proposal: yes. The form needs #3 and #4, and all three are small.
+2. The Jira ticket number for the commit.
+3. Until §3.2 is built, keep the route users as the Layer 1 / Layer 2 approvers? Proposal: yes.
+4. Times (`created_at`, `submitted_at`): UTC or WIB? Proposal: UTC, like the other modules; the FE shows WIB.
