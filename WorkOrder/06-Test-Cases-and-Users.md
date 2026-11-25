@@ -130,7 +130,7 @@ Result words: **Pass**, **Fail**, **Blocked** (an endpoint is not built), **To t
 
 ### 2.1 Happy flow (Level 0 → Level 1 → Disposition → Project → Completed)
 
-**Test #1. Case: Happy flow, target approves without a flow** · Result: To test
+**Test #1. Case: Happy flow, target approves without a flow** · Result: Unit (to Level 1 approve): `Level1_ApproveWithoutFlow_ByAUserOfTheTargetDepartment` pass; disposition in `Transfer_ThenLevel2Approve_ThenDisposition`; project steps blocked (WO-T22); curl to test
 - PO PIC creates a WO: `request_to=osf`, picks the Level 0 route, submits.
 	- Status WO = `waiting_approval` · L0 · Layer 1
 	- Process = `Work Order Level 0` open, level 1, `initiate` log
@@ -175,7 +175,7 @@ Result words: **Pass**, **Fail**, **Blocked** (an endpoint is not built), **To t
 - PO Senior 2 approves, then PO Manager approves.
 - Expected: same as Test #1 from Level 1. No layer is skipped (decision: no Senior skip).
 
-**Test #1.2. Case: Bulk approve** · Result: To test
+**Test #1.2. Case: Bulk approve** · Result: Unit: `ApproveBulk_ApprovesWhatPasses_ListsTheRest` pass; curl to test
 - PO PIC submits 3 WOs. PO Senior selects all 3 and clicks Approve Selected.
 - Expected: each WO goes to `waiting_approval` · L0 · Layer 2. One N2 for each WO. A WO that is not at the user's step is skipped and listed in the response.
 
@@ -188,7 +188,7 @@ Result words: **Pass**, **Fail**, **Blocked** (an endpoint is not built), **To t
 
 ### 2.2 Level 0 Modify (TD23)
 
-**Test #2. Case: Senior modifies, Manager approves the change** · Result: To test
+**Test #2. Case: Senior modifies, Manager approves the change** · Result: Unit: `Level0Modify_ManagerApproves_AppliedAndLevel1_ManagerRejects_BackToLayer1` pass; curl to test
 - PO PIC submits a WO.
 - PO Senior clicks Modify, changes the end date and the description.
 	- Status WO = `modification_review` · L0 · Layer 2
@@ -202,7 +202,7 @@ Result words: **Pass**, **Fail**, **Blocked** (an endpoint is not built), **To t
 	- Notif N3 → OSF Senior
 - Expected: OSF users see the new values. A reader outside the requestor side does not see the Level 0 `modified` row text (TD26).
 
-**Test #2.1. Case: Manager rejects the change** · Result: To test
+**Test #2.1. Case: Manager rejects the change** · Result: Unit: same test (back to Layer 1, G34 to confirm) pass; curl to test
 - Same as Test #2 to View Changes. PO Manager clicks Reject (with remarks).
 	- Proposal dropped. The WO keeps the old values.
 	- Status WO = `waiting_approval` · L0 (layer: open point G34)
@@ -216,7 +216,7 @@ Result words: **Pass**, **Fail**, **Blocked** (an endpoint is not built), **To t
 	- Notif N3 → OSF Senior
 - Expected: one modify step + one approve step in the history.
 
-**Test #2.3. Case: Manager modifies with no Senior change** · Result: To test
+**Test #2.3. Case: Manager modifies with no Senior change** · Result: Unit: `Level0SelfModify_ByTheManager_AppliesAndGoesToLevel1` pass; curl to test
 - PO PIC submits. PO Senior approves. PO Manager clicks Modify at `waiting_approval` · L0 · Layer 2.
 - Expected: Status WO = `waiting_approval` · L1 · Layer 1, the change applied (Self Modify = modify + approve).
 
@@ -224,7 +224,7 @@ Result words: **Pass**, **Fail**, **Blocked** (an endpoint is not built), **To t
 
 ### 2.3 Level 0 Reject (TD21, reject route)
 
-**Test #3. Case: Senior rejects, the reject route confirms** · Result: To test
+**Test #3. Case: Senior rejects, the reject route confirms** · Result: Unit: `Reject_ByLayer1_OpensTheRejectRound_NotFinal`, `RejectionConfirm_ByEveryRejectLevel_RejectsTheWorkOrder` pass; curl to test
 - PO PIC submits a WO.
 - PO Senior clicks Reject: reason (required, max 500), fields to revise (optional).
 	- Status WO = `rejection_review` · L0
@@ -236,13 +236,13 @@ Result words: **Pass**, **Fail**, **Blocked** (an endpoint is not built), **To t
 	- Notif N6 → PO PIC, with the fields to revise
 - Expected: no button on the WO. Requestor makes a new WO with a new number (G6 open: Figma shows "Revision").
 
-**Test #3.1. Case: the reject route refuses** · Result: To test
+**Test #3.1. Case: the reject route refuses** · Result: Unit: `RejectionCancel_GoesBackToTheLayerThatAsked_WithAFreshCopyOfItsApprovers` pass; curl to test
 - Same as Test #3 to `rejection_review`. The reject route user refuses.
 	- Status WO = `waiting_approval` · L0 · same layer
 	- Process: reject process `rejected`; `Work Order Level 0` goes on
 - Expected: PO Senior can approve or modify again.
 
-**Test #3.2. Case: Manager rejects at Layer 2** · Result: To test
+**Test #3.2. Case: Manager rejects at Layer 2** · Result: Unit: same test (Manager rejects at Layer 2) pass; curl to test
 - PO PIC submits. PO Senior approves. PO Manager clicks Reject.
 - Expected: same as Test #3 from `rejection_review`.
 
@@ -250,7 +250,7 @@ Result words: **Pass**, **Fail**, **Blocked** (an endpoint is not built), **To t
 
 ### 2.4 Level 1 Set Approval Flow and Modify
 
-**Test #4. Case: target Senior modifies, both Managers agree** · Result: To test
+**Test #4. Case: target Senior modifies, both Managers agree** · Result: Unit: `SetApprovalFlow_CopiesTheTargetRoute_OnlyOnce`, `Level1Modify_BothManagersApprove_TheProposalIsApplied` pass; curl to test
 - Follow Test #1 to `waiting_approval` · L1 · Layer 1.
 - OSF Senior clicks Set Approval Flow, picks "Work Order - Operation & Surface Facilities".
 	- Status WO = `waiting_approval` · L1 (no change)
@@ -270,11 +270,11 @@ Result words: **Pass**, **Fail**, **Blocked** (an endpoint is not built), **To t
 	- Notif N10 → PO PIC + OSF users
 - Expected: the history shows each step. PO PIC sees the new values.
 
-**Test #4.1. Case: target Manager refuses the change** · Result: To test
+**Test #4.1. Case: target Manager refuses the change** · Result: Unit: `Level1Modify_TargetManagerRejects_BackToTheSenior` pass; curl to test
 - Same as Test #4 to `modification_review` · L1 · Layer 2. OSF Manager refuses.
 - Expected: Status WO = `waiting_approval` · L1 · Layer 1, proposal dropped, old values.
 
-**Test #4.2. Case: requestor Manager refuses the change** · Result: To test
+**Test #4.2. Case: requestor Manager refuses the change** · Result: Unit: `Level1Modify_RequestorManagerRejects_ApprovedWithTheOldValues` pass; curl to test
 - Same as Test #4 to `modification_review` · L0 · Layer 2. PO Manager clicks "Not OK".
 - Expected: Status WO = `approved` · L1 with the **old** values. Proposal dropped (X5). No N10.
 
@@ -282,7 +282,7 @@ Result words: **Pass**, **Fail**, **Blocked** (an endpoint is not built), **To t
 
 ### 2.5 Level 1 Reject (two confirmations)
 
-**Test #5. Case: both Managers agree to reject** · Result: To test
+**Test #5. Case: both Managers agree to reject** · Result: Unit: `Level1Reject_BothManagersAccept_Rejected` pass; curl to test
 - Follow Test #4 to Set Approval Flow.
 - OSF Senior clicks Reject (reason).
 	- Status WO = `rejection_review` · L1 · Layer 2
@@ -299,7 +299,7 @@ Result words: **Pass**, **Fail**, **Blocked** (an endpoint is not built), **To t
 - Same as Test #5 to `rejection_review` · L1. OSF Manager clicks "No, Cancel".
 - Expected: Status WO = `waiting_approval` · L1 · Layer 1. OSF Senior can act again.
 
-**Test #5.2. Case: requestor Manager refuses the rejection** · Result: To test
+**Test #5.2. Case: requestor Manager refuses the rejection** · Result: Unit: `Level1Reject_RequestorManagerRefuses_NoRejectAfterwards` pass; curl to test
 - Same as Test #5 to `rejection_review` · L0. PO Manager refuses.
 	- Status WO = `waiting_approval` · L1 · Layer 1, `no_reject` = true
 - OSF Senior opens the WO.
@@ -312,7 +312,7 @@ Result words: **Pass**, **Fail**, **Blocked** (an endpoint is not built), **To t
 
 ### 2.6 Transfer and Level 2
 
-**Test #6. Case: transfer to Projects, Level 2 approves** · Result: To test
+**Test #6. Case: transfer to Projects, Level 2 approves** · Result: Unit: `Transfer_ThenLevel2Approve_ThenDisposition` pass (Level 2 flow not in the test); curl to test
 - Follow Test #1 to `approved` · L1.
 - OSF Senior clicks Transfer: department = Projects (from the OSF list), sub-unit / PIC (open point: Figma has PIC, team doc has sub-unit), notes optional.
 	- Status WO = `waiting_approval` · **L2** · Layer 1 (TD15)
@@ -329,7 +329,7 @@ Result words: **Pass**, **Fail**, **Blocked** (an endpoint is not built), **To t
 - Same as Test #6 to Level 2. PRJ Senior sets the flow and modifies.
 - Expected: the same Modify steps as Test #4 (PRJ Manager, then PO Manager). OSF readers outside the Level 2 side do not see the Level 2 proposal text in the history (TD26).
 
-**Test #6.2. Case: no second transfer** · Result: To test
+**Test #6.2. Case: no second transfer** · Result: Unit: same test pass; curl to test
 - At `approved` · L2, call `POST …/transfer` by the API as PRJ Senior.
 - Expected: 400. Status WO does not change.
 
@@ -337,7 +337,7 @@ Result words: **Pass**, **Fail**, **Blocked** (an endpoint is not built), **To t
 
 ### 2.7 Disposition rules
 
-**Test #7. Case: Work Type by department** · Result: To test
+**Test #7. Case: Work Type by department** · Result: Unit: ABI/BD + ABI/NBD for Projects in `Transfer_ThenLevel2Approve_ThenDisposition` pass; other rows curl to test
 
 | Disposition by | Work Type | Expected |
 |---|---|---|
@@ -506,6 +506,6 @@ Test path: **PO (requestor, Level 0) → OSF (target, Level 1) → Projects (ass
 
 ### 4.6 Still to do for a full FE test
 1. **Approval routes** in Data Config, for each department: "Work Order - Production Operations", "… - Operation & Surface Facilities", "… - Project". Each has Level 0 / 1 / 2, Layer 1 (276) / Layer 2 (277). Waits for the route-layer schema (`02` §1 G3).
-2. **`/users/by-permission/{id}`** lists Retina-only ids only for 161–163 (`IsRetinaOnlyPermissionAsync`, fixed list). Add 273–279 (or read the list from config), or the approver lists stay empty.
+2. **`/users/by-permission/{id}`:** done 26 Nov (staged). 273–279 are Retina-only in code (`WorkOrderPermissions`), and `?department=` filters by `users.department`.
 3. **`custom_configurations`:** the WO config keys (`seed_work_order_config.sql` on `feat/work-order-draft`, plus schedule type, transfer list, Work Types). See `05` §3.
 4. Users log in again after any ACL change (the session payload is read at login).

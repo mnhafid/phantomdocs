@@ -42,23 +42,23 @@ Rule: base `/api/v1/work-order` (singular, like the merged #1530 / #1533). A WO 
 | 7 | POST | `/work-order/draft/{id:guid}` | `/work-orders/draft/{id}` | multipart FE form | Built, staged (`feat/work-order-draft`) | [PHI-2993](https://digiitphi.atlassian.net/browse/PHI-2993) |
 | 8 | POST | `/work-order/{working_area}` | `/work-orders/submit` | multipart FE form + optional `id` of a draft | Built, staged (`feat/work-order-draft`) | [PHI-2993](https://digiitphi.atlassian.net/browse/PHI-2993) |
 | 9 | POST | `/work-order/{id:guid}/delete` | `/work-orders/{id}/delete` | – | Built, staged (`feat/work-order-draft`), WO-T06 | [PHI-2993](https://digiitphi.atlassian.net/browse/PHI-2993) |
-| 10 | GET | `/work-order/{id:guid}` | `/work-orders/{id}` | – | To do | [PHI-2994](https://digiitphi.atlassian.net/browse/PHI-2994) |
-| 11 | GET | `/work-order/{id:guid}/histories` | `/work-orders/{id}/histories` | – | To do | [PHI-3106](https://digiitphi.atlassian.net/browse/PHI-3106) |
-| 12 | POST | `/work-order/{id:guid}/attachments` | `/work-orders/{id}/attachments` | multipart files | To do | [PHI-2995](https://digiitphi.atlassian.net/browse/PHI-2995) |
-| 13 | POST | `/work-order/{id:guid}/attachments/{attachmentId:guid}/delete` | `/work-orders/{id}/attachments/{attachmentId}/delete` | – | To do | [PHI-2995](https://digiitphi.atlassian.net/browse/PHI-2995) |
-| 15 | POST | `/work-order/{id:guid}/approve` | `/work-orders/{id}/approve` | `{ remarks }` | To do | [PHI-2996](https://digiitphi.atlassian.net/browse/PHI-2996), [PHI-3055](https://digiitphi.atlassian.net/browse/PHI-3055), [PHI-3006](https://digiitphi.atlassian.net/browse/PHI-3006), [PHI-3048](https://digiitphi.atlassian.net/browse/PHI-3048) |
-| 16 | POST | `/work-order/approve/bulk` | `/work-orders/approve/bulk` | `{ ids[] }` | To do | [PHI-2996](https://digiitphi.atlassian.net/browse/PHI-2996) |
-| 17 | POST | `/work-order/{id:guid}/modify` | `/work-orders/{id}/modify` | `{ changed fields, remarks }` | To do | [PHI-2998](https://digiitphi.atlassian.net/browse/PHI-2998), [PHI-2999](https://digiitphi.atlassian.net/browse/PHI-2999), [PHI-3002](https://digiitphi.atlassian.net/browse/PHI-3002), [PHI-3049](https://digiitphi.atlassian.net/browse/PHI-3049), [PHI-3056](https://digiitphi.atlassian.net/browse/PHI-3056) |
-| 18 | POST | `/work-order/{id:guid}/reject` | `/work-orders/{id}/reject` | `{ remarks }` | To do | [PHI-2997](https://digiitphi.atlassian.net/browse/PHI-2997), [PHI-3004](https://digiitphi.atlassian.net/browse/PHI-3004), [PHI-3051](https://digiitphi.atlassian.net/browse/PHI-3051), [PHI-3058](https://digiitphi.atlassian.net/browse/PHI-3058) |
-| 19 | POST | `/work-order/{id:guid}/modification/decision` | `/work-orders/{id}/modification/decision` | `{ decision, remarks }` | To do | [PHI-3000](https://digiitphi.atlassian.net/browse/PHI-3000), [PHI-3001](https://digiitphi.atlassian.net/browse/PHI-3001), [PHI-3003](https://digiitphi.atlassian.net/browse/PHI-3003), [PHI-3050](https://digiitphi.atlassian.net/browse/PHI-3050), [PHI-3057](https://digiitphi.atlassian.net/browse/PHI-3057) |
-| 20 | POST | `/work-order/{id:guid}/rejection/decision` | `/work-orders/{id}/rejection/decision` | `{ decision, remarks }` | To do | [PHI-3051](https://digiitphi.atlassian.net/browse/PHI-3051), [PHI-3052](https://digiitphi.atlassian.net/browse/PHI-3052), [PHI-3058](https://digiitphi.atlassian.net/browse/PHI-3058), [PHI-3059](https://digiitphi.atlassian.net/browse/PHI-3059) |
-| 21 | POST | `/work-order/{id:guid}/approval-flow` | `/work-orders/{id}/approval-flow` | `{ approval_route_id }` | To do | [PHI-3005](https://digiitphi.atlassian.net/browse/PHI-3005), [PHI-3054](https://digiitphi.atlassian.net/browse/PHI-3054) |
-| 22 | GET | `/work-order/{id:guid}/approvers` | `/work-orders/{id}/approvers` | `level`, `layer` (`string?`) | To do | [PHI-3005](https://digiitphi.atlassian.net/browse/PHI-3005), [PHI-3054](https://digiitphi.atlassian.net/browse/PHI-3054) |
-| 23 | GET | `/work-order/{id:guid}/transfer-options` | `/work-orders/{id}/transfer-options` | – | To do | [PHI-3048](https://digiitphi.atlassian.net/browse/PHI-3048) |
-| 24 | POST | `/work-order/{id:guid}/transfer` | `/work-orders/{id}/transfer` | `{ department, sub_unit?, pic_id?, notes? }` (PIC open) | To do | [PHI-3048](https://digiitphi.atlassian.net/browse/PHI-3048) |
-| 25 | POST | `/work-order/{id:guid}/disposition` | `/work-orders/{id}/disposition` | `{ work_type, pic_ids[], notes? }` | To do | [PHI-3006](https://digiitphi.atlassian.net/browse/PHI-3006) |
-| 26 | GET | `/work-order/{id:guid}/project-prefill` | `/work-orders/{id}/project-prefill` | – | To do | [PHI-3060](https://digiitphi.atlassian.net/browse/PHI-3060) |
-| 27 | GET | `/work-order/{id:guid}/export` | – | `format` (`string?`, PDF or CSV, open G35) | To do (WO-T24) | [PHI-3053](https://digiitphi.atlassian.net/browse/PHI-3053) |
+| 10 | GET | `/work-order/{id:guid}` | `/work-orders/{id}` | – | PR #1548 (open, stacked on #1545), WO-T07 | [PHI-2994](https://digiitphi.atlassian.net/browse/PHI-2994) |
+| 11 | GET | `/work-order/{id:guid}/histories` | `/work-orders/{id}/histories` | – | Built by teammate (PR #1544, open), WO-T08 | [PHI-3106](https://digiitphi.atlassian.net/browse/PHI-3106) |
+| 12 | POST | `/work-order/{id:guid}/attachments` | `/work-orders/{id}/attachments` | multipart files | Teammate PR #1547 (open), WO-T09 | [PHI-2995](https://digiitphi.atlassian.net/browse/PHI-2995) |
+| 13 | POST | `/work-order/{id:guid}/attachments/{attachmentId:guid}/delete` | `/work-orders/{id}/attachments/{attachmentId}/delete` | – | Teammate PR #1547 (open), WO-T09 | [PHI-2995](https://digiitphi.atlassian.net/browse/PHI-2995) |
+| 15 | POST | `/work-order/{id:guid}/approve` | `/work-orders/{id}/approve` | `{ remarks }` | PR #1548 (open, stacked on #1545): Level 0 / 1 / 2, WO-T10 | [PHI-2996](https://digiitphi.atlassian.net/browse/PHI-2996), [PHI-3055](https://digiitphi.atlassian.net/browse/PHI-3055), [PHI-3006](https://digiitphi.atlassian.net/browse/PHI-3006), [PHI-3048](https://digiitphi.atlassian.net/browse/PHI-3048) |
+| 16 | POST | `/work-order/approve/bulk` | `/work-orders/approve/bulk` | `{ ids[] }` | PR #1548 (open, stacked on #1545): `{ ids[] (1–100), remarks? }` → `approved[]`, `failed[{id, reason}]`, WO-T10 | [PHI-2996](https://digiitphi.atlassian.net/browse/PHI-2996) |
+| 17 | POST | `/work-order/{id:guid}/modify` | `/work-orders/{id}/modify` | `{ changed fields, remarks }` | PR #1548 (open, stacked on #1545): multipart FE form + `remarks`, WO-T11 | [PHI-2998](https://digiitphi.atlassian.net/browse/PHI-2998), [PHI-2999](https://digiitphi.atlassian.net/browse/PHI-2999), [PHI-3002](https://digiitphi.atlassian.net/browse/PHI-3002), [PHI-3049](https://digiitphi.atlassian.net/browse/PHI-3049), [PHI-3056](https://digiitphi.atlassian.net/browse/PHI-3056) |
+| 18 | POST | `/work-order/{id:guid}/reject` | `/work-orders/{id}/reject` | `{ remarks }` | PR #1548 (open, stacked on #1545): Level 0 via `wo_reject_level_0` (TD21), Level 1 / 2, WO-T12 | [PHI-2997](https://digiitphi.atlassian.net/browse/PHI-2997), [PHI-3004](https://digiitphi.atlassian.net/browse/PHI-3004), [PHI-3051](https://digiitphi.atlassian.net/browse/PHI-3051), [PHI-3058](https://digiitphi.atlassian.net/browse/PHI-3058) |
+| 19 | POST | `/work-order/{id:guid}/modification/decision` | `/work-orders/{id}/modification/decision` | `{ decision, remarks }` | PR #1548 (open, stacked on #1545): `decision` = approve | reject, WO-T13 | [PHI-3000](https://digiitphi.atlassian.net/browse/PHI-3000), [PHI-3001](https://digiitphi.atlassian.net/browse/PHI-3001), [PHI-3003](https://digiitphi.atlassian.net/browse/PHI-3003), [PHI-3050](https://digiitphi.atlassian.net/browse/PHI-3050), [PHI-3057](https://digiitphi.atlassian.net/browse/PHI-3057) |
+| 20 | POST | `/work-order/{id:guid}/rejection/decision` | `/work-orders/{id}/rejection/decision` | `{ decision, remarks }` | PR #1548 (open, stacked on #1545): `decision` = confirm | cancel, WO-T14 | [PHI-3051](https://digiitphi.atlassian.net/browse/PHI-3051), [PHI-3052](https://digiitphi.atlassian.net/browse/PHI-3052), [PHI-3058](https://digiitphi.atlassian.net/browse/PHI-3058), [PHI-3059](https://digiitphi.atlassian.net/browse/PHI-3059) |
+| 21 | POST | `/work-order/{id:guid}/approval-flow` | `/work-orders/{id}/approval-flow` | `{ approval_route_id }` | PR #1548 (open, stacked on #1545): `{ approval_route_id }` or `{ approvers[] }`, WO-T15 | [PHI-3005](https://digiitphi.atlassian.net/browse/PHI-3005), [PHI-3054](https://digiitphi.atlassian.net/browse/PHI-3054) |
+| 22 | GET | `/work-order/{id:guid}/approvers` | `/work-orders/{id}/approvers` | `level`, `layer` (`string?`) | PR #1548 (open, stacked on #1545), WO-T16 | [PHI-3005](https://digiitphi.atlassian.net/browse/PHI-3005), [PHI-3054](https://digiitphi.atlassian.net/browse/PHI-3054) |
+| 23 | GET | `/work-order/{id:guid}/transfer-options` | `/work-orders/{id}/transfer-options` | – | PR #1548 (open, stacked on #1545), WO-T17 | [PHI-3048](https://digiitphi.atlassian.net/browse/PHI-3048) |
+| 24 | POST | `/work-order/{id:guid}/transfer` | `/work-orders/{id}/transfer` | `{ department, sub_unit?, pic_id?, notes? }` (PIC open) | PR #1548 (open, stacked on #1545): `{ department, sub_unit?, pic_ids?, notes? }` (both optional, to confirm), WO-T17 | [PHI-3048](https://digiitphi.atlassian.net/browse/PHI-3048) |
+| 25 | POST | `/work-order/{id:guid}/disposition` | `/work-orders/{id}/disposition` | `{ work_type, pic_ids[], notes? }` | PR #1548 (open, stacked on #1545), WO-T18 | [PHI-3006](https://digiitphi.atlassian.net/browse/PHI-3006) |
+| 26 | GET | `/work-order/{id:guid}/project-prefill` | `/work-orders/{id}/project-prefill` | – | PR #1548 (open, stacked on #1545), WO-T19 | [PHI-3060](https://digiitphi.atlassian.net/browse/PHI-3060) |
+| 27 | GET | `/work-order/{id:guid}/export` | – | `format` (`string?`, PDF or CSV, open G35) | Skipped 26 Nov (G35 open), WO-T24 | [PHI-3053](https://digiitphi.atlassian.net/browse/PHI-3053) |
 
 Notes:
 - Jira column: the Stories of epic [PHI-2465](https://digiitphi.atlassian.net/browse/PHI-2465), mapped by title (25 Nov). Full map: `07-Ticket.md` §3. Export ([PHI-3053](https://digiitphi.atlassian.net/browse/PHI-3053)) = #27 (format open, G35).
@@ -98,7 +98,7 @@ Notes:
 - One FE multipart form for #6 / #7 / #8: arrays and objects as JSON strings, numbers as strings. Files in the same call: max 5 per WO, 10 MB, PDF / DOC / DOCX / XLS / XLSX / JPG / PNG.
 - `request_to` = FE code, checked against `work_order.request_to`. `budget_type` = array, one value (`abibd`, `abinbd`, `abo_routine`, `abo_non_routine`). `urgency_level` = FE value.
 - Approvers: `approvers[{level, sla_days, user_id[]}]` wins over `approval_route_id` (route level = Layer). Level 0, stage 1. A draft keeps them (not active); Update replaces them.
-- #8 required: title, description, urgency_level, request_to, field_id (in the path working area), dates, and a step unless the category is in `work_order.categories_without_approval`. `schedule_kind` = project for `osf` / `projects`, else simple. The Action Plan key is kept in the `submitted` history snapshot only (§3.4 not built).
+- #8 required: title, description, urgency_level, request_to, field_id (in the path working area), dates, and a Level 0 flow (`approvers[]` or `approval_route_id`). ~~"a step unless the category is in `work_order.categories_without_approval`"~~: **no category skip** (25 Nov, WO-T05), the flow is required for every category since TD20 (built in PR #1548: no flow = 400; the route must be `wo_approve_level_0` of the requestor department, TD34). Result is always `waiting_approval` · Level 0 · first layer (PR #1545 review comment 5). `schedule_kind` = project for `osf` / `projects`, else simple. The Action Plan key is kept in the `submitted` history snapshot only (§3.4 not built).
 
 **Draft rules (checked on `phi-dev`, 24 Nov):**
 - Status `draft`, `current_level` 0, `current_layer` 0. No `work_order_approvers` rows until Submit.
@@ -113,8 +113,40 @@ Notes:
 10. `GET /work-orders/{id}`: the header, the PICs, the attachments, the current Level / Layer, the copied steps, and the list of **actions this user can do now** (for the buttons).
 11. `GET /work-orders/{id}/histories`: the approval history for each cycle (Received Date, Action Date, Duration, Remarks), and the Modification Comparison (before / after for each field).
 12. `POST /work-orders/{id}/attachments` (multipart): adds files (max 5 for each WO, 10 MB each; PDF, DOC, DOCX, XLS, XLSX, JPG, PNG).
-x`z`x
 13. `POST /work-orders/{id}/attachments/{attachmentId}/delete`: soft delete.
+
+#### 2.4.1 FE feedback on the WO detail response (#10, 25 Nov)
+The FE reviewed the response of `GET /work-orders/{id}`. The table gives the 4 points and the change for each point.
+
+| # | FE feedback | Today (entity `WorkOrder`) | Change |
+|---|---|---|---|
+| F1 | There is no `actual_start_date` / `actual_end_date`. The response has only `start_date` / `end_date`. The FE reads them as the plan dates. | Only `StartDate` / `EndDate`. They are the plan dates from the form. There are no actual-date columns. | Return `plan_start_date` / `plan_end_date` (from `start_date` / `end_date`). Add `actual_start_date` / `actual_end_date`, computed from the linked project: its actual date if available, else its plan date (TD28, see F1 note). No new columns. |
+| F2 | `production_impact` has no loss avoidance. The form selects production gain or loss avoidance first. An empty value must be `null`, not `0`, so that the FE knows the field is not filled. | The columns are `double?`: `ProductionGainGas/Oil`, `LossAvoidanceGas/Oil`, `LpoPotentialGas/Oil`. The response sends `0` for a null value. | Add `loss_avoidance_gas` / `loss_avoidance_oil` to `production_impact`. Do not change null to `0` (no `?? 0` in the mapper). Add `impact_type` = `production_gain` / `loss_avoidance`, from a new column (TD29, see F2 note). |
+| F3 | The `pics` items have no position. | `work_order_pics` has `user_id` only. `users.position_name` has the position. | Add `position` (from `users.position_name`) to each item of `pics`. |
+| F4 | The response has no Action Plan data. Modify needs it. For a simple schedule WO, Modify must also change the Action Plan form. | `ActionPlanSource` (`phss` / `pep`) and `ActionPlanId` link the WO to its Action Plan. | Add an `action_plan` block when `action_plan_id` is set: the source, the id, and **all** the Action Plan fields. #17 Modify can change all the Action Plan fields for a simple schedule WO (TD30, see F4 note). |
+
+Example of the new `production_impact` (loss avoidance is selected, the empty values are null):
+```json
+"production_impact": {
+  "impact_type": "loss_avoidance",
+  "production_gain_gas": null,
+  "production_gain_oil": null,
+  "loss_avoidance_gas": null,
+  "loss_avoidance_oil": 120,
+  "lpo_potential_gas": null,
+  "lpo_potential_oil": null
+}
+```
+
+Notes and open points:
+- **F1 (TD28, updated 26 Nov):** No new columns on `work_orders`, and no action writes the actual dates. The response computes `actual_start_date` / `actual_end_date` from the projects linked to the WO (`projects.work_order_id`):
+  1. The actual date of the project, when the project has one. Today `projects` has no actual-date column, so this step finds nothing yet.
+  2. Else the plan date of the project (`projects.start_date` / `projects.end_date`).
+  3. When the WO has more than one project: the earliest start date and the latest end date.
+  4. When the WO has no project: `null`.
+- **F2 (TD29, 26 Nov):** Add a new column `impact_type` on `work_orders` (`nvarchar`, `production_gain` | `loss_avoidance`, nullable; a new migration). The Draft / Update / Create form (#6, #7, #8) sends `impact_type`. The service saves `null` (not `0`) for the values of the type that is not selected. A WO with all values empty still keeps the selection.
+- **F3:** As planned. No schema change. Join `users` on `work_order_pics.user_id`.
+- **F4 (TD30, 26 Nov):** The block has all the fields of the Action Plan, the same as the Action Plan detail response. Modify (#17) can change all of them for a simple schedule WO. The Action Plan is in the `phss_` or `pep_` tables, so the read and the write use `action_plan_source` to select the table. The Modification Comparison (#11) must also show the Action Plan fields that changed (key `action_plan.<field>`, as the #1544 allow-list).
 
 ### 2.5 Approval actions
 All actions check: the status, `current_level` / `current_layer`, and that the user is in the copied approvers of that step. Remarks are mandatory for Reject (max 500 characters).
@@ -195,6 +227,7 @@ All actions check: the status, `current_level` / `current_layer`, and that the u
 ### 3.1 Users by permission
 - `GET /users/by-permission/{permissionId}?department=`: add an optional department filter (`users.department`).
 - `IsRetinaOnlyPermissionAsync` (`UsersService.cs:560`): replace the fixed list (161, 162, 163) with a list from `custom_configurations`, so a new Retina-only WO permission works without a code change.
+- **Built 26 Nov (staged, `feat/work-order-approval-l0`):** `?department=` added (case-insensitive, `string?`). Retina-only list: **not** from config (user, 26 Nov: "use like existing"). The WO ids 273–279 are constants in `WorkOrderPermissions` and join the fixed Action Plan ids. If the prod numbers change, edit that file.
 
 ### 3.2 Approval routes
 - `POST /approval-routes`, `POST /approval-routes/{id}/update`, `GET /approval-routes`, `GET /approval-routes/{id}`:
@@ -205,6 +238,7 @@ All actions check: the status, `current_level` / `current_layer`, and that the u
 
 ### 3.3 WO number
 - `WorkOrderNumbers`: read the format from `custom_configurations` (not fixed in the code). The WO module and the Action Plan use the same counter.
+- **Not done 26 Nov (WO-T20):** the number code is shared with the Action Plan on prod. The parse, the "already used" check and the counter start all read the fixed `NNNN/WO/{short}/{year}` shape; a configured format must change all three. Own ticket, with a test run.
 - The existing preview logic is reused by `GET /work-orders/next-number`.
 
 ### 3.4 Action Plan
@@ -223,19 +257,22 @@ All actions check: the status, `current_level` / `current_layer`, and that the u
 - `POST /projects/approval`: when a WO project is approved → WO status On Going. When it is rejected → WO status Project Preparation.
 - Project Finish: when the project has a `work_order_id`, show the WO parameter update (required). When all schedules of the WO are finished → WO status Completed.
 - Project approvers for a WO project: the users with the Layer 2 permission in the PIC's department (open question Q36).
+- **Not done 26 Nov (WO-T22):** these change the project submit / approval / finish flows that run on prod, and Q36 is open. The WO side is ready: `project_preparation` after a disposition and `GET /work-order/{id}/project-prefill`.
 
 ### 3.6 Task and approval lists
 - `GET /my-approval-list`: add the WO steps where the user is a copied approver of the current step.
+- **Built 26 Nov (staged):** new group `work_order_approval` (on_track / near_due / delayed), `approval_type=work_order`. Rule = the overview's `in_review`: a copied approver of the current Level / Layer, newest stage of that Level, status `waiting_approval` / `modification_review` / `rejection_review`. Due date = the open SLA timer, else last change + the global SLA. A Level 1 / 2 WO with no flow has no copied approver, so it is not in the list (department users see it in Incoming).
 - Notifications: in-app, one `notification_templates` row per event. See §6.
 
 ### 3.7 Configuration (`custom_configurations`, no new endpoint)
 - `work_order.request_to`: the 11 departments, and which ones show Category and Function.
 - `work_order.categories`: Category and Function for each Request To.
 - `work_order.schedule_type`: simple / detailed for each department.
-- `work_order.transfer_departments`: the department list and sub-units for each department.
-- `work_order.disposition_work_types`: the Work Types for each department.
-- `work_order.number_format`.
-- `permissions.retina_only_ids`.
+- `work_order.transfer_departments`: key = the Level 1 department name, value = the allowed target names, comma-separated. **Built 26 Nov.** No row = any other department.
+- `work_order.transfer_sub_units`: key = code, value = label (PE / PO / RAM / WO-WS). **Built 26 Nov.** No row = free text.
+- `work_order.disposition_work_types`: key = Work Type code, value = the allowed department names, comma-separated. **Built 26 Nov.** No row = the team doc rule in code (ABI/BD Projects + PO, ABI/NBD OSF, ABO all).
+- `work_order.number_format` (not built, WO-T20).
+- ~~`permissions.retina_only_ids`~~ removed 26 Nov: the WO ids are constants in code (§3.1).
 - Existing: `work_order_department_short_names`.
 
 ### 3.8 Permissions and route gate

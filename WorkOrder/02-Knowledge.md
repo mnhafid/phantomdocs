@@ -87,6 +87,7 @@ Decisions and answered questions are in `01-Decision-Log.md`. The ID in brackets
 - **Proposal:** the category sets it. Example: Choke = Updating Parameter, PPS = Study, RTWS = New Work.
 
 **Q15 [D1]. Can one WO have more than one AP (more than one well)?**
+- **Answered 26 Nov (TD32):** no. One AP per WO. The link is `work_orders.action_plan_id` only. **Sub-questions answered 26 Nov (TD33):** an AP without a WO is allowed and makes its own WO number, as today. The ~50 dev APs with a WO number stay as they are.
 - Also:
   - Can Well Surveillance make an AP without a WO?
   - What do we do with the ~50 dev APs that already have a WO number?
@@ -316,7 +317,7 @@ Decisions and answered questions are in `01-Decision-Log.md`. The ID in brackets
 | G5  | Transfer: is `pic_id` required? Figma: yes. Team doc: no PIC.                                                                                                                                                                                                                                                                                          | §3, Figma                                       | Body `{ department, sub_unit?, pic_id, notes? }`; `sub_unit` only for a Field          |     |
 | G6  | Level 0 reject: final (decision X3) or resubmit (Figma History shows "Revision")                                                                                                                                                                                                                                                                       | §5, Figma                                       | Final                                                                                  |     |
 | G7  | Urgent WO 2 × 24 h bypass: keep or drop                                                                                                                                                                                                                                                                                                                | MoM only                                        | –                                                                                      |     |
-| G8  | Old Action Plans that already have a WO number                                                                                                                                                                                                                                                                                                         | Q15                                             | –                                                                                      |     |
+| G8  | ~~Old Action Plans that already have a WO number~~ Closed 26 Nov (TD33): leave as is | Q15                                             | –                                                                                      |     |
 | G9  | Facility Upgrade: OSF (Figma) or Project Z9 (team doc)                                                                                                                                                                                                                                                                                                 | Q08                                             | –                                                                                      |     |
 | G10 | `request_to` value: map the 11 Request To labels to `users.department`                                                                                                                                                                                                                                                                                 | Other agent, 24 Nov; #1533 Incoming             | Store the real department name; map in `custom_configurations` `work_order.request_to` |     |
 | G11 | Field departments (PHSS Field, Sangasanga, Sangatta, Tanjung) have no `users.department`                                                                                                                                                                                                                                                               | `05-Production-Checklist.md` §5                 | –                                                                                      |     |
@@ -335,17 +336,19 @@ Decisions and answered questions are in `01-Decision-Log.md`. The ID in brackets
 | G24 | Level labels on FE: `1 Senior Level, 2 Manager, 3 Target Department` (old model). Our model: Level 0 / 1 / 2 × Layer 1 / 2                                                                                                                                                                                                                             | FE API Spec                                     | FE uses `level` + `layer` from the detail response                                     |     |
 | G25 | **Closed 25 Nov:** 5 files. Edit-description endpoint still to add. ~~Attachments: FE = max **1** file at Create (`file`), edit description (`PUT …/attachments/{id}`). Plan = max 5 files (#12), no edit endpoint                                                                                                                                     | FE API Spec; Figma                              | Decide 1 or 5; add an edit-description endpoint                                        | ~~  |
 | G26 | Verbs: FE uses `PUT` (modify, attachment) and `DELETE` (attachment). Repo style = `POST` only (`…/delete`)                                                                                                                                                                                                                                             | FE API Spec; `03-Endpoint-Plan.md` rules        | Keep POST; tell the FE                                                                 |     |
-| G27 | Transfer body: FE = `{ department, pic_ids[] (min 1), notes? }`, no `sub_unit`. TD = sub-unit                                                                                                                                                                                                                                                          | FE API Spec; G5                                 | Decide with G5                                                                         |     |
+| G27 | **Built 26 Nov with both (to confirm):** `department` required, `sub_unit` and `pic_ids` optional. Transfer body: FE = `{ department, pic_ids[] (min 1), notes? }`, no `sub_unit`. TD = sub-unit                                                                                                                                                                                                                                                          | FE API Spec; G5                                 | Decide with G5                                                                         |     |
 | G28 | Endpoints the FE needs that are not in the plan: Export PDF (`GET …/{id}/export`), Modification list (`GET …/{id}/modifications`, display strings before / after)                                                                                                                                                                                      | FE API Spec                                     | Add to `03-Endpoint-Plan.md`                                                           |     |
 | G29 | Action Plan inside Create: FE sends one key per category (`well_test`, `artificial_lift_update`, …) on the same call; `updating_well_data` reuses `well_test`                                                                                                                                                                                          | FE API Spec; Figma Input Parameter              | Accept on submit (#8), not on draft yet                                                |     |
 | G30 | List `status`: FE knows only `waiting_approval`, `modification_review`, `project_approval`, `approved`. BE also sends `draft`, `under_review`, `rejected`, `rejection_review`, `needs_revision`, …                                                                                                                                                     | FE API Spec; #1533                              | FE handles every value of `WorkOrderStatusConstants`                                   |     |
 | G32 | **Seeded 25 Nov:** short names PROJECTS (Project), OSF (Operation & Surface Facilities), PO (Production Operations), DRILLING (Drilling), WLI (WLI) appended by `seed_work_order_config.sql`. Check the Drilling / WLI keys against `users.department`. ~~Short names had only SDA 1 / SDA 2~~ | Code, 25 Nov | Check names on the DB before go-live; other departments (Fields) still have none | Partly closed |
 | G33 | **Seeded 25 Nov:** `wli` → WLI, `phss_field` → PHSS Field, `sangatta_field` → Sangatta Field. The names come from the Request To list (G11); check them against `users.department` | `seed_work_order_config.sql` | Check names on the DB before go-live | Partly closed |
 | G31 | Next WO number: FE uses the existing `GET /well-surveilence/action-plans/next-wo-number`. Same counter as the WO (requestor department)                                                                                                                                                                                                                | FE API Spec                                     | OK to reuse; plan #3 not needed                                                        |     |
-| G34 | **Closed 25 Nov (TD23): use Jira.** Level 0 Modify = Layer 1 modifies → Level 0 Layer 2 reviews (Approve / Reject / Modify again). ~~X2 one-step modify~~ | Jira, PRD | Open detail: after Reject Modify, back to which layer (Layer 1 or Layer 2 with old values)? User, 25 Nov (PR #1544 thread): "back to requestor so status open again or rejected" — still two outcomes, to confirm. PRD sections of [PHI-3001](https://digiitphi.atlassian.net/browse/PHI-3001), [PHI-3002](https://digiitphi.atlassian.net/browse/PHI-3002), [PHI-3003](https://digiitphi.atlassian.net/browse/PHI-3003) are empty | Closed |
+| G34 | **Closed 25 Nov (TD23): use Jira.** Level 0 Modify = Layer 1 modifies → Level 0 Layer 2 reviews (Approve / Reject / Modify again). ~~X2 one-step modify~~ | Jira, PRD | Open detail: after Reject Modify, back to which layer (Layer 1 or Layer 2 with old values)? User, 25 Nov (PR #1544 thread): "back to requestor so status open again or rejected" — still two outcomes, to confirm. **Built 26 Nov:** back to Level 0 Layer 1 with the old values (to confirm). PRD sections of [PHI-3001](https://digiitphi.atlassian.net/browse/PHI-3001), [PHI-3002](https://digiitphi.atlassian.net/browse/PHI-3002), [PHI-3003](https://digiitphi.atlassian.net/browse/PHI-3003) are empty | Closed |
 | G35 | **Partly closed 25 Nov.** PRD (team doc): button "Export" on Details Work Order, **always shown on every level** (also the only button after the user approved), and in the Modification Comparison modal; text: "export the WO to a document", "in a format the system supports". The PRD section "Work Order - All Levels - Export" ([PHI-3053](https://digiitphi.atlassian.net/browse/PHI-3053)) is **empty**. Knowledge Documents WO-9.1: CSV (Section, Field, Value). G28: FE asked for PDF. Plan #27 `GET /work-order/{id}/export` (WO-T24) | PRD, Jira, G28 | Decide the format (PDF or CSV / Excel) and the content (fields, history, attachments list?) | Partly closed |
 | G36 | No Jira Story for WO-T03, T20, T21, T23, the `wo_reject_level_0` route (TD21), bulk approve, simple schedule / project approval / Finish. [PHI-3106](https://digiitphi.atlassian.net/browse/PHI-3106), [PHI-3107](https://digiitphi.atlassian.net/browse/PHI-3107) have no epic | Jira, 25 Nov | Ask the PM to add the Stories or say they are out of scope | Kept as is (TD24, 25 Nov) |
 | G37 | **Closed 25 Nov (TD26):** PR #1544 `2c1c5185` adds the Level 2 rule (WO-9.2, AC-17); the Level 0 rule comes from Bruno #235. Open for the PO: a reader on both the requestor side and Level 1 | PR #1544 review, 25 Nov | – | Closed |
+| G38 | **Closed 26 Nov (user):** Level 0 = the requestor picks the route on Create. **Level 1 / 2 = automatic:** the newest active `wo_approve_level_1 / 2` route of the Level's department is copied when the WO arrives (Level 0 done, or a Transfer); no route = no flow (Approve still works, Set Approval Flow with an empty body picks it later). The Level 1 / 2 reject is the route round (confirmed) | TD34, PR #1548 | Built (`71930aea`) | Closed |
+| G39 | **Closed 26 Nov (user):** WO project category = `other`. `projects.work_type` is free text (no validation), nvarchar(255); a WO project gets `routine` / `non_routine` from the disposition | User, PR #1548 | Built (`71930aea`) | Closed |
 
 
 ---
@@ -452,7 +455,7 @@ Status column: **New** = new column/table · **Move** = exists on the action pla
 | current_level | int | Y | Level that must act: 0 requestor, 1 target, 2 assigned (changed 24 Nov) | New |
 | current_layer | int | N | Layer that must act: 1 Senior / Asst. Manager, 2 Manager | New |
 | level0_route_id, level1_route_id, level2_route_id | Guid | N | Flow selected by each department: Level 0 in Create WO, Level 1 / 2 in "Set Approval Flow" (TD1, TD2) | New |
-| no_reject | bit | Y | True after Level 0 declines a rejection: Layer 1 Level 1 can only Approve or Modify (D3b) | New |
+| no_reject | bit | Y | True after Level 0 declines a rejection: Layer 1 Level 1 can only Approve or Modify (D3b). **26 Nov (TD34):** no action sets it now (a Level 1 / 2 reject is a route round); a Transfer clears it. | New |
 | owner_department_id | Guid | Y | Target (Level 1), then the assigned dept (Level 2) after a transfer | New |
 | sub_department | nvarchar(20) | C | Sub-unit selected at Transfer: PE / PO / RAM / WO-WS (TD12) | New |
 | review_pic_id | Guid | N | Senior Officer who holds the review | Move |
@@ -477,7 +480,7 @@ Status column: **New** = new column/table · **Move** = exists on the action pla
 | `work_order_approvers` | cycle_id, stage, level, layer, permission_id, department, user_id, received_at, due_at, acted_at, escalated_at, escalated_from_user_id | Changed 24 Nov: copied when each department sets its flow (Level 0 at submit, Level 1 / 2 at "Set Approval Flow"). Users = `GET /users/by-permission/{id}` filtered by the department of the Level. No skip for a Senior requestor. One user can be in more than one step. No permission check on actions. due_at from Urgency SLA; escalated_* set by the escalation job | Move + New cols |
 | `work_order_approver_slas` | cycle_id, level, sla_days | Drives On Track / Near Due / Delayed chips | Move |
 | `work_order_modifications` | cycle_id, modified_by, modified_role, level (Target / Receiving), original_snapshot, proposed_snapshot (WO + Action Plan fields), changed_fields, outcome, applied_at/by, visibility | Drives View Changes; Lvl 1 / Lvl 2 visibility rule | Move |
-| `approval_routes` | category "Work Order - {Department}"; Level 0 / 1 / 2, each with Layer 1 and Layer 2; each layer holds a permission ID | Changed 24 Nov (TD3, TD11): one route category per department; people select the route by hand. Replaces `wo_{dept}_submit` / `_modify` / `_reject` | Change (new categories) |
+| `approval_routes` | ~~category "Work Order - {Department}"~~ **26 Nov (TD34):** categories `wo_approve_level_0 / 1 / 2` and `wo_reject_level_0 / 1 / 2`, one route per department of the Level (`department_id`); Level 0 / 1 / 2, each with Layer 1 and Layer 2; each layer holds a permission ID | Changed 24 Nov (TD3, TD11): one route category per department; people select the route by hand. Replaces `wo_{dept}_submit` / `_modify` / `_reject` | Change (new categories) |
 | `work_order_transfers` | work_order_id, from_department_id, to_department_id, sub_department, notes, transferred_by/at | Only from Level 1 Approved; once (no second transfer). Needs the transfer permission. Department from a list for each department; sub-unit required; notes optional (TD12) | New |
 | `work_order_pics` | work_order_id, user_id, kind (transfer / disposition), assigned_by/at | Multi PIC; must be active user of the dept | New |
 | `work_order_dispositions` | work_order_id, work_type (ABI BD / ABI NBD / ABO Routine / ABO Non Routine), project_class, notes, created_by/at | Work Type by department (TD5): ABI/BD only Projects and PO; ABI/NBD only OSF; ABO Routine and ABO Non Routine for all. Work type pre-fills Project Type. Project class from category (Figma, checked 23 Nov): PRJ ABI BD → NWD → Flowline / RTWS / Gas Lift, ABI BD → Fasprod; OSF ABI NBD / ABO → Fasprod → HE / AFA / Maintenance / Inspection (budget type sets the class), ABO → Fasprod → Others / Study / Rig Inspection; WLI → Well Service / PCTGL / Workover; Fields / PO → ABO → Maintenance / Operation / Well Action / Updating Data / Well Test / Study / AL Install; Drilling → ABI BD → Drilling. Full list: `02-Knowledge.md` §6 | New |
@@ -498,7 +501,7 @@ Status = the badge. `current_level` + `current_layer` say who must act. Chart: `
 | waiting_approval (Level 0) | Layer 1, then Layer 2 of the requestor dept | next layer, or waiting_approval at Level 1; Modify = edit and approve in one step (X2, replaced by TD23: Layer 2 reviews a Layer 1 Modify); rejected (final, X3) |
 | waiting_approval (Level 1 or 2) | Layer 1 of the target / assigned dept | approved; "Set Approval Flow" first for Modify or Reject (then Approve is hidden) |
 | modification_review | Layer 2 Level 1, then Layer 2 Level 0 | approved with the new values; target Manager rejects → waiting_approval (Level 1, proposal dropped); Level 0 declines → approved with the old values (X5) |
-| rejection_review | Layer 2 Level 1, then Layer 2 Level 0 | rejected; target Manager "No, Cancel" → waiting_approval (Level 1); Level 0 declines → waiting_approval (Level 1) with `no_reject` (D3b) |
+| rejection_review | ~~Layer 2 Level 1, then Layer 2 Level 0~~ **26 Nov (TD34):** the levels of the reject route of that Level (`wo_reject_level_N`, the Level's department) | rejected after the last route level confirms; one cancel → waiting_approval at the layer that asked. ~~"No, Cancel" / `no_reject` (D3b)~~ replaced |
 | approved | Layer 1 of the target dept | waiting_approval at Level 2 (Transfer, Level 1 only); project_preparation (Create Disposition) |
 | rejected | – (final; new WO with a new number) | – |
 | project_preparation | PIC | project_approval; on_going for an Action Plan WO (project approval skipped, P1) |
@@ -722,7 +725,7 @@ Removed by D3: needs_revision (mr1/mr2), "rejection not approved" banner, Re-Sub
 | Notion ID | WO-5.1 / Target reject |
 | :---- | :---- |
 | **Link Figma** | https://www.figma.com/design/usSi3zXbPKJf1snvAFEyLl/PHI---Latest-Design?node-id=18789-49609 |
-| **Acceptance Criteria** | **Given** the target dept set its flow (WO-3.2)<br>**When** Senior Officer clicks Reject (reason required)<br>**Then** WO status = Rejection Review at Layer 2 Level 1; the Manager target gets "Rejection Approval"<br>**When** the Manager target clicks "Yes, Reject"<br>**Then** the WO goes to Layer 2 Level 0 (Manager Requestor) to approve or refuse the rejection (D3b, R8)<br>**When** the Manager target clicks "No, Cancel"<br>**Then** WO returns to Waiting Approval at Layer 1 Level 1<br>**When** the Manager Requestor approves the rejection<br>**Then** WO status = Rejected (final); Requestor + all levels get "Work Order Rejected"<br>**When** the Manager Requestor refuses the rejection<br>**Then** WO returns to Layer 1 Level 1, `no_reject` = true: the Reject button is hidden; only Approve or Modify (D3b) |
+| **Acceptance Criteria** | **Given** the target dept set its flow (WO-3.2)<br>**When** Senior Officer clicks Reject (reason required)<br>**Then** WO status = Rejection Review at Layer 2 Level 1; the Manager target gets "Rejection Approval"<br>**When** the Manager target clicks "Yes, Reject"<br>**Then** the WO goes to Layer 2 Level 0 (Manager Requestor) to approve or refuse the rejection (D3b, R8)<br>**When** the Manager target clicks "No, Cancel"<br>**Then** WO returns to Waiting Approval at Layer 1 Level 1<br>**When** the Manager Requestor approves the rejection<br>**Then** WO status = Rejected (final); Requestor + all levels get "Work Order Rejected"<br>**When** the Manager Requestor refuses the rejection<br>**Then** WO returns to Layer 1 Level 1, `no_reject` = true: the Reject button is hidden; only Approve or Modify (D3b) <br>**26 Nov (TD34), build:** the two Manager confirmations are replaced by a round on the `wo_reject_level_1` / `_2` route of the Level's department (all confirm → Rejected; one cancel → back to the Senior). To confirm with the PO. |
 | **Design** | img/q4-reject-lane-manager-requestor.jpg, img/d3-rejection-not-approved-banner.jpg |
 | **Negative Case** | Empty reason → blocked |
 | **Question** | Decided: two confirmations (MoM, R8); a declined rejection hides Reject (D3b, changed 19 Nov). Open: Q17 — tell PHI that the Figma shows only one layer |
@@ -1876,7 +1879,7 @@ The team doc gives the **same** category list for both functions. So the Functio
 #### The two flows
 - **Multi-level approval**
   - **Who approves:** each layer of the route holds a **permission ID**. Every user who has that permission, in the department of the Level, can act. The system does not check the position. "Layer 1 = Senior / Asst. Manager, Layer 2 = Manager" is a work rule (SOP) only.
-  - **Who selects the flow:** each department selects its own flow by hand from Data Config ("Work Order - {Department}").
+  - **Who selects the flow:** each department selects its own flow by hand from Data Config ("Work Order - {Department}"). **26 Nov (TD34):** the route category is per Level: `wo_approve_level_0` (requestor), `_1` (target), `_2` (transfer), the route of that department.
   - Requestor department (Level 0), flow selected by the requestor in Create Work Order:
     - **Layer 1 (Senior):** approves, or modifies and approves in one step, or rejects. **No skip:** if the requestor is a Senior, another Senior reviews.
     - **Layer 2 (Manager):** the same actions. After that, the WO goes to the target department.
@@ -1885,7 +1888,7 @@ The team doc gives the **same** category list for both functions. So the Functio
     - The Senior can **Approve** at once.
     - For **Modify** or **Reject**, the Senior first selects the target flow in "Set Approval Flow". Then only Modify and Reject show.
     - **Modify lane:** the target Manager approves, then the requestor Manager checks (X4). If the requestor Manager refuses, the change is dropped and the WO is Approved with the old values (X5).
-    - **Reject lane:** the target Manager confirms ("Yes, Reject / No, Cancel"), then the requestor Manager accepts or refuses the rejection. If it is refused, the WO goes back to the target Senior with the Reject button hidden (D3b).
+    - **Reject lane:** the target Manager confirms ("Yes, Reject / No, Cancel"), then the requestor Manager accepts or refuses the rejection. If it is refused, the WO goes back to the target Senior with the Reject button hidden (D3b). **26 Nov (TD34):** replaced by a round on the Level's `wo_reject_level_N` route.
   - Optional transfer (Level 1 only): a user with the transfer permission selects a department from the list and a sub-unit. The status goes back to Waiting Approval. The assigned department (Level 2) selects its own flow and runs the same steps. It cannot transfer again.
   - After approval: Disposition → PIC.
   - Urgency SLA (2 × 24 h per layer) applies at every level (G1).
@@ -2041,7 +2044,7 @@ Goal: Data Config holds the WO approval routes. The people in each department se
   1. Layer 2 Level 1 approves or rejects it. A reject drops the proposal, and the WO goes back to Layer 1 Level 1 with the old values.
   2. Layer 2 Level 0 (the requestor Manager) checks it. OK = the system copies the proposal into the WO, and the WO goes to Approved. Not OK = the system drops the proposal, and the WO goes to Approved with the old values.
 - **Reject at Level 1:** two confirmations.
-  1. Layer 2 Level 1: "Yes, Reject" or "No, Cancel". "No, Cancel" sends the WO back to Layer 1 Level 1.
+  1. Layer 2 Level 1: "Yes, Reject" or "No, Cancel". "No, Cancel" sends the WO back to Layer 1 Level 1. **26 Nov (TD34):** replaced by the Level's reject route round.
   2. Level 0 (the requestor Manager) accepts or refuses the rejection. Accept = Rejected (final). Refuse = the WO goes back to Layer 1 Level 1 with the Reject button hidden (only Approve or Modify).
 - **Level 2:** the same as Level 1, except that Level 2 can only make a Disposition. It cannot transfer again.
 - **Rejected at Level 0:** final. The requestor makes a new WO with a new number.
@@ -2075,7 +2078,7 @@ Goal: Data Config holds the WO approval routes. The people in each department se
 - The Level 1 and Level 2 routes are used for the approval of a **Modify** and of a **Reject**.
 
 #### 2.2 How a route is set up (Data Config "Approval Route")
-- Route category: **"Work Order - {Department}"**.
+- Route category: **"Work Order - {Department}"**. **26 Nov (TD34):** replaced by `wo_approve_level_0 / 1 / 2` + `wo_reject_level_0 / 1 / 2`, one route per department of the Level.
 - Each route has Level 0, Level 1 and Level 2. Each Level has **Layer 1** and **Layer 2**. There is no Layer 3.
 - **Each layer holds a permission ID.** The approvers of a layer = every active user who has that permission **in the department of that Level**.
   - Example: a PO Senior with the permission does not review an OSF WO.
@@ -2111,7 +2114,7 @@ The 20 Nov proposal had an automatic route search: `approval_route_bindings` (th
 ---
 
 ### 5. Data Config screen (Approval Route)
-- **Route list:** filter by category ("Work Order - {Department}").
+- **Route list:** filter by category ("Work Order - {Department}"). **26 Nov (TD34):** `GET /approval-routes?category=wo_approve_level_N&department_id={the Level's department}`.
 - **Route form:** for Level 0, Level 1 and Level 2, one card for each layer (Layer 1, Layer 2): the permission, the SLA Regular / Urgent.
 - **Validation on save:** each layer that is used needs a permission ID.
 
@@ -2162,8 +2165,10 @@ flowchart TD
         L0M["Waiting Approval<br/>Layer 2 Manager"]
         L0S -->|"Approve<br/>or Modify: Manager reviews it (TD23)"| L0M
     end
-    L0S -->|"Reject"| REJECTED
-    L0M -->|"Reject"| REJECTED
+    L0S -->|"Reject"| RJ0["Rejection Review<br/>round on wo_reject_level_0<br/>of the requestor dept"]
+    L0M -->|"Reject"| RJ0
+    RJ0 -->|"every route level confirms"| REJECTED
+    RJ0 -->|"cancel: back to the layer that asked"| L0S
     L0M -->|"Approve / Approve Modify<br/>or Self Modify (TD23)"| L1W
     L0M -->|"Reject Modify: proposal dropped"| L0S
 
@@ -2172,26 +2177,20 @@ flowchart TD
         SET["Set Approval Flow<br/>select the Level 1 flow<br/>buttons: Modify and Reject only"]
         MODR["Modification Review<br/>Layer 2 Manager of the target dept"]
         MODV["Modification Review<br/>Layer 2 Manager of the requestor dept"]
-        REJR["Rejection Review<br/>Layer 2 Manager of the target dept"]
-        REJV["Rejection Review<br/>Layer 2 Manager of the requestor dept"]
-        NOREJ["Waiting Approval<br/>Layer 1 Senior, Reject button hidden<br/>only Approve or Modify"]
+        RJ1["Rejection Review<br/>round on wo_reject_level_1 / 2<br/>of the Level's dept (TD34)"]
 
         L1W -->|"Set Approval Flow"| SET
         SET -->|"Modify<br/>change kept as a proposal"| MODR
-        SET -->|"Reject"| REJR
+        SET -->|"Reject<br/>needs the Level's reject route"| RJ1
         MODR -->|"Approve"| MODV
         MODR -->|"Reject<br/>proposal dropped"| L1W
-        REJR -->|"No, Cancel"| L1W
-        REJR -->|"Yes, Reject"| REJV
-        REJV -->|"Refuse the rejection"| NOREJ
-        NOREJ -->|"Modify"| MODR
+        RJ1 -->|"cancel: back to the Senior"| L1W
     end
 
     L1W -->|"Approve"| APPROVED
-    NOREJ -->|"Approve"| APPROVED
     MODV -->|"OK: copy the proposal into the WO"| APPROVED
     MODV -->|"Not OK: proposal dropped, old values kept"| APPROVED
-    REJV -->|"Accept the rejection"| REJECTED
+    RJ1 -->|"every route level confirms"| REJECTED
 
     APPROVED["Approved<br/>Layer 1 Senior of the target dept"]
     APPROVED -->|"Transfer Work Order<br/>Level 1 only: permission,<br/>department from the list + sub-unit, notes optional"| L2W["Waiting Approval<br/>Level 2 - assigned department<br/>same steps as Level 1, no second Transfer"]
@@ -2213,7 +2212,7 @@ flowchart TD
     classDef wait fill:#fff4d6,stroke:#b26a00,color:#000
     classDef ok fill:#e3f6e8,stroke:#2e7d32,color:#000
     class REJECTED final
-    class DRAFT,L0S,L0M,L1W,SET,MODR,MODV,REJR,REJV,NOREJ,L2W wait
+    class DRAFT,L0S,L0M,L1W,SET,MODR,MODV,RJ0,RJ1,L2W wait
     class APPROVED,APPROVED2,PREP,PROJAPP,ONGO,DONE ok
 ```
 
@@ -2223,7 +2222,7 @@ flowchart TD
   - Approve does not need an approval flow.
   - Modify and Reject need the target department's flow first ("Set Approval Flow").
 - **A modification in the target department:** the change stays a proposal until both Managers agree. If the requestor Manager refuses it, the WO becomes Approved with the old values.
-- **A Reject from the target department needs two confirmations:** first the target Manager, then the requestor Manager. If the requestor Manager refuses the rejection, the WO goes back to the target Senior with the Reject button hidden.
+- ~~A Reject from the target department needs two confirmations (target Manager, then requestor Manager; a refusal hides Reject).~~ **26 Nov (TD34):** a Reject on every Level is a round on that Level's `wo_reject_level_N` route (the department of the Level). All route levels confirm → Rejected; one cancel → back to the layer that asked.
 - **Level 2:** the WO gets Level 2 only after a Transfer. The steps are the same as Level 1, but the assigned department cannot transfer again.
 
 
@@ -2265,11 +2264,10 @@ From the chart above, `WorkOrderStatusConstants.cs` and the decisions TD15, TD19
 | Modify not OK | target Manager | `modification_review` · L1 | `waiting_approval` · L1 · Layer 1 | proposal dropped |
 | Modify OK | requestor Manager | `modification_review` · L0 · Layer 2 | `approved` · L1, proposal applied | `approved` |
 | Modify not OK | requestor Manager | `modification_review` · L0 · Layer 2 | `approved` · L1, old values | `approved` |
-| Reject | Layer 1 Senior | `waiting_approval` · L1 | `rejection_review` · L1 · Layer 2 (target Manager) | `reject` log |
-| No, Cancel | target Manager | `rejection_review` · L1 | `waiting_approval` · L1 · Layer 1 | – |
-| Yes, Reject | target Manager | `rejection_review` · L1 | `rejection_review` · L0 · Layer 2 (requestor Manager) | – |
-| Accept the rejection | requestor Manager | `rejection_review` · L0 | `rejected` (final) | `rejected` |
-| Refuse the rejection | requestor Manager | `rejection_review` · L0 | `waiting_approval` · L1 · Layer 1, `no_reject` = true | only Approve / Modify |
+| Reject (TD34) | Layer 1 Senior of the flow | `waiting_approval` · L1 | `rejection_review` · L1 · first level of the `wo_reject_level_1` route (target department) | Level process: timer `canceled`, `reject` log; open `Work Order Reject Level 1` |
+| Reject confirmed | user of the current reject level | `rejection_review` · L1 | next reject level, or after the last one `rejected` (final) | reject process `approved`, Level 1 process `rejected` |
+| Reject cancelled | user of the current reject level | `rejection_review` · L1 | `waiting_approval` · L1 · the layer that asked (steps copied again) | reject process `rejected`, Level 1 process goes on |
+| ~~No, Cancel / Yes, Reject / Accept / Refuse the rejection (two Managers, `no_reject`)~~ | | | Replaced 26 Nov by the reject route round (TD34, to confirm) | |
 
 **After approval**
 
@@ -2287,6 +2285,17 @@ From the chart above, `WorkOrderStatusConstants.cs` and the decisions TD15, TD19
 2. Level 0 reject status while the reject route decides: `rejection_review` at L0 is a proposal (TD21).
 3. Level 2 process: does it open on Transfer or on Set Approval Flow (as Level 1)? `03` §2.7 does not say yet.
 4. Not in these tables: Study (`study_review`, `study_approval`), `needs_revision`, and the urgent 2 × 24 h escalation.
+
+**As built 26 Nov** (`feat/work-order-approval-l0`, staged, unit tests pass; `07` WO-T07–T19, T23):
+- Open point 3: the Level 2 process opens on **Set Approval Flow**, the same as Level 1. A Transfer opens no process.
+- Level 1 / 2 without a flow: a user of that Level's department can Approve or Set Approval Flow. The Level's department = `request_to` mapped by `work_order.request_to` (Level 1) or `transferred_to_department` (Level 2). No permission check.
+- The requestor Manager step of a Level 1 / 2 Modify or Reject: the rows of the last layer of the newest Level 0 stage are copied as a **new stage** (Level 0, same layer number; user 26 Nov: the same rule on every Level). The WO sits at Level 0 on that layer while the requestor Manager decides; a timer opens for that step. The Incoming list still shows it to the target department (new rule: `current_level >= 1` **or** the WO has Level 1 / 2 steps).
+- The reviewer of a Modify after the Senior = the next layer of the flow; a flow with no layer after Layer 1 sends the Modify straight to the requestor Manager (a Reject always goes to the Level's reject route, TD34). A Transfer clears `no_reject` (user, 26 Nov).
+- Level 0 reject round (TD21): the `wo_reject_level_0` route users are copied as a new Level 0 stage; `current_layer` = the reject route level. Cancel copies the Level 0 approvers again as a new stage, back at the layer that asked.
+- **TD34 (26 Nov):** route categories per Level and department: `wo_approve_level_0 / 1 / 2`, `wo_reject_level_0 / 1 / 2`. A Level 1 / 2 Reject is now a route round like Level 0 (on the Level's reject route); the two-Manager reject (target Manager → requestor Manager, `no_reject`) is replaced. The two-Manager path stays for **Modify** only.
+- Which Level asked is read from the newest history row: `modified` (Modify) or `reject_requested` (Reject), `level` = the actor's Level (TD25).
+- Level 0 Manager rejects a Level 0 Modify → back to Level 0 **Layer 1** with the old values (G34, to confirm).
+- Approve at Level 1 / 2 sets `approved_at`.
 
 ---
 
@@ -2417,7 +2426,7 @@ New groups after 30. Number the new privileges from **273**, so that they do not
   - At Level 1 / 2: Approve, or Modify / Reject after the route is set.
 - 277 Approve Work Order Layer 2 (SOP: Manager)
   - At Level 0: approve the submitted WO. Check a Level 1 modification. Accept or refuse a rejection.
-  - At Level 1 / 2: approve a Modify. Confirm a Reject ("Yes, Reject" / "No, Cancel").
+  - At Level 1 / 2: approve a Modify. Confirm a Reject ("Yes, Reject" / "No, Cancel"). **26 Nov (TD34):** a Reject is decided by the users of the Level's reject route, not by this privilege.
 
 **Rules**
 - The route layer holds 276 or 277 (or another permission that the admin selects). The approvers = the users with that permission **in the department of the Level**.
@@ -2500,6 +2509,7 @@ The **simple schedule** can reuse the manual path, with some fixes (§3).
 | `work_order_id` | uniqueidentifier, null | Already in the Knowledge Documents (MoM 6 Nov). **Not unique**: K15 / MoM 19 Nov allows several schedules (projects) per WO, and "Finish WO finishes all schedules under it" |
 | `schedule_kind` | nvarchar(10): `detail` / `simple` | Both kinds use the in-app grid (no `.mpp`). The kind decides the grid's rules (levels / fields, P10). Copy it from the WO **department** (Request To): detail = Project, OSF; simple = all other departments (24 Nov) |
 | `source` | nvarchar(20): `manual` / `work_order` (optional) | Reporting and filters ("projects from WO"). Can be derived from `work_order_id`; add it only if a list needs it |
+| `work_type` | nvarchar(20) null: `routine` / `non_routine` | **Built 26 Nov (PR #1548, migration `AddProjectWorkType`).** From the WO disposition (ABO Routine / ABO Non Routine; ABI = null). Project create / update accept it; detail and list return it. New project category `other` (like Fasprod) for WO projects for now |
 
 - Unchanged:
   - RKAP (`rkap_projects`), WBS, budget type, approval and PICs: the WO fills them as today's project form does.
