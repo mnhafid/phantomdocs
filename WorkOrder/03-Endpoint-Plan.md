@@ -58,9 +58,10 @@ Rule: base `/api/v1/work-order` (singular, like the merged #1530 / #1533). A WO 
 | 24 | POST | `/work-order/{id:guid}/transfer` | `/work-orders/{id}/transfer` | `{ department, sub_unit?, pic_id?, notes? }` (PIC open) | To do | [PHI-3048](https://digiitphi.atlassian.net/browse/PHI-3048) |
 | 25 | POST | `/work-order/{id:guid}/disposition` | `/work-orders/{id}/disposition` | `{ work_type, pic_ids[], notes? }` | To do | [PHI-3006](https://digiitphi.atlassian.net/browse/PHI-3006) |
 | 26 | GET | `/work-order/{id:guid}/project-prefill` | `/work-orders/{id}/project-prefill` | – | To do | [PHI-3060](https://digiitphi.atlassian.net/browse/PHI-3060) |
+| 27 | GET | `/work-order/{id:guid}/export` | – | `format` (`string?`, PDF or CSV, open G35) | To do (WO-T24) | [PHI-3053](https://digiitphi.atlassian.net/browse/PHI-3053) |
 
 Notes:
-- Jira column: the Stories of epic [PHI-2465](https://digiitphi.atlassian.net/browse/PHI-2465), mapped by title (25 Nov). Full map: `07-Ticket.md` §3. Export ([PHI-3053](https://digiitphi.atlassian.net/browse/PHI-3053)) has no path yet (G35).
+- Jira column: the Stories of epic [PHI-2465](https://digiitphi.atlassian.net/browse/PHI-2465), mapped by title (25 Nov). Full map: `07-Ticket.md` §3. Export ([PHI-3053](https://digiitphi.atlassian.net/browse/PHI-3053)) = #27 (format open, G35).
 - #14 is not used (a gap in the old numbering).
 - The working area is only on #1 and #2 (the page tab). A WO id already fixes its working area, so the id paths do not take it.
 - `{working_area}` has no constraint today. A wrong word (for example a typo of `next-number`) falls into #2 and gets "Invalid working area" (400). That is acceptable; a route constraint is optional.
@@ -123,7 +124,7 @@ All actions check: the status, `current_level` / `current_layer`, and that the u
     - Level 1 / 2: the Senior approves. Status = Approved. This works without an approval flow.
 16. `POST /work-orders/approve/bulk` { ids[] }: approves each WO that passes the checks. It returns the failed ids with the reason.
 17. `POST /work-orders/{id}/modify` { changed fields, remarks }
-    - Level 0: writes the change into the WO and approves it in one step. The requestor gets a notification only.
+    - Level 0 (TD23, as Jira): Layer 1 modifies → Modification Review at Level 0 Layer 2. The Manager approves (change applied, WO goes to Level 1), rejects (proposal dropped), or modifies again (Self Modify). Layer 2 can also modify by itself.
     - Level 1 / 2: needs the approval flow of that Level first. Saves the change as a **proposal** (history snapshot). Status = Modification Review (Manager of that department).
 18. `POST /work-orders/{id}/reject` { remarks }
     - Level 0: goes through the route `wo_reject_level_0` first (TD21). After its last level → Rejected.
@@ -285,7 +286,7 @@ Proposed template names use the `phantom_iac_wo_` prefix. Source: the notificati
 | N2 | Approve Layer 1 Level 0 | Work Order Approved at Level 1 | Manager Requestor (Layer 2) + Requestor | In-app | Approval | info | `phantom_iac_wo_approved_level_1` |
 | N3 | Approve Layer 2 Level 0 | Incoming Work Order Request | Users of Layer 1 Level 1 (target dept, `request_to`) | In-app | Request | info | `phantom_iac_wo_incoming_request` |
 | N4 | Approve Layer 2 Level 0 | Work Order Approved at Level 2 | Requestor | In-app | Approval | info | `phantom_iac_wo_approved_level_2` |
-| N5 | Modify at Level 0 (X2) | Work Order Modified by Manager | Requestor (+ Senior, M10) | In-app | Approval | warning | `phantom_iac_wo_modified` |
+| N5 | Modify at Level 0 (TD23: Layer 1 modify → Layer 2 review) | Work Order Modified by Manager | Layer 2 Manager (review) + Requestor (+ Senior, M10) | In-app | Approval | warning | `phantom_iac_wo_modified` |
 | N6 | Reject at Level 0 | Work Order Rejected | Requestor (with fields to revise) | In-app | Approval | danger | `phantom_iac_wo_rejected` |
 | N7 | Re-submit after reject (D3, open) | Work Order Revised by Requestor | Senior + Manager Requestor (M9) | In-app | Request | info | `phantom_iac_wo_revised` |
 | N8 | Approve Level 1 (target) | Work Order Approved by Target Department | Requestor | In-app | Approval | success | `phantom_iac_wo_approved_target` |

@@ -342,9 +342,10 @@ Decisions and answered questions are in `01-Decision-Log.md`. The ID in brackets
 | G32 | **Seeded 25 Nov:** short names PROJECTS (Project), OSF (Operation & Surface Facilities), PO (Production Operations), DRILLING (Drilling), WLI (WLI) appended by `seed_work_order_config.sql`. Check the Drilling / WLI keys against `users.department`. ~~Short names had only SDA 1 / SDA 2~~ | Code, 25 Nov | Check names on the DB before go-live; other departments (Fields) still have none | Partly closed |
 | G33 | **Seeded 25 Nov:** `wli` → WLI, `phss_field` → PHSS Field, `sangatta_field` → Sangatta Field. The names come from the Request To list (G11); check them against `users.department` | `seed_work_order_config.sql` | Check names on the DB before go-live | Partly closed |
 | G31 | Next WO number: FE uses the existing `GET /well-surveilence/action-plans/next-wo-number`. Same counter as the WO (requestor department)                                                                                                                                                                                                                | FE API Spec                                     | OK to reuse; plan #3 not needed                                                        |     |
-| G34 | Level 0 Modify: Jira has a review step ([PHI-3000](https://digiitphi.atlassian.net/browse/PHI-3000), [PHI-3001](https://digiitphi.atlassian.net/browse/PHI-3001), [PHI-3003](https://digiitphi.atlassian.net/browse/PHI-3003): Waiting for Review Lv 0 Layer 2, then Approve / Reject Modify). Decision X2 says a Level 0 Modify changes the WO and approves it in one step | Jira, 25 Nov | Decide: keep X2 or add the Layer 2 review | |
-| G35 | Export ([PHI-3053](https://digiitphi.atlassian.net/browse/PHI-3053), all levels) has no endpoint in `03` and no ticket before WO-T24 | Jira, 25 Nov | Plan the export path and columns | |
-| G36 | No Jira Story for WO-T03, T20, T21, T23, the `wo_reject_level_0` route (TD21), bulk approve, simple schedule / project approval / Finish. [PHI-3106](https://digiitphi.atlassian.net/browse/PHI-3106), [PHI-3107](https://digiitphi.atlassian.net/browse/PHI-3107) have no epic | Jira, 25 Nov | Ask the PM to add the Stories or say they are out of scope | |
+| G34 | **Closed 25 Nov (TD23): use Jira.** Level 0 Modify = Layer 1 modifies → Level 0 Layer 2 reviews (Approve / Reject / Modify again). ~~X2 one-step modify~~ | Jira, PRD | Open detail: after Reject Modify, back to which layer (Layer 1 or Layer 2 with old values)? User, 25 Nov (PR #1544 thread): "back to requestor so status open again or rejected" — still two outcomes, to confirm. PRD sections of [PHI-3001](https://digiitphi.atlassian.net/browse/PHI-3001), [PHI-3002](https://digiitphi.atlassian.net/browse/PHI-3002), [PHI-3003](https://digiitphi.atlassian.net/browse/PHI-3003) are empty | Closed |
+| G35 | **Partly closed 25 Nov.** PRD (team doc): button "Export" on Details Work Order, **always shown on every level** (also the only button after the user approved), and in the Modification Comparison modal; text: "export the WO to a document", "in a format the system supports". The PRD section "Work Order - All Levels - Export" ([PHI-3053](https://digiitphi.atlassian.net/browse/PHI-3053)) is **empty**. Knowledge Documents WO-9.1: CSV (Section, Field, Value). G28: FE asked for PDF. Plan #27 `GET /work-order/{id}/export` (WO-T24) | PRD, Jira, G28 | Decide the format (PDF or CSV / Excel) and the content (fields, history, attachments list?) | Partly closed |
+| G36 | No Jira Story for WO-T03, T20, T21, T23, the `wo_reject_level_0` route (TD21), bulk approve, simple schedule / project approval / Finish. [PHI-3106](https://digiitphi.atlassian.net/browse/PHI-3106), [PHI-3107](https://digiitphi.atlassian.net/browse/PHI-3107) have no epic | Jira, 25 Nov | Ask the PM to add the Stories or say they are out of scope | Kept as is (TD24, 25 Nov) |
+| G37 | **Closed 25 Nov (TD26):** PR #1544 `2c1c5185` adds the Level 2 rule (WO-9.2, AC-17); the Level 0 rule comes from Bruno #235. Open for the PO: a reader on both the requestor side and Level 1 | PR #1544 review, 25 Nov | – | Closed |
 
 
 ---
@@ -361,7 +362,7 @@ Draft v0.2 · 24 Nov 2026 (v0.1: 19 Nov) · format follows "Phantom Fase 2" (tea
 - Levels: Level 0 = requestor department, Level 1 = target department (Request To), Level 2 = assigned department (only after a Transfer). Layer 1 = Senior / Asst. Manager, Layer 2 = Manager (an SOP only; the system does not check the position).
 - Approval flow: the requestor selects the Level 0 flow in Create WO (Layer 1, then Layer 2 of the requestor department). The target department and the assigned department each select their own flow in the "Set Approval Flow" window.
 - Approvers: each route layer holds a permission ID. Every user with that permission in the department of the Level can act. No step is skipped for a Senior requestor: another Senior reviews. The backend uses the permission ID only to list users (`GET /users/by-permission/{id}`). It does not check the permission ID to allow or block an action.
-- Level 0: an approver can modify and approve in one step; the requestor gets a notification only (X2). A reject at Level 0 is final; the requestor makes a new WO with a new number (X3).
+- Level 0: an approver can modify and approve in one step; the requestor gets a notification only (X2, replaced by TD23: Layer 2 reviews a Layer 1 Modify). A reject at Level 0 is final; the requestor makes a new WO with a new number (X3).
 - Level 1 modify: Layer 2 Level 1 approves, then Layer 2 Level 0 checks (X4). If Level 0 declines, the system drops the proposal and the WO goes to Approved with the old values (X5).
 - Level 1 reject: two confirmations, first Layer 2 Level 1, then Level 0. If Level 0 declines the rejection, the WO goes back to Layer 1 Level 1 and the Reject button is hidden (D3b, R8).
 - A category with no approval skips all approval steps (R1).
@@ -494,7 +495,7 @@ Status = the badge. `current_level` + `current_layer` say who must act. Chart: `
 | Status | Who acts (Level / Layer) | Next |
 | :---- | :---- | :---- |
 | draft | Requestor | waiting_approval (Level 0 / Layer 1); approved if the category has no approval (R1) |
-| waiting_approval (Level 0) | Layer 1, then Layer 2 of the requestor dept | next layer, or waiting_approval at Level 1; Modify = edit and approve in one step (X2); rejected (final, X3) |
+| waiting_approval (Level 0) | Layer 1, then Layer 2 of the requestor dept | next layer, or waiting_approval at Level 1; Modify = edit and approve in one step (X2, replaced by TD23: Layer 2 reviews a Layer 1 Modify); rejected (final, X3) |
 | waiting_approval (Level 1 or 2) | Layer 1 of the target / assigned dept | approved; "Set Approval Flow" first for Modify or Reject (then Approve is hidden) |
 | modification_review | Layer 2 Level 1, then Layer 2 Level 0 | approved with the new values; target Manager rejects → waiting_approval (Level 1, proposal dropped); Level 0 declines → approved with the old values (X5) |
 | rejection_review | Layer 2 Level 1, then Layer 2 Level 0 | rejected; target Manager "No, Cancel" → waiting_approval (Level 1); Level 0 declines → waiting_approval (Level 1) with `no_reject` (D3b) |
@@ -579,7 +580,7 @@ Removed by D3: needs_revision (mr1/mr2), "rejection not approved" banner, Re-Sub
 | Notion ID | WO-2.1 / Layer 1 Level 0 |
 | :---- | :---- |
 | **Link Figma** | https://www.figma.com/design/usSi3zXbPKJf1snvAFEyLl/PHI---Latest-Design?node-id=18789-49609 |
-| **Acceptance Criteria** | **ENTRY POINT : Notification Center / Waiting for me / Dashboard Review preview**<br>**Given** a WO is submitted<br>**Then** WO status = Waiting Approval at Layer 1 Level 0. Every user with the Layer 1 permission in the requestor dept can act<br>**And** no step is skipped when the requestor is a Senior: another Senior reviews (TD8, changed 24 Nov). The system does not check the position<br>**When** the Senior clicks Approve<br>**Then** the WO goes to Layer 2 Level 0; Manager Requestor and Requestor are notified ("Work Order Approved at Level 1")<br>**When** the Senior clicks Modify, edits and approves<br>**Then** the WO changes and is approved in one step; a modification record is saved (who, role, time, before / after); the Requestor gets a notification only; the flow does not stop (X2) |
+| **Acceptance Criteria** | **ENTRY POINT : Notification Center / Waiting for me / Dashboard Review preview**<br>**Given** a WO is submitted<br>**Then** WO status = Waiting Approval at Layer 1 Level 0. Every user with the Layer 1 permission in the requestor dept can act<br>**And** no step is skipped when the requestor is a Senior: another Senior reviews (TD8, changed 24 Nov). The system does not check the position<br>**When** the Senior clicks Approve<br>**Then** the WO goes to Layer 2 Level 0; Manager Requestor and Requestor are notified ("Work Order Approved at Level 1")<br>**When** the Senior clicks Modify, edits and approves<br>**Then** the WO changes and is approved in one step; a modification record is saved (who, role, time, before / after); the Requestor gets a notification only; the flow does not stop (X2, replaced by TD23: Layer 2 reviews a Layer 1 Modify) |
 | **Design** | img/q3-senior-level-approval.jpg, img/figma-requestor-l1.jpg |
 | **Negative Case** | User who is not the pending approver → read-only, "Waiting for approval by <name>" |
 | **Question** | Decided: the chain is the Level 0 flow that the requestor selects (TD1). Decided: no position validator (TD3, TD8). Open: can the Level 0 flow be empty? |
@@ -591,7 +592,7 @@ Removed by D3: needs_revision (mr1/mr2), "rejection not approved" banner, Re-Sub
 | Notion ID | WO-2.2 / Layer 2 Level 0 |
 | :---- | :---- |
 | **Link Figma** | https://www.figma.com/design/usSi3zXbPKJf1snvAFEyLl/PHI---Latest-Design?node-id=18789-49609 |
-| **Acceptance Criteria** | **Given** WO is at Layer 2 Level 0<br>**When** Manager Requestor clicks Approve<br>**Then** WO goes to Waiting Approval at Layer 1 Level 1 (target dept, Request To); every user with the Layer 1 permission in the target dept gets "Incoming Work Order Request"; the Requestor gets "Work Order Approved at Level 2"<br>**And** the WO shows in the target's Incoming Work Orders<br>**When** Manager clicks Modify<br>**Then** the WO changes and is approved in one step (X2); the Requestor gets a notification only; the Senior is notified |
+| **Acceptance Criteria** | **Given** WO is at Layer 2 Level 0<br>**When** Manager Requestor clicks Approve<br>**Then** WO goes to Waiting Approval at Layer 1 Level 1 (target dept, Request To); every user with the Layer 1 permission in the target dept gets "Incoming Work Order Request"; the Requestor gets "Work Order Approved at Level 2"<br>**And** the WO shows in the target's Incoming Work Orders<br>**When** Manager clicks Modify<br>**Then** the WO changes and is approved in one step (X2, replaced by TD23: Layer 2 reviews a Layer 1 Modify); the Requestor gets a notification only; the Senior is notified |
 | **Design** | img/prd-flow-requestor-approval-l2.jpg |
 | **Negative Case** | – |
 | **Question** | – |
@@ -1097,7 +1098,7 @@ All questions in this file are now answered.
 > - **M014 "position validator":** not needed. Each layer holds a permission ID. The backend uses it only to list users, in the department of the Level.
 > - **M9 (Transfer fields):** the user also selects a sub-unit. Notes are optional. The departments come from a list for each department.
 > - **X1 (WO number format):** the format comes from `custom_configurations`.
-> - **X2 (requestor-side Modify):** the approver edits and approves in one step. The requestor gets a notification only.
+> - **X2 (requestor-side Modify):** ~~the approver edits and approves in one step.~~ Replaced 25 Nov by TD23: a Layer 1 Modify goes to Level 0 Layer 2 for review. The requestor gets a notification only.
 > - **X3 (requestor-side Reject):** final. No re-submit.
 > - **X4 (who verifies a modification):** the Manager of the requestor department.
 > - **X5 (requester declines the modification):** the system drops the proposal. The WO goes to Approved with the old values.
@@ -2159,11 +2160,12 @@ flowchart TD
     subgraph LV0["Level 0 - requestor department"]
         L0S["Waiting Approval<br/>Layer 1 Senior"]
         L0M["Waiting Approval<br/>Layer 2 Manager"]
-        L0S -->|"Approve<br/>or Modify + Approve in one step"| L0M
+        L0S -->|"Approve<br/>or Modify: Manager reviews it (TD23)"| L0M
     end
     L0S -->|"Reject"| REJECTED
     L0M -->|"Reject"| REJECTED
-    L0M -->|"Approve<br/>or Modify + Approve in one step"| L1W
+    L0M -->|"Approve / Approve Modify<br/>or Self Modify (TD23)"| L1W
+    L0M -->|"Reject Modify: proposal dropped"| L0S
 
     subgraph LV1["Level 1 - target department, same steps at Level 2"]
         L1W["Waiting Approval<br/>Layer 1 Senior"]
@@ -2216,7 +2218,7 @@ flowchart TD
 ```
 
 **How to read it**
-- **Level 0:** a Modify by the Senior or the Manager of the requestor department changes the WO and approves it in one step. The requestor gets a notification only.
+- **Level 0 (TD23, 25 Nov):** a Modify by the Senior goes to the Manager of the requestor department for review (Approve Modify / Reject Modify). The Manager can also modify by itself (Self Modify).
 - **Level 1:**
   - Approve does not need an approval flow.
   - Modify and Reject need the target department's flow first ("Set Approval Flow").
@@ -2242,7 +2244,10 @@ From the chart above, `WorkOrderStatusConstants.cs` and the decisions TD15, TD19
 | Action | By | From | To | Process |
 |---|---|---|---|---|
 | Approve | Layer 1 Senior | `waiting_approval` · L0 · Layer 1 | `waiting_approval` · L0 · Layer 2 | `approve` log, level → 2 |
-| Modify (approve in one step, X2) | Layer 1 / 2 | as Approve | as Approve | `approve` log + history snapshot |
+| Modify (TD23) | Layer 1 Senior | `waiting_approval` · L0 · Layer 1 | `modification_review` · L0 · Layer 2 (Manager reviews) | `approve` log at level 1 + history snapshot (proposal) |
+| Approve Modify (TD23) | Layer 2 Manager | `modification_review` · L0 · Layer 2 | `waiting_approval` · **L1** · Layer 1, change applied | L0 process `approved` |
+| Reject Modify (TD23) | Layer 2 Manager | `modification_review` · L0 · Layer 2 | proposal dropped; back to `waiting_approval` · L0 (layer open, G34) | `reject` log |
+| Self Modify (TD23) | Layer 2 Manager | `modification_review` / `waiting_approval` · L0 · Layer 2 | `waiting_approval` · **L1** · Layer 1, change applied (proposal: modify + approve) | L0 process `approved` |
 | Approve | Layer 2 Manager | `waiting_approval` · L0 · Layer 2 | `waiting_approval` · **L1** · Layer 1 | L0 process `approved` |
 | Reject | Layer 1 / 2 | `waiting_approval` · L0 | `rejection_review` · L0 (proposal) | open `Work Order Reject Level 0`, route `wo_reject_level_0` (TD21) |
 | Reject confirmed (last reject level) | reject route user | `rejection_review` · L0 | `rejected` (final) | reject process `approved`, L0 process `rejected` |
@@ -2278,7 +2283,7 @@ From the chart above, `WorkOrderStatusConstants.cs` and the decisions TD15, TD19
 | Finish (all schedules) | `on_going` | `completed` | – |
 
 **Open points**
-1. Level 1 status name: `WorkOrderStatusConstants.cs` says Level 1 / 2 use `under_review`; the team doc and TD15 say Waiting Approval. These tables use `waiting_approval` + `current_level` = 1. Decide which one.
+1. Level 1 status name: the team doc (WO-x ACs), TD15 and the FE API spec (G30) all use `waiting_approval` + `current_level` = 1 / 2. Only the comment in `WorkOrderStatusConstants.cs` says `under_review`. Fix that comment (rechecked 25 Nov, PR #1544).
 2. Level 0 reject status while the reject route decides: `rejection_review` at L0 is a proposal (TD21).
 3. Level 2 process: does it open on Transfer or on Set Approval Flow (as Level 1)? `03` §2.7 does not say yet.
 4. Not in these tables: Study (`study_review`, `study_approval`), `needs_revision`, and the urgent 2 × 24 h escalation.

@@ -29,18 +29,18 @@ Common rules for all tickets (from `03` and the decisions):
 | ID | Title | Endpoint (`03` #) | Depends on | Jira | Status |
 |---|---|---|---|---|---|
 | WO-T00 | Overview cards and list | #1, #2 | – | [PHI-2992](https://digiitphi.atlassian.net/browse/PHI-2992), [PHI-3107](https://digiitphi.atlassian.net/browse/PHI-3107) | Done (#1530, #1533, #1539) |
-| WO-T01 | Next WO number (preview) | #3 | WO-T20 (format) | [PHI-2993](https://digiitphi.atlassian.net/browse/PHI-2993) | Tested, staged |
-| WO-T02 | Form options | #4 | – | [PHI-2993](https://digiitphi.atlassian.net/browse/PHI-2993) | Tested, staged |
+| WO-T01 | Next WO number (preview) | #3 | WO-T20 (format) | [PHI-2993](https://digiitphi.atlassian.net/browse/PHI-2993) | Tested, PR #1545 (open, stacked on #1544) |
+| WO-T02 | Form options | #4 | – | [PHI-2993](https://digiitphi.atlassian.net/browse/PHI-2993) | Tested, PR #1545 (open, stacked on #1544) |
 | WO-T03 | Approval route for WO (layers + permission) | #5, §3.2 | – | – | Skipped for now (25 Nov); WO uses the route as it is (TD18) |
-| WO-T04 | Save draft and update draft | #6, #7 | – | [PHI-2993](https://digiitphi.atlassian.net/browse/PHI-2993) | Tested, staged |
-| WO-T05 | Create (submit) WO, no approval logic | #8 | WO-T04 | [PHI-2993](https://digiitphi.atlassian.net/browse/PHI-2993) | Tested, staged (run 2: B4 open) |
-| WO-T06 | Delete draft | #9 | WO-T04 | [PHI-2993](https://digiitphi.atlassian.net/browse/PHI-2993) | Tested, staged |
+| WO-T04 | Save draft and update draft | #6, #7 | – | [PHI-2993](https://digiitphi.atlassian.net/browse/PHI-2993) | Tested, PR #1545 (open, stacked on #1544) |
+| WO-T05 | Create (submit) WO, no approval logic | #8 | WO-T04 | [PHI-2993](https://digiitphi.atlassian.net/browse/PHI-2993) | Tested; B4 fixed (4c0a5580); PR #1545 (open, stacked on #1544) |
+| WO-T06 | Delete draft | #9 | WO-T04 | [PHI-2993](https://digiitphi.atlassian.net/browse/PHI-2993) | Tested, PR #1545 (open, stacked on #1544) |
 | WO-T07 | WO details and allowed actions | #10 | WO-T05 | [PHI-2994](https://digiitphi.atlassian.net/browse/PHI-2994) | To do |
 | WO-T08 | Approval history and modification comparison | #11 | WO-T05 | [PHI-3106](https://digiitphi.atlassian.net/browse/PHI-3106) | To do |
 | WO-T09 | Attachments: add and delete | #12, #13 | WO-T04 | [PHI-2995](https://digiitphi.atlassian.net/browse/PHI-2995) | To do |
-| WO-T10 | Approve and bulk approve | #15, #16 | WO-T05 | [PHI-2996](https://digiitphi.atlassian.net/browse/PHI-2996), [PHI-3055](https://digiitphi.atlassian.net/browse/PHI-3055) | To do |
+| WO-T10 | Approve and bulk approve | #15, #16 | WO-T05 | [PHI-2996](https://digiitphi.atlassian.net/browse/PHI-2996), [PHI-3055](https://digiitphi.atlassian.net/browse/PHI-3055) | Level 0 approve tested, staged (PHI-2996, `feat/work-order-approval-l0`); Level 1 / bulk to do |
 | WO-T11 | Modify | #17 | WO-T10, WO-T15 | [PHI-2998](https://digiitphi.atlassian.net/browse/PHI-2998), [PHI-2999](https://digiitphi.atlassian.net/browse/PHI-2999), [PHI-3002](https://digiitphi.atlassian.net/browse/PHI-3002), [PHI-3049](https://digiitphi.atlassian.net/browse/PHI-3049), [PHI-3056](https://digiitphi.atlassian.net/browse/PHI-3056) | To do |
-| WO-T12 | Reject | #18 | WO-T10, WO-T15 | [PHI-2997](https://digiitphi.atlassian.net/browse/PHI-2997), [PHI-3004](https://digiitphi.atlassian.net/browse/PHI-3004), [PHI-3051](https://digiitphi.atlassian.net/browse/PHI-3051), [PHI-3058](https://digiitphi.atlassian.net/browse/PHI-3058) | To do |
+| WO-T12 | Reject | #18 | WO-T10, WO-T15 | [PHI-2997](https://digiitphi.atlassian.net/browse/PHI-2997), [PHI-3004](https://digiitphi.atlassian.net/browse/PHI-3004), [PHI-3051](https://digiitphi.atlassian.net/browse/PHI-3051), [PHI-3058](https://digiitphi.atlassian.net/browse/PHI-3058) | Level 0 reject by Layer 2 tested, staged (PHI-2997); Level 1 / TD21 open |
 | WO-T13 | Modification decision | #19 | WO-T11 | [PHI-3000](https://digiitphi.atlassian.net/browse/PHI-3000), [PHI-3001](https://digiitphi.atlassian.net/browse/PHI-3001), [PHI-3003](https://digiitphi.atlassian.net/browse/PHI-3003), [PHI-3050](https://digiitphi.atlassian.net/browse/PHI-3050), [PHI-3057](https://digiitphi.atlassian.net/browse/PHI-3057) | To do |
 | WO-T14 | Rejection decision | #20 | WO-T12 | [PHI-3052](https://digiitphi.atlassian.net/browse/PHI-3052), [PHI-3059](https://digiitphi.atlassian.net/browse/PHI-3059) | To do |
 | WO-T15 | Set Approval Flow (Level 1 / 2) | #21 | WO-T03 | [PHI-3005](https://digiitphi.atlassian.net/browse/PHI-3005), [PHI-3054](https://digiitphi.atlassian.net/browse/PHI-3054) | To do |
@@ -52,7 +52,7 @@ Common rules for all tickets (from `03` and the decisions):
 | WO-T21 | Action Plan link to the WO | §3.4 | WO-T05 | – | Blocked (Q15) |
 | WO-T22 | Project changes for a WO project | §3.5 | WO-T19 | [PHI-3060](https://digiitphi.atlassian.net/browse/PHI-3060) | To do |
 | WO-T23 | My approval list: WO steps | §3.6 | WO-T10 | – | To do |
-| WO-T24 | Export (all levels) | not in `03` yet | WO-T00 | [PHI-3053](https://digiitphi.atlassian.net/browse/PHI-3053) | To do (new 25 Nov, from Jira) |
+| WO-T24 | Export (all levels) | #27 | WO-T00 | [PHI-3053](https://digiitphi.atlassian.net/browse/PHI-3053) | To do (new 25 Nov, from Jira) |
 
 ---
 
@@ -1315,9 +1315,15 @@ curl -X POST "{{base_url}}/api/v1/work-order/e0fcfec9-6c8e-4e2e-9b64-2704363738c
 Acceptance:
 - Given a WO at Level 0 Layer 1, when a user not in the step approves, then the result is 403 and nothing changes.
 
+**Built 25 Nov (PHI-2996, branch `feat/work-order-approval-l0` on `feat/work-order-draft`, staged; 45 WO unit tests pass; curl pass, see WO-T12):**
+- Create now does TD20: it copies the flow (`approvers[]` wins, else `approval_route_id`, else the steps the draft saved) to `work_order_approvers` (Level 0, stage 1) and opens `approval_processes` `Work Order Level 0` (`latest_approval_level` = first layer), an `initiate` log and the Layer 1 timer. No flow = 400. A route must be category `work_order`. This replaces the WO-T05 "no approval logic" rule.
+- `POST /work-order/{id}/approve` { remarks? ≤ 500 }: caller in the copied approvers of the current step (Level 0, current layer, newest stage), else 403. Layer 1 → Layer 2; last layer → Level 1 Layer 1, `waiting_approval`, process `approved`. Each step: close the open timer (`approved`), `approve` log, `approved` history row (Level 0, that layer, notes = remarks), open the next timer.
+- 400: not `waiting_approval`, not Level 0 (Level 1 / 2 are later), no active Level 0 process (WOs made before this change).
+- Not built: bulk approve, Level 1 / 2 approve, notifications, my-approval list (WO-T23).
+
 ### WO-T11: Modify
 `POST /work-order/{id}/modify` { changed fields, remarks }
-- Level 0: write the change into the WO and approve it in one step. The requestor gets information only.
+- Level 0 (TD23, as Jira): Layer 1 modifies → status Modification Review at Level 0 Layer 2 (the change is a proposal). Layer 2 can also modify by itself (Self Modify: change applied and approved).
 - Level 1 / 2: needs the approval flow of that Level first. Save the change as a proposal (history snapshot). Status = Modification Review (Manager of that department).
 
 ### WO-T12: Reject
@@ -1326,7 +1332,354 @@ Acceptance:
 - Level 0: goes through the approval route category `wo_reject_level_0` (TD21): open a reject process with its users; after its last level → Rejected; a "no" → back to the Level 0 approval. Open: route members, one route for each department?
 - Level 1 / 2: needs the approval flow first, and `no_reject` must be false. Status = Rejection Review (Manager of that department).
 
+**Built 25 Nov (PHI-2997, same branch, staged; tested, results below). Decision taken without an answer from the user, to confirm:** the ticket title "Reject by Lv 0 Layer 2" is read as: only the Level 0 **Layer 2 Manager** (an approver of that step) can reject, and the reject is **final**. This does **not** use the TD21 reject route (`wo_reject_level_0`).
+- `POST /work-order/{id}/reject` { remarks (required, ≤ 500) } → `rejected`, Level 0 process `rejected`, timer closed `rejected`, `reject` log, `rejected` history row.
+- Layer 1 reject → 400 ("only the Layer 2 Manager can reject"). Not an approver of the step → 403.
+
+Test result (PHI-2996 + PHI-2997, curl, 25 Nov 2026):
+
+- Status: **Pass** (21 calls, all expected). Unit tests: 45 WO tests pass.
+- Users: `phi.wo.po.pic` (creator), `phi.wo.po.senior` (Layer 1), `phi.wo.po.manager` (Layer 2). Production Operations, from `mock_auth_sessions`.
+- Env: local WebApi (`feat/work-order-approval-l0`) on the dev DB; Quartz in RAM by a local change, reverted after.
+- Setup on dev (kept): approval route "WO PO Level 0 (curl test 25 Nov)", category `work_order`, department Production Operations, Layer 1 = senior (2 days), Layer 2 = manager (1 day).
+- DB check: 0016 (route) Level 0 Layer 1 → Layer 2 → Level 1 Layer 1, process `approved`, logs initiate / approve "OK from Senior" / approve "OK from Manager", timers 2 d and 1 d closed `approved`, history submitted / approved@0.1 / approved@0.2. 0017 (approvers[]) → `rejected`, process `rejected`, reject log "Out of budget this year", Layer 2 timer `rejected`. 0018 (from draft) got the draft steps; C1 / C2 saved no WO.
+- Found and fixed after the run: C5 (draft, no flow in the request) cleared the draft route, so the Layer 1 timer took the global 3 days, not the route 2 days. Create now keeps the draft route; unit test added. Not re-run with curl.
+- Test rows on dev (keep): 0016–0018/WO/PO/2026.
+
+| # | Case | User | HTTP | Result |
+|---|---|---|---|---|
+| S1 | create work_order approval route (setup) | `phi.wo.po.pic` | 200 | Pass |
+| C1 | create without a flow (400) | `phi.wo.po.pic` | 400 | Pass |
+| C2 | create with a non work_order route (400) | `phi.wo.po.pic` | 400 | Pass |
+| C3 | create with the work_order route | `phi.wo.po.pic` | 200 | Pass |
+| P1 | approve by a user not on the route (403) | `phi.wo.po.pic` | 403 | Pass |
+| P2 | approve by the Layer 2 Manager at Layer 1 (403) | `phi.wo.po.manager` | 403 | Pass |
+| P3 | approve, unknown id (404) | `phi.wo.po.senior` | 404 | Pass |
+| P4 | approve, remarks over 500 (400) | `phi.wo.po.senior` | 400 | Pass |
+| J1 | reject by Layer 1 Senior (400) | `phi.wo.po.senior` | 400 | Pass |
+| P5 | Layer 1 Senior approves (to Layer 2) | `phi.wo.po.senior` | 200 | Pass |
+| J2 | reject by Layer 2 Manager without remarks (400) | `phi.wo.po.manager` | 400 | Pass |
+| P6 | Layer 2 Manager approves (to Level 1) | `phi.wo.po.manager` | 200 | Pass |
+| P7 | approve at Level 1 (400, later ticket) | `phi.wo.po.senior` | 400 | Pass |
+| C4 | create with approvers[] (Senior L1, Manager L2) | `phi.wo.po.pic` | 200 | Pass |
+| P8 | Layer 1 Senior approves (to Layer 2) | `phi.wo.po.senior` | 200 | Pass |
+| J3 | reject by a user not on the step (403) | `phi.wo.po.senior` | 403 | Pass |
+| J4 | Layer 2 Manager rejects (final) | `phi.wo.po.manager` | 200 | Pass |
+| P9 | approve a rejected WO (400) | `phi.wo.po.manager` | 400 | Pass |
+| D1 | save draft with the route (setup) | `phi.wo.po.pic` | 200 | Pass |
+| C5 | create from the draft, no flow in the request (uses the saved steps) | `phi.wo.po.pic` | 200 | Pass |
+| P10 | approve an old WO with no Level 0 process (403: no copied approvers) | `phi.wo.po.senior` | 403 | Pass |
+
+Cases (error responses show status, code and message only):
+
+**S1 create work_order approval route (setup)**: user `phi.wo.po.pic`, HTTP 200
+
+```bash
+curl -X POST "{{base_url}}/api/v1/approval-routes" -H "Authorization: Bearer <token of phi.wo.po.pic>" -H Content-Type:\ application/json -d \{\"title\":\"WO\ PO\ Level\ 0\ \(curl\ test\ 25\ Nov\)\",\"description\":\"Work\ Order\ Level\ 0\ test\ route,\ PO\",\"category\":\"work_order\",\"approvers\":\[\{\"level\":1,\"sla_days\":2,\"users\":\[\{\"id\":\"0b000000-0000-0000-0000-000000000602\"\}\]\},\{\"level\":2,\"sla_days\":1,\"users\":\[\{\"id\":\"0b000000-0000-0000-0000-000000000604\"\}\]\}\]\}
+```
+
+```json
+{"status": "success", "code": "00", "message": "Create approval route succeed"}
+```
+
+**C1 create without a flow (400)**: user `phi.wo.po.pic`, HTTP 400
+
+```bash
+curl -X POST "{{base_url}}/api/v1/work-order/phss" -H "Authorization: Bearer <token of phi.wo.po.pic>" -F title=AP\ C1\ no\ flow -F description=Scope\ -\ approval\ test -F urgency_level=important -F request_to=osf -F category=well_test -F field_id=8248bb0c-a37c-423c-9ce6-36c592f79906 -F start_date=01-12-2026 -F end_date=15-12-2026
+```
+
+```json
+{"status": "failed", "code": "01", "message": "approvers or approval_route_id is required: the Level 0 approval flow has no approver"}
+```
+
+**C2 create with a non work_order route (400)**: user `phi.wo.po.pic`, HTTP 400
+
+```bash
+curl -X POST "{{base_url}}/api/v1/work-order/phss" -H "Authorization: Bearer <token of phi.wo.po.pic>" -F title=AP\ C2\ spk\ route -F approval_route_id=aa39ca0b-bf7e-45c7-aeda-076f4d549e71 -F description=Scope\ -\ approval\ test -F urgency_level=important -F request_to=osf -F category=well_test -F field_id=8248bb0c-a37c-423c-9ce6-36c592f79906 -F start_date=01-12-2026 -F end_date=15-12-2026
+```
+
+```json
+{"status": "failed", "code": "01", "message": "approval_route_id 'aa39ca0b-bf7e-45c7-aeda-076f4d549e71' was not found, is not active, or is not a work_order route"}
+```
+
+**C3 create with the work_order route**: user `phi.wo.po.pic`, HTTP 200
+
+```bash
+curl -X POST "{{base_url}}/api/v1/work-order/phss" -H "Authorization: Bearer <token of phi.wo.po.pic>" -F title=AP\ C3\ route -F approval_route_id=fdd227a4-7bdc-4f41-be94-3602614b039d -F description=Scope\ -\ approval\ test -F urgency_level=important -F request_to=osf -F category=well_test -F field_id=8248bb0c-a37c-423c-9ce6-36c592f79906 -F start_date=01-12-2026 -F end_date=15-12-2026
+```
+
+```json
+{
+  "data": {
+    "id": "8a7bb428-e2fb-46dc-b6e9-a958ca4524a7",
+    "wo_number": "0016/WO/PO/2026",
+    "status": "waiting_approval",
+    "current_level": 0,
+    "current_layer": 1,
+    "created_date": "25-11-2026",
+    "attachment_count": 0
+  },
+  "status": "success",
+  "code": "00",
+  "message": "Create work order succeed"
+}
+```
+
+**P1 approve by a user not on the route (403)**: user `phi.wo.po.pic`, HTTP 403
+
+```bash
+curl -X POST "{{base_url}}/api/v1/work-order/8a7bb428-e2fb-46dc-b6e9-a958ca4524a7/approve" -H "Authorization: Bearer <token of phi.wo.po.pic>" -H Content-Type:\ application/json -d \{\"remarks\":\"x\"\}
+```
+
+```json
+{"status": "failed", "code": "01", "message": "You are not an approver of the current step of this work order"}
+```
+
+**P2 approve by the Layer 2 Manager at Layer 1 (403)**: user `phi.wo.po.manager`, HTTP 403
+
+```bash
+curl -X POST "{{base_url}}/api/v1/work-order/8a7bb428-e2fb-46dc-b6e9-a958ca4524a7/approve" -H "Authorization: Bearer <token of phi.wo.po.manager>" -H Content-Type:\ application/json -d \{\}
+```
+
+```json
+{"status": "failed", "code": "01", "message": "You are not an approver of the current step of this work order"}
+```
+
+**P3 approve, unknown id (404)**: user `phi.wo.po.senior`, HTTP 404
+
+```bash
+curl -X POST "{{base_url}}/api/v1/work-order/00000000-0000-0000-0000-0000000000a1/approve" -H "Authorization: Bearer <token of phi.wo.po.senior>" -H Content-Type:\ application/json -d \{\}
+```
+
+```json
+{"status": "failed", "code": "01", "message": "Work order not found"}
+```
+
+**P4 approve, remarks over 500 (400)**: user `phi.wo.po.senior`, HTTP 400
+
+```bash
+curl -X POST "{{base_url}}/api/v1/work-order/8a7bb428-e2fb-46dc-b6e9-a958ca4524a7/approve" -H "Authorization: Bearer <token of phi.wo.po.senior>" -H Content-Type:\ application/json -d \{"remarks":"<501 x>"\}
+```
+
+```json
+{"status": "failed", "code": "01", "message": "remarks must be at most 500 characters"}
+```
+
+**J1 reject by Layer 1 Senior (400)**: user `phi.wo.po.senior`, HTTP 400
+
+```bash
+curl -X POST "{{base_url}}/api/v1/work-order/8a7bb428-e2fb-46dc-b6e9-a958ca4524a7/reject" -H "Authorization: Bearer <token of phi.wo.po.senior>" -H Content-Type:\ application/json -d \{\"remarks\":\"no\ budget\"\}
+```
+
+```json
+{"status": "failed", "code": "01", "message": "At Level 0 only the Layer 2 Manager can reject; this work order is at Layer 1"}
+```
+
+**P5 Layer 1 Senior approves (to Layer 2)**: user `phi.wo.po.senior`, HTTP 200
+
+```bash
+curl -X POST "{{base_url}}/api/v1/work-order/8a7bb428-e2fb-46dc-b6e9-a958ca4524a7/approve" -H "Authorization: Bearer <token of phi.wo.po.senior>" -H Content-Type:\ application/json -d \{\"remarks\":\"OK\ from\ Senior\"\}
+```
+
+```json
+{
+  "data": {
+    "id": "8a7bb428-e2fb-46dc-b6e9-a958ca4524a7",
+    "wo_number": "0016/WO/PO/2026",
+    "status": "waiting_approval",
+    "current_level": 0,
+    "current_layer": 2
+  },
+  "status": "success",
+  "code": "00",
+  "message": "Approve work order succeed"
+}
+```
+
+**J2 reject by Layer 2 Manager without remarks (400)**: user `phi.wo.po.manager`, HTTP 400
+
+```bash
+curl -X POST "{{base_url}}/api/v1/work-order/8a7bb428-e2fb-46dc-b6e9-a958ca4524a7/reject" -H "Authorization: Bearer <token of phi.wo.po.manager>" -H Content-Type:\ application/json -d \{\"remarks\":\"\ \ \"\}
+```
+
+```json
+{"status": "failed", "code": "01", "message": "remarks is required"}
+```
+
+**P6 Layer 2 Manager approves (to Level 1)**: user `phi.wo.po.manager`, HTTP 200
+
+```bash
+curl -X POST "{{base_url}}/api/v1/work-order/8a7bb428-e2fb-46dc-b6e9-a958ca4524a7/approve" -H "Authorization: Bearer <token of phi.wo.po.manager>" -H Content-Type:\ application/json -d \{\"remarks\":\"OK\ from\ Manager\"\}
+```
+
+```json
+{
+  "data": {
+    "id": "8a7bb428-e2fb-46dc-b6e9-a958ca4524a7",
+    "wo_number": "0016/WO/PO/2026",
+    "status": "waiting_approval",
+    "current_level": 1,
+    "current_layer": 1
+  },
+  "status": "success",
+  "code": "00",
+  "message": "Approve work order succeed"
+}
+```
+
+**P7 approve at Level 1 (400, later ticket)**: user `phi.wo.po.senior`, HTTP 400
+
+```bash
+curl -X POST "{{base_url}}/api/v1/work-order/8a7bb428-e2fb-46dc-b6e9-a958ca4524a7/approve" -H "Authorization: Bearer <token of phi.wo.po.senior>" -H Content-Type:\ application/json -d \{\}
+```
+
+```json
+{"status": "failed", "code": "01", "message": "This work order is at Level 1; only Level 0 approval is available"}
+```
+
+**C4 create with approvers[] (Senior L1, Manager L2)**: user `phi.wo.po.pic`, HTTP 200
+
+```bash
+curl -X POST "{{base_url}}/api/v1/work-order/phss" -H "Authorization: Bearer <token of phi.wo.po.pic>" -F title=AP\ C4\ approvers -F approvers=\[\{\"level\":1,\"sla_days\":2,\"user_id\":\[\"0b000000-0000-0000-0000-000000000602\"\]\},\{\"level\":2,\"sla_days\":1,\"user_id\":\[\"0b000000-0000-0000-0000-000000000604\"\]\}\] -F description=Scope\ -\ approval\ test -F urgency_level=important -F request_to=osf -F category=well_test -F field_id=8248bb0c-a37c-423c-9ce6-36c592f79906 -F start_date=01-12-2026 -F end_date=15-12-2026
+```
+
+```json
+{
+  "data": {
+    "id": "1f55cb34-e53f-4598-a7be-324c9543f8ab",
+    "wo_number": "0017/WO/PO/2026",
+    "status": "waiting_approval",
+    "current_level": 0,
+    "current_layer": 1,
+    "created_date": "25-11-2026",
+    "attachment_count": 0
+  },
+  "status": "success",
+  "code": "00",
+  "message": "Create work order succeed"
+}
+```
+
+**P8 Layer 1 Senior approves (to Layer 2)**: user `phi.wo.po.senior`, HTTP 200
+
+```bash
+curl -X POST "{{base_url}}/api/v1/work-order/1f55cb34-e53f-4598-a7be-324c9543f8ab/approve" -H "Authorization: Bearer <token of phi.wo.po.senior>" -H Content-Type:\ application/json -d \{\}
+```
+
+```json
+{
+  "data": {
+    "id": "1f55cb34-e53f-4598-a7be-324c9543f8ab",
+    "wo_number": "0017/WO/PO/2026",
+    "status": "waiting_approval",
+    "current_level": 0,
+    "current_layer": 2
+  },
+  "status": "success",
+  "code": "00",
+  "message": "Approve work order succeed"
+}
+```
+
+**J3 reject by a user not on the step (403)**: user `phi.wo.po.senior`, HTTP 403
+
+```bash
+curl -X POST "{{base_url}}/api/v1/work-order/1f55cb34-e53f-4598-a7be-324c9543f8ab/reject" -H "Authorization: Bearer <token of phi.wo.po.senior>" -H Content-Type:\ application/json -d \{\"remarks\":\"no\"\}
+```
+
+```json
+{"status": "failed", "code": "01", "message": "You are not an approver of the current step of this work order"}
+```
+
+**J4 Layer 2 Manager rejects (final)**: user `phi.wo.po.manager`, HTTP 200
+
+```bash
+curl -X POST "{{base_url}}/api/v1/work-order/1f55cb34-e53f-4598-a7be-324c9543f8ab/reject" -H "Authorization: Bearer <token of phi.wo.po.manager>" -H Content-Type:\ application/json -d \{\"remarks\":\"Out\ of\ budget\ this\ year\"\}
+```
+
+```json
+{
+  "data": {
+    "id": "1f55cb34-e53f-4598-a7be-324c9543f8ab",
+    "wo_number": "0017/WO/PO/2026",
+    "status": "rejected",
+    "current_level": 0,
+    "current_layer": 2
+  },
+  "status": "success",
+  "code": "00",
+  "message": "Reject work order succeed"
+}
+```
+
+**P9 approve a rejected WO (400)**: user `phi.wo.po.manager`, HTTP 400
+
+```bash
+curl -X POST "{{base_url}}/api/v1/work-order/1f55cb34-e53f-4598-a7be-324c9543f8ab/approve" -H "Authorization: Bearer <token of phi.wo.po.manager>" -H Content-Type:\ application/json -d \{\}
+```
+
+```json
+{"status": "failed", "code": "01", "message": "Only a work order in waiting_approval can be approved or rejected; this work order is rejected"}
+```
+
+**D1 save draft with the route (setup)**: user `phi.wo.po.pic`, HTTP 200
+
+```bash
+curl -X POST "{{base_url}}/api/v1/work-order/draft" -H "Authorization: Bearer <token of phi.wo.po.pic>" -F title=AP\ D1\ draft -F approval_route_id=fdd227a4-7bdc-4f41-be94-3602614b039d -F description=Scope\ -\ approval\ test -F urgency_level=important -F request_to=osf -F category=well_test -F field_id=8248bb0c-a37c-423c-9ce6-36c592f79906 -F start_date=01-12-2026 -F end_date=15-12-2026
+```
+
+```json
+{
+  "data": {
+    "id": "f12b04c7-2761-4017-a507-4ea78828841e",
+    "wo_number": "0018/WO/PO/2026",
+    "status": "draft",
+    "current_level": 0,
+    "current_layer": 0,
+    "created_date": "25-11-2026",
+    "attachment_count": 0
+  },
+  "status": "success",
+  "code": "00",
+  "message": "Save work order draft succeed"
+}
+```
+
+**C5 create from the draft, no flow in the request (uses the saved steps)**: user `phi.wo.po.pic`, HTTP 200
+
+```bash
+curl -X POST "{{base_url}}/api/v1/work-order/phss" -H "Authorization: Bearer <token of phi.wo.po.pic>" -F id=f12b04c7-2761-4017-a507-4ea78828841e -F title=AP\ D1\ from\ draft -F description=Scope\ -\ approval\ test -F urgency_level=important -F request_to=osf -F category=well_test -F field_id=8248bb0c-a37c-423c-9ce6-36c592f79906 -F start_date=01-12-2026 -F end_date=15-12-2026
+```
+
+```json
+{
+  "data": {
+    "id": "f12b04c7-2761-4017-a507-4ea78828841e",
+    "wo_number": "0018/WO/PO/2026",
+    "status": "waiting_approval",
+    "current_level": 0,
+    "current_layer": 1,
+    "created_date": "25-11-2026",
+    "attachment_count": 0
+  },
+  "status": "success",
+  "code": "00",
+  "message": "Create work order succeed"
+}
+```
+
+**P10 approve an old WO with no Level 0 process (403: no copied approvers)**: user `phi.wo.po.senior`, HTTP 403
+
+```bash
+curl -X POST "{{base_url}}/api/v1/work-order/e0fcfec9-6c8e-4e2e-9b64-2704363738c3/approve" -H "Authorization: Bearer <token of phi.wo.po.senior>" -H Content-Type:\ application/json -d \{\}
+```
+
+```json
+{"status": "failed", "code": "01", "message": "You are not an approver of the current step of this work order"}
+```
+
 ### WO-T13: Modification decision
+- Level 0 (TD23): the Level 0 Layer 2 Manager approves (apply the change, WO goes to Level 1) or rejects (drop the proposal; back to which layer is open, G34).
 `POST /work-order/{id}/modification/decision` { decision: approve | reject, remarks }
 - Manager of the target (or assigned) department:
   - Approve → go to the Manager of the requestor department.
@@ -1408,6 +1761,12 @@ Acceptance:
 `GET /my-approval-list`
 - Add the WO steps where the user is a copied approver of the current step.
 
+### WO-T24: Export (all levels)
+`GET /work-order/{id}/export?format=` ([PHI-3053](https://digiitphi.atlassian.net/browse/PHI-3053))
+- From the PRD: the "Export" button is on Details Work Order on **every level**, for every user who can open the WO. After the user approved, Export is the only button. It is also in the Modification Comparison modal.
+- The PRD section "Work Order - All Levels - Export" is empty: no format and no content yet.
+- Open (G35): format (PDF as the FE asked in G28, or CSV "Section, Field, Value" as Knowledge Documents WO-9.1), and the content (fields, approval history, attachment list?). Level 2 changes must stay hidden from Level 1 users (G9).
+
 ---
 
 ## 3. Jira Story map (25 Nov)
@@ -1449,5 +1808,5 @@ Source: Jira search `summary ~ "work order"` (114 issues: 30 Stories + 84 FE / B
 
 **WO tickets with no Jira Story:** WO-T03 (route layers), WO-T20 (number format), WO-T21 (Action Plan link), WO-T23 (my approval list), the Level 0 reject route `wo_reject_level_0` (TD21), bulk approve (part of WO-T10), and the Project simple schedule / Finish (02 WO-7.2, 7.3, 8.x).
 
-**Differences (gaps in `02` §1):** G34 Level 0 Modify review in Jira vs X2; G35 Export not in `03`; G36 no Jira for some tickets, 2 Stories without epic.
+**Differences (gaps in `02` §1):** G34 closed (TD23, use Jira); G35 partly closed (Export #27, format open); G36 kept as is (TD24).
 

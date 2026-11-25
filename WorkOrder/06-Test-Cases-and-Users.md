@@ -69,7 +69,7 @@ Full curl and responses: `07-Ticket.md` WO-T05, run 2.
 | B1 | No description | `Required to submit: description` | Pass |
 | B2 | Only title | All 6 missing names in one message | Pass |
 | B3 | end_date before start_date | `end_date must be on or after start_date` | Pass |
-| B4 | start_date `2026-12-01` | 400 not DD-MM-YYYY | **Differs: 200** (shared parser takes yyyy-MM-dd and MM-dd-yyyy; decision open) |
+| B4 | start_date `2026-12-01` | 400 not DD-MM-YYYY | Was 200 in the run. **Fixed 25 Nov (4c0a5580):** WO dates take only dd-MM-yyyy; unit tests added (not run yet) |
 | B5 | `request_to=xyz` | not a Request To code | Pass |
 | B6 | `budget_type=["other"]` | must be one of … | Pass |
 | B7 | Title of 256 characters | at most 255 | Pass |
@@ -107,7 +107,7 @@ Full curl and responses: `07-Ticket.md` WO-T05, run 2.
 | F2 | Submit #8 | category with no approval | submit | Approved at Level 1, no steps (R1) |
 | F3 | Level 0 approve #15 | Senior of the requestor department | approve, then the Manager approves | Layer 1 → Layer 2 → Level 1 Waiting Approval |
 | F4 | Senior requestor | the requestor is a Senior | Level 0 Layer 1 | **another** Senior reviews; no skip |
-| F5 | Level 0 modify #17 | Level 0 approver | modify | change saved and approved in one step; requestor gets a notification (X2) |
+| F5 | Level 0 modify #17 | Level 0 approver | Layer 1 modify | status Modification Review at Level 0 Layer 2; Manager approves → Level 1, rejects → proposal dropped (TD23) |
 | F6 | Level 0 reject #18 | Level 0 approver | reject with remarks | Rejected, final (X3) |
 | F7 | Set Approval Flow #21 | Level 1, Waiting Approval | select a route of "Work Order - {target department}" | steps copied; page shows only Modify and Reject; Approve still works without a flow |
 | F8 | Level 1 modify #17/#19 | flow set | Senior modifies → target Manager approves → requestor Manager refuses | proposal dropped; WO Approved with the old values (X5) |
