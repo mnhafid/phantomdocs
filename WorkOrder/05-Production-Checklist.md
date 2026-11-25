@@ -14,9 +14,9 @@ The base for all WO PRs is `phi-dev`. A release branch (`release/YYYYMMDD`) is m
 | # | Branch → PR | What | Status |
 |---|---|---|---|
 | 1 | `feat/work-order-schema` → #1523 | 5 WO tables, migration `20261123141311_AddWorkOrders`, `projects.work_order_id` | Done (merged) |
-| 2 | `feat/work-order-overview` → #1530 | `GET /work-order/{working_area}/overview` (6 cards) | Done (merged) |
-| 3 | `feat/work-order-list` → #1533 | `GET /work-order/{working_area}` (list), with filters, sort, page_size max 100 | Done (merged) |
-| 4a | `feat/work-order-draft` (staged, no PR) | Save As Draft, Update Draft, Create (submit) `POST /work-order/{working_area}` (multipart, 5 files); `request_to` codes in list / overview; WO numbers also checked against `work_orders`; seed `seed_work_order_config.sql` | Staged, not built |
+| 2 | `feat/work-order-overview` → #1530 | `GET /work-order/{working_area}/overview` (6 cards), Jira [PHI-2992](https://digiitphi.atlassian.net/browse/PHI-2992) | Done (merged) |
+| 3 | `feat/work-order-list` → #1533 | `GET /work-order/{working_area}` (list), with filters, sort, page_size max 100, Jira [PHI-3107](https://digiitphi.atlassian.net/browse/PHI-3107) | Done (merged) |
+| 4a | `feat/work-order-draft` (staged, no PR), Jira [PHI-2993](https://digiitphi.atlassian.net/browse/PHI-2993) | Save As Draft, Update Draft, Create (submit) `POST /work-order/{working_area}` (multipart, 5 files); `request_to` codes in list / overview; WO numbers also checked against `work_orders`; seed `seed_work_order_config.sql` | Staged, not built |
 | 4b | new | Form options, next number, submit, details, attachments, delete draft | To do |
 | 5 | new | Level 0 approve / modify / reject, bulk approve, histories | To do |
 | 6 | new | Set Approval Flow, Level 1/2 approve / modify / reject, modification / rejection decisions, approvers list | To do |

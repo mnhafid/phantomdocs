@@ -342,6 +342,9 @@ Decisions and answered questions are in `01-Decision-Log.md`. The ID in brackets
 | G32 | **Seeded 25 Nov:** short names PROJECTS (Project), OSF (Operation & Surface Facilities), PO (Production Operations), DRILLING (Drilling), WLI (WLI) appended by `seed_work_order_config.sql`. Check the Drilling / WLI keys against `users.department`. ~~Short names had only SDA 1 / SDA 2~~ | Code, 25 Nov | Check names on the DB before go-live; other departments (Fields) still have none | Partly closed |
 | G33 | **Seeded 25 Nov:** `wli` → WLI, `phss_field` → PHSS Field, `sangatta_field` → Sangatta Field. The names come from the Request To list (G11); check them against `users.department` | `seed_work_order_config.sql` | Check names on the DB before go-live | Partly closed |
 | G31 | Next WO number: FE uses the existing `GET /well-surveilence/action-plans/next-wo-number`. Same counter as the WO (requestor department)                                                                                                                                                                                                                | FE API Spec                                     | OK to reuse; plan #3 not needed                                                        |     |
+| G34 | Level 0 Modify: Jira has a review step ([PHI-3000](https://digiitphi.atlassian.net/browse/PHI-3000), [PHI-3001](https://digiitphi.atlassian.net/browse/PHI-3001), [PHI-3003](https://digiitphi.atlassian.net/browse/PHI-3003): Waiting for Review Lv 0 Layer 2, then Approve / Reject Modify). Decision X2 says a Level 0 Modify changes the WO and approves it in one step | Jira, 25 Nov | Decide: keep X2 or add the Layer 2 review | |
+| G35 | Export ([PHI-3053](https://digiitphi.atlassian.net/browse/PHI-3053), all levels) has no endpoint in `03` and no ticket before WO-T24 | Jira, 25 Nov | Plan the export path and columns | |
+| G36 | No Jira Story for WO-T03, T20, T21, T23, the `wo_reject_level_0` route (TD21), bulk approve, simple schedule / project approval / Finish. [PHI-3106](https://digiitphi.atlassian.net/browse/PHI-3106), [PHI-3107](https://digiitphi.atlassian.net/browse/PHI-3107) have no epic | Jira, 25 Nov | Ask the PM to add the Stories or say they are out of scope | |
 
 
 ---
@@ -525,7 +528,7 @@ Removed by D3: needs_revision (mr1/mr2), "rejection not approved" banner, Re-Sub
 
 ![Requestor: create and submit](img/prd-flow-requestor-submit.jpg)
 
-### **NID WO-1.1 [Jira TBD]**
+### **NID WO-1.1 [Jira: [PHI-2993](https://digiitphi.atlassian.net/browse/PHI-2993)]**
 
 **Work Order - Create & Submit - Requestor Create Work Order**
 
@@ -537,7 +540,7 @@ Removed by D3: needs_revision (mr1/mr2), "rejection not approved" banner, Re-Sub
 | **Negative Case**       | End Date before Start Date → "End date cannot be before start date"<br>Required field empty → Submit disabled, field marked<br>WBS with letters → not added<br>Upload 6th file / > 10 MB / wrong type → "Maximum 5 files" / "file is larger than 10 MB" / "file type is not supported"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | **Question** | Answered 24 Nov: the route is selected by hand (Level 0 by the requestor). Answered 23 Nov: the Figma has the Drilling lane (simple schedule). Still open: what a WO to SDA 1/2 Z9 means; "Request To: Internal, Level 1, or Level 2" (MoM 19 Nov, Q05); "PIC: Predefined value" — from where? Work Order Type (Updating Parameter / Study / New Work) and Review By are not in the team doc form — keep or drop? |
 
-### **NID WO-1.2 [Jira TBD]**
+### **NID WO-1.2 [Jira: no Story yet]**
 
 **Work Order - Create & Submit - Action Plan step (well categories)**
 
@@ -549,7 +552,7 @@ Removed by D3: needs_revision (mr1/mr2), "rejection not approved" banner, Re-Sub
 | **Negative Case** | Target Well not in the selected Field / Area → cannot submit<br>AL Installation Production > Compression Type value → blocked<br>Required category field empty → Submit disabled |
 | **Question** | Decided: the Action Plan uses the route of the WO (X12). Decided: a well WO also makes a simple project (P1). Still open: M009 "PO makes a WO to Project" — new WO or Transfer (X13)? One WO with several wells / Action Plans (Q15)? Can Well Surveillance still make a plan without a WO? Migrate ~50 dev plans that already have a WO number? Prime Mover / Power for Gas Lift (Q46) |
 
-### **NID WO-1.3 [Jira TBD]**
+### **NID WO-1.3 [Jira: [PHI-2993](https://digiitphi.atlassian.net/browse/PHI-2993)]**
 
 **Work Order - Create & Submit - WO number**
 
@@ -569,7 +572,7 @@ Removed by D3: needs_revision (mr1/mr2), "rejection not approved" banner, Re-Sub
 
 ![Requestor Approval Level 2](img/prd-flow-requestor-approval-l2.jpg)
 
-### **NID WO-2.1 [Jira TBD]**
+### **NID WO-2.1 [Jira: [PHI-2996](https://digiitphi.atlassian.net/browse/PHI-2996)]**
 
 **Work Order - Requestor Approval - Layer 1 Level 0 (Senior / Asst. Manager)**
 
@@ -581,7 +584,7 @@ Removed by D3: needs_revision (mr1/mr2), "rejection not approved" banner, Re-Sub
 | **Negative Case** | User who is not the pending approver → read-only, "Waiting for approval by <name>" |
 | **Question** | Decided: the chain is the Level 0 flow that the requestor selects (TD1). Decided: no position validator (TD3, TD8). Open: can the Level 0 flow be empty? |
 
-### **NID WO-2.2 [Jira TBD]**
+### **NID WO-2.2 [Jira: [PHI-2996](https://digiitphi.atlassian.net/browse/PHI-2996), [PHI-2997](https://digiitphi.atlassian.net/browse/PHI-2997)]**
 
 **Work Order - Requestor Approval - Layer 2 Level 0 (Manager Requestor)**
 
@@ -593,7 +596,7 @@ Removed by D3: needs_revision (mr1/mr2), "rejection not approved" banner, Re-Sub
 | **Negative Case** | – |
 | **Question** | – |
 
-### **NID WO-2.3 [Jira TBD]**
+### **NID WO-2.3 [Jira: [PHI-2997](https://digiitphi.atlassian.net/browse/PHI-2997), [PHI-3004](https://digiitphi.atlassian.net/browse/PHI-3004)]**
 
 **Work Order - Requestor Approval - Reject**
 
@@ -605,7 +608,7 @@ Removed by D3: needs_revision (mr1/mr2), "rejection not approved" banner, Re-Sub
 | **Negative Case** | Empty reason → Reject disabled; > 500 chars → blocked by counter |
 | **Question** | Decided (X3): a reject at Level 0 is final. There is no Re-submit. The Requestor makes a new WO with a new number |
 
-### **NID WO-2.4 [Jira TBD]**
+### **NID WO-2.4 [Jira: no Story yet]**
 
 **Work Order - Requestor Approval - Bulk Approve**
 
@@ -617,7 +620,7 @@ Removed by D3: needs_revision (mr1/mr2), "rejection not approved" banner, Re-Sub
 | **Negative Case** | One WO fails (e.g. already acted by another user) → others still move; failed WO is listed with the reason |
 | **Question** | G3: partial-failure message wording |
 
-### **NID WO-2.5 [Jira TBD]**
+### **NID WO-2.5 [Jira: no Story yet]**
 
 **Work Order - Approval - SLA and auto-escalation [MoM]**
 
@@ -637,7 +640,7 @@ Removed by D3: needs_revision (mr1/mr2), "rejection not approved" banner, Re-Sub
 
 ![Assigned department, Level 2](img/prd-flow-target-l2-approve.jpg)
 
-### **NID WO-3.1 [Jira TBD]**
+### **NID WO-3.1 [Jira: [PHI-3006](https://digiitphi.atlassian.net/browse/PHI-3006), [PHI-3048](https://digiitphi.atlassian.net/browse/PHI-3048)]**
 
 **Work Order - Target Review - Senior Officer Approve**
 
@@ -649,7 +652,7 @@ Removed by D3: needs_revision (mr1/mr2), "rejection not approved" banner, Re-Sub
 | **Negative Case** | Category without approval (R1) → WO skips all approval steps and goes straight to Approved |
 | **Question** | Decided 24 Nov: the pool = users with the layer permission in the target dept (`GET /users/by-permission/{id}` + department filter). Open: the permission IDs (see `02-Knowledge.md` §9) and the Retina role mapping |
 
-### **NID WO-3.2 [Jira TBD]**
+### **NID WO-3.2 [Jira: [PHI-3005](https://digiitphi.atlassian.net/browse/PHI-3005), [PHI-3054](https://digiitphi.atlassian.net/browse/PHI-3054)]**
 
 **Work Order - Target Review - Set Approval Flow (new 24 Nov)**
 
@@ -669,7 +672,7 @@ Removed by D3: needs_revision (mr1/mr2), "rejection not approved" banner, Re-Sub
 
 ![Modify and Rejection lanes Lvl 2](img/prd-flow-modify-reject-l2.jpg)
 
-### **NID WO-4.1 [Jira TBD]**
+### **NID WO-4.1 [Jira: [PHI-2998](https://digiitphi.atlassian.net/browse/PHI-2998), [PHI-2999](https://digiitphi.atlassian.net/browse/PHI-2999), [PHI-3002](https://digiitphi.atlassian.net/browse/PHI-3002), [PHI-3049](https://digiitphi.atlassian.net/browse/PHI-3049), [PHI-3056](https://digiitphi.atlassian.net/browse/PHI-3056)]**
 
 **Work Order - Modify - Senior Officer Modify**
 
@@ -681,7 +684,7 @@ Removed by D3: needs_revision (mr1/mr2), "rejection not approved" banner, Re-Sub
 | **Negative Case** | Save with no change → "No changes to save" |
 | **Question** | – |
 
-### **NID WO-4.2 [Jira TBD]**
+### **NID WO-4.2 [Jira: [PHI-3000](https://digiitphi.atlassian.net/browse/PHI-3000), [PHI-3001](https://digiitphi.atlassian.net/browse/PHI-3001)]**
 
 **Work Order - Modify - Approve Modification**
 
@@ -693,7 +696,7 @@ Removed by D3: needs_revision (mr1/mr2), "rejection not approved" banner, Re-Sub
 | **Negative Case** | – |
 | **Question** | Decided: Manager Requestor checks (X4); decline = old values (X5). Open: button text names the WO, not Action Plan (Q18) |
 
-### **NID WO-4.3 [Jira TBD]**
+### **NID WO-4.3 [Jira: [PHI-3003](https://digiitphi.atlassian.net/browse/PHI-3003), [PHI-3050](https://digiitphi.atlassian.net/browse/PHI-3050), [PHI-3057](https://digiitphi.atlassian.net/browse/PHI-3057)]**
 
 **Work Order - Modify - Reject Modification**
 
@@ -711,7 +714,7 @@ Removed by D3: needs_revision (mr1/mr2), "rejection not approved" banner, Re-Sub
 
 ![Rejection lane Lvl 1](img/prd-flow-reject-l1.jpg)
 
-### **NID WO-5.1 [Jira TBD]**
+### **NID WO-5.1 [Jira: [PHI-3051](https://digiitphi.atlassian.net/browse/PHI-3051), [PHI-3052](https://digiitphi.atlassian.net/browse/PHI-3052), [PHI-3058](https://digiitphi.atlassian.net/browse/PHI-3058), [PHI-3059](https://digiitphi.atlassian.net/browse/PHI-3059)]**
 
 **Work Order - Reject - Target-side Reject with approval**
 
@@ -733,7 +736,7 @@ Removed by D3: needs_revision (mr1/mr2), "rejection not approved" banner, Re-Sub
 
 ![Lvl 2: Create Disposition → Create Project](img/prd-flow-target-l2-disposition.jpg)
 
-### **NID WO-6.1 [Jira TBD]**
+### **NID WO-6.1 [Jira: [PHI-3048](https://digiitphi.atlassian.net/browse/PHI-3048)]**
 
 **Work Order - Approved - Transfer Work Order**
 
@@ -745,7 +748,7 @@ Removed by D3: needs_revision (mr1/mr2), "rejection not approved" banner, Re-Sub
 | **Negative Case** | No department or no sub-unit → Transfer disabled; Level 2 Approved → Transfer button hidden; user without the permission → button hidden |
 | **Question** | Open: Transfer allowed for Well Test and AL WHC Installation WOs (Q5a)? Is PIC still in the Transfer dialog (MoM 19 Nov: Department, PIC, Notes)? |
 
-### **NID WO-6.2 [Jira TBD]**
+### **NID WO-6.2 [Jira: [PHI-3006](https://digiitphi.atlassian.net/browse/PHI-3006)]**
 
 **Work Order - Approved - Create Disposition**
 
@@ -773,7 +776,7 @@ Removed by D3: needs_revision (mr1/mr2), "rejection not approved" banner, Re-Sub
 
 ![Simple Schedule: PO Zona](img/prd-flow-simple-schedule-po-zona.jpg)
 
-### **NID WO-7.1 [Jira TBD]**
+### **NID WO-7.1 [Jira: [PHI-3060](https://digiitphi.atlassian.net/browse/PHI-3060)]**
 
 **Work Order - Create Project - Detail Schedule (Projects Z9, OSF Z9)**
 
@@ -785,7 +788,7 @@ Removed by D3: needs_revision (mr1/mr2), "rejection not approved" banner, Re-Sub
 | **Negative Case**       | Wrong Excel template → rejected; WBS already used by a live project → blocked                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 | **Question**            | I4: several WO WBS values → one project WBS? Sub-Category DLC/GL/FL/RTWS vs DLC/Non-DLC. F2: add Compressor Relocation category?                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 
-### **NID WO-7.2 [Jira TBD]**
+### **NID WO-7.2 [Jira: no Story yet]**
 
 **Work Order - Create Project - Simple Schedule (all other departments)**
 
@@ -797,7 +800,7 @@ Removed by D3: needs_revision (mr1/mr2), "rejection not approved" banner, Re-Sub
 | **Negative Case**       | Unknown task / self link / link to own parent or child / circular predecessor / end before start → row error<br>No On Stream row or not last → Submit blocked                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | **Question** | Decided: no `.mpp`, Excel / grid for both (P0); a well WO also makes a simple project (P1). Open: Gantt / S-curve / weight rules [MoM 6 Nov]; working days or calendar days (Q33); AL Installation via PO simple (Figma) or Projects Z9 (prototype)? Backend owner for the new import?                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 
-### **NID WO-7.3 [Jira TBD]**
+### **NID WO-7.3 [Jira: no Story yet]**
 
 **Work Order - Create Project - Project Approval**
 
@@ -817,7 +820,7 @@ Removed by D3: needs_revision (mr1/mr2), "rejection not approved" banner, Re-Sub
 
 ![Requestor end of flow: completed + study branch](img/prd-flow-requestor-finish.jpg)
 
-### **NID WO-8.1 [Jira TBD]**
+### **NID WO-8.1 [Jira: no Story yet]**
 
 **Work Order - Finish - PIC Finish Project**
 
@@ -829,7 +832,7 @@ Removed by D3: needs_revision (mr1/mr2), "rejection not approved" banner, Re-Sub
 | **Negative Case** | Non-PIC user → Finish hidden |
 | **Question** | Decided: parameters required (D7b). Open: which Finish fields for each category (Q44) |
 
-### **NID WO-8.2 [Jira TBD]**
+### **NID WO-8.2 [Jira: no Story yet]**
 
 **Work Order - Finish - Requestor checks and updates well**
 
@@ -845,7 +848,7 @@ Removed by D3: needs_revision (mr1/mr2), "rejection not approved" banner, Re-Sub
 
 ### **FLOW 9 - SCREENS & NOTIFICATION**
 
-### **NID WO-9.1 [Jira TBD]**
+### **NID WO-9.1 [Jira: [PHI-2992](https://digiitphi.atlassian.net/browse/PHI-2992), [PHI-3107](https://digiitphi.atlassian.net/browse/PHI-3107)]**
 
 **Work Order - List - Incoming / Outgoing**
 
@@ -857,7 +860,7 @@ Removed by D3: needs_revision (mr1/mr2), "rejection not approved" banner, Re-Sub
 | **Negative Case** | Empty → "No work order yet" / "No task is waiting for you" |
 | **Question** | The team doc says the same overview for every Level (the Lv 2 overview is a copy of Lv 0). Open: Q1 final layout Unified vs SSDP ⇄ PO board? Does the requestor story "entitas PHSS" mean one page for each working area? |
 
-### **NID WO-9.2 [Jira TBD]**
+### **NID WO-9.2 [Jira: [PHI-2994](https://digiitphi.atlassian.net/browse/PHI-2994), [PHI-3106](https://digiitphi.atlassian.net/browse/PHI-3106)]**
 
 **Work Order - Detail - Overview, History, View Changes**
 
@@ -869,7 +872,7 @@ Removed by D3: needs_revision (mr1/mr2), "rejection not approved" banner, Re-Sub
 | **Negative Case** | Lvl 1 user opens a Lvl 2 modification → not visible |
 | **Question** | – |
 
-### **NID WO-9.3 [Jira TBD]**
+### **NID WO-9.3 [Jira: [PHI-2993](https://digiitphi.atlassian.net/browse/PHI-2993), [PHI-2994](https://digiitphi.atlassian.net/browse/PHI-2994), [PHI-2999](https://digiitphi.atlassian.net/browse/PHI-2999)]**
 
 **Work Order - Notification Center**
 
@@ -2734,6 +2737,11 @@ This file lists every link that the WO docs in this folder use. Add a new link h
 - **Knowledge Documents doc** (title still "PRD — Work Order (PHANTOM)"; the rename is not approved yet). The category breakdown is before FLOW 1.
   - Link: https://docs.google.com/document/d/1gGHUGofaNSa4oGFPPD6MS4nLDgj6vdCmui0o_Z7FlqQ/edit?tab=t.0
 - **A second doc with the same title**, made on 19 Nov: https://docs.google.com/document/d/1SoQfx2JV4I7zCm-yUGFwK5gKHq0YQUQ9V2QpMgoqIUc/edit. Check it: it may be an empty copy that we can trash (only after your OK).
+
+### Jira
+
+- **Epic [PHI-2465](https://digiitphi.atlassian.net/browse/PHI-2465) "SSDP3"**: the WO Stories (Lv 0 / Lv 1 / Lv 2 / All Levels), each with FE / BE / QA subtasks. Search: `summary ~ "work order"` (25 Nov: 30 Stories, 84 subtasks). Story ↔ WO ticket map: `07-Ticket.md` §3.
+- **[PHI-2993](https://digiitphi.atlassian.net/browse/PHI-2993)**: Create WO (WO-T01, T02, T04, T05, T06). **[PHI-2992](https://digiitphi.atlassian.net/browse/PHI-2992)**: Overview.
 
 ### Google Sheet
 

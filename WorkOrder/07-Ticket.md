@@ -8,9 +8,9 @@ Scope:
 How to use this file:
 - One ticket = one endpoint or one small group of endpoints.
 - Each ticket has a **Test result** block: the test user, the date, the curl request, and the response. Fill it after a curl run on a local WebApi with the dev DB. A ticket is not "Done" without it.
-- Put the Jira key in the "Jira" column when the ticket exists.
+- Put the Jira key in the "Jira" column when the ticket exists. Epic: [PHI-2465 SSDP3](https://digiitphi.atlassian.net/browse/PHI-2465). The Story ↔ ticket map is in §3.
 - Update the "Status" column when work moves.
-- **PHI-2993** (25 Nov): the Jira ticket for WO-T01, T02, T04, T05 and T06 (branch `feat/work-order-draft`). Commit: `[PHI-2993] feat(work-order): …`.
+- **[PHI-2993](https://digiitphi.atlassian.net/browse/PHI-2993)** (25 Nov): the Jira ticket for WO-T01, T02, T04, T05 and T06 (branch `feat/work-order-draft`, commit c7cc887f, PR oceaninov/phantom#1545). Bruno: commit 5de37bf on PR oceaninov/phi-phantom-collections#235.
 - The curl test rows stay on dev (user, 25 Nov): 0001/WO/PO/2026 and 0002/WO/PO/2026 (waiting_approval), 0003/WO/PO/2026 (deleted draft). Do not remove them.
 
 Status words: **Done** (merged on `phi-dev`), **Staged** (code written and staged, not committed), **Tested, staged** (curl test passed, not committed), **To do**, **Blocked** (needs a decision or another ticket first).
@@ -28,30 +28,31 @@ Common rules for all tickets (from `03` and the decisions):
 
 | ID | Title | Endpoint (`03` #) | Depends on | Jira | Status |
 |---|---|---|---|---|---|
-| WO-T00 | Overview cards and list | #1, #2 | – | – | Done (#1530, #1533, #1539) |
-| WO-T01 | Next WO number (preview) | #3 | WO-T20 (format) | PHI-2993 | Tested, staged |
-| WO-T02 | Form options | #4 | – | PHI-2993 | Tested, staged |
-| WO-T03 | Approval route for WO (layers + permission) | #5, §3.2 | – | | Skipped for now (25 Nov); WO uses the route as it is (TD18) |
-| WO-T04 | Save draft and update draft | #6, #7 | – | PHI-2993 | Tested, staged |
-| WO-T05 | Create (submit) WO, no approval logic | #8 | WO-T04 | PHI-2993 | Tested, staged (run 2: B4 open) |
-| WO-T06 | Delete draft | #9 | WO-T04 | PHI-2993 | Tested, staged |
-| WO-T07 | WO details and allowed actions | #10 | WO-T05 | | To do |
-| WO-T08 | Approval history and modification comparison | #11 | WO-T05 | | To do |
-| WO-T09 | Attachments: add and delete | #12, #13 | WO-T04 | | To do |
-| WO-T10 | Approve and bulk approve | #15, #16 | WO-T05 | | To do |
-| WO-T11 | Modify | #17 | WO-T10, WO-T15 | | To do |
-| WO-T12 | Reject | #18 | WO-T10, WO-T15 | | To do |
-| WO-T13 | Modification decision | #19 | WO-T11 | | To do |
-| WO-T14 | Rejection decision | #20 | WO-T12 | | To do |
-| WO-T15 | Set Approval Flow (Level 1 / 2) | #21 | WO-T03 | | To do |
-| WO-T16 | Approvers of a step (users by permission + department) | #22, §3.1 | WO-T03 | | To do |
-| WO-T17 | Transfer options and Transfer | #23, #24 | WO-T10 | | To do |
-| WO-T18 | Disposition | #25 | WO-T10 | | To do |
-| WO-T19 | Project prefill | #26 | WO-T18 | | To do |
-| WO-T20 | WO number format from config | §3.3 | – | | To do |
-| WO-T21 | Action Plan link to the WO | §3.4 | WO-T05 | | Blocked (Q15) |
-| WO-T22 | Project changes for a WO project | §3.5 | WO-T19 | | To do |
-| WO-T23 | My approval list: WO steps | §3.6 | WO-T10 | | To do |
+| WO-T00 | Overview cards and list | #1, #2 | – | [PHI-2992](https://digiitphi.atlassian.net/browse/PHI-2992), [PHI-3107](https://digiitphi.atlassian.net/browse/PHI-3107) | Done (#1530, #1533, #1539) |
+| WO-T01 | Next WO number (preview) | #3 | WO-T20 (format) | [PHI-2993](https://digiitphi.atlassian.net/browse/PHI-2993) | Tested, staged |
+| WO-T02 | Form options | #4 | – | [PHI-2993](https://digiitphi.atlassian.net/browse/PHI-2993) | Tested, staged |
+| WO-T03 | Approval route for WO (layers + permission) | #5, §3.2 | – | – | Skipped for now (25 Nov); WO uses the route as it is (TD18) |
+| WO-T04 | Save draft and update draft | #6, #7 | – | [PHI-2993](https://digiitphi.atlassian.net/browse/PHI-2993) | Tested, staged |
+| WO-T05 | Create (submit) WO, no approval logic | #8 | WO-T04 | [PHI-2993](https://digiitphi.atlassian.net/browse/PHI-2993) | Tested, staged (run 2: B4 open) |
+| WO-T06 | Delete draft | #9 | WO-T04 | [PHI-2993](https://digiitphi.atlassian.net/browse/PHI-2993) | Tested, staged |
+| WO-T07 | WO details and allowed actions | #10 | WO-T05 | [PHI-2994](https://digiitphi.atlassian.net/browse/PHI-2994) | To do |
+| WO-T08 | Approval history and modification comparison | #11 | WO-T05 | [PHI-3106](https://digiitphi.atlassian.net/browse/PHI-3106) | To do |
+| WO-T09 | Attachments: add and delete | #12, #13 | WO-T04 | [PHI-2995](https://digiitphi.atlassian.net/browse/PHI-2995) | To do |
+| WO-T10 | Approve and bulk approve | #15, #16 | WO-T05 | [PHI-2996](https://digiitphi.atlassian.net/browse/PHI-2996), [PHI-3055](https://digiitphi.atlassian.net/browse/PHI-3055) | To do |
+| WO-T11 | Modify | #17 | WO-T10, WO-T15 | [PHI-2998](https://digiitphi.atlassian.net/browse/PHI-2998), [PHI-2999](https://digiitphi.atlassian.net/browse/PHI-2999), [PHI-3002](https://digiitphi.atlassian.net/browse/PHI-3002), [PHI-3049](https://digiitphi.atlassian.net/browse/PHI-3049), [PHI-3056](https://digiitphi.atlassian.net/browse/PHI-3056) | To do |
+| WO-T12 | Reject | #18 | WO-T10, WO-T15 | [PHI-2997](https://digiitphi.atlassian.net/browse/PHI-2997), [PHI-3004](https://digiitphi.atlassian.net/browse/PHI-3004), [PHI-3051](https://digiitphi.atlassian.net/browse/PHI-3051), [PHI-3058](https://digiitphi.atlassian.net/browse/PHI-3058) | To do |
+| WO-T13 | Modification decision | #19 | WO-T11 | [PHI-3000](https://digiitphi.atlassian.net/browse/PHI-3000), [PHI-3001](https://digiitphi.atlassian.net/browse/PHI-3001), [PHI-3003](https://digiitphi.atlassian.net/browse/PHI-3003), [PHI-3050](https://digiitphi.atlassian.net/browse/PHI-3050), [PHI-3057](https://digiitphi.atlassian.net/browse/PHI-3057) | To do |
+| WO-T14 | Rejection decision | #20 | WO-T12 | [PHI-3052](https://digiitphi.atlassian.net/browse/PHI-3052), [PHI-3059](https://digiitphi.atlassian.net/browse/PHI-3059) | To do |
+| WO-T15 | Set Approval Flow (Level 1 / 2) | #21 | WO-T03 | [PHI-3005](https://digiitphi.atlassian.net/browse/PHI-3005), [PHI-3054](https://digiitphi.atlassian.net/browse/PHI-3054) | To do |
+| WO-T16 | Approvers of a step (users by permission + department) | #22, §3.1 | WO-T03 | [PHI-3005](https://digiitphi.atlassian.net/browse/PHI-3005), [PHI-3054](https://digiitphi.atlassian.net/browse/PHI-3054) | To do |
+| WO-T17 | Transfer options and Transfer | #23, #24 | WO-T10 | [PHI-3048](https://digiitphi.atlassian.net/browse/PHI-3048) | To do |
+| WO-T18 | Disposition | #25 | WO-T10 | [PHI-3006](https://digiitphi.atlassian.net/browse/PHI-3006) | To do |
+| WO-T19 | Project prefill | #26 | WO-T18 | [PHI-3060](https://digiitphi.atlassian.net/browse/PHI-3060) | To do |
+| WO-T20 | WO number format from config | §3.3 | – | – | To do |
+| WO-T21 | Action Plan link to the WO | §3.4 | WO-T05 | – | Blocked (Q15) |
+| WO-T22 | Project changes for a WO project | §3.5 | WO-T19 | [PHI-3060](https://digiitphi.atlassian.net/browse/PHI-3060) | To do |
+| WO-T23 | My approval list: WO steps | §3.6 | WO-T10 | – | To do |
+| WO-T24 | Export (all levels) | not in `03` yet | WO-T00 | [PHI-3053](https://digiitphi.atlassian.net/browse/PHI-3053) | To do (new 25 Nov, from Jira) |
 
 ---
 
@@ -1406,3 +1407,47 @@ Acceptance:
 ### WO-T23: My approval list: WO steps
 `GET /my-approval-list`
 - Add the WO steps where the user is a copied approver of the current step.
+
+---
+
+## 3. Jira Story map (25 Nov)
+
+Source: Jira search `summary ~ "work order"` (114 issues: 30 Stories + 84 FE / BE / QA subtasks). Epic [PHI-2465](https://digiitphi.atlassian.net/browse/PHI-2465) "SSDP3", except PHI-3106 and PHI-3107 (no epic). **Mapped by title only**; read the Story text to confirm.
+
+| Jira Story | Title | Jira status | WO ticket |
+|---|---|---|---|
+| [PHI-2992](https://digiitphi.atlassian.net/browse/PHI-2992) | Lv 0 - Overview Work Order | Dev In Progress (BE PHI-3010 Ready for QA) | WO-T00 |
+| [PHI-3107](https://digiitphi.atlassian.net/browse/PHI-3107) | List Work Order (no epic) | To Do | WO-T00 |
+| [PHI-2993](https://digiitphi.atlassian.net/browse/PHI-2993) | Lv 0 - Creating Work Order & Notification | Dev In Progress | WO-T01, T02, T04, T05, T06 |
+| [PHI-2994](https://digiitphi.atlassian.net/browse/PHI-2994) | Lv 0 - Details Work Order - Overview & Notification (On Progress) | To Do | WO-T07 |
+| [PHI-3106](https://digiitphi.atlassian.net/browse/PHI-3106) | Details Work Order - History (no epic) | To Do | WO-T08 |
+| [PHI-2995](https://digiitphi.atlassian.net/browse/PHI-2995) | Lv 0 - Details Work Order - Attachment | To Do | WO-T09 |
+| [PHI-2996](https://digiitphi.atlassian.net/browse/PHI-2996) | Lv 0 - Approve Flow | To Do | WO-T10 |
+| [PHI-2997](https://digiitphi.atlassian.net/browse/PHI-2997) | Lv 0 - Approve - Reject by Lv 0 Layer 2 | To Do | WO-T12 |
+| [PHI-2998](https://digiitphi.atlassian.net/browse/PHI-2998) | Lv 0 - Modify - Modify Work Order | To Do | WO-T11 |
+| [PHI-2999](https://digiitphi.atlassian.net/browse/PHI-2999) | Lv 0 - Modify - Preview Lv 0 Layer 1 & Notification | To Do | WO-T11 |
+| [PHI-3000](https://digiitphi.atlassian.net/browse/PHI-3000) | Lv 0 - Modify - Waiting for Review Lv 0 Layer 2 | To Do | WO-T13 (see G34) |
+| [PHI-3001](https://digiitphi.atlassian.net/browse/PHI-3001) | Lv 0 - Modify - Approve Modify by Lv 0 Layer 2 | To Do | WO-T13 (see G34) |
+| [PHI-3002](https://digiitphi.atlassian.net/browse/PHI-3002) | Lv 0 - Modify - Self Modify by Lv 0 Layer 2 | To Do | WO-T11 |
+| [PHI-3003](https://digiitphi.atlassian.net/browse/PHI-3003) | Lv 0 - Modify - Reject Modify by Lv 0 Layer 2 | To Do | WO-T13 (see G34) |
+| [PHI-3004](https://digiitphi.atlassian.net/browse/PHI-3004) | Lv 0 - Modify - Reject | To Do | WO-T12 |
+| [PHI-3005](https://digiitphi.atlassian.net/browse/PHI-3005) | Lv 1 - Modal Set Approval Flow | To Do | WO-T15, WO-T16 |
+| [PHI-3006](https://digiitphi.atlassian.net/browse/PHI-3006) | Lv 1 - Approve & Create Disposition | To Do | WO-T18 (+ Level 1 approve of WO-T10) |
+| [PHI-3048](https://digiitphi.atlassian.net/browse/PHI-3048) | Lv 1 - Approve & Transfer Work Order | To Do | WO-T17 (+ Level 1 approve of WO-T10) |
+| [PHI-3049](https://digiitphi.atlassian.net/browse/PHI-3049) | Lv 1 - Modify - Confirm Modify | To Do | WO-T11 |
+| [PHI-3050](https://digiitphi.atlassian.net/browse/PHI-3050) | Lv 1 - Modify - Cancel Modify | To Do | WO-T13 |
+| [PHI-3051](https://digiitphi.atlassian.net/browse/PHI-3051) | Lv 1 - Reject - Confirm Reject | To Do | WO-T12, WO-T14 |
+| [PHI-3052](https://digiitphi.atlassian.net/browse/PHI-3052) | Lv 1 - Reject - Cancel Reject | To Do | WO-T14 |
+| [PHI-3060](https://digiitphi.atlassian.net/browse/PHI-3060) | Lv 1 - Create Project - Project-Based (Detailed Project) | To Do | WO-T19, WO-T22 |
+| [PHI-3054](https://digiitphi.atlassian.net/browse/PHI-3054) | Lv 2 - Set Approval Flow | To Do | WO-T15, WO-T16 |
+| [PHI-3055](https://digiitphi.atlassian.net/browse/PHI-3055) | Lv 2 - Approve Flow | To Do | WO-T10 |
+| [PHI-3056](https://digiitphi.atlassian.net/browse/PHI-3056) | Lv 2 - Modify - Confirm Modify | To Do | WO-T11 |
+| [PHI-3057](https://digiitphi.atlassian.net/browse/PHI-3057) | Lv 2 - Modify - Cancel Modify | To Do | WO-T13 |
+| [PHI-3058](https://digiitphi.atlassian.net/browse/PHI-3058) | Lv 2 - Reject - Confirm Reject | To Do | WO-T12, WO-T14 |
+| [PHI-3059](https://digiitphi.atlassian.net/browse/PHI-3059) | Lv 2 - Reject - Cancel Reject | To Do | WO-T14 |
+| [PHI-3053](https://digiitphi.atlassian.net/browse/PHI-3053) | All Levels - Export | To Do | WO-T24 (new) |
+
+**WO tickets with no Jira Story:** WO-T03 (route layers), WO-T20 (number format), WO-T21 (Action Plan link), WO-T23 (my approval list), the Level 0 reject route `wo_reject_level_0` (TD21), bulk approve (part of WO-T10), and the Project simple schedule / Finish (02 WO-7.2, 7.3, 8.x).
+
+**Differences (gaps in `02` §1):** G34 Level 0 Modify review in Jira vs X2; G35 Export not in `03`; G36 no Jira for some tickets, 2 Stories without epic.
+

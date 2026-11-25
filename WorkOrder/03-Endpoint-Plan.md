@@ -31,35 +31,36 @@ Rules for all endpoints:
 ### 2.0 Path table (proposal 24 Nov, waits for OK)
 Rule: base `/api/v1/work-order` (singular, like the merged #1530 / #1533). A WO id is always `{id:guid}`. A fixed word (`draft`, `next-number`, `form-options`, `approve`) is a literal segment. ASP.NET picks a literal segment before a parameter, and `{id:guid}` matches only a GUID, so no path collides with `/work-order/{working_area}`. The sections below still show the old `/work-orders` names; this table is the target.
 
-| # | Method | New path | Old plan path | Body / query | Status |
-|---|---|---|---|---|---|
-| 1 | GET | `/work-order/{working_area}/overview` | `/work-orders/overview?tab=` | – | Merged (#1530) |
-| 2 | GET | `/work-order/{working_area}` | `/work-orders?tab=…` | `flow_type`, `search`, `status`, `recipient`, `category`, `field_id`, `sort_column`, `sort_order`, `page`, `page_size` | Merged (#1533) |
-| 3 | GET | `/work-order/next-number` | `/work-orders/next-number` | – | Built, staged (`feat/work-order-draft`), WO-T01 |
-| 4 | GET | `/work-order/form-options` | `/work-orders/form-options` | – | Built, staged (`feat/work-order-draft`), WO-T02 |
-| 5 | GET | `/approval-routes?category=…&department_id=…` and `/approval-routes/{id}` | `/work-orders/approval-flows` | existing endpoints, changed (§3.2) | To do (change) |
-| 6 | POST | `/work-order/draft` | `/work-orders/draft` | multipart FE form | Built, staged (`feat/work-order-draft`) |
-| 7 | POST | `/work-order/draft/{id:guid}` | `/work-orders/draft/{id}` | multipart FE form | Built, staged (`feat/work-order-draft`) |
-| 8 | POST | `/work-order/{working_area}` | `/work-orders/submit` | multipart FE form + optional `id` of a draft | Built, staged (`feat/work-order-draft`) |
-| 9 | POST | `/work-order/{id:guid}/delete` | `/work-orders/{id}/delete` | – | Built, staged (`feat/work-order-draft`), WO-T06 |
-| 10 | GET | `/work-order/{id:guid}` | `/work-orders/{id}` | – | To do |
-| 11 | GET | `/work-order/{id:guid}/histories` | `/work-orders/{id}/histories` | – | To do |
-| 12 | POST | `/work-order/{id:guid}/attachments` | `/work-orders/{id}/attachments` | multipart files | To do |
-| 13 | POST | `/work-order/{id:guid}/attachments/{attachmentId:guid}/delete` | `/work-orders/{id}/attachments/{attachmentId}/delete` | – | To do |
-| 15 | POST | `/work-order/{id:guid}/approve` | `/work-orders/{id}/approve` | `{ remarks }` | To do |
-| 16 | POST | `/work-order/approve/bulk` | `/work-orders/approve/bulk` | `{ ids[] }` | To do |
-| 17 | POST | `/work-order/{id:guid}/modify` | `/work-orders/{id}/modify` | `{ changed fields, remarks }` | To do |
-| 18 | POST | `/work-order/{id:guid}/reject` | `/work-orders/{id}/reject` | `{ remarks }` | To do |
-| 19 | POST | `/work-order/{id:guid}/modification/decision` | `/work-orders/{id}/modification/decision` | `{ decision, remarks }` | To do |
-| 20 | POST | `/work-order/{id:guid}/rejection/decision` | `/work-orders/{id}/rejection/decision` | `{ decision, remarks }` | To do |
-| 21 | POST | `/work-order/{id:guid}/approval-flow` | `/work-orders/{id}/approval-flow` | `{ approval_route_id }` | To do |
-| 22 | GET | `/work-order/{id:guid}/approvers` | `/work-orders/{id}/approvers` | `level`, `layer` (`string?`) | To do |
-| 23 | GET | `/work-order/{id:guid}/transfer-options` | `/work-orders/{id}/transfer-options` | – | To do |
-| 24 | POST | `/work-order/{id:guid}/transfer` | `/work-orders/{id}/transfer` | `{ department, sub_unit?, pic_id?, notes? }` (PIC open) | To do |
-| 25 | POST | `/work-order/{id:guid}/disposition` | `/work-orders/{id}/disposition` | `{ work_type, pic_ids[], notes? }` | To do |
-| 26 | GET | `/work-order/{id:guid}/project-prefill` | `/work-orders/{id}/project-prefill` | – | To do |
+| # | Method | New path | Old plan path | Body / query | Status | Jira |
+|---|---|---|---|---|---|---|
+| 1 | GET | `/work-order/{working_area}/overview` | `/work-orders/overview?tab=` | – | Merged (#1530) | [PHI-2992](https://digiitphi.atlassian.net/browse/PHI-2992) |
+| 2 | GET | `/work-order/{working_area}` | `/work-orders?tab=…` | `flow_type`, `search`, `status`, `recipient`, `category`, `field_id`, `sort_column`, `sort_order`, `page`, `page_size` | Merged (#1533) | [PHI-3107](https://digiitphi.atlassian.net/browse/PHI-3107) |
+| 3 | GET | `/work-order/next-number` | `/work-orders/next-number` | – | Built, staged (`feat/work-order-draft`), WO-T01 | [PHI-2993](https://digiitphi.atlassian.net/browse/PHI-2993) |
+| 4 | GET | `/work-order/form-options` | `/work-orders/form-options` | – | Built, staged (`feat/work-order-draft`), WO-T02 | [PHI-2993](https://digiitphi.atlassian.net/browse/PHI-2993) |
+| 5 | GET | `/approval-routes?category=…&department_id=…` and `/approval-routes/{id}` | `/work-orders/approval-flows` | existing endpoints, changed (§3.2) | To do (change) | [PHI-2993](https://digiitphi.atlassian.net/browse/PHI-2993), [PHI-3005](https://digiitphi.atlassian.net/browse/PHI-3005), [PHI-3054](https://digiitphi.atlassian.net/browse/PHI-3054) |
+| 6 | POST | `/work-order/draft` | `/work-orders/draft` | multipart FE form | Built, staged (`feat/work-order-draft`) | [PHI-2993](https://digiitphi.atlassian.net/browse/PHI-2993) |
+| 7 | POST | `/work-order/draft/{id:guid}` | `/work-orders/draft/{id}` | multipart FE form | Built, staged (`feat/work-order-draft`) | [PHI-2993](https://digiitphi.atlassian.net/browse/PHI-2993) |
+| 8 | POST | `/work-order/{working_area}` | `/work-orders/submit` | multipart FE form + optional `id` of a draft | Built, staged (`feat/work-order-draft`) | [PHI-2993](https://digiitphi.atlassian.net/browse/PHI-2993) |
+| 9 | POST | `/work-order/{id:guid}/delete` | `/work-orders/{id}/delete` | – | Built, staged (`feat/work-order-draft`), WO-T06 | [PHI-2993](https://digiitphi.atlassian.net/browse/PHI-2993) |
+| 10 | GET | `/work-order/{id:guid}` | `/work-orders/{id}` | – | To do | [PHI-2994](https://digiitphi.atlassian.net/browse/PHI-2994) |
+| 11 | GET | `/work-order/{id:guid}/histories` | `/work-orders/{id}/histories` | – | To do | [PHI-3106](https://digiitphi.atlassian.net/browse/PHI-3106) |
+| 12 | POST | `/work-order/{id:guid}/attachments` | `/work-orders/{id}/attachments` | multipart files | To do | [PHI-2995](https://digiitphi.atlassian.net/browse/PHI-2995) |
+| 13 | POST | `/work-order/{id:guid}/attachments/{attachmentId:guid}/delete` | `/work-orders/{id}/attachments/{attachmentId}/delete` | – | To do | [PHI-2995](https://digiitphi.atlassian.net/browse/PHI-2995) |
+| 15 | POST | `/work-order/{id:guid}/approve` | `/work-orders/{id}/approve` | `{ remarks }` | To do | [PHI-2996](https://digiitphi.atlassian.net/browse/PHI-2996), [PHI-3055](https://digiitphi.atlassian.net/browse/PHI-3055), [PHI-3006](https://digiitphi.atlassian.net/browse/PHI-3006), [PHI-3048](https://digiitphi.atlassian.net/browse/PHI-3048) |
+| 16 | POST | `/work-order/approve/bulk` | `/work-orders/approve/bulk` | `{ ids[] }` | To do | [PHI-2996](https://digiitphi.atlassian.net/browse/PHI-2996) |
+| 17 | POST | `/work-order/{id:guid}/modify` | `/work-orders/{id}/modify` | `{ changed fields, remarks }` | To do | [PHI-2998](https://digiitphi.atlassian.net/browse/PHI-2998), [PHI-2999](https://digiitphi.atlassian.net/browse/PHI-2999), [PHI-3002](https://digiitphi.atlassian.net/browse/PHI-3002), [PHI-3049](https://digiitphi.atlassian.net/browse/PHI-3049), [PHI-3056](https://digiitphi.atlassian.net/browse/PHI-3056) |
+| 18 | POST | `/work-order/{id:guid}/reject` | `/work-orders/{id}/reject` | `{ remarks }` | To do | [PHI-2997](https://digiitphi.atlassian.net/browse/PHI-2997), [PHI-3004](https://digiitphi.atlassian.net/browse/PHI-3004), [PHI-3051](https://digiitphi.atlassian.net/browse/PHI-3051), [PHI-3058](https://digiitphi.atlassian.net/browse/PHI-3058) |
+| 19 | POST | `/work-order/{id:guid}/modification/decision` | `/work-orders/{id}/modification/decision` | `{ decision, remarks }` | To do | [PHI-3000](https://digiitphi.atlassian.net/browse/PHI-3000), [PHI-3001](https://digiitphi.atlassian.net/browse/PHI-3001), [PHI-3003](https://digiitphi.atlassian.net/browse/PHI-3003), [PHI-3050](https://digiitphi.atlassian.net/browse/PHI-3050), [PHI-3057](https://digiitphi.atlassian.net/browse/PHI-3057) |
+| 20 | POST | `/work-order/{id:guid}/rejection/decision` | `/work-orders/{id}/rejection/decision` | `{ decision, remarks }` | To do | [PHI-3051](https://digiitphi.atlassian.net/browse/PHI-3051), [PHI-3052](https://digiitphi.atlassian.net/browse/PHI-3052), [PHI-3058](https://digiitphi.atlassian.net/browse/PHI-3058), [PHI-3059](https://digiitphi.atlassian.net/browse/PHI-3059) |
+| 21 | POST | `/work-order/{id:guid}/approval-flow` | `/work-orders/{id}/approval-flow` | `{ approval_route_id }` | To do | [PHI-3005](https://digiitphi.atlassian.net/browse/PHI-3005), [PHI-3054](https://digiitphi.atlassian.net/browse/PHI-3054) |
+| 22 | GET | `/work-order/{id:guid}/approvers` | `/work-orders/{id}/approvers` | `level`, `layer` (`string?`) | To do | [PHI-3005](https://digiitphi.atlassian.net/browse/PHI-3005), [PHI-3054](https://digiitphi.atlassian.net/browse/PHI-3054) |
+| 23 | GET | `/work-order/{id:guid}/transfer-options` | `/work-orders/{id}/transfer-options` | – | To do | [PHI-3048](https://digiitphi.atlassian.net/browse/PHI-3048) |
+| 24 | POST | `/work-order/{id:guid}/transfer` | `/work-orders/{id}/transfer` | `{ department, sub_unit?, pic_id?, notes? }` (PIC open) | To do | [PHI-3048](https://digiitphi.atlassian.net/browse/PHI-3048) |
+| 25 | POST | `/work-order/{id:guid}/disposition` | `/work-orders/{id}/disposition` | `{ work_type, pic_ids[], notes? }` | To do | [PHI-3006](https://digiitphi.atlassian.net/browse/PHI-3006) |
+| 26 | GET | `/work-order/{id:guid}/project-prefill` | `/work-orders/{id}/project-prefill` | – | To do | [PHI-3060](https://digiitphi.atlassian.net/browse/PHI-3060) |
 
 Notes:
+- Jira column: the Stories of epic [PHI-2465](https://digiitphi.atlassian.net/browse/PHI-2465), mapped by title (25 Nov). Full map: `07-Ticket.md` §3. Export ([PHI-3053](https://digiitphi.atlassian.net/browse/PHI-3053)) has no path yet (G35).
 - #14 is not used (a gap in the old numbering).
 - The working area is only on #1 and #2 (the page tab). A WO id already fixes its working area, so the id paths do not take it.
 - `{working_area}` has no constraint today. A wrong word (for example a typo of `next-number`) falls into #2 and gets "Invalid working area" (400). That is acceptable; a route constraint is optional.
