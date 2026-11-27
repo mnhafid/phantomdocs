@@ -121,7 +121,7 @@ Scenario style, as in `../ActionPlan/08-ScenarioTest.md`: each test is a list of
 
 **Before every test**
 - The 3 approval routes exist: "Work Order - Production Operations" (Level 0), "… - Operation & Surface Facilities" (Level 1), "… - Project" (Level 2). Layer 1 = permission 276, Layer 2 = 277 (§4.6 item 1).
-- The reject route `wo_reject_level_0` exists for the PO department (TD21).
+- ~~The reject route `wo_reject_level_0` exists for the PO department (TD21).~~ 27 Nov (TD41): a reject needs no route.
 - `/users/by-permission/276?department=…` and `/277` return the users of §4.5 (§4.6 item 2).
 
 Result words: **Pass**, **Fail**, **Blocked** (an endpoint is not built), **To test**.
@@ -222,29 +222,41 @@ Result words: **Pass**, **Fail**, **Blocked** (an endpoint is not built), **To t
 
 ---
 
-### 2.3 Level 0 Reject (TD21, reject route)
+### 2.3 Level 0 Reject (TD41, the Manager decides)
 
-**Test #3. Case: Senior rejects, the reject route confirms** · Result: Unit: `Reject_ByLayer1_OpensTheRejectRound_NotFinal`, `RejectionConfirm_ByEveryRejectLevel_RejectsTheWorkOrder` pass; curl to test
+**Test #3. Case: Senior rejects, the Manager confirms → rejected, returned to the requestor (TD45)** · Result: Unit: `Reject_BySenior_GoesToTheManagerOfTheLevel_NotFinal`, `RejectionConfirm_ByTheLevel0Manager_RejectedAndReturnedToTheRequestor` (pass 28 Nov); curl to test
 - PO PIC submits a WO.
-- PO Senior clicks Reject: reason (required, max 500), fields to revise (optional).
-	- Status WO = `rejection_review` · L0
-	- Process = `Work Order Reject Level 0` open (route `wo_reject_level_0`)
-	- Task = the users of the reject route
-- The reject route user(s) approve the rejection (all levels).
-	- Status WO = `rejected` (final)
-	- Process: reject process `approved`, `Work Order Level 0` `rejected`
-	- Notif N6 → PO PIC, with the fields to revise
-- Expected: no button on the WO. Requestor makes a new WO with a new number (G6 open: Figma shows "Revision").
+- PO Senior clicks Reject: reason (required, max 500).
+	- Status WO = `rejection_review` · L0 · Layer 2
+	- Process = `Work Order Level 0` stays active; Layer 1 timer `rejected`, Layer 2 timer opens. No reject process.
+	- Banner `approval_status` = `rejected` (PO Senior, the reason)
+	- Notif N11 → PO Manager; Task = PO Manager (actions `approve`, `reject`; TD42)
+- PO Manager clicks Reject (`POST /work-order/{working_area}/{id}/reject` { remarks }, TD42).
+	- Status WO = `rejected` · L0 · Layer 0 (TD45, returned), same WO number
+	- Detail `actions` for PO PIC (the creator) = `edit`, `submit`; PO Manager still sees the WO, no actions
+	- Process: `Work Order Level 0` `rejected`
+	- Banner = `rejected` (PO Manager)
+	- Notif N6 → PO PIC + all approvers
+- PO PIC edits the WO (update draft; the status stays `rejected`) and submits it again (`POST /work-order/phss` with `id`). Delete draft is refused (400).
+	- Status WO = `waiting_approval` · L0 · Layer 1, same WO number, revision cycle 2, no banner
+- Expected: the history shows both cycles (Figma "Revision", G6).
 
-**Test #3.1. Case: the reject route refuses** · Result: Unit: `RejectionCancel_GoesBackToTheLayerThatAsked_WithAFreshCopyOfItsApprovers` pass; curl to test
-- Same as Test #3 to `rejection_review`. The reject route user refuses.
-	- Status WO = `waiting_approval` · L0 · same layer
-	- Process: reject process `rejected`; `Work Order Level 0` goes on
-- Expected: PO Senior can approve or modify again.
+**Test #3.1. Case: the Manager does not approve the rejection** · Result: Unit: `RejectionCancel_ByTheManager_BackToTheSenior_RejectionNotAccepted` (not run yet); curl to test
+- Same as Test #3 to `rejection_review`. PO Manager clicks Approve (`POST /work-order/{id}/approve`, TD42): the rejection is not accepted.
+	- Status WO = `waiting_approval` · L0 · Layer 1 (the layer that asked)
+	- Banner = `rejection_not_accepted` (PO Manager, the remarks)
+	- Notif "Rejection Cancelled" → PO Senior + PO PIC
+- Expected: PO Senior can approve, modify or reject again.
 
-**Test #3.2. Case: Manager rejects at Layer 2** · Result: Unit: same test (Manager rejects at Layer 2) pass; curl to test
+**Test #3.2. Case: Manager rejects at Layer 2** · Result: Unit: `Reject_ByTheLevel0Manager_Returned_ThenEditAndResubmitSameNumber` (pass 28 Nov); curl to test
 - PO PIC submits. PO Senior approves. PO Manager clicks Reject.
-- Expected: same as Test #3 from `rejection_review`.
+- Expected: Status WO = `rejected` · L0 · Layer 0 at once (TD45, no decision step), same WO number, banner `rejected` (PO Manager). PO PIC can edit and submit again; delete is refused.
+
+**Test #3.3. Case: a Level 1 reject is final (TD45)** · Result: Unit: `Level1Reject_ManagerConfirms_Rejected` (pass 28 Nov); curl to test
+- At Level 1 the OSF Senior rejects and the OSF Manager confirms.
+- Expected: Status WO = `rejected` · L1 (final). No detail actions. Update draft, Create with `id` and file changes = 400.
+
+**Dev data:** WO `0059/WO/PO/2026` (Level 0 approvers `phi.wo.osf.senior` / `phi.wo.osf.manager`) is in `rejection_review` · L0 · Layer 2 after the OSF Senior's reject. Moved 27 Nov from the old route round to TD41 by SQL (stage-2 route copy deleted, timer at Layer 2, old reject process `canceled`). `phi.wo.osf.manager` decides after the TD41 build is deployed.
 
 ---
 
@@ -280,33 +292,21 @@ Result words: **Pass**, **Fail**, **Blocked** (an endpoint is not built), **To t
 
 ---
 
-### 2.5 Level 1 Reject (two confirmations)
+### 2.5 Level 1 Reject (TD41, the Manager of the flow decides)
 
-**Test #5. Case: both Managers agree to reject** · Result: Unit: `Level1Reject_BothManagersAccept_Rejected` pass; curl to test
+**Test #5. Case: the OSF Manager confirms the reject** · Result: Unit: `Level1Reject_ManagerConfirms_Rejected` (not run yet); curl to test
 - Follow Test #4 to Set Approval Flow.
 - OSF Senior clicks Reject (reason).
-	- Status WO = `rejection_review` · L1 · Layer 2
+	- Status WO = `rejection_review` · L1 · Layer 2, banner `rejected`
 	- Notif N11 → OSF Manager
-- OSF Manager clicks "Yes, Reject".
-	- Status WO = `rejection_review` · **L0** · Layer 2
-	- Task = PO Manager
-- PO Manager accepts the rejection.
+- OSF Manager clicks Reject (TD42).
 	- Status WO = `rejected` (final)
-	- Notif N12 → PO PIC + all levels
-- Expected: no button on the WO.
+	- Notif N12 → PO PIC + all approvers
+- Expected: no button on the WO. The PO Manager is not asked (~~two confirmations, D3b~~ replaced by TD41).
 
-**Test #5.1. Case: target Manager cancels** · Result: To test
-- Same as Test #5 to `rejection_review` · L1. OSF Manager clicks "No, Cancel".
-- Expected: Status WO = `waiting_approval` · L1 · Layer 1. OSF Senior can act again.
-
-**Test #5.2. Case: requestor Manager refuses the rejection** · Result: Unit: `Level1Reject_RequestorManagerRefuses_NoRejectAfterwards` pass; curl to test
-- Same as Test #5 to `rejection_review` · L0. PO Manager refuses.
-	- Status WO = `waiting_approval` · L1 · Layer 1, `no_reject` = true
-- OSF Senior opens the WO.
-	- Detail: Approve and Modify only. **No Reject button.**
-	- API: `POST …/reject` → 400 (the block is also on the server).
-- OSF Senior approves.
-- Expected: Status WO = `approved` · L1.
+**Test #5.1. Case: the OSF Manager does not approve the rejection** · Result: Unit: `Level1Reject_ManagerCancels_BackToTheSenior` (not run yet); curl to test
+- Same as Test #5 to `rejection_review` · L1. OSF Manager clicks Approve (TD42): the rejection is not accepted.
+- Expected: Status WO = `waiting_approval` · L1 · Layer 1, banner `rejection_not_accepted`. OSF Senior can act again (`no_reject` stays false).
 
 ---
 
@@ -387,7 +387,7 @@ Result words: **Pass**, **Fail**, **Blocked** (an endpoint is not built), **To t
 Kept for reference. The scenarios above replace it. Notes on rows that later decisions changed:
 - F2: 25 Nov WO-T05 has no "no approval" skip. Open whether Submit skips later (R1, Q24).
 - F5: the Manager review is TD23 (Test #2).
-- F6: a Level 0 reject now goes through the reject route (TD21, Test #3). It is not final at once.
+- F6: ~~a Level 0 reject now goes through the reject route (TD21, Test #3).~~ 27 Nov (TD41): a Senior reject goes to the Manager of the same Level (Test #3); a Manager reject is final at once.
 
 | # | Flow | Given | When | Then |
 |---|---|---|---|---|
@@ -511,3 +511,43 @@ Test path: **PO (requestor, Level 0) → OSF (target, Level 1) → Projects (ass
 2. **`/users/by-permission/{id}`:** done 26 Nov (staged). 273–279 are Retina-only in code (`WorkOrderPermissions`), and `?department=` filters by `users.department`.
 3. **`custom_configurations`:** the WO config keys (`seed_work_order_config.sql` on `feat/work-order-draft`, plus schedule type, transfer list, Work Types). See `05` §3.
 4. Users log in again after any ACL change (the session payload is read at login).
+
+## 5. Curl test of the FE API spec branch (27 Nov)
+
+- Branch `feat/PHI-2996-wo-fe-api-spec` (staged, not committed). Local WebApi `http://127.0.0.1:5099` on the **dev DB**, Quartz in RAM for the run (local change, reverted). Mock auth with the `phi.wo.*` users (§4.5). Tokens are not written here.
+- Build: WebApi and Tests build with no errors. Unit tests: 107 / 107 WO tests pass (3 tests changed to the TD38 / TD39 rules). The full suite has 4 failures that are not from this branch (audit-module rules for every WO route, `retinaRolesService` body inference ×2, users-by-permission after `a8be7faa`).
+- Result: **28 / 28 pass**. Bruno has the real responses (collection `Work Order`).
+- Test data kept on dev: WOs "Curl Spec A 1534" (`0057/WO/PO/2026`, now project_preparation) and "Curl Spec B 1534" (rejection_review).
+- Seen: Level 1 Layer 1 and Layer 2 both get FE level 3 in `approval_process.levels` (A7). The FE labels have no number for the target Manager.
+
+| # | Case | User | HTTP | Expected | Result | Note |
+|---|---|---|---|---|---|---|
+| A1 | create WO with a file | `phi.wo.po.pic` | 200 | 200 | Pass | 0057/WO/PO/2026 |
+| A2 | detail: Notion fields | `phi.wo.po.pic` | 200 | 200 | Pass | levels [(1, 'in_progress'), (2, 'waiting')] |
+| A3 | attachment list | `phi.wo.po.pic` | 200 | 200 | Pass | 1 item |
+| A4 | PUT attachment description | `phi.wo.po.pic` | 200 | 200 | Pass |  |
+| N1 | PUT description of 256 characters | `phi.wo.po.pic` | 400 | 400 | Pass |  |
+| N2 | detail with a bad working_area | `phi.wo.po.pic` | 400 | 400 | Pass |  |
+| N3 | old detail path /work-order/{id} | `phi.wo.po.pic` | 400 | 400 | Pass |  |
+| N4 | approval-flow at Level 0 | `phi.wo.po.pic` | 400 | 400 | Pass |  |
+| A5 | Level 0 Senior approves | `phi.wo.po.senior` | 200 | 200 | Pass |  |
+| A6 | bulk approve (Notion #3) by the Manager | `phi.wo.po.manager` | 200 | 200 | Pass | level 1 |
+| A7 | detail as the target Senior | `phi.wo.osf.senior` | 200 | 200 | Pass | actions ['approve', 'modify', 'reject'] levels [(1, 'done'), (2, 'done'), (3, 'in_progress'), (3, 'waiting')] |
+| A8 | PUT modify (Notion #14) with a new file | `phi.wo.osf.senior` | 200 | 200 | Pass |  |
+| A9 | modifications (Notion #15) | `phi.wo.osf.senior` | 200 | 200 | Pass | revision 1 changed ['title', 'end_date'] |
+| A10 | detail banner = modified | `phi.wo.osf.manager` | 200 | 200 | Pass | changed_fields_count 2 |
+| A11 | attachment list has 2 files | `phi.wo.osf.senior` | 200 | 200 | Pass | 2 items |
+| A12 | target Manager approves the change | `phi.wo.osf.manager` | 200 | 200 | Pass |  |
+| A13 | requestor Manager approves the change | `phi.wo.po.manager` | 200 | 200 | Pass | approved |
+| A14 | transfer (Notion #11) | `phi.wo.osf.senior` | 200 | 200 | Pass |  |
+| A15 | Level 2 Senior approves | `phi.wo.prj.senior` | 200 | 200 | Pass |  |
+| A16 | disposition (Notion #10) | `phi.wo.prj.senior` | 200 | 200 | Pass |  |
+| A17 | histories (Notion #17) | `phi.wo.po.pic` | 200 | 200 | Pass | 2 submissions, 4 activities |
+| A18 | export PDF (Notion #12) | `phi.wo.po.pic` | 200 | 200 | Pass | PDF 60948 bytes |
+| A19 | DELETE attachment (Notion #9) | `phi.wo.po.pic` | 200 | 200 | Pass |  |
+| A20 | detail at the end (cycles) | `phi.wo.po.pic` | 200 | 200 | Pass | status project_preparation cycles 2 actions ['create_project'] |
+| B1 | create WO B | `phi.wo.po.pic` | 200 | 200 | Pass |  |
+| B2 | reject without remarks | `phi.wo.po.senior` | 400 | 400 | Pass |  |
+| B3 | reject (Notion #13) | `phi.wo.po.senior` | 200 | 200 | Pass | rejection_review |
+| B4 | detail of B as a user outside it | `phi.wo.prj.pic` | 404 | 404 | Pass |  |
+

@@ -37,12 +37,12 @@ Common rules for all tickets (from `03` and the decisions):
 | WO-T06 | Delete draft                                           | #9                | WO-T04          | [PHI-2993](https://digiitphi.atlassian.net/browse/PHI-2993)                                                                                                                                                                                                                                                     | Tested, PR #1545 (open, stacked on #1544)                                                                                                                                                                                              |
 | WO-T07 | WO details and allowed actions                         | #10               | WO-T05          | [PHI-2994](https://digiitphi.atlassian.net/browse/PHI-2994)                                                                                                                                                                                                                                                     | Done (PR #1548, merged 26 Nov at `c3de24ac`; curl `archive/12-CurlTest.md`): `GET /work-order/{id}` + `actions` (Reject only when the Level has its reject route; `create_project` for a disposition PIC or a user of the Level department) |
 | WO-T08 | Approval history and modification comparison           | #11               | WO-T05          | [PHI-3106](https://digiitphi.atlassian.net/browse/PHI-3106)                                                                                                                                                                                                                                                     | PR #1544 open (26 Nov): mergeable, base `phi-dev`, no CI checks, 1 review (comment, no approval); review fixes in (CC, allow-list, Level 2 hiding); last commit `b6631bfa` merges `phi-dev`. Waits for approval + merge. #1545 is stacked on it |
-| WO-T09 | Attachments: add and delete                            | #12, #13          | WO-T04          | [PHI-2995](https://digiitphi.atlassian.net/browse/PHI-2995)                                                                                                                                                                                                                                                     | PR #1547 open (26 Nov): no review yet, mergeable not computed, base `phi-dev`. 7 unit tests pass, curl done (dev). Adds an extra edit-description endpoint (`POST .../attachments/{attachment_id}`). Only the WO creator can change files (Modify flow later); no history rows |
+| WO-T09 | Attachments: list, add and delete                      | #12, #13, Notion #7 | WO-T04          | [PHI-2995](https://digiitphi.atlassian.net/browse/PHI-2995)                                                                                                                                                                                                                                                     | PR #1547 open (26 Nov): no review yet, mergeable not computed, base `phi-dev`. 7 unit tests pass, curl done (dev). Adds an extra edit-description endpoint (`POST .../attachments/{attachment_id}`). Only the WO creator can change files (Modify flow later); no history rows |
 | WO-T10 | Approve and bulk approve                               | #15, #16          | WO-T05          | [PHI-2996](https://digiitphi.atlassian.net/browse/PHI-2996), [PHI-3055](https://digiitphi.atlassian.net/browse/PHI-3055)                                                                                                                                                                                        | Done (PR #1548, merged 26 Nov at `c3de24ac`; curl `archive/12-CurlTest.md`): Level 0 + Level 1 / 2 approve, bulk |
 | WO-T11 | Modify                                                 | #17               | WO-T10, WO-T15  | [PHI-2998](https://digiitphi.atlassian.net/browse/PHI-2998), [PHI-2999](https://digiitphi.atlassian.net/browse/PHI-2999), [PHI-3002](https://digiitphi.atlassian.net/browse/PHI-3002), [PHI-3049](https://digiitphi.atlassian.net/browse/PHI-3049), [PHI-3056](https://digiitphi.atlassian.net/browse/PHI-3056) | Done (PR #1548, merged 26 Nov at `c3de24ac`; curl `archive/12-CurlTest.md`): Level 0 (TD23 + Self Modify) and Level 1 / 2 (two-Manager review) |
-| WO-T12 | Reject                                                 | #18               | WO-T10, WO-T15  | [PHI-2997](https://digiitphi.atlassian.net/browse/PHI-2997), [PHI-3004](https://digiitphi.atlassian.net/browse/PHI-3004), [PHI-3051](https://digiitphi.atlassian.net/browse/PHI-3051), [PHI-3058](https://digiitphi.atlassian.net/browse/PHI-3058)                                                              | Done (PR #1548, merged 26 Nov at `c3de24ac`; curl `archive/12-CurlTest.md`): every Level through its own `wo_reject_level_0 / 1 / 2` route (TD21, TD34) |
+| WO-T12 | Reject                                                 | #18               | WO-T10, WO-T15  | [PHI-2997](https://digiitphi.atlassian.net/browse/PHI-2997), [PHI-3004](https://digiitphi.atlassian.net/browse/PHI-3004), [PHI-3051](https://digiitphi.atlassian.net/browse/PHI-3051), [PHI-3058](https://digiitphi.atlassian.net/browse/PHI-3058)                                                              | Done (PR #1548, merged 26 Nov at `c3de24ac`; curl `archive/12-CurlTest.md`): ~~every Level through its own `wo_reject_level_0 / 1 / 2` route (TD21, TD34)~~ 27 Nov (TD41): the Manager of the same Level decides, staged on `feat/PHI-2997-wo-reject-final` |
 | WO-T13 | Modification decision                                  | #19               | WO-T11          | [PHI-3000](https://digiitphi.atlassian.net/browse/PHI-3000), [PHI-3001](https://digiitphi.atlassian.net/browse/PHI-3001), [PHI-3003](https://digiitphi.atlassian.net/browse/PHI-3003), [PHI-3050](https://digiitphi.atlassian.net/browse/PHI-3050), [PHI-3057](https://digiitphi.atlassian.net/browse/PHI-3057) | Done (PR #1548, merged 26 Nov at `c3de24ac`; curl `archive/12-CurlTest.md`) (Level 0 reject = back to Layer 1, to confirm) |
-| WO-T14 | Rejection decision                                     | #20               | WO-T12          | [PHI-3052](https://digiitphi.atlassian.net/browse/PHI-3052), [PHI-3059](https://digiitphi.atlassian.net/browse/PHI-3059)                                                                                                                                                                                        | Done (PR #1548, merged 26 Nov at `c3de24ac`; curl `archive/12-CurlTest.md`): the reject route round on every Level (TD34); the Level 1 / 2 two-Manager reject is removed |
+| WO-T14 | Rejection decision                                     | #20               | WO-T12          | [PHI-3052](https://digiitphi.atlassian.net/browse/PHI-3052), [PHI-3059](https://digiitphi.atlassian.net/browse/PHI-3059)                                                                                                                                                                                        | Done (PR #1548, merged 26 Nov at `c3de24ac`; curl `archive/12-CurlTest.md`): ~~the reject route round on every Level (TD34)~~ 27 Nov (TD41): the Manager of the same Level confirms or does not approve (`rejection_not_accepted`), staged on `feat/PHI-2997-wo-reject-final` |
 | WO-T15 | Set Approval Flow (Level 1 / 2)                        | #21               | WO-T03          | [PHI-3005](https://digiitphi.atlassian.net/browse/PHI-3005), [PHI-3054](https://digiitphi.atlassian.net/browse/PHI-3054)                                                                                                                                                                                        | Done (PR #1548, merged 26 Nov at `c3de24ac`; curl `archive/12-CurlTest.md`): route = `wo_approve_level_1 / 2` of the Level's department (TD34) |
 | WO-T16 | Approvers of a step (users by permission + department) | #22, §3.1         | WO-T03          | [PHI-3005](https://digiitphi.atlassian.net/browse/PHI-3005), [PHI-3054](https://digiitphi.atlassian.net/browse/PHI-3054)                                                                                                                                                                                        | Done (PR #1548, merged 26 Nov at `c3de24ac`; curl `archive/12-CurlTest.md`): `GET /work-order/{id}/approvers`, `/users/by-permission?department=`, WO ids 273–279 Retina-only in code (`WorkOrderPermissions`) |
 | WO-T17 | Transfer options and Transfer                          | #23, #24          | WO-T10          | [PHI-3048](https://digiitphi.atlassian.net/browse/PHI-3048)                                                                                                                                                                                                                                                     | Done (PR #1548, merged 26 Nov at `c3de24ac`; curl `archive/12-CurlTest.md`) (sub_unit + pic_ids both optional, to confirm) |
@@ -1313,11 +1313,46 @@ curl -X POST "{{base_url}}/api/v1/work-order/e0fcfec9-6c8e-4e2e-9b64-2704363738c
 - Return each cycle: Received Date, Action Date, Duration, Remarks, actor.
 - Return the Modification Comparison: the before and after value of each changed field.
 
-### WO-T09: Attachments: add and delete
+### WO-T09: Attachments: list, add and delete
 `POST /work-order/{id}/attachments`, `POST /work-order/{id}/attachments/{attachmentId}/delete`
 - Max 5 files for each WO, 10 MB each, PDF / DOC / DOCX / XLS / XLSX / JPG / PNG.
 - Delete = soft delete.
 - Open: who can add or delete, and in which status (only the creator in Draft is the proposal).
+
+**Get Work Order Attachments (Notion #7, added 27 Nov):** `GET /work-order/{working_area}/{id}/attachments`
+- Built: PR #1547 (`c8746cab`, merged 26 Nov) and PR #1558 (`26823010`, merged 27 Nov; route with `working_area`). Code: `WebApi/Services/WorkOrders/WorkOrderAttachmentsEndpoint.cs` (`GetWorkOrderAttachments`), `WorkOrderAttachmentsService.ListAsync`.
+- Bruno: `Work Order/Get Work Order Attachments.yml` (branch `feat/work-order` of `phi-phantom-collections`), 3 live examples.
+- Used by: the Attachment tab of the WO details (`04` §5).
+
+Business logic:
+1. `working_area` must be `phss`, `pep` or `zone9`. Other value = 400 "Invalid working area". Only the value is checked. The WO is not filtered by the working area.
+2. The `R3ComponentFilter` runs first (auth on the group).
+3. The caller must see the WO (`IWorkOrdersService.IsVisibleAsync`, the same rule as the details). Not visible = 404 "Work order not found".
+4. The WO must exist and not be deleted (`deleted_at` null). Else 404 "Work order not found".
+5. The list = the `work_order_attachments` rows of the WO with `deleted_at` null, sorted by `created_at` (oldest first). Deleted files do not show.
+6. No permission check (TD39). Every user who sees the WO gets the list. The FE decides which buttons show.
+7. No history row. The call does not change data.
+
+Response item:
+
+| Field | Value |
+|---|---|
+| `id` | attachment id (lowercase GUID) |
+| `file_name` | the original file name |
+| `file_url` | `{bucket}/{object}` in MinIO (public-read bucket) |
+| `file_size` | bytes |
+| `description` | text; `""` when empty (never null) |
+| `created_by` | `{ id, full_name }` of the uploader (`full_name` null when the user row is missing) |
+| `created_at` | `dd-MM-yyyy HH:mm:ss` |
+| `updated_at` | `dd-MM-yyyy HH:mm:ss`; = `created_at` when never edited |
+
+Responses: 200 `data` = list (empty list when the WO has no files), message "Get work order attachments succeed". 400 wrong `working_area`. 404 WO missing, deleted or not visible.
+
+Test: `06` A3 (1 item), A11 (2 items, other user). Live curl 27 Nov on dev (`phi.wo.po.pic`): 1 file, 5 files, 404.
+
+Acceptance:
+- Given a WO with 5 live files and 1 deleted file, when a user who sees the WO calls the list, then the result is 200 with the 5 live files, oldest first.
+- Given an unknown WO id, when a user calls the list, then the result is 404 "Work order not found".
 
 ### WO-T10: Approve and bulk approve
 `POST /work-order/{id}/approve` { remarks }, `POST /work-order/approve/bulk` { ids[] }
@@ -1344,6 +1379,8 @@ Acceptance:
 ### WO-T12: Reject
 `POST /work-order/{id}/reject` { remarks }
 - Remarks are required, max 500 characters.
+- **28 Nov (TD45, replaces TD43):** a final reject by the Level 0 Manager (Layer 2 or later; direct, or Reject in `rejection_review`) gives `rejected` at Level 0 **Layer 0** (returned, `WorkOrderReturned.Is`), not `draft`. The creator gets detail `actions` `edit`, `submit`; update draft and Create with `id` accept it (same WO number, a new cycle at Level 0 Layer 1); its files can change; Delete draft is refused. It stays visible to the department and the approvers and counts as Rejected WO. Every other `rejected` WO (Level 1 / 2, one-layer Level 0) is final: no actions; update / submit / file changes = 400. Tests: `RejectionConfirm_ByTheLevel0Manager_RejectedAndReturnedToTheRequestor`, `Reject_ByTheLevel0Manager_Returned_ThenEditAndResubmitSameNumber`, `Level1Reject_ManagerConfirms_Rejected`, `WorkOrderAttachmentTests.FinalRejectedWorkOrder_Rejected` / `ReturnedWorkOrder_CanAdd` (117 WO tests pass, 28 Nov). PR #1562.
+- **27 Nov (TD41):** no reject route. By the approver of the current step (Level 0: Layer 1 or 2; Level 1 / 2: the Layer 1 Senior of the flow). When the Level has a next layer (the Manager): `rejection_review` at that layer; the Senior's timer closes `rejected`, the Manager's timer opens; history `reject_requested`; banner `rejected`; N11 to the Manager. No next layer (the Manager rejects): `rejected` at once, Level process `rejected`, N6 / N12. Code: `WorkOrderApprovalService.Reject.cs`. Tests: `Reject_BySenior_GoesToTheManagerOfTheLevel_NotFinal`, `Reject_ByTheManager_IsFinalAtOnce`, `Reject_Rules`, `Level1Reject_ManagerConfirms_Rejected`. The rest of this section is history.
 - Level 0: goes through the approval route category `wo_reject_level_0` (TD21): open a reject process with its users; after its last level → Rejected; a "no" → back to the Level 0 approval. Open: route members, one route for each department?
 - ~~Level 1 / 2: needs the approval flow first, and `no_reject` must be false. Status = Rejection Review (Manager of that department).~~
 - **26 Nov (TD34), built in PR #1548 (`872e64e8`):** every Level works like Level 0. Level 1 / 2: the Layer 1 Senior of the flow asks (the flow is required); the round runs on the `wo_reject_level_1` / `_2` route of that Level's department (target / transfer); process `Work Order Reject Level N`; all route levels confirm → `rejected` (final); one cancel → back to `waiting_approval` at the layer that asked. No route (or no active user) → 400, and the details page hides Reject.
@@ -1354,7 +1391,7 @@ Acceptance:
 
 **Reworked 26 Nov (staged on `feat/work-order-approval-l0`, on top of `5a2ae8a4`; not built, tests not run):**
 - `POST /work-order/{id}/reject` { remarks (required, ≤ 500) }: by a copied approver of the current Level 0 step (Layer 1 **or** 2). Finds the active `wo_reject_level_0` route with `department_id` = the WO `requestor_department` (none, or no active user → 400). Copies its users to `work_order_approvers` as a new stage (Level 0, layer = route level, `sla_hours` from the route template or the global default). Opens `approval_processes` "Work Order Reject Level 0" (initiate log + level 1 timer). The Level 0 process stays active; its open timer closes `rejected` and gets a `reject` log. WO → `rejection_review`, Level 0, `current_layer` = first reject level. History `reject_requested` (layer = the asking layer, TD25).
-- `POST /work-order/{id}/rejection/decision` { decision: confirm | cancel, remarks? }: by a user of the current reject level (newest stage), else 403. Only `rejection_review` at Level 0, else 400.
+- `POST /work-order/{id}/rejection/decision` { decision: confirm | cancel, remarks? }: by a user of the current reject level (newest stage), else 403. Only `rejection_review` at Level 0, else 400. **27 Nov (TD42): removed; the Manager uses Approve (`POST /work-order/{id}/approve` or bulk #3) / Reject (#13).**
   - confirm: next reject level (history `reject_confirmed`), or after the last one → `rejected`, reject process `approved`, Level 0 process `rejected`, history `rejected`.
   - cancel: reject process `rejected`; the Level 0 approvers are copied again as a new stage; WO → `waiting_approval` at the layer that asked (from `reject_requested`); its timer opens again; history `reject_refused`.
 - Code: `WorkOrderApprovalService.Reject.cs` (new, partial class). Tests: `Reject_ByLayer1_OpensTheRejectRound_NotFinal`, `RejectionConfirm_ByEveryRejectLevel_RejectsTheWorkOrder`, `RejectionCancel_GoesBackToTheLayerThatAsked_WithAFreshCopyOfItsApprovers`, `Reject_Rules` (replace the two old Layer 2 tests).
@@ -1708,7 +1745,7 @@ curl -X POST "{{base_url}}/api/v1/work-order/e0fcfec9-6c8e-4e2e-9b64-2704363738c
 
 ### WO-T13: Modification decision
 - Level 0 (TD23): the Level 0 Layer 2 Manager approves (apply the change, WO goes to Level 1) or rejects (drop the proposal; back to which layer is open, G34).
-`POST /work-order/{id}/modification/decision` { decision: approve | reject, remarks }
+`POST /work-order/{id}/modification/decision` { decision: approve | reject, remarks } **27 Nov (TD42): removed; the Manager uses Approve (`POST /work-order/{id}/approve` or bulk #3) / Reject (#13).**
 - Manager of the target (or assigned) department:
   - Approve → go to the Manager of the requestor department.
   - Reject → drop the proposal. Back to Waiting Approval (Senior).
@@ -1717,8 +1754,9 @@ curl -X POST "{{base_url}}/api/v1/work-order/e0fcfec9-6c8e-4e2e-9b64-2704363738c
   - Reject → drop the proposal. Status = Approved with the old values.
 
 ### WO-T14: Rejection decision
-`POST /work-order/{id}/rejection/decision` { decision: confirm | cancel, remarks }
-- **26 Nov (TD34), built in PR #1548:** the decision is made by the users of the current level of the Level's reject route (copied as the newest stage of that Level). `confirm` → the next reject level, or after the last one → `rejected`; `cancel` → back to `waiting_approval` at the layer that asked. Same on Level 0, 1 and 2.
+`POST /work-order/{id}/rejection/decision` { decision: confirm | cancel, remarks } **27 Nov (TD42): removed; the Manager uses Approve (`POST /work-order/{id}/approve` or bulk #3) / Reject (#13).**
+- **27 Nov (TD41):** by the Manager (current layer) of the same Level, else 403; only `rejection_review`, else 400. confirm → `rejected` (final), Level process `rejected`, history `rejected`, N6 / N12. cancel → `waiting_approval` at the layer that asked (from `reject_requested`), its timer opens again, history `reject_refused`, banner `rejection_not_accepted`. Tests: `RejectionConfirm_ByTheManager_RejectsTheWorkOrder`, `RejectionCancel_ByTheManager_BackToTheSenior_RejectionNotAccepted`, `Level1Reject_ManagerCancels_BackToTheSenior`, `Notifications_Reject_ToTheManager_ThenRejectedToEveryone`.
+- ~~**26 Nov (TD34), built in PR #1548:** the decision is made by the users of the current level of the Level's reject route (copied as the newest stage of that Level). `confirm` → the next reject level, or after the last one → `rejected`; `cancel` → back to `waiting_approval` at the layer that asked. Same on Level 0, 1 and 2.~~
 - ~~Manager of the target (or assigned) department: "Yes, Reject" → the Manager of the requestor department; "No, Cancel" → back to the Senior. Manager of the requestor department: Accept → Rejected; Refuse → back to the Senior with `no_reject` = true.~~ Replaced by the route round (TD34, to confirm). `no_reject` is no longer set by any action; a Transfer still clears it.
 
 ### WO-T15: Set Approval Flow (Level 1 / 2)
@@ -1727,7 +1765,7 @@ curl -X POST "{{base_url}}/api/v1/work-order/e0fcfec9-6c8e-4e2e-9b64-2704363738c
 - Copy the steps of the selected route into `work_order_approvers` for that Level.
 - **26 Nov (TD34):** the route must be an active `wo_approve_level_1` (Level 1) / `wo_approve_level_2` (Level 2) route of that Level's department, with at least one Layer 1 user. Or `approvers[]` (wins).
 - **26 Nov (G38, user): automatic.** When the WO arrives at Level 1 (Level 0 done) or Level 2 (Transfer), the newest active route of that category + department is copied at once (process `Work Order Level N`, Layer 1 timer, `approval_flow_set`). No route = no flow; this endpoint with an empty body then picks it (400 when there is still no route). Built in `71930aea`.
-- After this, the Senior can use Modify and Reject (Reject also needs the Level's reject route).
+- After this, the Senior can use Modify and Reject (27 Nov, TD41: Reject needs no route).
 - **26 Nov (PR #1548 review): active users only.** A deleted or `inactive` user is never copied into a flow (automatic pick, this endpoint, the Level 0 route, `approvers[]`). A route with no active Layer 1 user counts as no flow, so the department can still approve or set a flow. A Level 0 route with no active Layer 1 user is refused at submit (400).
 - Success message: "Set work order approval flow succeed".
 

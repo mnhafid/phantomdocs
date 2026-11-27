@@ -46,12 +46,13 @@ Rule: base `/api/v1/work-order` (singular, like the merged #1530 / #1533). A WO 
 | 11 | GET | `/work-order/{id:guid}/histories` | `/work-orders/{id}/histories` | – | Built by teammate (PR #1544, open), WO-T08 | [PHI-3106](https://digiitphi.atlassian.net/browse/PHI-3106) |
 | 12 | POST | `/work-order/{id:guid}/attachments` | `/work-orders/{id}/attachments` | multipart files | Teammate PR #1547 (open), WO-T09 | [PHI-2995](https://digiitphi.atlassian.net/browse/PHI-2995) |
 | 13 | POST | `/work-order/{id:guid}/attachments/{attachmentId:guid}/delete` | `/work-orders/{id}/attachments/{attachmentId}/delete` | – | Teammate PR #1547 (open), WO-T09 | [PHI-2995](https://digiitphi.atlassian.net/browse/PHI-2995) |
+| – (Notion #7) | GET | `/work-order/{working_area}/{id:guid}/attachments` | – | – | Merged (#1558, `26823010`, 27 Nov), WO-T09 | [PHI-2995](https://digiitphi.atlassian.net/browse/PHI-2995) |
 | 15 | POST | `/work-order/{id:guid}/approve` | `/work-orders/{id}/approve` | `{ remarks }` | PR #1548 (open, stacked on #1545): Level 0 / 1 / 2, WO-T10 | [PHI-2996](https://digiitphi.atlassian.net/browse/PHI-2996), [PHI-3055](https://digiitphi.atlassian.net/browse/PHI-3055), [PHI-3006](https://digiitphi.atlassian.net/browse/PHI-3006), [PHI-3048](https://digiitphi.atlassian.net/browse/PHI-3048) |
 | 16 | POST | `/work-order/approve/bulk` | `/work-orders/approve/bulk` | `{ ids[] }` | PR #1548 (open, stacked on #1545): `{ ids[] (1–100), remarks? }` → `approved[]`, `failed[{id, reason}]`, WO-T10 | [PHI-2996](https://digiitphi.atlassian.net/browse/PHI-2996) |
 | 17 | POST | `/work-order/{id:guid}/modify` | `/work-orders/{id}/modify` | `{ changed fields, remarks }` | PR #1548 (open, stacked on #1545): multipart FE form + `remarks`, WO-T11 | [PHI-2998](https://digiitphi.atlassian.net/browse/PHI-2998), [PHI-2999](https://digiitphi.atlassian.net/browse/PHI-2999), [PHI-3002](https://digiitphi.atlassian.net/browse/PHI-3002), [PHI-3049](https://digiitphi.atlassian.net/browse/PHI-3049), [PHI-3056](https://digiitphi.atlassian.net/browse/PHI-3056) |
-| 18 | POST | `/work-order/{id:guid}/reject` | `/work-orders/{id}/reject` | `{ remarks }` | PR #1548 (open, stacked on #1545): Level 0 via `wo_reject_level_0` (TD21), Level 1 / 2, WO-T12 | [PHI-2997](https://digiitphi.atlassian.net/browse/PHI-2997), [PHI-3004](https://digiitphi.atlassian.net/browse/PHI-3004), [PHI-3051](https://digiitphi.atlassian.net/browse/PHI-3051), [PHI-3058](https://digiitphi.atlassian.net/browse/PHI-3058) |
-| 19 | POST | `/work-order/{id:guid}/modification/decision` | `/work-orders/{id}/modification/decision` | `{ decision, remarks }` | PR #1548 (open, stacked on #1545): `decision` = approve | reject, WO-T13 | [PHI-3000](https://digiitphi.atlassian.net/browse/PHI-3000), [PHI-3001](https://digiitphi.atlassian.net/browse/PHI-3001), [PHI-3003](https://digiitphi.atlassian.net/browse/PHI-3003), [PHI-3050](https://digiitphi.atlassian.net/browse/PHI-3050), [PHI-3057](https://digiitphi.atlassian.net/browse/PHI-3057) |
-| 20 | POST | `/work-order/{id:guid}/rejection/decision` | `/work-orders/{id}/rejection/decision` | `{ decision, remarks }` | PR #1548 (open, stacked on #1545): `decision` = confirm | cancel, WO-T14 | [PHI-3051](https://digiitphi.atlassian.net/browse/PHI-3051), [PHI-3052](https://digiitphi.atlassian.net/browse/PHI-3052), [PHI-3058](https://digiitphi.atlassian.net/browse/PHI-3058), [PHI-3059](https://digiitphi.atlassian.net/browse/PHI-3059) |
+| 18 | POST | `/work-order/{id:guid}/reject` | `/work-orders/{id}/reject` | `{ remarks }` | PR #1548 (open, stacked on #1545): ~~Level 0 via `wo_reject_level_0` (TD21)~~ 27 Nov (TD41): Senior reject → the Manager of the same Level decides; a Manager reject is final. WO-T12 | [PHI-2997](https://digiitphi.atlassian.net/browse/PHI-2997), [PHI-3004](https://digiitphi.atlassian.net/browse/PHI-3004), [PHI-3051](https://digiitphi.atlassian.net/browse/PHI-3051), [PHI-3058](https://digiitphi.atlassian.net/browse/PHI-3058) |
+| 19 | POST | `/work-order/{id:guid}/modification/decision` | `/work-orders/{id}/modification/decision` | `{ decision, remarks }` | PR #1548 (open, stacked on #1545): `decision` = approve | reject, WO-T13 | [PHI-3000](https://digiitphi.atlassian.net/browse/PHI-3000), [PHI-3001](https://digiitphi.atlassian.net/browse/PHI-3001), [PHI-3003](https://digiitphi.atlassian.net/browse/PHI-3003), [PHI-3050](https://digiitphi.atlassian.net/browse/PHI-3050), [PHI-3057](https://digiitphi.atlassian.net/browse/PHI-3057) **27 Nov (TD42): removed; the Manager uses Approve (`POST /work-order/{id}/approve` or bulk #3) / Reject (#13).** |
+| 20 | POST | `/work-order/{id:guid}/rejection/decision` | `/work-orders/{id}/rejection/decision` | `{ decision, remarks }` | PR #1548 (open, stacked on #1545): `decision` = confirm | cancel; 27 Nov (TD41): by the Manager of the same Level (cancel = banner `rejection_not_accepted`), WO-T14 | [PHI-3051](https://digiitphi.atlassian.net/browse/PHI-3051), [PHI-3052](https://digiitphi.atlassian.net/browse/PHI-3052), [PHI-3058](https://digiitphi.atlassian.net/browse/PHI-3058), [PHI-3059](https://digiitphi.atlassian.net/browse/PHI-3059) **27 Nov (TD42): removed; the Manager uses Approve (`POST /work-order/{id}/approve` or bulk #3) / Reject (#13).** |
 | 21 | POST | `/work-order/{id:guid}/approval-flow` | `/work-orders/{id}/approval-flow` | `{ approval_route_id }` | PR #1548 (open, stacked on #1545): `{ approval_route_id }` or `{ approvers[] }`, WO-T15 | [PHI-3005](https://digiitphi.atlassian.net/browse/PHI-3005), [PHI-3054](https://digiitphi.atlassian.net/browse/PHI-3054) |
 | 22 | GET | `/work-order/{id:guid}/approvers` | `/work-orders/{id}/approvers` | `level`, `layer` (`string?`) | PR #1548 (open, stacked on #1545), WO-T16 | [PHI-3005](https://digiitphi.atlassian.net/browse/PHI-3005), [PHI-3054](https://digiitphi.atlassian.net/browse/PHI-3054) |
 | 23 | GET | `/work-order/{id:guid}/transfer-options` | `/work-orders/{id}/transfer-options` | – | PR #1548 (open, stacked on #1545), WO-T17 | [PHI-3048](https://digiitphi.atlassian.net/browse/PHI-3048) |
@@ -114,6 +115,7 @@ Notes:
 11. `GET /work-orders/{id}/histories`: the approval history for each cycle (Received Date, Action Date, Duration, Remarks), and the Modification Comparison (before / after for each field).
 12. `POST /work-orders/{id}/attachments` (multipart): adds files (max 5 for each WO, 10 MB each; PDF, DOC, DOCX, XLS, XLSX, JPG, PNG).
 13. `POST /work-orders/{id}/attachments/{attachmentId}/delete`: soft delete.
+- (Notion #7, added 27 Nov) `GET /work-order/{working_area}/{id}/attachments`: the list for the Attachment tab. The live files of the WO, oldest first. Business logic: `07-Ticket.md` WO-T09.
 
 #### 2.4.1 FE feedback on the WO detail response (#10, 25 Nov)
 The FE reviewed the response of `GET /work-orders/{id}`. The table gives the 4 points and the change for each point.
@@ -159,13 +161,15 @@ All actions check: the status, `current_level` / `current_layer`, and that the u
     - Level 0 (TD23, as Jira): Layer 1 modifies → Modification Review at Level 0 Layer 2. The Manager approves (change applied, WO goes to Level 1), rejects (proposal dropped), or modifies again (Self Modify). Layer 2 can also modify by itself.
     - Level 1 / 2: needs the approval flow of that Level first. Saves the change as a **proposal** (history snapshot). Status = Modification Review (Manager of that department).
 18. `POST /work-orders/{id}/reject` { remarks }
-    - Level 0: goes through the route `wo_reject_level_0` first (TD21). After its last level → Rejected.
-    - Level 1 / 2: needs the approval flow first, and `no_reject` must be false. Status = Rejection Review (Manager of that department).
-19. `POST /work-orders/{id}/modification/decision` { decision: approve | reject, remarks }
+    - **27 Nov (TD41):** every Level. A Senior reject → Rejection Review at the Manager (next layer) of the same Level. A reject by the last layer → Rejected at once. No reject route.
+    - Level 1 / 2: needs the approval flow first (the Layer 1 Senior rejects).
+    - ~~Level 0: goes through the route `wo_reject_level_0` first (TD21). After its last level → Rejected.~~
+19. `POST /work-orders/{id}/modification/decision` { decision: approve | reject, remarks } **27 Nov (TD42): removed; the Manager uses Approve (`POST /work-order/{id}/approve` or bulk #3) / Reject (#13).**
     - Manager of the target (or assigned) department: approve → goes to the Manager of the requestor department. Reject → the proposal is dropped, and the WO goes back to Waiting Approval (Senior).
     - Manager of the requestor department: approve → copies the proposal into the WO, status Approved. Reject → drops the proposal, status Approved with the old values.
-20. `POST /work-orders/{id}/rejection/decision` { decision: confirm | cancel, remarks }
-    - Manager of the target (or assigned) department: "Yes, Reject" → goes to the Manager of the requestor department. "No, Cancel" → back to Waiting Approval (Senior).
+20. `POST /work-orders/{id}/rejection/decision` { decision: confirm | cancel, remarks } **27 Nov (TD42): removed; the Manager uses Approve (`POST /work-order/{id}/approve` or bulk #3) / Reject (#13).**
+    - **27 Nov (TD41):** the Manager of the same Level: confirm → Rejected (final); cancel → back to Waiting Approval (Senior), banner `rejection_not_accepted`.
+    - ~~Manager of the target (or assigned) department: "Yes, Reject" → goes to the Manager of the requestor department. "No, Cancel" → back to Waiting Approval (Senior).~~
     - Manager of the requestor department: accept → Rejected (final). Refuse → back to the Senior, with `no_reject = true` (only Approve or Modify).
 
 **Approval route and approval process tables (TD18, 25 Nov; design only, not built):**
@@ -184,7 +188,8 @@ All actions check: the status, `current_level` / `current_layer`, and that the u
 - **Lists:** `MyTaskList` filters `approval_processes` by `approval_flow`. Add the `Work Order` flow there (WO-T23).
 - **Round = stage (TD19):** no cycle table. One approval round = the `work_order_approvers` rows of one `level` + `stage`; one `approval_processes` row for each round. Do not copy the Action Plan cycle rules (PO review first, reject once per plan, return to PO).
 - **Submit opens Level 0 (TD20):** the requestor picks the flow on the Create form. Submit copies the route steps (or `approvers[]`) to `work_order_approvers` (Level 0, stage 1), opens `approval_processes` (`latest_approval_level` = 1), writes the `initiate` log and opens the Layer 1 timer, in the submit transaction. A category with no approval (R1) opens no process.
-- **Reject at Level 0 (TD21):** its own approval route, category `wo_reject_level_0`. A Level 0 reject opens a second process (flow proposal `Work Order Reject Level 0`) with the users of that route. After its last level → Rejected. A "no" at any level → back to the Level 0 approval. Open: who sits on this route, and is it one route for each department (like `work_order`)?
+- **27 Nov (TD41):** no reject route (TD21 below is replaced). The Manager of the same Level decides on a Senior reject.
+- ~~**Reject at Level 0 (TD21):**~~ its own approval route, category `wo_reject_level_0`. A Level 0 reject opens a second process (flow proposal `Work Order Reject Level 0`) with the users of that route. After its last level → Rejected. A "no" at any level → back to the Level 0 approval. Open: who sits on this route, and is it one route for each department (like `work_order`)?
 - **Flow names (TD22, decided):**
 
 | `approval_flow` | Department that owns the route | Route picked by | When the process opens |
@@ -192,7 +197,7 @@ All actions check: the status, `current_level` / `current_layer`, and that the u
 | `Work Order Level 0` | Requestor department | Requestor, on the Create form | Submit |
 | `Work Order Level 1` | Target department (Request To) | Target department, Set Approval Flow (#21) | Level 0 approved |
 | `Work Order Level 2` | Transfer or Disposition department | That department, Set Approval Flow (#21) | After Transfer / Disposition |
-| `Work Order Reject Level 0` | Requestor department (`wo_reject_level_0`) | Backend (TD21) | Level 0 reject |
+| ~~`Work Order Reject Level 0`~~ | ~~Requestor department (`wo_reject_level_0`)~~ | ~~Backend (TD21)~~ | Removed 27 Nov (TD41) |
 
 - **3 routes from 3 departments (TD22):** each Level uses a route of its own department. The route list rule (my departments) gives each department only its own routes.
 - **Permission ID per layer (TD22):** each route layer holds a permission ID. The FE fetches the users who can review with `GET /users/by-permission/{id}?department=` (TD11, TD13, §3.1). This needs the route layer change of §3.2 (WO-T03, not now).

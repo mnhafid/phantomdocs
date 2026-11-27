@@ -349,6 +349,9 @@ Decisions and answered questions are in `01-Decision-Log.md`. The ID in brackets
 | G37 | **Closed 25 Nov (TD26):** PR #1544 `2c1c5185` adds the Level 2 rule (WO-9.2, AC-17); the Level 0 rule comes from Bruno #235. Open for the PO: a reader on both the requestor side and Level 1 | PR #1544 review, 25 Nov | – | Closed |
 | G38 | **Closed 26 Nov (user):** Level 0 = the requestor picks the route on Create; Level 1 / 2 = the system picks the active `wo_approve_level_1 / 2` route of the Level's department when the WO arrives (Level 0 done, or Transfer); no route = no flow (Set Approval Flow with an empty body picks it later). The Level 1 / 2 reject route round is confirmed | TD34, user 26 Nov | Built on `feat/work-order-approval-l0` (staged) | Closed |
 | G39 | **Closed 26 Nov (user):** category `other` for WO projects; `projects.work_type` is free text (varchar, no validation), nvarchar(255) like `sub_category` | User 26 Nov | Built (staged) | Closed |
+| G40 | Detail `approval_process.levels`: the level number repeats, and 4 is not in the Notion labels. Notion: the FE labels a level by number (1 Senior Level, 2 Manager, 3 Target Department). BE `WorkOrderFeLevel.Of`: Level 0 Layer N = N, Level 1 = 3, Level 2 = 4, and the layer is ignored on Level 1 / 2. Result: 2 entries `level: 3` (Senior, Manager) and 2 entries `level: 4` (after a Transfer). Live WO `0061/WO/PO/2026`: 1, 2, 3, 4, 3, 4. The FE shows 2 Target Department cards and has no label for 4 | Notion FE API Spec §6 vs Bruno `Get Work Order Detail.yml` (live 27 Nov) and `WorkOrdersService.Detail.cs` / `WorkOrderApprovalProcessBuilder.cs` on `phi-dev` | Agree with the FE: (a) one entry per Level (3 = Target, 4 = Transfer) with the Senior and the Manager in `approvers`, or (b) update Notion with 4+ and the Layer split | Open |
+| G41 | Detail `approval_process.levels`: the Manager steps of Level 1 / 2 stay `waiting` after the Level is done. On Level 1 / 2 the Senior approve ends the Level. The Manager acts only on a reject / modify review (TD41). Live WO `0061/WO/PO/2026` (`project_preparation`): OSF Manager and Project Manager still `waiting`. The progress shows steps that never act | Notion FE API Spec §6 vs Bruno `Get Work Order Detail.yml` (live 27 Nov) and `WorkOrdersService.Detail.cs` / `WorkOrderApprovalProcessBuilder.cs` on `phi-dev` | List the Level 1 / 2 Manager step only while a reject or modify review is open on that Level | Open |
+| G42 | Detail fields that can be `null`, but Notion gives no null case: `location`, `description`, `category`, `type_service`, `budget_type`, `start_date`, `end_date` (Notion string) and `area`, `rkap` (Notion object). Live: `location`, `area`, `rkap` = null. Also `attachment` has 2 extra fields (`file_type`, `description`); harmless | Notion FE API Spec §6 vs Bruno `Get Work Order Detail.yml` (live 27 Nov) and `WorkOrdersService.Detail.cs` / `WorkOrderApprovalProcessBuilder.cs` on `phi-dev` | Send `""` for an empty string field (as Notion), or add "or null" in Notion. Tell the FE about `area` / `rkap` null | Open |
 
 
 ---
@@ -501,7 +504,7 @@ Status = the badge. `current_level` + `current_layer` say who must act. Chart: `
 | waiting_approval (Level 0) | Layer 1, then Layer 2 of the requestor dept | next layer, or waiting_approval at Level 1; Modify = edit and approve in one step (X2, replaced by TD23: Layer 2 reviews a Layer 1 Modify); rejected (final, X3) |
 | waiting_approval (Level 1 or 2) | Layer 1 of the target / assigned dept | approved; "Set Approval Flow" first for Modify or Reject (then Approve is hidden) |
 | modification_review | Layer 2 Level 1, then Layer 2 Level 0 | approved with the new values; target Manager rejects → waiting_approval (Level 1, proposal dropped); Level 0 declines → approved with the old values (X5) |
-| rejection_review | ~~Layer 2 Level 1, then Layer 2 Level 0~~ **26 Nov (TD34):** the levels of the reject route of that Level (`wo_reject_level_N`, the Level's department) | rejected after the last route level confirms; one cancel → waiting_approval at the layer that asked. ~~"No, Cancel" / `no_reject` (D3b)~~ replaced |
+| rejection_review | ~~Layer 2 Level 1, then Layer 2 Level 0~~ ~~**26 Nov (TD34):** the levels of the reject route of that Level~~ **27 Nov (TD41):** the Manager (next layer) of the same Level; no reject route | rejected when the Manager confirms; the Manager does not approve → waiting_approval at the Senior (banner `rejection_not_accepted`). ~~"No, Cancel" / `no_reject` (D3b)~~ replaced |
 | approved | Layer 1 of the target dept | waiting_approval at Level 2 (Transfer, Level 1 only); project_preparation (Create Disposition) |
 | rejected | – (final; new WO with a new number) | – |
 | project_preparation | PIC | project_approval; on_going for an Action Plan WO (project approval skipped, P1) |
@@ -516,7 +519,7 @@ Removed: needs_revision as its own step, the Re-Submit of a rejected WO, the ski
 | waiting_approval (submit route level n) | Senior Level / Manager Requestor | waiting_review, rejected |
 | waiting_review | Senior Officer target / receiving | approved, modification_review, rejection_review |
 | modification_review (route level n) | Modify route (last = Manager Requestor?) | approved, waiting_review |
-| rejection_review (route level n) | Reject route | rejected, waiting_review |
+| rejection_review | Manager of the same Level (TD41) | rejected, waiting_review |
 | approved | Senior Officer | waiting_review (receiving, after transfer), project_preparation |
 | rejected | – (final; Figma allows re-submit, Q6b) | – |
 | project_preparation | PIC | project_approval |
@@ -2248,9 +2251,11 @@ From the chart above, `WorkOrderStatusConstants.cs` and the decisions TD15, TD19
 | Reject Modify (TD23) | Layer 2 Manager | `modification_review` · L0 · Layer 2 | proposal dropped; back to `waiting_approval` · L0 (layer open, G34) | `reject` log |
 | Self Modify (TD23) | Layer 2 Manager | `modification_review` / `waiting_approval` · L0 · Layer 2 | `waiting_approval` · **L1** · Layer 1, change applied (proposal: modify + approve) | L0 process `approved` |
 | Approve | Layer 2 Manager | `waiting_approval` · L0 · Layer 2 | `waiting_approval` · **L1** · Layer 1 | L0 process `approved` |
-| Reject | Layer 1 / 2 | `waiting_approval` · L0 | `rejection_review` · L0 (proposal) | open `Work Order Reject Level 0`, route `wo_reject_level_0` (TD21) |
-| Reject confirmed (last reject level) | reject route user | `rejection_review` · L0 | `rejected` (final) | reject process `approved`, L0 process `rejected` |
-| Reject refused | reject route user | `rejection_review` · L0 | `waiting_approval` · L0 (same layer) | reject process `rejected`, L0 process goes on |
+| Reject by the Senior (TD41) | Layer 1 | `waiting_approval` · L0 · Layer 1 | `rejection_review` · L0 · Layer 2 (Manager) | L0 process: Layer 1 timer `rejected`, `reject` log, Layer 2 timer opens; history `reject_requested`; banner `rejected`; N11 to the Manager |
+| Reject by the Manager (TD41) | Layer 2 (last layer) | `waiting_approval` · L0 · Layer 2 | `rejected` (final) | L0 process `rejected`, history `rejected` |
+| Rejection confirmed (TD41) | Manager | `rejection_review` · L0 | `rejected` (final) | L0 process `rejected`, history `rejected`, N6 to everyone |
+| Rejection not approved (TD41) | Manager | `rejection_review` · L0 | `waiting_approval` · L0 · the layer that asked | L0 timer of that layer opens again, history `reject_refused`, banner `rejection_not_accepted` |
+| ~~Reject / confirmed / refused on the `wo_reject_level_0` route (TD21)~~ | | | Replaced 27 Nov (TD41) | |
 
 **Level 1 (target department; Level 2 has the same steps)**
 
@@ -2264,9 +2269,10 @@ From the chart above, `WorkOrderStatusConstants.cs` and the decisions TD15, TD19
 | Modify not OK | target Manager | `modification_review` · L1 | `waiting_approval` · L1 · Layer 1 | proposal dropped |
 | Modify OK | requestor Manager | `modification_review` · L0 · Layer 2 | `approved` · L1, proposal applied | `approved` |
 | Modify not OK | requestor Manager | `modification_review` · L0 · Layer 2 | `approved` · L1, old values | `approved` |
-| Reject (TD34) | Layer 1 Senior of the flow | `waiting_approval` · L1 | `rejection_review` · L1 · first level of the `wo_reject_level_1` route (target department) | Level process: timer `canceled`, `reject` log; open `Work Order Reject Level 1` |
-| Reject confirmed | user of the current reject level | `rejection_review` · L1 | next reject level, or after the last one `rejected` (final) | reject process `approved`, Level 1 process `rejected` |
-| Reject cancelled | user of the current reject level | `rejection_review` · L1 | `waiting_approval` · L1 · the layer that asked (steps copied again) | reject process `rejected`, Level 1 process goes on |
+| Reject (TD41) | Layer 1 Senior of the flow | `waiting_approval` · L1 | `rejection_review` · L1 · Layer 2 (the Manager of the flow); a one-layer flow → `rejected` at once | Level process: Layer 1 timer `rejected`, `reject` log, Layer 2 timer opens |
+| Rejection confirmed (TD41) | Manager of the flow | `rejection_review` · L1 | `rejected` (final) | Level 1 process `rejected` |
+| Rejection not approved (TD41) | Manager of the flow | `rejection_review` · L1 | `waiting_approval` · L1 · Layer 1 | banner `rejection_not_accepted` |
+| ~~Reject round on the `wo_reject_level_1` route (TD34)~~ | | | Replaced 27 Nov (TD41) | |
 | ~~No, Cancel / Yes, Reject / Accept / Refuse the rejection (two Managers, `no_reject`)~~ | | | Replaced 26 Nov by the reject route round (TD34, to confirm) | |
 
 **After approval**
@@ -2291,7 +2297,8 @@ From the chart above, `WorkOrderStatusConstants.cs` and the decisions TD15, TD19
 - Level 1 / 2 without a flow: a user of that Level's department can Approve or Set Approval Flow. The Level's department = `request_to` mapped by `work_order.request_to` (Level 1) or `transferred_to_department` (Level 2). No permission check.
 - The requestor Manager step of a Level 1 / 2 Modify or Reject: the rows of the last layer of the newest Level 0 stage are copied as a **new stage** (Level 0, same layer number; user 26 Nov: the same rule on every Level). The WO sits at Level 0 on that layer while the requestor Manager decides; a timer opens for that step. The Incoming list still shows it to the target department (new rule: `current_level >= 1` **or** the WO has Level 1 / 2 steps).
 - The reviewer of a Modify after the Senior = the next layer of the flow; a flow with no layer after Layer 1 sends the Modify straight to the requestor Manager (a Reject always goes to the Level's reject route, TD34). A Transfer clears `no_reject` (user, 26 Nov).
-- Level 0 reject round (TD21): the `wo_reject_level_0` route users are copied as a new Level 0 stage; `current_layer` = the reject route level. Cancel copies the Level 0 approvers again as a new stage, back at the layer that asked.
+- **27 Nov (TD41):** no reject route on any Level. A Senior reject goes to the Manager (next layer) of the same Level, using the Level's own copied approvers; no new stage, no `Work Order Reject Level N` process. A reject by the last layer is final at once.
+- ~~Level 0 reject round (TD21): the `wo_reject_level_0` route users are copied as a new Level 0 stage; `current_layer` = the reject route level. Cancel copies the Level 0 approvers again as a new stage, back at the layer that asked.~~
 - **TD34 (26 Nov):** route categories per Level and department: `wo_approve_level_0 / 1 / 2`, `wo_reject_level_0 / 1 / 2`. A Level 1 / 2 Reject is now a route round like Level 0 (on the Level's reject route); the two-Manager reject (target Manager → requestor Manager, `no_reject`) is replaced. The two-Manager path stays for **Modify** only.
 - Which Level asked is read from the newest history row: `modified` (Modify) or `reject_requested` (Reject), `level` = the actor's Level (TD25).
 - Level 0 Manager rejects a Level 0 Modify → back to Level 0 **Layer 1** with the old values (G34, to confirm).
