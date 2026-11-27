@@ -286,7 +286,7 @@ Source: dev DB, `mock_auth_sessions` (stage `session`) of the `phi.wo.*` users (
 
 **Updated 27 Nov (TD37):** the 4 `Approval - Member` users now have 277 in place of 276 (`mock_auth_sessions`, 8 rows; `sql/seed_wo_test_users.sql` and `gen_wo_seed.py` changed the same way). `GET /users/by-permission/277?department=` now lists the Seniors and the Managers. Log in again to get the new ACL.
 
-**Dev WO routes (27 Nov, before TD38: they still use the old categories; make `work_order_pep` / `work_order_phss` routes for the new code).** A route has no permission column: `approval_route_users` keeps the users (level + user). 277 only fills the user picker when the admin makes a route. The dev routes are curl-test routes with 2 levels (Senior, Manager), because the code in PR #1548 still uses 2 layers. They change to 1 level when the code moves to one layer (TD35).
+**Old dev WO routes (26 Nov, before TD38: old categories).** A route has no permission column: `approval_route_users` keeps the users (level + user). 277 only fills the user picker when the admin makes a route. The dev routes are curl-test routes with 2 levels (Senior, Manager), because the code in PR #1548 still uses 2 layers. They change to 1 level when the code moves to one layer (TD35).
 
 | Category | Department on dev | Dev routes | Users (level) |
 |---|---|---|---|
@@ -297,3 +297,14 @@ Source: dev DB, `mock_auth_sessions` (stage `session`) of the `phi.wo.*` users (
 | `wo_reject_level_1` | Operation & Surface Facilities | 6 (curl) | `phi.wo.osf.manager` (1) |
 | `wo_reject_level_2` | – | none | – |
 | `work_order` (old, replaced by TD34) | Production Operations | 1 | the code does not read it |
+
+**Dev WO routes for TD38 (made 27 Nov, PR #1556).** One route for each category and department. The route serves approve and reject on that Level. The users are copied from the newest old approve route of the department. The old `wo_*` routes above stay on dev, but the new code does not read them.
+
+| Category | Department on dev | Title | Users (level) |
+|---|---|---|---|
+| `work_order_pep` | Production Operations | WO PO PEP (dev 27 Nov) | `phi.wo.po.senior` (1), `phi.wo.po.manager` (2) |
+| `work_order_phss` | Production Operations | WO PO PHSS (dev 27 Nov) | `phi.wo.po.senior` (1), `phi.wo.po.manager` (2) |
+| `work_order_pep` | Operation & Surface Facilities | WO OSF PEP (dev 27 Nov) | `phi.wo.osf.senior` (1), `phi.wo.osf.manager` (2) |
+| `work_order_phss` | Operation & Surface Facilities | WO OSF PHSS (dev 27 Nov) | `phi.wo.osf.senior` (1), `phi.wo.osf.manager` (2) |
+| `work_order_pep` | Project | WO Project PEP (dev 27 Nov) | `phi.wo.prj.senior` (1), `phi.wo.prj.manager` (2) |
+| `work_order_phss` | Project | WO Project PHSS (dev 27 Nov) | `phi.wo.prj.senior` (1), `phi.wo.prj.manager` (2) |
