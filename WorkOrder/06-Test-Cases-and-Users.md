@@ -49,18 +49,18 @@ Full curl and responses: `07-Ticket.md` WO-T05, run 2.
 
 **A. Pass (200).** After each one: `waiting_approval`, Level 0 / Layer 1, `submitted_at` set, one `submitted` history row, no new approver rows.
 
-| # | Scenario | Expected | Result |
-|---|---|---|---|
-| A1 | New WO on `phss`, `request_to=osf` | Next number, counter +1, `schedule_kind` project | Pass |
-| A2 | Create from my draft that has approvers | Same id and number; counter not moved; the draft approver rows stay | Pass (approver rows: open decision) |
-| A4 | `request_to=po` | `schedule_kind` simple | Pass |
-| A5 | Category with no approval (`choke_adjustment`) | Still `waiting_approval`, no skip | Pass |
-| A6 | `zone9` with a PEP field | 200 (zone9 takes every field) | Pass |
-| A7 | `pep` with a PEP field | 200 | Pass |
-| A8 | `wo_number` = the number from `/next-number` | That number | Pass |
-| A9 | 2 files (PDF + PNG) | `attachment_count` 2 | Pass |
-| A10 | Draft with 2 files + 3 new files on Create | `attachment_count` 5 | Pass |
-| A11 | All optional fields (wbs, budget_type, rkap_id, area_id, location, function, type_service, pic_ids, 6 numbers) | All stored, 2 PIC rows | Pass |
+| #   | Scenario                                                                                                       | Expected                                                            | Result                              |
+| --- | -------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- | ----------------------------------- |
+| A1  | New WO on `phss`, `request_to=osf`                                                                             | Next number, counter +1, `schedule_kind` project                    | Pass                                |
+| A2  | Create from my draft that has approvers                                                                        | Same id and number; counter not moved; the draft approver rows stay | Pass (approver rows: open decision) |
+| A4  | `request_to=po`                                                                                                | `schedule_kind` simple                                              | Pass                                |
+| A5  | Category with no approval (`choke_adjustment`)                                                                 | Still `waiting_approval`, no skip                                   | Pass                                |
+| A6  | `zone9` with a PEP field                                                                                       | 200 (zone9 takes every field)                                       | Pass                                |
+| A7  | `pep` with a PEP field                                                                                         | 200                                                                 | Pass                                |
+| A8  | `wo_number` = the number from `/next-number`                                                                   | That number                                                         | Pass                                |
+| A9  | 2 files (PDF + PNG)                                                                                            | `attachment_count` 2                                                | Pass                                |
+| A10 | Draft with 2 files + 3 new files on Create                                                                     | `attachment_count` 5                                                | Pass                                |
+| A11 | All optional fields (wbs, budget_type, rkap_id, area_id, location, function, type_service, pic_ids, 6 numbers) | All stored, 2 PIC rows                                              | Pass                                |
 
 **B. Validation (400).**
 
@@ -463,6 +463,8 @@ Status: **seeded on the dev database** (25 Nov). Login is mock auth (`mock_auth_
 ---
 
 ### 4.4 SYSROLEs for each department
+
+> **Changed 27 Nov (TD35, TD36):** prod uses `{Dept} - WO - Modify` (273, 274, 275), `{Dept} - WO - Approval` (273, 277, 278, 279), `{Dept} - WO - Guest` (273), and the existing department roles get the same sets. One approval layer: no `Approval Manager` role. The approve SEQ is 277; 276 is not used (TD37). The dev test users below still use the old roles; regenerate them when the code moves to one layer.
 
 | SYSROLE | Who | WO privileges (SEQ) |
 |---|---|---|

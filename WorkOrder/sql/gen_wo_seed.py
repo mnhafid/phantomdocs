@@ -22,10 +22,10 @@ ROLE_NAME = {"member": "Modify - Member", "approval": "Approval - Member", "mana
 
 WO = {
     273: "Read Work Order", 274: "Create Work Order", 275: "Process Work Order",
-    276: "Approve Work Order Layer 1", 277: "Approve Work Order Layer 2",
+    277: "Approve Work Order",
     278: "Set Approval Flow", 279: "Transfer Work Order",
 }
-WO_SEQ = {"member": [273, 274, 275], "approval": [273, 276, 278, 279], "manager": [273, 277], "guest": [273]}
+WO_SEQ = {"member": [273, 274, 275], "approval": [273, 277, 278, 279], "manager": [273, 277], "guest": [273]}
 DATA_CONFIG = {"COMPONENTID": "Data Config", "URLPATH": "Data Config", "HIDDEN": 0, "READONLY": 0,
                "DISABLED": 0, "PAGE": "Read Data Config", "SEQ": 159}
 
@@ -108,8 +108,7 @@ def main():
         "    (275, 31, 'Process Work Order', 'PIC of Level 1 / 2: disposition, create project, finish'),",
         "    (278, 31, 'Set Approval Flow', 'Target / assigned department: select the approval route of that department'),",
         "    (279, 31, 'Transfer Work Order', 'Target department: transfer the Work Order to the assigned department'),",
-        "    (276, 32, 'Approve Work Order Layer 1', 'Approval route layer 1 (Senior / Asst. Manager)'),",
-        "    (277, 32, 'Approve Work Order Layer 2', 'Approval route layer 2 (Manager)')",
+        "    (277, 32, 'Approve Work Order', 'User of the Work Order approval route (one layer, every Level)')",
         ") v (id, grp, name, description)",
         "WHERE NOT EXISTS (SELECT 1 FROM permissions p WHERE p.id = v.id);",
         "",

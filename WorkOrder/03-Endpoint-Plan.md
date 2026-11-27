@@ -336,8 +336,8 @@ Proposed template names use the `phantom_iac_wo_` prefix. Source: the notificati
 | N15 | Create Disposition | Disposition Created | PIC + Requestor | In-app | Approval | info | `phantom_iac_wo_disposition_created` |
 | N16 | Submit project (from WO) | New Project Approval | Project approvers (Q36, open) | In-app (no email, TD17) | Request | info | existing project approval template (check) |
 | N17 | Project approved | Project Approved | PIC | In-app (no email, TD17) | Approval | success | existing project template (check) |
-| N18 | Project returned | Project Returned | PIC (with reason) | In-app | Approval | warning | `phantom_iac_wo_project_returned` |
-| N19 | Finish project | Work Order Completed | Requestor + Senior Officer | In-app | Approval | success | `phantom_iac_wo_completed` |
+| N18 | Project returned | Project Returned | PIC (with reason) | In-app | Approval | warning | `phantom_iac_wo_project_returned` (built 26 Nov, PR #1552) |
+| N19 | Finish project | Work Order Completed | Requestor + Senior Officer | In-app | Approval | success | `phantom_iac_wo_completed` (built 26 Nov, PR #1552) |
 | N20 | SLA escalation (if kept, §8) | Work Order Escalated | Next approver + skipped approver | In-app | Request | warning | `phantom_iac_wo_escalated` |
 
 - Bulk Approve sends the same notification as a single Approve (N2 / N3 / N4 / N8) for each WO.
@@ -354,14 +354,14 @@ Proposed template names use the `phantom_iac_wo_` prefix. Source: the notificati
 | Email | Nothing | Email bodies are in the code (`ApprovalNotifier`). |
 
 - **Source of the HTML:** the FE team makes one file per template in `ocean-email-template/phantom/notification_inapp_content/<name>.html`. The Action Plan templates came from that repo (PR #23)[https://github.com/rinaldyocean/ocean-email-template]. Ask the FE team for the WO files first.
-- **New seed file (to do):** `DataAccess/Database/seed_work_order_notification_templates.sql`. Run it after `seed_work_order_config.sql`.
+- **Seed file (done):** `DataAccess/Database/seed_work_order_notification_templates.sql` (17 templates since PR #1552; ids `...5001`–`...5017`; run on dev 26 Nov). Run it after `seed_work_order_config.sql`.
 
 ### 6.4 Open points
 
 - N16 / N17: check if the project module already has approval templates before adding new ones.
 - No-approval category (R1): does the target dept still get N3? Open Q24, proposal = yes.
 - Well WO: keep the 12 Action Plan `phantom_iac_*` templates, or map to the WO templates (I5).
-- ~~Email~~ Decided 25 Nov (TD17): in-app only. Code to do: `ApprovalNotifier` must skip the email when the project has a WO number.
+- ~~Email~~ Decided 25 Nov (TD17): in-app only. Done 26 Nov (PR #1552): `ApprovalNotifier` skips the email when the project has a `work_order_id`.
 - N7 depends on the re-submit decision (D3).
 
 ---
